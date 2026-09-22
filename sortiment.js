@@ -11,67 +11,67 @@ const CATEGORIES = [
       {
         "art": "87523",
         "name": "Mineralwasser Farmer rot 6×150cl",
-        "price": 3.66,
+        "price": 0.61,
         "caseSize": 6
       },
       {
         "art": "87524",
         "name": "Mineralwasser Farmer blau 6×150cl",
-        "price": 3.66,
+        "price": 0.61,
         "caseSize": 6
       },
       {
         "art": "87534",
         "name": "Mineralwasser Farmer grün 6×150cl",
-        "price": 3.66,
+        "price": 0.61,
         "caseSize": 6
       },
       {
         "art": "35282",
         "name": "Quintus Quelle blau 6 × 150 cl",
-        "price": 1.98,
+        "price": 0.33,
         "caseSize": 6
       },
       {
         "art": "09018",
         "name": "Mineralwasser Farmer blau 6×50cl",
-        "price": 3.18,
+        "price": 0.53,
         "caseSize": 6
       },
       {
         "art": "12356",
         "name": "Mineralwasser Farmer rot 6×50cl",
-        "price": 3.18,
+        "price": 0.53,
         "caseSize": 6
       },
       {
         "art": "45516",
         "name": "Quintus Quelle rot 6 ×150 cl",
-        "price": 1.98,
+        "price": 0.33,
         "caseSize": 6
       },
       {
         "art": "09015",
         "name": "Mineralwasser Farmer grün 6×50cl",
-        "price": 3.18,
+        "price": 0.53,
         "caseSize": 6
       },
       {
         "art": "87512",
         "name": "Henniez grün 6 × 50 cl",
-        "price": 4.68,
+        "price": 0.78,
         "caseSize": 6
       },
       {
         "art": "87507",
         "name": "Henniez rot 6 × 50 cl",
-        "price": 4.68,
+        "price": 0.78,
         "caseSize": 6
       },
       {
         "art": "02166",
         "name": "Henniez blau 6 × 50 cl",
-        "price": 4.68,
+        "price": 0.78,
         "caseSize": 6
       }
     ]
@@ -82,253 +82,253 @@ const CATEGORIES = [
       {
         "art": "87708",
         "name": "Ice Tea Farmer Lemon 6 × 150 cl",
-        "price": 3.96,
+        "price": 0.66,
         "caseSize": 6
       },
       {
         "art": "88632",
         "name": "Focus Water Active 12 × 50 cl",
-        "price": 15.0,
+        "price": 1.25,
         "caseSize": 12
       },
       {
         "art": "35400",
         "name": "Coca-Cola Zero Dose 24 × 33 cl",
-        "price": 14.88,
+        "price": 0.62,
         "caseSize": 24
       },
       {
         "art": "95913",
         "name": "Citro Farmer zéro 6 × 150 cl",
-        "price": 3.54,
+        "price": 0.59,
         "caseSize": 6
       },
       {
         "art": "09014",
         "name": "Ice Tea Farmer Lemon 6 × 50 cl",
-        "price": 2.94,
+        "price": 0.49,
         "caseSize": 6
       },
       {
         "art": "35398",
         "name": "Coca-Cola Dose 24 × 33 cl",
-        "price": 14.88,
+        "price": 0.62,
         "caseSize": 24
       },
       {
         "art": "95926",
         "name": "Citro Farmer zéro 6 × 50 cl",
-        "price": 3.18,
+        "price": 0.53,
         "caseSize": 6
       },
       {
         "art": "09017",
         "name": "Ice Tea Farmer Peach 6 × 50 cl",
-        "price": 2.94,
+        "price": 0.49,
         "caseSize": 6
       },
       {
         "art": "87709",
         "name": "Ice Tea Farmer Peach 6 × 150 cl",
-        "price": 3.96,
+        "price": 0.66,
         "caseSize": 6
       },
       {
         "art": "13152",
         "name": "Coca-Cola 8 × 150 cl",
-        "price": 16.48,
+        "price": 2.06,
         "caseSize": 8
       },
       {
         "art": "99712",
         "name": "Grapefruit Farmer zéro 6×150cl",
-        "price": 3.54,
+        "price": 0.59,
         "caseSize": 6
       },
       {
         "art": "78099",
         "name": "Schnitzwasser Farmer 6 × 150 cl",
-        "price": 6.9,
+        "price": 1.15,
         "caseSize": 6
       },
       {
         "art": "82220",
         "name": "Ice Tea Farmer Mint 6 × 150 cl",
-        "price": 4.98,
+        "price": 0.83,
         "caseSize": 6
       },
       {
         "art": "35378",
         "name": "Coca-Cola 8 × 50 cl",
-        "price": 11.44,
+        "price": 1.43,
         "caseSize": 8
       },
       {
         "art": "82128",
         "name": "San Pellegrino Chino 24 × 33 cl",
-        "price": 16.56,
+        "price": 0.69,
         "caseSize": 24
       },
       {
         "art": "78009",
         "name": "Cola Farmer zéro 6 × 150 cl",
-        "price": 3.54,
+        "price": 0.59,
         "caseSize": 6
       },
       {
         "art": "35376",
         "name": "Coca-Cola Zero 8 × 50 cl",
-        "price": 11.44,
+        "price": 1.43,
         "caseSize": 8
       },
       {
         "art": "13153",
         "name": "Coca-Cola Zero 8 × 150 cl",
-        "price": 16.48,
+        "price": 2.06,
         "caseSize": 8
       },
       {
         "art": "85041",
         "name": "Schnitzwasser Farmer 6 × 50 cl",
-        "price": 5.58,
+        "price": 0.93,
         "caseSize": 6
       },
       {
         "art": "87319",
         "name": "Vitaminwater Farmer Zitrone 6×50cl",
-        "price": 4.5,
+        "price": 0.75,
         "caseSize": 6
       },
       {
         "art": "68904",
         "name": "Lemon Soda 24 × 33 cl",
-        "price": 15.84,
+        "price": 0.66,
         "caseSize": 24
       },
       {
         "art": "95909",
         "name": "Ice Tea Farmer Mint 6 × 50 cl",
-        "price": 3.48,
+        "price": 0.58,
         "caseSize": 6
       },
       {
         "art": "87810",
         "name": "Holunder-Melisse Farmer 6 × 150 cl",
-        "price": 6.9,
+        "price": 1.15,
         "caseSize": 6
       },
       {
         "art": "46020",
         "name": "Rivella rot 8 × 50 cl",
-        "price": 11.92,
+        "price": 1.49,
         "caseSize": 8
       },
       {
         "art": "82126",
         "name": "San Pellegrino L'Aranc. 24×33cl",
-        "price": 16.56,
+        "price": 0.69,
         "caseSize": 24
       },
       {
         "art": "09022",
         "name": "Holunder-Melisse Farmer 6×50cl",
-        "price": 5.58,
+        "price": 0.93,
         "caseSize": 6
       },
       {
         "art": "40938",
         "name": "Rivella rot 24 × 50 cl",
-        "price": 27.6,
+        "price": 1.15,
         "caseSize": 24
       },
       {
         "art": "41624",
         "name": "Rivella blau 24 × 50 cl",
-        "price": 27.6,
+        "price": 1.15,
         "caseSize": 24
       },
       {
         "art": "16149",
         "name": "Energy Drink Red Bull Dose 24×25cl",
-        "price": 30.0,
+        "price": 1.25,
         "caseSize": 24
       },
       {
         "art": "87800",
         "name": "Energy Drink Red Bull Dose 6×25cl",
-        "price": 8.88,
+        "price": 1.48,
         "caseSize": 6
       },
       {
         "art": "38994",
         "name": "Energy Drink Red Bull S.free 6×25cl",
-        "price": 8.88,
+        "price": 1.48,
         "caseSize": 6
       },
       {
         "art": "42617",
         "name": "Orangensaft Farmer 6 × 100 cl",
-        "price": 7.8,
+        "price": 1.3,
         "caseSize": 6
       },
       {
         "art": "87543",
         "name": "Orangensaft Granini 6 × 100 cl",
-        "price": 13.32,
+        "price": 2.22,
         "caseSize": 6
       },
       {
         "art": "87544",
         "name": "Fruchtcocktail Granini 6 × 100 cl",
-        "price": 13.32,
+        "price": 2.22,
         "caseSize": 6
       },
       {
         "art": "41743",
         "name": "Traubensaft Farmer rot 4 × 100 cl",
-        "price": 6.24,
+        "price": 1.56,
         "caseSize": 4
       },
       {
         "art": "41741",
         "name": "Cranberry Farmer 4 × 100 cl",
-        "price": 6.96,
+        "price": 1.74,
         "caseSize": 4
       },
       {
         "art": "51528",
         "name": "Multivitamin Farmer 6 × 100 cl",
-        "price": 9.54,
+        "price": 1.59,
         "caseSize": 6
       },
       {
         "art": "87743",
         "name": "Sauser m.A. Ramseier 6 × 100 cl",
-        "price": 19.32,
+        "price": 3.22,
         "caseSize": 6
       },
       {
         "art": "38358",
         "name": "Capri Sun Multivitamin 15 × 33 cl",
-        "price": 18.0,
+        "price": 1.2,
         "caseSize": 15
       },
       {
         "art": "96103",
         "name": "Direkt Orangensaft Farmer 6×100cl",
-        "price": 14.7,
+        "price": 2.45,
         "caseSize": 6
       },
       {
         "art": "34965",
         "name": "Capri Sun Orange-Peach 15×33cl",
-        "price": 18.0,
+        "price": 1.2,
         "caseSize": 15
       },
       {
         "art": "54906",
         "name": "Sauser m.A. Ramseier 6 × 50 cl",
-        "price": 10.98,
+        "price": 1.83,
         "caseSize": 6
       }
     ]
@@ -339,13 +339,13 @@ const CATEGORIES = [
       {
         "art": "46003",
         "name": "Lagerbier Feld. Original 24 × 50 cl",
-        "price": 27.6,
+        "price": 1.15,
         "caseSize": 24
       },
       {
         "art": "87313",
         "name": "Lagerbier Feld. Original 24 × 33 cl",
-        "price": 20.88,
+        "price": 0.87,
         "caseSize": 24
       },
       {
@@ -356,37 +356,37 @@ const CATEGORIES = [
       {
         "art": "75884",
         "name": "Bier Quöllfrisch 15 × 33 cl",
-        "price": 15.9,
+        "price": 1.06,
         "caseSize": 15
       },
       {
         "art": "88317",
         "name": "Bier Quöllfrisch Dose 24 × 50 cl",
-        "price": 30.0,
+        "price": 1.25,
         "caseSize": 24
       },
       {
         "art": "18249",
         "name": "Bier Calanda Radler 10 × 33 cl",
-        "price": 12.5,
+        "price": 1.25,
         "caseSize": 10
       },
       {
         "art": "75827",
         "name": "Bier Boxer old 24 × 33 cl",
-        "price": 19.92,
+        "price": 0.83,
         "caseSize": 24
       },
       {
         "art": "26980",
         "name": "Lagerbier Farmer Dose 18 × 50 cl",
-        "price": 10.8,
+        "price": 0.6,
         "caseSize": 18
       },
       {
         "art": "15492",
         "name": "Corona Extra Bier 6 × 33 cl",
-        "price": 7.98,
+        "price": 1.33,
         "caseSize": 6
       },
       {
@@ -397,7 +397,7 @@ const CATEGORIES = [
       {
         "art": "91683",
         "name": "Bier Moretti Dose 12 × 50 cl",
-        "price": 19.92,
+        "price": 1.66,
         "caseSize": 12
       },
       {
@@ -413,25 +413,25 @@ const CATEGORIES = [
       {
         "art": "72340",
         "name": "Calanda Radler Zitrone 24 × 50 cl",
-        "price": 27.84,
+        "price": 1.16,
         "caseSize": 24
       },
       {
         "art": "35247",
         "name": "Bier Sagres 24 × 25 cl",
-        "price": 15.84,
+        "price": 0.66,
         "caseSize": 24
       },
       {
         "art": "66226",
         "name": "Quöllfrisch naturtrüb 15 × 33cl",
-        "price": 15.9,
+        "price": 1.06,
         "caseSize": 15
       },
       {
         "art": "30234",
         "name": "Lagerbier Feld. Original Dose 15×50cl",
-        "price": 24.9,
+        "price": 1.66,
         "caseSize": 15
       },
       {
@@ -452,25 +452,25 @@ const CATEGORIES = [
       {
         "art": "68896",
         "name": "Bier Moretti Dose 24 × 50 cl",
-        "price": 29.52,
+        "price": 1.23,
         "caseSize": 24
       },
       {
         "art": "87351",
         "name": "Eve Litchi 4 × 27,5 cl",
-        "price": 9.44,
+        "price": 2.36,
         "caseSize": 4
       },
       {
         "art": "15107",
         "name": "Bier Zitronen Panaché 15 × 33 cl",
-        "price": 15.0,
+        "price": 1.0,
         "caseSize": 15
       },
       {
         "art": "77382",
         "name": "Bier Ginger Appenzeller 6 × 33 cl",
-        "price": 15.24,
+        "price": 2.54,
         "caseSize": 6
       },
       {
@@ -481,7 +481,7 @@ const CATEGORIES = [
       {
         "art": "51891",
         "name": "Bier Calanda Glatsch 6 × 50 cl",
-        "price": 11.22,
+        "price": 1.87,
         "caseSize": 6
       },
       {
@@ -492,7 +492,7 @@ const CATEGORIES = [
       {
         "art": "50898",
         "name": "Eve Strawberry Mojito 10 × 27,5 cl",
-        "price": 17.3,
+        "price": 1.73,
         "caseSize": 10
       },
       {
@@ -503,19 +503,19 @@ const CATEGORIES = [
       {
         "art": "74766",
         "name": "Bier Feld. o.A. 15 × 33 cl",
-        "price": 16.95,
+        "price": 1.13,
         "caseSize": 15
       },
       {
         "art": "66216",
         "name": "Bier Feld. o.A. Dose 15 × 50 cl",
-        "price": 24.9,
+        "price": 1.66,
         "caseSize": 15
       },
       {
         "art": "91134",
         "name": "Bier Eichhof o.A. 0.0% 10 × 33 cl",
-        "price": 10.7,
+        "price": 1.07,
         "caseSize": 10
       },
       {
@@ -526,61 +526,61 @@ const CATEGORIES = [
       {
         "art": "57218",
         "name": "Bschorle EW 6 × 33 cl",
-        "price": 8.4,
+        "price": 1.4,
         "caseSize": 6
       },
       {
         "art": "15526",
         "name": "Panaché Bilz Himbeere 10 × 33 cl",
-        "price": 10.9,
+        "price": 1.09,
         "caseSize": 10
       },
       {
         "art": "34815",
         "name": "Radler Calanda Lemon 0.0 % 6 × 33 cl",
-        "price": 7.98,
+        "price": 1.33,
         "caseSize": 6
       },
       {
         "art": "87602",
         "name": "Mountain Twister o.A. 8×33cl",
-        "price": 10.88,
+        "price": 1.36,
         "caseSize": 8
       },
       {
         "art": "97498",
         "name": "Bier Feld. Zitrone 0.0% 8 × 50 cl",
-        "price": 13.52,
+        "price": 1.69,
         "caseSize": 8
       },
       {
         "art": "95031",
         "name": "Radler Calanda Grape 0.0 % 6 × 33 cl",
-        "price": 7.98,
+        "price": 1.33,
         "caseSize": 6
       },
       {
         "art": "67713",
         "name": "Bier Grapefruit o.A. 6 × 33 cl",
-        "price": 7.74,
+        "price": 1.29,
         "caseSize": 6
       },
       {
         "art": "96385",
         "name": "Bier Schützengarten o.A. 6 × 33 cl",
-        "price": 7.32,
+        "price": 1.22,
         "caseSize": 6
       },
       {
         "art": "15102",
         "name": "Bier Feld. Peach 0.0 6 × 50 cl",
-        "price": 10.98,
+        "price": 1.83,
         "caseSize": 6
       },
       {
         "art": "05265",
         "name": "Eve Litchi 0.0 % 4 × 27,5 cl",
-        "price": 9.44,
+        "price": 2.36,
         "caseSize": 4
       },
       {

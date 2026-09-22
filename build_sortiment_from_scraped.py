@@ -55,15 +55,18 @@ for target_cat in target_categories:
             if pack_match:
                 case_size = int(pack_match.group(1))
 
+            # Calculate price per single item (Flasche/Dose/Stück)
             price = 0.0
-            if stk_price and case_size:
-                price = round(stk_price * case_size, 2)
-            elif stk_price:
-                price = stk_price
+            if stk_price:
+                price = round(stk_price, 2)
             else:
                 num_matches = re.findall(r'([0-9]+\.[0-9]{2})', raw_item['raw'])
                 if num_matches:
-                    price = float(num_matches[0])
+                    total_p = float(num_matches[0])
+                    if case_size and case_size > 1:
+                        price = round(total_p / case_size, 2)
+                    else:
+                        price = total_p
                 else:
                     price = 2.50
 

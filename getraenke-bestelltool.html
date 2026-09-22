@@ -691,7 +691,7 @@
 </div>
 
 <!-- SORTIMENT & APP-LOGIK -->
-<script src="sortiment.js?v=2"></script>
+<script src="sortiment.js?v=3"></script>
 <script>
 // Fallback-Sortiment, falls sortiment.js nicht geladen werden konnte
 if (typeof CATEGORIES === "undefined") {
@@ -862,7 +862,7 @@ function renderProducts() {
             <span class="product-name">${p.name}</span>${p.deal ? '<span class="tag">Solange Vorrat</span>' : ''}
             <div><span class="product-meta">Art.-Nr. ${p.art}</span></div>
           </div>
-          <div class="product-price">${money(p.price)} <span class="unit">/ ${getUnitLabel(p, true)}</span></div>
+          <div class="product-price">${p.caseSize ? money(p.price * p.caseSize) + ' <span class="unit">/ Pack (' + money(p.price) + ' / ' + getUnitLabel(p, true) + ')</span>' : money(p.price) + ' <span class="unit">/ ' + getUnitLabel(p, true) + '</span>'}</div>
         </div>
         <div class="qty-row">${qtyHtml}</div>
       `;
