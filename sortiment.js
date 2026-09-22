@@ -77,7 +77,7 @@ const CATEGORIES = [
     ]
   },
   {
-    "name": "Softdrinks",
+    "name": "Süssgetränke",
     "items": [
       {
         "art": "87708",
@@ -246,12 +246,7 @@ const CATEGORIES = [
         "name": "Rivella blau 24 × 50 cl",
         "price": 27.6,
         "caseSize": 24
-      }
-    ]
-  },
-  {
-    "name": "Energy Drinks",
-    "items": [
+      },
       {
         "art": "16149",
         "name": "Energy Drink Red Bull Dose 24×25cl",
@@ -269,12 +264,7 @@ const CATEGORIES = [
         "name": "Energy Drink Red Bull S.free 6×25cl",
         "price": 8.88,
         "caseSize": 6
-      }
-    ]
-  },
-  {
-    "name": "Fruchtsäfte & Obstsäfte",
-    "items": [
+      },
       {
         "art": "42617",
         "name": "Orangensaft Farmer 6 × 100 cl",
@@ -344,7 +334,7 @@ const CATEGORIES = [
     ]
   },
   {
-    "name": "Bier",
+    "name": "Biere",
     "items": [
       {
         "art": "46003",
@@ -509,12 +499,7 @@ const CATEGORIES = [
         "art": "87450",
         "name": "Lagerbier Farmer MW 50 cl",
         "price": 0.12
-      }
-    ]
-  },
-  {
-    "name": "Bier alkoholfrei",
-    "items": [
+      },
       {
         "art": "74766",
         "name": "Bier Feld. o.A. 15 × 33 cl",
@@ -606,7 +591,7 @@ const CATEGORIES = [
     ]
   },
   {
-    "name": "Wein",
+    "name": "Weine",
     "items": [
       {
         "art": "52804",
