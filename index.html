@@ -3,353 +3,634 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Getränke-Bestelltool</title>
+<title>Landi Getränke-Bestelltool</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #EFEAE0;
-    --bg-elevated: #FBFAF5;
-    --ink: #23301F;
-    --ink-soft: #5B6355;
-    --line: #D9D2C2;
-    --forest: #24352B;
-    --forest-soft: #33473A;
-    --gold: #B8891F;
-    --gold-soft: #F0E2BE;
-    --brick: #9A3324;
-    --brick-soft: #F3DAD3;
-    --white: #FFFFFF;
-    --radius: 10px;
-    --font-head: 'Space Grotesk', sans-serif;
-    --font-body: 'Inter', sans-serif;
-    --font-mono: 'IBM Plex Mono', monospace;
-    box-sizing: border-box;
-    padding-top: env(safe-area-inset-top, 0px);
-    padding-bottom: env(safe-area-inset-bottom, 0px);
+    --primary: #15803D;          /* Modernes Landi-Grün */
+    --primary-hover: #166534;    /* Dunkleres Grün für Hover */
+    --primary-light: #F0FDF4;    /* Zartes Grün für Badges/Hintergründe */
+    --primary-border: #BBF7D0;   /* Grüner Rahmen */
+    
+    --bg: #F8FAFC;               /* Helles, modernes Off-White */
+    --card: #FFFFFF;             /* Reines Weiss für Karten */
+    --border: #E2E8F0;           /* Feine graue Linien */
+    --border-light: #F1F5F9;
+    
+    --text: #0F172A;             /* Sattes Slate für beste Lesbarkeit */
+    --text-muted: #64748B;       /* Neutrales Mittelgrau */
+    --text-subtle: #94A3B8;      /* Dezentes Hellgrau */
+    
+    --badge-deal-bg: #FEF3C7;
+    --badge-deal-text: #92400E;
+    --badge-deal-border: #FDE68A;
+
+    --radius-sm: 8px;
+    --radius: 12px;
+    --radius-lg: 18px;
+    --radius-full: 9999px;
+    
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+    --shadow-lg: 0 10px 25px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
   }
-  :root:not([data-theme="light"]) {
-    @media (prefers-color-scheme: dark) {
-      --bg: #1B211C;
-      --bg-elevated: #232A23;
-      --ink: #EDEBE3;
-      --ink-soft: #A9AF9E;
-      --line: #3A4237;
-      --forest: #7FAF8E;
-      --forest-soft: #6C9E7C;
-      --gold: #E0B451;
-      --gold-soft: #3A3423;
-      --brick: #E08066;
-      --brick-soft: #3A2620;
-      --white: #232A23;
-    }
-  }
-  :root[data-theme="dark"] {
-    --bg: #1B211C;
-    --bg-elevated: #232A23;
-    --ink: #EDEBE3;
-    --ink-soft: #A9AF9E;
-    --line: #3A4237;
-    --forest: #7FAF8E;
-    --forest-soft: #6C9E7C;
-    --gold: #E0B451;
-    --gold-soft: #3A3423;
-    --brick: #E08066;
-    --brick-soft: #3A2620;
-    --white: #232A23;
-  }
-  html { scroll-padding-top: env(safe-area-inset-top, 0px); height: 100%; }
-  * { box-sizing: border-box; }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
   body {
-    height: 100%;
-    margin: 0;
-    background: var(--bg);
-    color: var(--ink);
-    font-family: var(--font-body);
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     line-height: 1.5;
-    padding-bottom: 92px;
+    padding-bottom: 110px;
+    -webkit-font-smoothing: antialiased;
   }
+
+  /* KOPFZEILE */
   header.top {
-    background: var(--forest);
-    color: var(--bg-elevated);
-    padding: 22px 20px 20px;
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
     position: sticky;
     top: 0;
     z-index: 20;
-    padding-top: calc(22px + env(safe-area-inset-top, 0px));
+    padding: 16px 20px;
+    box-shadow: var(--shadow-sm);
+  }
+  .header-content {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .brand-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--primary-light);
+    color: var(--primary);
+    border: 1px solid var(--primary-border);
+    padding: 3px 10px;
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .brand-badge::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--primary);
   }
   header.top h1 {
-    font-family: var(--font-head);
+    font-size: 1.45rem;
     font-weight: 700;
-    font-size: 1.5rem;
-    margin: 0 0 4px;
-    letter-spacing: -0.01em;
+    color: var(--text);
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
   }
   header.top p.sub {
-    margin: 0 0 14px;
-    color: var(--gold-soft);
-    font-size: 0.92rem;
-    max-width: 60ch;
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    margin-bottom: 14px;
+    max-width: 58ch;
   }
-  .search-row {
+
+  /* SUCHE */
+  .search-wrapper {
+    position: relative;
     display: flex;
-    gap: 8px;
+    align-items: center;
   }
-  .search-row input[type="search"] {
-    flex: 1;
-    padding: 10px 14px;
+  .search-icon {
+    position: absolute;
+    left: 14px;
+    width: 18px;
+    height: 18px;
+    color: var(--text-subtle);
+    pointer-events: none;
+  }
+  .search-wrapper input[type="search"] {
+    width: 100%;
+    padding: 11px 16px 11px 42px;
     border-radius: var(--radius);
-    border: none;
-    font-family: var(--font-body);
-    font-size: 0.95rem;
-    background: var(--bg-elevated);
-    color: var(--ink);
+    border: 1px solid var(--border);
+    font-family: inherit;
+    font-size: 0.94rem;
+    background: var(--bg);
+    color: var(--text);
+    transition: all 0.15s ease;
   }
+  .search-wrapper input[type="search"]:focus {
+    outline: none;
+    background: var(--card);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(21, 128, 61, 0.15);
+  }
+
+  /* HAUPTBEREICH */
   main {
-    max-width: 720px;
+    max-width: 760px;
     margin: 0 auto;
-    padding: 18px 16px 8px;
+    padding: 20px 16px 8px;
   }
+
   .banner {
-    background: var(--gold-soft);
-    border: 1px solid var(--gold);
-    color: var(--ink);
-    border-radius: var(--radius);
-    padding: 12px 14px;
-    font-size: 0.86rem;
-    margin-bottom: 18px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--primary);
+    color: var(--text-muted);
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    font-size: 0.84rem;
+    margin-bottom: 20px;
+    line-height: 1.45;
   }
+  .banner strong {
+    color: var(--text);
+  }
+
+  /* KATEGORIEN */
   details.category {
-    background: var(--bg-elevated);
-    border: 1px solid var(--line);
+    background: var(--card);
+    border: 1px solid var(--border);
     border-radius: var(--radius);
-    margin-bottom: 12px;
+    margin-bottom: 14px;
     overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: border-color 0.15s ease;
   }
-  details.category[open] summary { border-bottom: 1px solid var(--line); }
+  details.category[open] {
+    border-color: #cbd5e1;
+  }
   summary {
     list-style: none;
     cursor: pointer;
-    padding: 14px 16px;
+    padding: 16px 18px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    font-family: var(--font-head);
     font-weight: 600;
-    font-size: 1.02rem;
+    font-size: 1.05rem;
+    user-select: none;
+    background: var(--card);
+    transition: background-color 0.15s ease;
+  }
+  summary:hover {
+    background: #FAFAFA;
   }
   summary::-webkit-details-marker { display: none; }
-  summary .count {
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    color: var(--ink-soft);
-    font-weight: 500;
+  details.category[open] summary {
+    border-bottom: 1px solid var(--border-light);
   }
-  summary .chev { transition: transform 0.15s ease; color: var(--ink-soft); }
-  details[open] summary .chev { transform: rotate(90deg); }
+  .cat-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .cat-badge {
+    font-size: 0.76rem;
+    font-weight: 500;
+    padding: 3px 9px;
+    border-radius: var(--radius-full);
+    background: var(--bg);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+  }
+  .cat-badge.active {
+    background: var(--primary-light);
+    color: var(--primary);
+    border-color: var(--primary-border);
+    font-weight: 600;
+  }
+  summary .chev {
+    width: 18px;
+    height: 18px;
+    color: var(--text-subtle);
+    transition: transform 0.2s ease;
+  }
+  details[open] summary .chev {
+    transform: rotate(180deg);
+  }
 
+  /* PRODUKTE */
   .product {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 8px;
-    padding: 14px 16px;
-    border-bottom: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px 18px;
+    border-bottom: 1px solid var(--border-light);
+    transition: background-color 0.1s ease;
   }
   .product:last-child { border-bottom: none; }
+  .product:hover {
+    background: #FAFBFD;
+  }
+
   .product-head {
     display: flex;
     justify-content: space-between;
-    gap: 10px;
-    align-items: baseline;
+    align-items: flex-start;
+    gap: 12px;
   }
-  .product-name { font-weight: 600; font-size: 0.96rem; }
+  .product-title-wrap {
+    flex: 1;
+  }
+  .product-name {
+    font-weight: 600;
+    font-size: 0.98rem;
+    color: var(--text);
+  }
   .product-meta {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    color: var(--ink-soft);
-    display: block;
-    margin-top: 2px;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    display: inline-block;
+    margin-top: 3px;
   }
   .product-price {
-    font-family: var(--font-mono);
-    font-size: 0.9rem;
-    white-space: nowrap;
-  }
-  .tag {
-    display: inline-block;
-    font-size: 0.68rem;
-    font-family: var(--font-body);
     font-weight: 600;
-    color: var(--brick);
-    background: var(--brick-soft);
-    padding: 2px 7px;
-    border-radius: 20px;
-    margin-left: 8px;
+    font-size: 0.98rem;
+    color: var(--primary);
+    white-space: nowrap;
+    text-align: right;
   }
-  .qty-row { display: flex; gap: 10px; flex-wrap: wrap; }
-  .qty-field {
-    display: flex;
+  .product-price span.unit {
+    font-weight: 400;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .tag {
+    display: inline-flex;
     align-items: center;
-    gap: 6px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--badge-deal-text);
+    background: var(--badge-deal-bg);
+    border: 1px solid var(--badge-deal-border);
+    padding: 2px 7px;
+    border-radius: var(--radius-full);
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+
+  /* MENGENWAHL (STEPPER) */
+  .qty-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .qty-field {
+    display: inline-flex;
+    align-items: center;
     background: var(--bg);
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    padding: 4px 6px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 3px 5px;
+    gap: 2px;
   }
   .qty-field label {
-    font-size: 0.74rem;
-    color: var(--ink-soft);
-    padding-left: 4px;
+    font-size: 0.76rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    padding: 0 8px 0 4px;
     white-space: nowrap;
   }
-  .qty-field button {
-    width: 26px; height: 26px;
+  .qty-btn {
+    width: 28px;
+    height: 28px;
     border-radius: 6px;
-    border: 1px solid var(--line);
-    background: var(--bg-elevated);
-    color: var(--ink);
-    font-size: 1rem;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
     line-height: 1;
+    font-weight: 500;
+    transition: all 0.12s ease;
+    user-select: none;
+  }
+  .qty-btn:hover {
+    background: var(--primary-light);
+    color: var(--primary);
+    border-color: var(--primary-border);
+  }
+  .qty-btn:active {
+    transform: scale(0.94);
   }
   .qty-field input {
-    width: 42px;
+    width: 38px;
     text-align: center;
     border: none;
     background: transparent;
-    font-family: var(--font-mono);
-    font-size: 0.9rem;
-    color: var(--ink);
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--text);
+    font-family: inherit;
+    -moz-appearance: textfield;
   }
-  .qty-field input:focus { outline: 2px solid var(--forest-soft); outline-offset: 1px; }
+  .qty-field input::-webkit-outer-spin-button,
+  .qty-field input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  .qty-field input:focus {
+    outline: none;
+  }
 
+  /* DETAILS-BLOCK */
   .details-block {
-    background: var(--bg-elevated);
-    border: 1px solid var(--line);
+    background: var(--card);
+    border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 16px;
-    margin: 18px 0;
+    padding: 20px;
+    margin: 24px 0 16px;
+    box-shadow: var(--shadow-sm);
   }
   .details-block h2 {
-    font-family: var(--font-head);
-    font-size: 1rem;
-    margin: 0 0 10px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--text);
   }
-  .field-pair { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 4px; }
+  .field-pair {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 14px;
+    margin-bottom: 8px;
+  }
   .field {
-    flex: 1;
-    min-width: 160px;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 6px;
   }
-  .field label { font-size: 0.78rem; color: var(--ink-soft); }
+  .field label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-muted);
+  }
   .field input {
-    padding: 9px 11px;
-    border-radius: 8px;
-    border: 1px solid var(--line);
-    font-family: var(--font-body);
+    padding: 10px 14px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    font-family: inherit;
     font-size: 0.92rem;
     background: var(--bg);
-    color: var(--ink);
+    color: var(--text);
+    transition: all 0.15s ease;
   }
-  .hint { font-size: 0.76rem; color: var(--ink-soft); margin-top: 8px; }
+  .field input:focus {
+    outline: none;
+    background: var(--card);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(21, 128, 61, 0.15);
+  }
+  .hint {
+    font-size: 0.78rem;
+    color: var(--text-subtle);
+    margin-top: 10px;
+    line-height: 1.4;
+  }
 
+  /* FIXE FUSSLLEISTE */
   .summary-bar {
     position: fixed;
-    left: 0; right: 0; bottom: 0;
-    background: var(--forest);
-    color: var(--bg-elevated);
-    padding: 12px 16px;
-    padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-top: 1px solid var(--border);
+    padding: 14px 20px;
+    padding-bottom: calc(14px + env(safe-area-inset-bottom, 0px));
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 12px;
+    gap: 16px;
     z-index: 30;
-    box-shadow: 0 -4px 16px rgba(0,0,0,0.18);
+    box-shadow: 0 -4px 18px rgba(0, 0, 0, 0.05);
+  }
+  .summary-bar-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
   .summary-bar .count {
     font-size: 0.82rem;
-    color: var(--gold-soft);
+    color: var(--text-muted);
+    font-weight: 500;
   }
   .summary-bar .total {
-    font-family: var(--font-mono);
-    font-size: 1.15rem;
-    font-weight: 600;
+    font-size: 1.28rem;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.01em;
   }
   .summary-bar button {
-    background: var(--gold);
-    color: var(--forest);
+    background: var(--primary);
+    color: #FFFFFF;
     border: none;
-    font-family: var(--font-head);
-    font-weight: 700;
-    padding: 11px 18px;
-    border-radius: 8px;
+    font-family: inherit;
+    font-weight: 600;
+    padding: 12px 22px;
+    border-radius: var(--radius);
     cursor: pointer;
-    font-size: 0.92rem;
+    font-size: 0.95rem;
+    transition: all 0.15s ease;
+    box-shadow: 0 2px 6px rgba(21, 128, 61, 0.25);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
   }
-  .summary-bar button:disabled { opacity: 0.45; cursor: not-allowed; }
+  .summary-bar button:hover:not(:disabled) {
+    background: var(--primary-hover);
+    box-shadow: 0 4px 10px rgba(21, 128, 61, 0.35);
+  }
+  .summary-bar button:active:not(:disabled) {
+    transform: translateY(1px);
+  }
+  .summary-bar button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
 
+  /* MODAL / OVERLAY */
   .overlay {
-    position: fixed; inset: 0;
-    background: rgba(15, 20, 15, 0.55);
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.45);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
     display: none;
-    align-items: flex-end;
+    align-items: center;
     justify-content: center;
     z-index: 40;
+    padding: 16px;
   }
-  .overlay.open { display: flex; }
+  .overlay.open {
+    display: flex;
+  }
   .sheet {
-    background: var(--bg-elevated);
+    background: var(--card);
     width: 100%;
-    max-width: 560px;
-    max-height: 82vh;
+    max-width: 580px;
+    max-height: 85vh;
     overflow-y: auto;
-    border-radius: 16px 16px 0 0;
-    padding: 20px;
-    padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border);
+    animation: modalPop 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  .sheet h2 { font-family: var(--font-head); margin-top: 0; }
-  .sheet table { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin-bottom: 12px; }
-  .sheet th, .sheet td { text-align: left; padding: 6px 4px; border-bottom: 1px solid var(--line); }
-  .sheet th:last-child, .sheet td:last-child { text-align: right; }
-  .sheet-total { display: flex; justify-content: space-between; font-family: var(--font-mono); font-weight: 600; padding: 8px 4px 16px; }
-  .sheet-actions { display: flex; gap: 10px; }
+  @keyframes modalPop {
+    from { opacity: 0; transform: scale(0.96); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  .sheet-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .sheet-head h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .sheet-close {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    line-height: 1;
+    transition: all 0.15s ease;
+  }
+  .sheet-close:hover {
+    background: #E2E8F0;
+    color: var(--text);
+  }
+
+  .sheet table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    margin-bottom: 16px;
+  }
+  .sheet th {
+    text-align: left;
+    padding: 10px 8px;
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border-bottom: 1px solid var(--border);
+  }
+  .sheet td {
+    padding: 12px 8px;
+    border-bottom: 1px solid var(--border-light);
+    color: var(--text);
+  }
+  .sheet th:last-child, .sheet td:last-child {
+    text-align: right;
+  }
+  .sheet-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 700;
+    font-size: 1.15rem;
+    padding: 12px 8px 20px;
+    color: var(--primary);
+    border-top: 2px solid var(--border);
+  }
+  .sheet-actions {
+    display: flex;
+    gap: 12px;
+  }
   .sheet-actions button {
     flex: 1;
-    padding: 12px;
-    border-radius: 8px;
-    border: 1px solid var(--line);
-    font-family: var(--font-head);
+    padding: 13px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    font-family: inherit;
     font-weight: 600;
     cursor: pointer;
-    font-size: 0.9rem;
+    font-size: 0.92rem;
+    transition: all 0.15s ease;
   }
-  .sheet-actions .primary { background: var(--forest); color: var(--bg-elevated); border-color: var(--forest); }
-  .sheet-actions .secondary { background: transparent; color: var(--ink); }
-  .empty-note { color: var(--ink-soft); font-size: 0.85rem; padding: 4px; }
+  .sheet-actions .primary {
+    background: var(--primary);
+    color: #FFFFFF;
+    border-color: var(--primary);
+    box-shadow: 0 2px 6px rgba(21, 128, 61, 0.25);
+  }
+  .sheet-actions .primary:hover {
+    background: var(--primary-hover);
+  }
+  .sheet-actions .secondary {
+    background: var(--bg);
+    color: var(--text);
+  }
+  .sheet-actions .secondary:hover {
+    background: #E2E8F0;
+  }
+  .empty-note {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    padding: 16px 4px;
+    text-align: center;
+  }
 
-  @media (max-width: 420px) {
-    .product-price { font-size: 0.82rem; }
+  @media (max-width: 480px) {
+    header.top h1 { font-size: 1.3rem; }
+    .product-price { font-size: 0.9rem; }
+    .sheet { padding: 18px; border-radius: var(--radius); }
   }
 </style>
 </head>
 <body>
 
 <header class="top">
-  <h1>Getränke bestellen</h1>
-  <p class="sub">Wählt eure Produkte und Mengen aus und erstellt daraus ein PDF für die Abholung. Die Preise sind unverbindlich und gelten je nach Verfügbarkeit.</p>
-  <div class="search-row">
-    <input type="search" id="search" placeholder="Produkt oder Art.-Nr. suchen…" oninput="renderProducts()">
+  <div class="header-content">
+    <div class="brand-badge">Landi Vorbestellung</div>
+    <h1>Getränke bestellen</h1>
+    <p class="sub">Wählt eure Produkte und Mengen aus und erstellt daraus ein PDF für die Abholung in eurer Filiale.</p>
+    
+    <div class="search-wrapper">
+      <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+      </svg>
+      <input type="search" id="search" placeholder="Produkt oder Art.-Nr. suchen…" oninput="renderProducts()">
+    </div>
   </div>
 </header>
 
 <main>
   <div class="banner">
-    Dieses Tool dient nur der Vorbestellung. Preise können abweichen, Top-Angebote gelten nur solange Vorrat. Eure Bestellung wird erst mit unserer Bestätigung verbindlich.
+    <strong>Hinweis zur Vorbestellung:</strong> Preise und Verfügbarkeiten (insbesondere Top-Angebote) können abweichen. Eure Bestellung wird erst mit unserer Bestätigung verbindlich.
   </div>
 
   <div id="categories"></div>
@@ -358,29 +639,39 @@
     <h2>Angaben zur Abholung (optional)</h2>
     <div class="field-pair">
       <div class="field">
-        <label for="custName">Name</label>
-        <input type="text" id="custName" placeholder="von Hand ausfüllen oder hier eintragen">
+        <label for="custName">Name / Firma</label>
+        <input type="text" id="custName" placeholder="z. B. Max Muster">
       </div>
       <div class="field">
         <label for="custDate">Wunschtermin Abholung</label>
         <input type="date" id="custDate">
       </div>
     </div>
-    <p class="hint">Diese Angaben bleiben nur auf eurem Gerät und werden nirgends gespeichert oder verschickt – sie erscheinen lediglich auf dem PDF, das ihr selbst herunterladet.</p>
+    <p class="hint">Diese Angaben bleiben ausschliesslich auf eurem Gerät und werden auf dem fertigen PDF-Beleg angedruckt.</p>
   </div>
 </main>
 
 <div class="summary-bar">
-  <div>
-    <div class="count" id="itemCount">0 Artikel ausgewählt</div>
-    <div class="total" id="totalPrice">CHF 0.00</div>
+  <div class="summary-bar-inner">
+    <div>
+      <div class="count" id="itemCount">0 Artikel ausgewählt</div>
+      <div class="total" id="totalPrice">CHF 0.00</div>
+    </div>
+    <button id="reviewBtn" onclick="openReview()" disabled>
+      Bestellung ansehen
+      <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+      </svg>
+    </button>
   </div>
-  <button id="reviewBtn" onclick="openReview()" disabled>Bestellung ansehen</button>
 </div>
 
-<div class="overlay" id="overlay">
+<div class="overlay" id="overlay" onclick="handleOverlayClick(event)">
   <div class="sheet">
-    <h2>Bestellung prüfen</h2>
+    <div class="sheet-head">
+      <h2>Bestellung prüfen</h2>
+      <button class="sheet-close" onclick="closeReview()">✕</button>
+    </div>
     <div id="reviewList"></div>
     <div class="sheet-actions">
       <button class="secondary" onclick="closeReview()">Zurück</button>
@@ -389,14 +680,10 @@
   </div>
 </div>
 
-<!-- 
-  PRODUKTDATEN:
-  Die Datei sortiment.js enthält das eigentliche Sortiment und kann separat gepflegt werden.
-  Sollte sortiment.js fehlen, greift das Fallback-Sortiment darunter.
--->
+<!-- SORTIMENT & APP-LOGIK -->
 <script src="sortiment.js"></script>
 <script>
-// Fallback-Sortiment, falls sortiment.js nicht geladen wurde
+// Fallback-Sortiment, falls sortiment.js nicht geladen werden konnte
 if (typeof CATEGORIES === "undefined") {
   window.CATEGORIES = [
     {
@@ -448,8 +735,7 @@ if (typeof CATEGORIES === "undefined") {
   ];
 }
 
-// Automatische Normalisierung:
-// Erleichtert die Datenpflege, da 'id' und 'unit' nicht zwingend manuell vergeben werden müssen.
+// Normalisierung: id und unit automatisch ergänzen
 function normalizeAssortment() {
   CATEGORIES.forEach((cat, cIdx) => {
     (cat.items || []).forEach((p, pIdx) => {
@@ -467,7 +753,6 @@ function normalizeAssortment() {
 }
 normalizeAssortment();
 
-// Menge pro Produkt-ID: { bottles: n, cases: n }
 const qty = {};
 
 function money(n) {
@@ -484,10 +769,6 @@ function getBottleCount(p) {
   const q = qty[p.id] || { bottles: 0, cases: 0 };
   if (p.caseOnly) return q.cases * (p.caseSize || 1);
   return q.bottles;
-}
-
-function getLineTotal(p) {
-  return getBottleCount(p) * p.price;
 }
 
 function renderProducts() {
@@ -511,10 +792,12 @@ function renderProducts() {
     det.innerHTML = `
       <summary>
         <span>${cat.name}</span>
-        <span style="display:flex;align-items:center;gap:8px">
-          <span class="count">${selectedInCat > 0 ? selectedInCat + " gewählt" : items.length + " Artikel"}</span>
-          <span class="chev">›</span>
-        </span>
+        <div class="cat-right">
+          <span class="cat-badge ${selectedInCat > 0 ? 'active' : ''}">${selectedInCat > 0 ? selectedInCat + ' gewählt' : items.length + ' Artikel'}</span>
+          <svg class="chev" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </div>
       </summary>
     `;
 
@@ -527,42 +810,42 @@ function renderProducts() {
       if (p.caseOnly) {
         qtyHtml = `
           <div class="qty-field">
-            <button onclick="changeQty('${p.id}','cases',-1)">−</button>
+            <button class="qty-btn" onclick="changeQty('${p.id}','cases',-1)">−</button>
             <input type="number" min="0" value="${q.cases}" oninput="setQty('${p.id}','cases',this.value)">
+            <button class="qty-btn" onclick="changeQty('${p.id}','cases',1)">+</button>
             <label>Harasse</label>
-            <button onclick="changeQty('${p.id}','cases',1)">+</button>
           </div>`;
       } else if (p.caseSize) {
         qtyHtml = `
           <div class="qty-field">
-            <button onclick="changeQty('${p.id}','bottles',-1)">−</button>
+            <button class="qty-btn" onclick="changeQty('${p.id}','bottles',-1)">−</button>
             <input type="number" min="0" value="${q.bottles}" oninput="setQty('${p.id}','bottles',this.value)">
+            <button class="qty-btn" onclick="changeQty('${p.id}','bottles',1)">+</button>
             <label>${getUnitLabel(p)}</label>
-            <button onclick="changeQty('${p.id}','bottles',1)">+</button>
           </div>
           <div class="qty-field">
-            <button onclick="changeQty('${p.id}','cases',-1)">−</button>
+            <button class="qty-btn" onclick="changeQty('${p.id}','cases',-1)">−</button>
             <input type="number" min="0" value="${q.cases}" oninput="setQty('${p.id}','cases',this.value)">
+            <button class="qty-btn" onclick="changeQty('${p.id}','cases',1)">+</button>
             <label>Harasse à ${p.caseSize}</label>
-            <button onclick="changeQty('${p.id}','cases',1)">+</button>
           </div>`;
       } else {
         qtyHtml = `
           <div class="qty-field">
-            <button onclick="changeQty('${p.id}','bottles',-1)">−</button>
+            <button class="qty-btn" onclick="changeQty('${p.id}','bottles',-1)">−</button>
             <input type="number" min="0" value="${q.bottles}" oninput="setQty('${p.id}','bottles',this.value)">
+            <button class="qty-btn" onclick="changeQty('${p.id}','bottles',1)">+</button>
             <label>${getUnitLabel(p, true)}</label>
-            <button onclick="changeQty('${p.id}','bottles',1)">+</button>
           </div>`;
       }
 
       row.innerHTML = `
         <div class="product-head">
-          <div>
-            <span class="product-name">${p.name}</span>${p.deal ? '<span class="tag">solange Vorrat</span>' : ''}
-            <span class="product-meta">Art. ${p.art}</span>
+          <div class="product-title-wrap">
+            <span class="product-name">${p.name}</span>${p.deal ? '<span class="tag">Solange Vorrat</span>' : ''}
+            <div><span class="product-meta">Art.-Nr. ${p.art}</span></div>
           </div>
-          <div class="product-price">${money(p.price)} / ${getUnitLabel(p, true)}</div>
+          <div class="product-price">${money(p.price)} <span class="unit">/ ${getUnitLabel(p, true)}</span></div>
         </div>
         <div class="qty-row">${qtyHtml}</div>
       `;
@@ -626,8 +909,8 @@ function updateSummaryBar() {
   const selected = getSelectedProducts();
   const total = selected.reduce((sum, s) => sum + s.total, 0);
   document.getElementById("itemCount").textContent =
-    selected.length === 0 ? "0 Artikel ausgewählt" : selected.length + " Artikel ausgewählt";
-  document.getElementById("totalPrice").textContent = money(total) + " ca.";
+    selected.length === 0 ? "0 Artikel ausgewählt" : selected.length + (selected.length === 1 ? " Artikel ausgewählt" : " Artikel ausgewählt");
+  document.getElementById("totalPrice").textContent = money(total);
   document.getElementById("reviewBtn").disabled = selected.length === 0;
 }
 
@@ -638,7 +921,7 @@ function openReview() {
 
   let rows = selected.map(s => `
     <tr>
-      <td>${s.product.name}<br><span style="color:var(--ink-soft);font-family:var(--font-mono);font-size:0.75rem">Art. ${s.product.art}</span></td>
+      <td><strong>${s.product.name}</strong><br><span style="color:var(--text-muted);font-size:0.78rem">Art.-Nr. ${s.product.art}</span></td>
       <td>${s.count} ${getUnitLabel(s.product, true)}</td>
       <td>${money(s.total)}</td>
     </tr>
@@ -661,6 +944,10 @@ function openReview() {
 
 function closeReview() {
   document.getElementById("overlay").classList.remove("open");
+}
+
+function handleOverlayClick(e) {
+  if (e.target.id === "overlay") closeReview();
 }
 
 function makeReference() {
@@ -689,20 +976,23 @@ function downloadPdf() {
     }
   }
 
+  // PDF Styling in Landi-Grün
   doc.setFont("helvetica", "bold");
   doc.setFontSize(16);
-  doc.text("Getränkebestellung", 14, 18);
+  doc.setTextColor(21, 128, 61); // Landi Grün
+  doc.text("Getränke-Vorbestellung", 14, 18);
 
+  doc.setTextColor(30, 41, 59);
   doc.setFont("helvetica", "normal");
   doc.setFontSize(10);
-  doc.text("Referenz: " + ref, 14, 26);
+  doc.text("Referenz-Nr.: " + ref, 14, 26);
   doc.text("Erstellt am: " + today, 14, 31);
-  doc.text("Name: " + (name || "____________________"), 14, 39);
-  doc.text("Wunschtermin: " + formattedDate, 14, 45);
+  doc.text("Kunde: " + (name || "____________________"), 14, 39);
+  doc.text("Wunschtermin Abholung: " + formattedDate, 14, 45);
 
   doc.autoTable({
     startY: 52,
-    head: [["Art.-Nr.", "Produkt", "Menge", "Preis/Stk", "Total"]],
+    head: [["Art.-Nr.", "Produkt", "Menge", "Preis/Einheit", "Total"]],
     body: selected.map(s => [
       s.product.art,
       s.product.name,
@@ -710,23 +1000,26 @@ function downloadPdf() {
       "CHF " + s.product.price.toFixed(2),
       "CHF " + s.total.toFixed(2)
     ]),
-    styles: { fontSize: 9 },
-    headStyles: { fillColor: [36, 53, 43] },
+    styles: { fontSize: 9, font: "helvetica" },
+    headStyles: { fillColor: [21, 128, 61], textColor: [255, 255, 255], fontStyle: "bold" },
+    alternateRowStyles: { fillColor: [248, 250, 252] },
   });
 
-  const finalY = doc.lastAutoTable.finalY + 8;
+  const finalY = doc.lastAutoTable.finalY + 9;
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(11);
-  doc.text("Total (unverbindlich): CHF " + total.toFixed(2), 14, finalY);
+  doc.setFontSize(12);
+  doc.setTextColor(21, 128, 61);
+  doc.text("Gesamttotal (unverbindlich): CHF " + total.toFixed(2), 14, finalY);
 
   doc.setFont("helvetica", "normal");
   doc.setFontSize(8.5);
+  doc.setTextColor(100, 116, 139);
   doc.text(
-    "Diese Zusammenstellung ist unverbindlich. Preise und Verfügbarkeit (insb. Top-Angebote) können abweichen.\nDie Bestellung wird erst mit Bestätigung durch das Landi-Team verbindlich.",
+    "Diese Zusammenstellung dient der unverbindlichen Vorbestellung. Preise und Verfügbarkeiten können abweichen.\nDie Bestellung wird erst mit Bestätigung durch das Landi-Team verbindlich.",
     14, finalY + 8
   );
 
-  doc.save("bestellung-" + ref + ".pdf");
+  doc.save("landi-bestellung-" + ref + ".pdf");
 }
 
 renderProducts();
