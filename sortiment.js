@@ -322,13 +322,13 @@ const CATEGORIES = [
       {
         "art": "34965",
         "name": "Capri Sun Orange-Peach 15×33cl",
-        "price": 18.0,
+        "price": 17.95,
         "caseSize": 15
       },
       {
         "art": "54906",
         "name": "Sauser m.A. Ramseier 6 × 50 cl",
-        "price": 10.98,
+        "price": 10.95,
         "caseSize": 6
       }
     ]
