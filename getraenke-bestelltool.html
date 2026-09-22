@@ -172,10 +172,12 @@
     border-radius: var(--radius);
     overflow: hidden;
     box-shadow: var(--shadow-sm);
-    transition: border-color 0.15s ease;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
   }
   details.category[open] {
-    border-color: #cbd5e1;
+    grid-column: 1 / -1;
+    border-color: var(--primary-border);
+    box-shadow: 0 4px 20px -2px rgba(22, 163, 74, 0.08);
   }
   summary {
     list-style: none;
@@ -196,6 +198,7 @@
   summary::-webkit-details-marker { display: none; }
   details.category[open] summary {
     border-bottom: 1px solid var(--border-light);
+    background: #F8FAFC;
   }
   .cat-right {
     display: flex;
@@ -227,18 +230,30 @@
     transform: rotate(180deg);
   }
 
-  /* PRODUKTE */
+  /* PRODUKTE GRID IN GEÖFFNETEM TAB */
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr));
+    gap: 14px;
+    padding: 16px;
+    background: #F8FAFC;
+  }
   .product {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     gap: 12px;
-    padding: 16px 18px;
-    border-bottom: 1px solid var(--border-light);
-    transition: background-color 0.1s ease;
+    padding: 16px;
+    background: white;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+    transition: transform 0.12s ease, border-color 0.12s ease, box-shadow 0.12s ease;
   }
-  .product:last-child { border-bottom: none; }
   .product:hover {
-    background: #FAFBFD;
+    border-color: var(--primary-border);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   }
 
   .product-head {
@@ -691,7 +706,7 @@
 </div>
 
 <!-- SORTIMENT & APP-LOGIK -->
-<script src="sortiment.js?v=4"></script>
+<script src="sortiment.js?v=5"></script>
 <script>
 // Fallback-Sortiment, falls sortiment.js nicht geladen werden konnte
 if (typeof CATEGORIES === "undefined") {
@@ -818,6 +833,9 @@ function renderProducts() {
       </summary>
     `;
 
+    const grid = document.createElement("div");
+    grid.className = "product-grid";
+
     items.forEach(p => {
       const row = document.createElement("div");
       row.className = "product";
@@ -866,9 +884,10 @@ function renderProducts() {
         </div>
         <div class="qty-row">${qtyHtml}</div>
       `;
-      det.appendChild(row);
+      grid.appendChild(row);
     });
 
+    det.appendChild(grid);
     wrap.appendChild(det);
   });
 
