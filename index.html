@@ -706,7 +706,7 @@
 </div>
 
 <!-- SORTIMENT & APP-LOGIK -->
-<script src="sortiment.js?v=5"></script>
+<script src="sortiment.js?v=6"></script>
 <script>
 // Fallback-Sortiment, falls sortiment.js nicht geladen werden konnte
 if (typeof CATEGORIES === "undefined") {
@@ -934,14 +934,24 @@ function getUnitPrice(p) {
   return (p.caseSize && p.caseSize > 0) ? (p.price / p.caseSize) : p.price;
 }
 
+function getItemTotal(p, q) {
+  if (p.caseOnly) return (q.cases || 0) * p.price;
+  if (!p.caseSize || p.caseSize <= 1) return (q.bottles || 0) * p.price;
+  const cases = q.cases || Math.floor((q.bottles || 0) / p.caseSize);
+  const extraBottles = (q.bottles || 0) % p.caseSize;
+  const unitPrice = p.price / p.caseSize;
+  return (cases * p.price) + (extraBottles * unitPrice);
+}
+
 function getSelectedProducts() {
   const result = [];
   CATEGORIES.forEach(cat => {
     (cat.items || []).forEach(p => {
+      const q = qty[p.id] || { bottles: 0, cases: 0 };
       const n = getBottleCount(p);
-      if (n > 0) {
-        const uPrice = getUnitPrice(p);
-        result.push({ product: p, count: n, unitPrice: uPrice, total: n * uPrice });
+      if (n > 0 || q.cases > 0) {
+        const total = getItemTotal(p, q);
+        result.push({ product: p, count: n, cases: q.cases, unitPrice: getUnitPrice(p), total: total });
       }
     });
   });

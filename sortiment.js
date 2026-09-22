@@ -11,25 +11,25 @@ const CATEGORIES = [
       {
         "art": "87523",
         "name": "Mineralwasser Farmer rot 6×150cl",
-        "price": 3.66,
+        "price": 3.95,
         "caseSize": 6
       },
       {
         "art": "87524",
         "name": "Mineralwasser Farmer blau 6×150cl",
-        "price": 3.66,
+        "price": 3.95,
         "caseSize": 6
       },
       {
         "art": "87534",
         "name": "Mineralwasser Farmer grün 6×150cl",
-        "price": 3.66,
+        "price": 3.95,
         "caseSize": 6
       },
       {
         "art": "35282",
         "name": "Quintus Quelle blau 6 × 150 cl",
-        "price": 1.98,
+        "price": 1.95,
         "caseSize": 6
       },
       {
@@ -47,7 +47,7 @@ const CATEGORIES = [
       {
         "art": "45516",
         "name": "Quintus Quelle rot 6 ×150 cl",
-        "price": 1.98,
+        "price": 1.95,
         "caseSize": 6
       },
       {
@@ -82,7 +82,7 @@ const CATEGORIES = [
       {
         "art": "87708",
         "name": "Ice Tea Farmer Lemon 6 × 150 cl",
-        "price": 3.96,
+        "price": 3.95,
         "caseSize": 6
       },
       {
@@ -94,25 +94,25 @@ const CATEGORIES = [
       {
         "art": "35400",
         "name": "Coca-Cola Zero Dose 24 × 33 cl",
-        "price": 14.88,
+        "price": 14.95,
         "caseSize": 24
       },
       {
         "art": "95913",
         "name": "Citro Farmer zéro 6 × 150 cl",
-        "price": 3.54,
+        "price": 3.95,
         "caseSize": 6
       },
       {
         "art": "09014",
         "name": "Ice Tea Farmer Lemon 6 × 50 cl",
-        "price": 2.94,
+        "price": 3.18,
         "caseSize": 6
       },
       {
         "art": "35398",
         "name": "Coca-Cola Dose 24 × 33 cl",
-        "price": 14.88,
+        "price": 14.95,
         "caseSize": 24
       },
       {
@@ -124,13 +124,13 @@ const CATEGORIES = [
       {
         "art": "09017",
         "name": "Ice Tea Farmer Peach 6 × 50 cl",
-        "price": 2.94,
+        "price": 3.18,
         "caseSize": 6
       },
       {
         "art": "87709",
         "name": "Ice Tea Farmer Peach 6 × 150 cl",
-        "price": 3.96,
+        "price": 3.95,
         "caseSize": 6
       },
       {
@@ -142,19 +142,19 @@ const CATEGORIES = [
       {
         "art": "99712",
         "name": "Grapefruit Farmer zéro 6×150cl",
-        "price": 3.54,
+        "price": 3.95,
         "caseSize": 6
       },
       {
         "art": "78099",
         "name": "Schnitzwasser Farmer 6 × 150 cl",
-        "price": 6.9,
+        "price": 3.95,
         "caseSize": 6
       },
       {
         "art": "82220",
         "name": "Ice Tea Farmer Mint 6 × 150 cl",
-        "price": 4.98,
+        "price": 3.95,
         "caseSize": 6
       },
       {
@@ -172,7 +172,7 @@ const CATEGORIES = [
       {
         "art": "78009",
         "name": "Cola Farmer zéro 6 × 150 cl",
-        "price": 3.54,
+        "price": 3.95,
         "caseSize": 6
       },
       {
@@ -190,13 +190,13 @@ const CATEGORIES = [
       {
         "art": "85041",
         "name": "Schnitzwasser Farmer 6 × 50 cl",
-        "price": 5.58,
+        "price": 3.18,
         "caseSize": 6
       },
       {
         "art": "87319",
         "name": "Vitaminwater Farmer Zitrone 6×50cl",
-        "price": 4.5,
+        "price": 3.18,
         "caseSize": 6
       },
       {
@@ -208,13 +208,13 @@ const CATEGORIES = [
       {
         "art": "95909",
         "name": "Ice Tea Farmer Mint 6 × 50 cl",
-        "price": 3.48,
+        "price": 3.18,
         "caseSize": 6
       },
       {
         "art": "87810",
         "name": "Holunder-Melisse Farmer 6 × 150 cl",
-        "price": 6.9,
+        "price": 3.95,
         "caseSize": 6
       },
       {
@@ -232,7 +232,7 @@ const CATEGORIES = [
       {
         "art": "09022",
         "name": "Holunder-Melisse Farmer 6×50cl",
-        "price": 5.58,
+        "price": 3.18,
         "caseSize": 6
       },
       {
@@ -250,7 +250,7 @@ const CATEGORIES = [
       {
         "art": "16149",
         "name": "Energy Drink Red Bull Dose 24×25cl",
-        "price": 30.0,
+        "price": 27.5,
         "caseSize": 24
       },
       {
