@@ -59,19 +59,5 @@ const CATEGORIES = [
       { art: "40002", name: "Mineralwasser still 1.5L", price: 0.95, caseSize: 6 },
       { art: "40010", name: "Wasser Zitrone 1.5L", price: 1.20, caseSize: 6 },
     ]
-  },
-  {
-    name: "Eistee",
-    items: [
-      { art: "50001", name: "Eistee Zitrone 1.5L", price: 1.85, caseSize: 6 },
-      { art: "50002", name: "Eistee Pfirsich 1.5L", price: 1.85, caseSize: 6 },
-    ]
-  },
-  {
-    name: "Top-Angebote",
-    items: [
-      { art: "60001", name: "Bier-Harass Aktion, 20x33cl", price: 17.90, caseSize: 20, caseOnly: true, deal: true },
-      { art: "60002", name: "Weinprobierpaket, 6 Flaschen", price: 59.00, unit: "stk", caseOnly: true, deal: true },
-    ]
   }
 ];

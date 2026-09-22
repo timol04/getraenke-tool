@@ -155,11 +155,16 @@
   }
 
   /* KATEGORIEN */
+  #categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 350px), 1fr));
+    gap: 16px;
+    align-items: start;
+  }
   details.category {
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    margin-bottom: 14px;
     overflow: hidden;
     box-shadow: var(--shadow-sm);
     transition: border-color 0.15s ease;
