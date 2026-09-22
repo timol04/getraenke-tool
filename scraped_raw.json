@@ -1,0 +1,1217 @@
+[
+  {
+    "name": "Mineralwasser",
+    "raw_items": [
+      {
+        "art": "87523",
+        "raw": "0.61/Stück\nMineralwasser Farmer rot 6×150cl\nArt.Nr.   87523\n0.41 / l",
+        "href": "/shop/mineralwasser_200104/mineralwasser-farmer-rot-6150cl_87523"
+      },
+      {
+        "art": "87524",
+        "raw": "0.61/Stück\nMineralwasser Farmer blau 6×150cl\nArt.Nr.   87524\n0.41 / l",
+        "href": "/shop/mineralwasser_200104/mineralwasser-farmer-blau-6150cl_87524"
+      },
+      {
+        "art": "87534",
+        "raw": "0.61/Stück\nMineralwasser Farmer grün 6×150cl\nArt.Nr.   87534\n0.41 / l",
+        "href": "/shop/mineralwasser_200104/mineralwasser-farmer-gruen-6150cl_87534"
+      },
+      {
+        "art": "35282",
+        "raw": "0.33/Stück\nQuintus Quelle blau 6 × 150 cl\nArt.Nr.   35282\n0.22 / l",
+        "href": "/shop/mineralwasser_200104/quintus-quelle-blau-6-150-cl_35282"
+      },
+      {
+        "art": "09018",
+        "raw": "0.53/Stück\nMineralwasser Farmer blau 6×50cl\nArt.Nr.   09018\n1.07 / l",
+        "href": "/shop/mineralwasser_200104/mineralwasser-farmer-blau-650cl_09018"
+      },
+      {
+        "art": "12356",
+        "raw": "0.53/Stück\nMineralwasser Farmer rot 6×50cl\nArt.Nr.   12356\n1.07 / l",
+        "href": "/shop/mineralwasser_200104/mineralwasser-farmer-rot-650cl_12356"
+      },
+      {
+        "art": "45516",
+        "raw": "0.33/Stück\nQuintus Quelle rot 6 ×150 cl\nArt.Nr.   45516\n0.22 / l",
+        "href": "/shop/mineralwasser_200104/quintus-quelle-rot-6-150-cl_45516"
+      },
+      {
+        "art": "09015",
+        "raw": "0.53/Stück\nMineralwasser Farmer grün 6×50cl\nArt.Nr.   09015\n1.07 / l",
+        "href": "/shop/mineralwasser_200104/mineralwasser-farmer-gruen-650cl_09015"
+      },
+      {
+        "art": "87512",
+        "raw": "0.78/Stück\nHenniez grün 6 × 50 cl\nArt.Nr.   87512\n1.57 / l",
+        "href": "/shop/mineralwasser_200104/henniez-gruen-6-50-cl_87512"
+      },
+      {
+        "art": "87507",
+        "raw": "0.78/Stück\nHenniez rot 6 × 50 cl\nArt.Nr.   87507\n1.57 / l",
+        "href": "/shop/mineralwasser_200104/henniez-rot-6-50-cl_87507"
+      },
+      {
+        "art": "02166",
+        "raw": "0.78/Stück\nHenniez blau 6 × 50 cl\nArt.Nr.   02166\n1.57 / l",
+        "href": "/shop/mineralwasser_200104/henniez-blau-6-50-cl_02166"
+      }
+    ]
+  },
+  {
+    "name": "Softdrinks",
+    "raw_items": [
+      {
+        "art": "87708",
+        "raw": "0.66/Stück\nIce Tea Farmer Lemon 6 × 150 cl\nArt.Nr.   87708\n0.44 / l",
+        "href": "/shop/softdrinks_200105/ice-tea-farmer-lemon-6-150-cl_87708"
+      },
+      {
+        "art": "88632",
+        "raw": "Top Angebot\nnur solange Vorrat\nKalorienarm\n1.25/Stück\nFocus Water Active 12 × 50 cl\nArt.Nr.   88632\n2.49 / l",
+        "href": "/shop/softdrinks_200105/focus-water-active-12-50-cl_88632"
+      },
+      {
+        "art": "35400",
+        "raw": "0.62/Stück\nCoca-Cola Zero Dose 24 × 33 cl\nArt.Nr.   35400\n1.89 / l",
+        "href": "/shop/softdrinks_200105/coca-cola-zero-dose-24-33-cl_35400"
+      },
+      {
+        "art": "95913",
+        "raw": "zéro\n0.59/Stück\nCitro Farmer zéro 6 × 150 cl\nArt.Nr.   95913\n0.39 / l",
+        "href": "/shop/softdrinks_200105/citro-farmer-zero-6-150-cl_95913"
+      },
+      {
+        "art": "09014",
+        "raw": "0.49/Stück\nIce Tea Farmer Lemon 6 × 50 cl\nArt.Nr.   09014\n0.98 / l",
+        "href": "/shop/softdrinks_200105/ice-tea-farmer-lemon-6-50-cl_09014"
+      },
+      {
+        "art": "35398",
+        "raw": "0.62/Stück\nCoca-Cola Dose 24 × 33 cl\nArt.Nr.   35398\n1.89 / l",
+        "href": "/shop/softdrinks_200105/coca-cola-dose-24-33-cl_35398"
+      },
+      {
+        "art": "95926",
+        "raw": "zéro\n0.53/Stück\nCitro Farmer zéro 6 × 50 cl\nArt.Nr.   95926\n1.07 / l",
+        "href": "/shop/softdrinks_200105/citro-farmer-zero-6-50-cl_95926"
+      },
+      {
+        "art": "09017",
+        "raw": "0.49/Stück\nIce Tea Farmer Peach 6 × 50 cl\nArt.Nr.   09017\n0.98 / l",
+        "href": "/shop/softdrinks_200105/ice-tea-farmer-peach-6-50-cl_09017"
+      },
+      {
+        "art": "87709",
+        "raw": "0.66/Stück\nIce Tea Farmer Peach 6 × 150 cl\nArt.Nr.   87709\n0.44 / l",
+        "href": "/shop/softdrinks_200105/ice-tea-farmer-peach-6-150-cl_87709"
+      },
+      {
+        "art": "13152",
+        "raw": "2.06/Stück\nCoca-Cola 8 × 150 cl\nArt.Nr.   13152\n1.37 / l",
+        "href": "/shop/softdrinks_200105/coca-cola-8-150-cl_13152"
+      },
+      {
+        "art": "99712",
+        "raw": "zéro\n0.59/Stück\nGrapefruit Farmer zéro 6×150cl\nArt.Nr.   99712\n0.39 / l",
+        "href": "/shop/softdrinks_200105/grapefruit-farmer-zero-6150cl_99712"
+      },
+      {
+        "art": "78099",
+        "raw": "Mit Zitronenaroma\nKalorienarm\n1.15/Stück\nSchnitzwasser Farmer 6 × 150 cl\nArt.Nr.   78099\n0.77 / l",
+        "href": "/shop/softdrinks_200105/schnitzwasser-farmer-6-150-cl_78099"
+      },
+      {
+        "art": "82220",
+        "raw": "0.83/Stück\nIce Tea Farmer Mint 6 × 150 cl\nArt.Nr.   82220\n0.55 / l",
+        "href": "/shop/softdrinks_200105/ice-tea-farmer-mint-6-150-cl_82220"
+      },
+      {
+        "art": "35378",
+        "raw": "1.43/Stück\nCoca-Cola 8 × 50 cl\nArt.Nr.   35378\n2.86 / l",
+        "href": "/shop/softdrinks_200105/coca-cola-8-50-cl_35378"
+      },
+      {
+        "art": "82128",
+        "raw": "Top Angebot\nnur solange Vorrat\n0.69/Stück\nSan Pellegrino Chino 24 × 33 cl\nArt.Nr.   82128\n2.08 / l",
+        "href": "/shop/softdrinks_200105/san-pellegrino-chino-24-33-cl_82128"
+      },
+      {
+        "art": "78009",
+        "raw": "zéro\n0.59/Stück\nCola Farmer zéro 6 × 150 cl\nArt.Nr.   78009\n0.39 / l",
+        "href": "/shop/softdrinks_200105/cola-farmer-zero-6-150-cl_78009"
+      },
+      {
+        "art": "35376",
+        "raw": "1.43/Stück\nCoca-Cola Zero 8 × 50 cl\nArt.Nr.   35376\n2.86 / l",
+        "href": "/shop/softdrinks_200105/coca-cola-zero-8-50-cl_35376"
+      },
+      {
+        "art": "13153",
+        "raw": "2.06/Stück\nCoca-Cola Zero 8 × 150 cl\nArt.Nr.   13153\n1.37 / l",
+        "href": "/shop/softdrinks_200105/coca-cola-zero-8-150-cl_13153"
+      },
+      {
+        "art": "85041",
+        "raw": "Kalorienarm\n0.93/Stück\nSchnitzwasser Farmer 6 × 50 cl\nArt.Nr.   85041\n1.85 / l",
+        "href": "/shop/softdrinks_200105/schnitzwasser-farmer-6-50-cl_85041"
+      },
+      {
+        "art": "87319",
+        "raw": "Kalorienarm\n0.75/Stück\nVitaminwater Farmer Zitrone 6×50cl\nArt.Nr.   87319\n1.50 / l",
+        "href": "/shop/softdrinks_200105/vitaminwater-farmer-zitrone-650cl_87319"
+      },
+      {
+        "art": "68904",
+        "raw": "Top Angebot\nnur solange Vorrat\n0.66/Stück\nLemon Soda 24 × 33 cl\nArt.Nr.   68904\n2.01 / l",
+        "href": "/shop/softdrinks_200105/lemon-soda-24-33-cl_68904"
+      },
+      {
+        "art": "95909",
+        "raw": "0.58/Stück\nIce Tea Farmer Mint 6 × 50 cl\nArt.Nr.   95909\n1.17 / l",
+        "href": "/shop/softdrinks_200105/ice-tea-farmer-mint-6-50-cl_95909"
+      },
+      {
+        "art": "87810",
+        "raw": "Kalorienarm\n1.15/Stück\nHolunder-Melisse Farmer 6 × 150 cl\nArt.Nr.   87810\n0.77 / l",
+        "href": "/shop/softdrinks_200105/holunder-melisse-farmer-6-150-cl_87810"
+      },
+      {
+        "art": "46020",
+        "raw": "1.49/Stück\nRivella rot 8 × 50 cl\nArt.Nr.   46020\n2.99 / l",
+        "href": "/shop/softdrinks_200105/rivella-rot-8-50-cl_46020"
+      },
+      {
+        "art": "82126",
+        "raw": "Top Angebot\nnur solange Vorrat\n0.69/Stück\nSan Pellegrino L'Aranc. 24×33cl\nArt.Nr.   82126\n2.08 / l",
+        "href": "/shop/softdrinks_200105/san-pellegrino-laranc-2433cl_82126"
+      },
+      {
+        "art": "09022",
+        "raw": "Kalorienarm\n0.93/Stück\nHolunder-Melisse Farmer 6×50cl\nArt.Nr.   09022\n1.85 / l",
+        "href": "/shop/softdrinks_200105/holunder-melisse-farmer-650cl_09022"
+      },
+      {
+        "art": "40938",
+        "raw": "Top Angebot\nnur solange Vorrat\n1.15/Stück\nRivella rot 24 × 50 cl\nArt.Nr.   40938\n2.29 / l",
+        "href": "/shop/softdrinks_200105/rivella-rot-24-50-cl_40938"
+      },
+      {
+        "art": "41624",
+        "raw": "Top Angebot\nnur solange Vorrat\n1.15/Stück\nRivella blau 24 × 50 cl\nArt.Nr.   41624\n2.29 / l",
+        "href": "/shop/softdrinks_200105/rivella-blau-24-50-cl_41624"
+      }
+    ]
+  },
+  {
+    "name": "Energy Drinks",
+    "raw_items": [
+      {
+        "art": "16149",
+        "raw": "1.25/Stück\nEnergy Drink Red Bull Dose 24×25cl\nArt.Nr.   16149\n4.99 / l",
+        "href": "/shop/energy-drinks_200106/energy-drink-red-bull-dose-2425cl_16149"
+      },
+      {
+        "art": "87800",
+        "raw": "1.48/Stück\nEnergy Drink Red Bull Dose 6×25cl\nArt.Nr.   87800\n0.59 / 100 ml",
+        "href": "/shop/energy-drinks_200106/energy-drink-red-bull-dose-625cl_87800"
+      },
+      {
+        "art": "38994",
+        "raw": "1.48/Stück\nEnergy Drink Red Bull S.free 6×25cl\nArt.Nr.   38994\n0.59 / 100 ml",
+        "href": "/shop/energy-drinks_200106/energy-drink-red-bull-s-free-625cl_38994"
+      }
+    ]
+  },
+  {
+    "name": "Fruchtsäfte & Obstsäfte",
+    "raw_items": [
+      {
+        "art": "42617",
+        "raw": "1.30/Stück\nOrangensaft Farmer 6 × 100 cl\nArt.Nr.   42617\n1.30 / l",
+        "href": "/shop/fruchtsaefte_200101/orangensaft-farmer-6-100-cl_42617"
+      },
+      {
+        "art": "87543",
+        "raw": "Top Angebot\nnur solange Vorrat\n2.22/Stück\nOrangensaft Granini 6 × 100 cl\nArt.Nr.   87543\n2.22 / l",
+        "href": "/shop/fruchtsaefte_200101/orangensaft-granini-6-100-cl_87543"
+      },
+      {
+        "art": "87544",
+        "raw": "Top Angebot\nnur solange Vorrat\n2.22/Stück\nFruchtcocktail Granini 6 × 100 cl\nArt.Nr.   87544\n2.22 / l",
+        "href": "/shop/fruchtsaefte_200101/fruchtcocktail-granini-6-100-cl_87544"
+      },
+      {
+        "art": "41743",
+        "raw": "1.56/Stück\nTraubensaft Farmer rot 4 × 100 cl\nArt.Nr.   41743\n1.56 / l",
+        "href": "/shop/fruchtsaefte_200101/traubensaft-farmer-rot-4-100-cl_41743"
+      },
+      {
+        "art": "41741",
+        "raw": "1.74/Stück\nCranberry Farmer 4 × 100 cl\nArt.Nr.   41741\n1.74 / l",
+        "href": "/shop/fruchtsaefte_200101/cranberry-farmer-4-100-cl_41741"
+      },
+      {
+        "art": "51528",
+        "raw": "1.59/Stück\nMultivitamin Farmer 6 × 100 cl\nArt.Nr.   51528\n1.59 / l",
+        "href": "/shop/fruchtsaefte_200101/multivitamin-farmer-6-100-cl_51528"
+      },
+      {
+        "art": "87743",
+        "raw": "1.5 % vol.\n3.22/Stück\nSauser m.A. Ramseier 6 × 100 cl\nArt.Nr.   87743\n3.22 / l",
+        "href": "/shop/fruchtsaefte_200101/sauser-m-a-ramseier-6-100-cl_87743"
+      },
+      {
+        "art": "38358",
+        "raw": "1.20/Stück\nCapri Sun Multivitamin 15 × 33 cl\nArt.Nr.   38358\n0.36 / 100 ml",
+        "href": "/shop/fruchtsaefte_200101/capri-sun-multivitamin-15-33-cl_38358"
+      },
+      {
+        "art": "96103",
+        "raw": "2.45/Stück\nDirekt Orangensaft Farmer 6×100cl\nArt.Nr.   96103\n2.45 / l",
+        "href": "/shop/fruchtsaefte_200101/direkt-orangensaft-farmer-6100cl_96103"
+      },
+      {
+        "art": "34965",
+        "raw": "15 × 33 cl\n1.20/Stück\nCapri Sun Orange-Peach 15×33cl\nArt.Nr.   34965",
+        "href": "/shop/fruchtsaefte_200101/capri-sun-orange-peach-1533cl_34965"
+      },
+      {
+        "art": "54906",
+        "raw": "1.5 % vol.\n1.83/Stück\nSauser m.A. Ramseier 6 × 50 cl\nArt.Nr.   54906\n3.65 / l",
+        "href": "/shop/fruchtsaefte_200101/sauser-m-a-ramseier-6-50-cl_54906"
+      }
+    ]
+  },
+  {
+    "name": "Bier",
+    "raw_items": [
+      {
+        "art": "46003",
+        "raw": "Top Angebot\nnur solange Vorrat\n1.15/Stück\nLagerbier Feld. Original 24 × 50 cl\nArt.Nr.   46003\n2.30 / l",
+        "href": "/shop/biere-mit-alkohol_200201/lagerbier-feld-original-24-50-cl_46003"
+      },
+      {
+        "art": "87313",
+        "raw": "0.87/Stück\nLagerbier Feld. Original 24 × 33 cl\nArt.Nr.   87313\n2.65 / l",
+        "href": "/shop/biere-mit-alkohol_200201/lagerbier-feld-original-24-33-cl_87313"
+      },
+      {
+        "art": "87448",
+        "raw": "Lagerbier Farmer Dose 50 cl\nArt.Nr.   87448\n0.12 / 100 ml",
+        "href": "/shop/biere-mit-alkohol_200201/lagerbier-farmer-dose-50-cl_87448"
+      },
+      {
+        "art": "75884",
+        "raw": "1.06/Stück\nBier Quöllfrisch 15 × 33 cl\nArt.Nr.   75884\n3.22 / l",
+        "href": "/shop/biere-mit-alkohol_200201/bier-quoellfrisch-15-33-cl_75884"
+      },
+      {
+        "art": "88317",
+        "raw": "Top Angebot\nnur solange Vorrat\n1.25/Stück\nBier Quöllfrisch Dose 24 × 50 cl\nArt.Nr.   88317\n2.50 / l",
+        "href": "/shop/biere-mit-alkohol_200201/bier-quoellfrisch-dose-24-50-cl_88317"
+      },
+      {
+        "art": "18249",
+        "raw": "2 % vol.\n1.25/Stück\nBier Calanda Radler 10 × 33 cl\nArt.Nr.   18249\n3.79 / l",
+        "href": "/shop/biere-mit-alkohol_200201/bier-calanda-radler-10-33-cl_18249"
+      },
+      {
+        "art": "75827",
+        "raw": "0.83/Stück\nBier Boxer old 24 × 33 cl\nArt.Nr.   75827\n2.52 / l",
+        "href": "/shop/biere-mit-alkohol_200201/bier-boxer-old-24-33-cl_75827"
+      },
+      {
+        "art": "26980",
+        "raw": "0.60/Stück\nLagerbier Farmer Dose 18 × 50 cl\nArt.Nr.   26980\n1.20 / l",
+        "href": "/shop/biere-mit-alkohol_200201/lagerbier-farmer-dose-18-50-cl_26980"
+      },
+      {
+        "art": "15492",
+        "raw": "1.33/Stück\nCorona Extra Bier 6 × 33 cl\nArt.Nr.   15492\n4.02 / l",
+        "href": "/shop/biere-mit-alkohol_200201/corona-extra-bier-6-33-cl_15492"
+      },
+      {
+        "art": "87303",
+        "raw": "Exkl. Depot\nLagerbier Feld. Original MW 50 cl\nArt.Nr.   87303\n0.34 / 100 ml",
+        "href": "/shop/biere-mit-alkohol_200201/lagerbier-feld-original-mw-50-cl_87303"
+      },
+      {
+        "art": "91683",
+        "raw": "1.66/Stück\nBier Moretti Dose 12 × 50 cl\nArt.Nr.   91683\n3.33 / l",
+        "href": "/shop/biere-mit-alkohol_200201/bier-moretti-dose-12-50-cl_91683"
+      },
+      {
+        "art": "38092",
+        "raw": "Bier Farmer Naturtrüb 50 cl\nArt.Nr.   38092\n0.15 / 100 ml",
+        "href": "/shop/biere-mit-alkohol_200201/bier-farmer-naturtrueb-50-cl_38092"
+      },
+      {
+        "art": "46423",
+        "raw": "Amberbier Farmer Dose 50 cl\nArt.Nr.   46423\n1.50 / l",
+        "href": "/shop/biere-mit-alkohol_200201/amberbier-farmer-dose-50-cl_46423"
+      },
+      {
+        "art": "72340",
+        "raw": "2,0 % vol.\n1.16/Stück\nCalanda Radler Zitrone 24 × 50 cl\nArt.Nr.   72340\n2.33 / l",
+        "href": "/shop/biere-mit-alkohol_200201/calanda-radler-zitrone-24-50-cl_72340"
+      },
+      {
+        "art": "35247",
+        "raw": "0.66/Stück\nBier Sagres 24 × 25 cl\nArt.Nr.   35247\n2.66 / l",
+        "href": "/shop/biere-mit-alkohol_200201/bier-sagres-24-25-cl_35247"
+      },
+      {
+        "art": "66226",
+        "raw": "1.06/Stück\nQuöllfrisch naturtrüb 15 × 33cl\nArt.Nr.   66226\n3.22 / l",
+        "href": "/shop/biere-mit-alkohol_200201/quoellfrisch-naturtrueb-15-33cl_66226"
+      },
+      {
+        "art": "30234",
+        "raw": "1.66/Stück\nLagerbier Feld. Original Dose 15×50cl\nArt.Nr.   30234\n3.33 / l",
+        "href": "/shop/biere-mit-alkohol_200201/lagerbier-feld-original-dose-1550cl_30234"
+      },
+      {
+        "art": "13151",
+        "raw": "2.6 % vol.\nPanaché Farmer Lemon Dose 50cl\nArt.Nr.   13151\n0.12 / 100 ml",
+        "href": "/shop/biere-mit-alkohol_200201/panache-farmer-lemon-dose-50cl_13151"
+      },
+      {
+        "art": "87441",
+        "raw": "Regional erhältlich\nExkl. Depot\nSpezialbier Rugenbräu MW 33 cl\nArt.Nr.   87441\n0.47 / 100 ml",
+        "href": "/shop/biere-mit-alkohol_200201/spezialbier-rugenbraeu-mw-33-cl_87441"
+      },
+      {
+        "art": "88308",
+        "raw": "Bier Pale Ale Farmer Dose 50 cl\nArt.Nr.   88308\n1.60 / l",
+        "href": "/shop/biere-mit-alkohol_200201/bier-pale-ale-farmer-dose-50-cl_88308"
+      },
+      {
+        "art": "68896",
+        "raw": "Top Angebot\nnur solange Vorrat\n1.23/Stück\nBier Moretti Dose 24 × 50 cl\nArt.Nr.   68896\n2.46 / l",
+        "href": "/shop/biere-mit-alkohol_200201/bier-moretti-dose-24-50-cl_68896"
+      },
+      {
+        "art": "87351",
+        "raw": "3.1 % vol.\n2.36/Stück\nEve Litchi 4 × 27,5 cl\nArt.Nr.   87351\n0.86 / 100 ml",
+        "href": "/shop/biere-mit-alkohol_200201/eve-litchi-4-27-5-cl_87351"
+      },
+      {
+        "art": "15107",
+        "raw": "2.0 % vol.\n1.00/Stück\nBier Zitronen Panaché 15 × 33 cl\nArt.Nr.   15107\n3.02 / l",
+        "href": "/shop/biere-mit-alkohol_200201/bier-zitronen-panache-15-33-cl_15107"
+      },
+      {
+        "art": "77382",
+        "raw": "2.4 % vol.\n2.54/Stück\nBier Ginger Appenzeller 6 × 33 cl\nArt.Nr.   77382\n7.70 / l",
+        "href": "/shop/biere-mit-alkohol_200201/bier-ginger-appenzeller-6-33-cl_77382"
+      },
+      {
+        "art": "87428",
+        "raw": "Regional erhältlich\nExkl. Depot\nBier Schützengarten Edelspez MW 33cl\nArt.Nr.   87428\n0.47 / 100 ml",
+        "href": "/shop/biere-mit-alkohol_200201/bier-schuetzengarten-edelspez-mw-33cl_87428"
+      },
+      {
+        "art": "51891",
+        "raw": "1.87/Stück\nBier Calanda Glatsch 6 × 50 cl\nArt.Nr.   51891\n3.73 / l",
+        "href": "/shop/biere-mit-alkohol_200201/bier-calanda-glatsch-6-50-cl_51891"
+      },
+      {
+        "art": "87444",
+        "raw": "Exkl. Depot\nBier Quöllfrisch MW 50 cl\nArt.Nr.   87444\n0.39 / 100 ml",
+        "href": "/shop/biere-mit-alkohol_200201/bier-quoellfrisch-mw-50-cl_87444"
+      },
+      {
+        "art": "50898",
+        "raw": "Top Angebot\nnur solange Vorrat\n3,1 % vol.\n1.73/Stück\nEve Strawberry Mojito 10 × 27,5 cl\nArt.Nr.   50898\n6.27 / l",
+        "href": "/shop/biere-mit-alkohol_200201/eve-strawberry-mojito-10-27-5-cl_50898"
+      },
+      {
+        "art": "87450",
+        "raw": "Exkl. Depot\nLagerbier Farmer MW 50 cl\nArt.Nr.   87450\n0.12 / 100 ml",
+        "href": "/shop/biere-mit-alkohol_200201/lagerbier-farmer-mw-50-cl_87450"
+      }
+    ]
+  },
+  {
+    "name": "Bier alkoholfrei",
+    "raw_items": [
+      {
+        "art": "74766",
+        "raw": "Alkoholfrei\n1.13/Stück\nBier Feld. o.A. 15 × 33 cl\nArt.Nr.   74766\n3.41 / l",
+        "href": "/shop/biere-ohne-alkohol_200202/bier-feld-o-a-15-33-cl_74766"
+      },
+      {
+        "art": "66216",
+        "raw": "Alkoholfrei\n1.66/Stück\nBier Feld. o.A. Dose 15 × 50 cl\nArt.Nr.   66216\n3.33 / l",
+        "href": "/shop/biere-ohne-alkohol_200202/bier-feld-o-a-dose-15-50-cl_66216"
+      },
+      {
+        "art": "91134",
+        "raw": "Alkoholfrei\n1.07/Stück\nBier Eichhof o.A. 0.0% 10 × 33 cl\nArt.Nr.   91134\n3.24 / l",
+        "href": "/shop/biere-ohne-alkohol_200202/bier-eichhof-o-a-0-0-10-33-cl_91134"
+      },
+      {
+        "art": "87457",
+        "raw": "Regional erhältlich\nAlkoholfrei\nExkl. Depot\nBier Schützengarten o.A. MW 50 cl\nArt.Nr.   87457\n0.34 / 100 ml",
+        "href": "/shop/biere-ohne-alkohol_200202/bier-schuetzengarten-o-a-mw-50-cl_87457"
+      },
+      {
+        "art": "57218",
+        "raw": "Alkoholfrei\n1.40/Stück\nBschorle EW 6 × 33 cl\nArt.Nr.   57218\n4.24 / l",
+        "href": "/shop/biere-ohne-alkohol_200202/bschorle-ew-6-33-cl_57218"
+      },
+      {
+        "art": "15526",
+        "raw": "Top Angebot\nnur solange Vorrat\nAlkoholfrei\n1.09/Stück\nPanaché Bilz Himbeere 10 × 33 cl\nArt.Nr.   15526\n3.29 / l",
+        "href": "/shop/biere-ohne-alkohol_200202/panache-bilz-himbeere-10-33-cl_15526"
+      },
+      {
+        "art": "34815",
+        "raw": "Alkoholfrei\n1.33/Stück\nRadler Calanda Lemon 0.0 % 6 × 33 cl\nArt.Nr.   34815\n4.02 / l",
+        "href": "/shop/biere-ohne-alkohol_200202/radler-calanda-lemon-0-0-6-33-cl_34815"
+      },
+      {
+        "art": "87602",
+        "raw": "Alkoholfrei\n1.36/Stück\nMountain Twister o.A. 8×33cl\nArt.Nr.   87602\n4.13 / l",
+        "href": "/shop/biere-ohne-alkohol_200202/mountain-twister-o-a-833cl_87602"
+      },
+      {
+        "art": "97498",
+        "raw": "Alkoholfrei\n1.69/Stück\nBier Feld. Zitrone 0.0% 8 × 50 cl\nArt.Nr.   97498\n3.38 / l",
+        "href": "/shop/biere-ohne-alkohol_200202/bier-feld-zitrone-0-0-8-50-cl_97498"
+      },
+      {
+        "art": "95031",
+        "raw": "Alkoholfrei\n1.33/Stück\nRadler Calanda Grape 0.0 % 6 × 33 cl\nArt.Nr.   95031\n4.02 / l",
+        "href": "/shop/biere-ohne-alkohol_200202/radler-calanda-grape-0-0-6-33-cl_95031"
+      },
+      {
+        "art": "67713",
+        "raw": "Regional erhältlich\nAlkoholfrei\n1.29/Stück\nBier Grapefruit o.A. 6 × 33 cl\nArt.Nr.   67713\n3.91 / l",
+        "href": "/shop/biere-ohne-alkohol_200202/bier-grapefruit-o-a-6-33-cl_67713"
+      },
+      {
+        "art": "96385",
+        "raw": "Regional erhältlich\nAlkoholfrei\n1.22/Stück\nBier Schützengarten o.A. 6 × 33 cl\nArt.Nr.   96385\n2.77 / l",
+        "href": "/shop/biere-ohne-alkohol_200202/bier-schuetzengarten-o-a-6-33-cl_96385"
+      },
+      {
+        "art": "15102",
+        "raw": "Alkoholfrei\n1.83/Stück\nBier Feld. Peach 0.0 6 × 50 cl\nArt.Nr.   15102\n3.65 / l",
+        "href": "/shop/biere-ohne-alkohol_200202/bier-feld-peach-0-0-6-50-cl_15102"
+      },
+      {
+        "art": "05265",
+        "raw": "Alkoholfrei\n2.36/Stück\nEve Litchi 0.0 % 4 × 27,5 cl\nArt.Nr.   05265\n0.86 / 100 ml",
+        "href": "/shop/biere-ohne-alkohol_200202/eve-litchi-0-0-4-27-5-cl_05265"
+      },
+      {
+        "art": "87315",
+        "raw": "Alkoholfrei\nExkl. Depot\nBier Feld. o.A. MW 50 cl\nArt.Nr.   87315\n0.34 / 100 ml",
+        "href": "/shop/biere-ohne-alkohol_200202/bier-feld-o-a-mw-50-cl_87315"
+      }
+    ]
+  },
+  {
+    "name": "Wein",
+    "raw_items": [
+      {
+        "art": "52804",
+        "raw": "Moscato Mosketto 75 cl\nArt.Nr.   52804\n7.93 / l",
+        "href": "/shop/weine_2003/moscato-mosketto-75-cl_52804"
+      },
+      {
+        "art": "19819",
+        "raw": "Primitivo Manduria 75 cl\nArt.Nr.   19819\n9.27 / l",
+        "href": "/shop/weine_2003/primitivo-manduria-75-cl_19819"
+      },
+      {
+        "art": "88965",
+        "raw": "Prosecco Spumante 75 cl\nArt.Nr.   88965\n10.60 / l",
+        "href": "/shop/weine_2003/prosecco-spumante-75-cl_88965"
+      },
+      {
+        "art": "17729",
+        "raw": "Dimensione Rosso 75 cl\nArt.Nr.   17729\n9.13 / l",
+        "href": "/shop/weine_2003/dimensione-rosso-75-cl_17729"
+      },
+      {
+        "art": "34848",
+        "raw": "La Vache des Alpes blanc 75 cl\nArt.Nr.   34848\n10.60 / l",
+        "href": "/shop/weine_2003/la-vache-des-alpes-blanc-75-cl_34848"
+      },
+      {
+        "art": "34841",
+        "raw": "La Vache des Alpes rouge 75 cl\nArt.Nr.   34841\n10.60 / l",
+        "href": "/shop/weine_2003/la-vache-des-alpes-rouge-75-cl_34841"
+      },
+      {
+        "art": "34845",
+        "raw": "La Vache des Alpes rosé 75 cl\nArt.Nr.   34845\n10.60 / l",
+        "href": "/shop/weine_2003/la-vache-des-alpes-rose-75-cl_34845"
+      },
+      {
+        "art": "88610",
+        "raw": "Rosière Syrah 75 cl\nArt.Nr.   88610\n6.- / l",
+        "href": "/shop/weine_2003/rosiere-syrah-75-cl_88610"
+      },
+      {
+        "art": "88408",
+        "raw": "Salvagnin 50 cl\nArt.Nr.   88408\n9.80 / l",
+        "href": "/shop/weine_2003/salvagnin-50-cl_88408"
+      },
+      {
+        "art": "88441",
+        "raw": "Fleurance Gamay 50 cl\nArt.Nr.   88441\n8.80 / l",
+        "href": "/shop/weine_2003/fleurance-gamay-50-cl_88441"
+      },
+      {
+        "art": "16869",
+        "raw": "Top Angebot\nnur solange Vorrat\nTriasso Rosso Biologico 75 cl\nArt.Nr.   16869\n11.33 / l",
+        "href": "/shop/weine_2003/triasso-rosso-biologico-75-cl_16869"
+      },
+      {
+        "art": "88456",
+        "raw": "Dôle du Valais 75 cl\nArt.Nr.   88456\n9.07 / l",
+        "href": "/shop/weine_2003/dole-du-valais-75-cl_88456"
+      },
+      {
+        "art": "88235",
+        "raw": "Balance Muscat 75 cl\nArt.Nr.   88235\n5.60 / l",
+        "href": "/shop/weine_2003/balance-muscat-75-cl_88235"
+      },
+      {
+        "art": "88461",
+        "raw": "Dôle du Valais 50 cl\nArt.Nr.   88461\n9.90 / l",
+        "href": "/shop/weine_2003/dole-du-valais-50-cl_88461"
+      },
+      {
+        "art": "88337",
+        "raw": "Rosière Rosé 75 cl\nArt.Nr.   88337\n6.40 / l",
+        "href": "/shop/weine_2003/rosiere-rose-75-cl_88337"
+      },
+      {
+        "art": "88397",
+        "raw": "Holunderblütenwein 50 cl\nArt.Nr.   88397\n10.80 / l",
+        "href": "/shop/weine_2003/holunderbluetenwein-50-cl_88397"
+      },
+      {
+        "art": "52887",
+        "raw": "Pinot Noir Goldbeere 75 cl\nArt.Nr.   52887\n15.33 / l",
+        "href": "/shop/weine_2003/pinot-noir-goldbeere-75-cl_52887"
+      },
+      {
+        "art": "52913",
+        "raw": "Ripasso Valpolicella Zeni 75 cl\nArt.Nr.   52913\n18.- / l",
+        "href": "/shop/weine_2003/ripasso-valpolicella-zeni-75-cl_52913"
+      },
+      {
+        "art": "88044",
+        "raw": "Mont sur Rolle 75 cl\nArt.Nr.   88044\n8.93 / l",
+        "href": "/shop/weine_2003/mont-sur-rolle-75-cl_88044"
+      },
+      {
+        "art": "88306",
+        "raw": "Oeil-de-Perdrix 75 cl\nArt.Nr.   88306\n10.60 / l",
+        "href": "/shop/weine_2003/oeil-de-perdrix-75-cl_88306"
+      },
+      {
+        "art": "52915",
+        "raw": "Amarone Valpolicella Zeni 75 cl\nArt.Nr.   52915\n30.60 / l",
+        "href": "/shop/weine_2003/amarone-valpolicella-zeni-75-cl_52915"
+      },
+      {
+        "art": "88157",
+        "raw": "Fendant VS 75 cl\nArt.Nr.   88157\n8.67 / l",
+        "href": "/shop/weine_2003/fendant-vs-75-cl_88157"
+      },
+      {
+        "art": "88177",
+        "raw": "Rosière Chardonnay 75 cl\nArt.Nr.   88177\n6.40 / l",
+        "href": "/shop/weine_2003/rosiere-chardonnay-75-cl_88177"
+      },
+      {
+        "art": "52841",
+        "raw": "Federweiss Goldbeere 75 cl\nArt.Nr.   52841\n15.33 / l",
+        "href": "/shop/weine_2003/federweiss-goldbeere-75-cl_52841"
+      },
+      {
+        "art": "13695",
+        "raw": "Rosé Lemanic 75 cl\nArt.Nr.   13695\n7.60 / l",
+        "href": "/shop/weine_2003/rose-lemanic-75-cl_13695"
+      },
+      {
+        "art": "66471",
+        "raw": "Fleurance Pinot Noir 50 cl\nArt.Nr.   66471\n9.90 / l",
+        "href": "/shop/weine_2003/fleurance-pinot-noir-50-cl_66471"
+      },
+      {
+        "art": "52839",
+        "raw": "Riesling-Silvaner Goldbeere 75 cl\nArt.Nr.   52839\n13.27 / l",
+        "href": "/shop/weine_2003/riesling-silvaner-goldbeere-75-cl_52839"
+      },
+      {
+        "art": "88033",
+        "raw": "Luins blanc 50 cl\nArt.Nr.   88033\n11.- / l",
+        "href": "/shop/weine_2003/luins-blanc-50-cl_88033"
+      },
+      {
+        "art": "88390",
+        "raw": "Blauburgunder Hallau 75cl\nArt.Nr.   88390\n10.60 / l",
+        "href": "/shop/weine_2003/blauburgunder-hallau-75cl_88390"
+      },
+      {
+        "art": "06683",
+        "raw": "Pinot Grigio Cesario 75cl\nArt.Nr.   06683\n5.87 / l",
+        "href": "/shop/weine_2003/pinot-grigio-cesario-75cl_06683"
+      },
+      {
+        "art": "88031",
+        "raw": "Luins blanc 75 cl\nArt.Nr.   88031\n9.27 / l",
+        "href": "/shop/weine_2003/luins-blanc-75-cl_88031"
+      },
+      {
+        "art": "88113",
+        "raw": "Yvorne blanc 75 cl\nArt.Nr.   88113\n16.67 / l",
+        "href": "/shop/weine_2003/yvorne-blanc-75-cl_88113"
+      },
+      {
+        "art": "68163",
+        "raw": "Velarino Nero di Troia 75 cl\nArt.Nr.   68163\n10.27 / l",
+        "href": "/shop/weine_2003/velarino-nero-di-troia-75-cl_68163"
+      },
+      {
+        "art": "63381",
+        "raw": "Schaumwein Volgaz 75 cl\nArt.Nr.   63381\n15.93 / l",
+        "href": "/shop/weine_2003/schaumwein-volgaz-75-cl_63381"
+      },
+      {
+        "art": "88067",
+        "raw": "St. Saphorin blanc 75 cl\nArt.Nr.   88067\n13.73 / l",
+        "href": "/shop/weine_2003/st-saphorin-blanc-75-cl_88067"
+      },
+      {
+        "art": "17730",
+        "raw": "Dimensione Bianco 75 cl\nArt.Nr.   17730\n9.13 / l",
+        "href": "/shop/weine_2003/dimensione-bianco-75-cl_17730"
+      },
+      {
+        "art": "88885",
+        "raw": "Glühwein 1 l\nArt.Nr.   88885\n2.50 / l",
+        "href": "/shop/weine_2003/gluehwein-1-l_88885"
+      },
+      {
+        "art": "88085",
+        "raw": "Villette blanc 75 cl\nArt.Nr.   88085\n11.93 / l",
+        "href": "/shop/weine_2003/villette-blanc-75-cl_88085"
+      },
+      {
+        "art": "19525",
+        "raw": "Johannisberg VS 75 cl\nArt.Nr.   19525\n14.- / l",
+        "href": "/shop/weine_2003/johannisberg-vs-75-cl_19525"
+      },
+      {
+        "art": "88080",
+        "raw": "Epesses blanc 75 cl\nArt.Nr.   88080\n13.27 / l",
+        "href": "/shop/weine_2003/epesses-blanc-75-cl_88080"
+      },
+      {
+        "art": "88267",
+        "raw": "Cuvée Rosé Suisse 50 cl\nArt.Nr.   88267\n7.90 / l",
+        "href": "/shop/weine_2003/cuvee-rose-suisse-50-cl_88267"
+      },
+      {
+        "art": "88175",
+        "raw": "Muscat #sweet 50 cl\nArt.Nr.   88175\n10.20 / l",
+        "href": "/shop/weine_2003/muscat-sweet-50-cl_88175"
+      },
+      {
+        "art": "61650",
+        "raw": "Top Angebot\nnur solange Vorrat\nHeida 75 cl\nArt.Nr.   61650\n15.93 / l",
+        "href": "/shop/weine_2003/heida-75-cl_61650"
+      },
+      {
+        "art": "88236",
+        "raw": "Balance Che. blanc 75 cl\nArt.Nr.   88236\n5.60 / l",
+        "href": "/shop/weine_2003/balance-che-blanc-75-cl_88236"
+      },
+      {
+        "art": "02782",
+        "raw": "Mauler Cordon Or Dry 75cl\nArt.Nr.   02782\n16.67 / l",
+        "href": "/shop/weine_2003/mauler-cordon-or-dry-75cl_02782"
+      },
+      {
+        "art": "88396",
+        "raw": "Pinot Noir Duvallon 75 cl\nArt.Nr.   88396\n7.93 / l",
+        "href": "/shop/weine_2003/pinot-noir-duvallon-75-cl_88396"
+      },
+      {
+        "art": "13685",
+        "raw": "Chasselas Lemanic 75 cl\nArt.Nr.   13685\n6.- / l",
+        "href": "/shop/weine_2003/chasselas-lemanic-75-cl_13685"
+      },
+      {
+        "art": "06984",
+        "raw": "Pinot Noir GR AOC 75 cl\nArt.Nr.   06984\n16.67 / l",
+        "href": "/shop/weine_2003/pinot-noir-gr-aoc-75-cl_06984"
+      },
+      {
+        "art": "65857",
+        "raw": "Borgo del Mandorlo Negro. 75 cl\nArt.Nr.   65857\n10.87 / l",
+        "href": "/shop/weine_2003/borgo-del-mandorlo-negro-75-cl_65857"
+      },
+      {
+        "art": "59511",
+        "raw": "Porta 6 Lisboa 75 cl\nArt.Nr.   59511\n9.27 / l",
+        "href": "/shop/weine_2003/porta-6-lisboa-75-cl_59511"
+      },
+      {
+        "art": "21518",
+        "raw": "LAB Moscato 75 cl\nArt.Nr.   21518\n7.93 / l",
+        "href": "/shop/weine_2003/lab-moscato-75-cl_21518"
+      },
+      {
+        "art": "27642",
+        "raw": "Rioja El Coto Crianza 75cl\nArt.Nr.   27642\n11.93 / l",
+        "href": "/shop/weine_2003/rioja-el-coto-crianza-75cl_27642"
+      },
+      {
+        "art": "16800",
+        "raw": "Top Angebot\nnur solange Vorrat\nEl Pescaito 75 cl\nArt.Nr.   16800\n6.60 / l",
+        "href": "/shop/weine_2003/el-pescaito-75-cl_16800"
+      },
+      {
+        "art": "88490",
+        "raw": "Zweigelt 75 cl\nArt.Nr.   88490\n5.73 / l",
+        "href": "/shop/weine_2003/zweigelt-75-cl_88490"
+      },
+      {
+        "art": "88713",
+        "raw": "Cabernet Sauvignon 5 l\nArt.Nr.   88713\n3.79 / l",
+        "href": "/shop/weine_2003/cabernet-sauvignon-5-l_88713"
+      },
+      {
+        "art": "52925",
+        "raw": "Primitivo Manduria 1488 75 cl\nArt.Nr.   52925\n18.- / l",
+        "href": "/shop/weine_2003/primitivo-manduria-1488-75-cl_52925"
+      },
+      {
+        "art": "71679",
+        "raw": "Barbera Piemonte 150+1 75cl\nArt.Nr.   71679\n9.27 / l",
+        "href": "/shop/weine_2003/barbera-piemonte-1501-75cl_71679"
+      },
+      {
+        "art": "88314",
+        "raw": "Dôle blanche VS 75 cl\nArt.Nr.   88314\n8.67 / l",
+        "href": "/shop/weine_2003/dole-blanche-vs-75-cl_88314"
+      },
+      {
+        "art": "38306",
+        "raw": "Tempranillo Bag-in-Box 3l\nArt.Nr.   38306\n3.08 / l",
+        "href": "/shop/weine_2003/tempranillo-bag-in-box-3l_38306"
+      },
+      {
+        "art": "88264",
+        "raw": "Rosé Duvallon 75 cl\nArt.Nr.   88264\n7.93 / l",
+        "href": "/shop/weine_2003/rose-duvallon-75-cl_88264"
+      },
+      {
+        "art": "88355",
+        "raw": "Balance Shiraz Rosé 75 cl\nArt.Nr.   88355\n5.60 / l",
+        "href": "/shop/weine_2003/balance-shiraz-rose-75-cl_88355"
+      },
+      {
+        "art": "88723",
+        "raw": "J.P. Chenet Cabernet-Syrah 75 cl\nArt.Nr.   88723\n6.60 / l",
+        "href": "/shop/weine_2003/j-p-chenet-cabernet-syrah-75-cl_88723"
+      },
+      {
+        "art": "30791",
+        "raw": "Pinot Noir Salgesch 75 cl\nArt.Nr.   30791\n11.93 / l",
+        "href": "/shop/weine_2003/pinot-noir-salgesch-75-cl_30791"
+      },
+      {
+        "art": "52911",
+        "raw": "Costalago Zeni Rosso 75 cl\nArt.Nr.   52911\n12.67 / l",
+        "href": "/shop/weine_2003/costalago-zeni-rosso-75-cl_52911"
+      },
+      {
+        "art": "22227",
+        "raw": "Primitivo Puglia Cesario 75 cl\nArt.Nr.   22227\n6.13 / l",
+        "href": "/shop/weine_2003/primitivo-puglia-cesario-75-cl_22227"
+      },
+      {
+        "art": "12507",
+        "raw": "Ohne Alkohol\nRimuss bianco dry 75 cl\nArt.Nr.   12507\n10.33 / l",
+        "href": "/shop/weine_2003/rimuss-bianco-dry-75-cl_12507"
+      },
+      {
+        "art": "52889",
+        "raw": "Cuvée royale Goldbeere 75 cl\nArt.Nr.   52889\n16.27 / l",
+        "href": "/shop/weine_2003/cuvee-royale-goldbeere-75-cl_52889"
+      },
+      {
+        "art": "69200",
+        "raw": "3 l bester Schweizer Wein\nPraktischer Bag in Box\nBelleroche Bag in Box 3 l\nArt.Nr.   69200\n4.65 / l",
+        "href": "/shop/weine_2003/belleroche-bag-in-box-3-l_69200"
+      },
+      {
+        "art": "88170",
+        "raw": "Grüner Veltliner 75 cl\nArt.Nr.   88170\n5.60 / l",
+        "href": "/shop/weine_2003/gruener-veltliner-75-cl_88170"
+      },
+      {
+        "art": "68894",
+        "raw": "Gran Pasas Monastrell 75 cl\nArt.Nr.   68894\n11.93 / l",
+        "href": "/shop/weine_2003/gran-pasas-monastrell-75-cl_68894"
+      },
+      {
+        "art": "88792",
+        "raw": "Ripasso Salvaterra 75 cl\nArt.Nr.   88792\n10.60 / l",
+        "href": "/shop/weine_2003/ripasso-salvaterra-75-cl_88792"
+      },
+      {
+        "art": "10868",
+        "raw": "Aigle Chablais blanc 50 cl\nArt.Nr.   10868\n17.10 / l",
+        "href": "/shop/weine_2003/aigle-chablais-blanc-50-cl_10868"
+      },
+      {
+        "art": "06995",
+        "raw": "Vin Grischun GR 75 cl\nArt.Nr.   06995\n19.93 / l",
+        "href": "/shop/weine_2003/vin-grischun-gr-75-cl_06995"
+      },
+      {
+        "art": "81839",
+        "raw": "Roma Federici 75 cl\nArt.Nr.   81839\n11.93 / l",
+        "href": "/shop/weine_2003/roma-federici-75-cl_81839"
+      },
+      {
+        "art": "88145",
+        "raw": "Fleurance Chasselas 50 cl\nArt.Nr.   88145\n7.90 / l",
+        "href": "/shop/weine_2003/fleurance-chasselas-50-cl_88145"
+      },
+      {
+        "art": "88980",
+        "raw": "Ohne Alkohol\nRimuss Party o.A. 70 cl\nArt.Nr.   88980\n6.64 / l",
+        "href": "/shop/weine_2003/rimuss-party-o-a-70-cl_88980"
+      },
+      {
+        "art": "19534",
+        "raw": "Cornalin du Valais 75 cl\nArt.Nr.   19534\n15.60 / l",
+        "href": "/shop/weine_2003/cornalin-du-valais-75-cl_19534"
+      },
+      {
+        "art": "88839",
+        "raw": "Merlot del Veneto 1 l\nArt.Nr.   88839\n4.80 / l",
+        "href": "/shop/weine_2003/merlot-del-veneto-1-l_88839"
+      },
+      {
+        "art": "88945",
+        "raw": "Balance Shiraz Merlot 75 cl\nArt.Nr.   88945\n5.60 / l",
+        "href": "/shop/weine_2003/balance-shiraz-merlot-75-cl_88945"
+      },
+      {
+        "art": "52851",
+        "raw": "Oeil de Perdrix Goldb. AOC 75 cl\nArt.Nr.   52851\n15.33 / l",
+        "href": "/shop/weine_2003/oeil-de-perdrix-goldb-aoc-75-cl_52851"
+      },
+      {
+        "art": "78660",
+        "raw": "Stone Cruz White Zinfandel 75 cl\nArt.Nr.   78660\n6.40 / l",
+        "href": "/shop/weine_2003/stone-cruz-white-zinfandel-75-cl_78660"
+      },
+      {
+        "art": "88160",
+        "raw": "Fendant VS 50 cl\nArt.Nr.   88160\n9.90 / l",
+        "href": "/shop/weine_2003/fendant-vs-50-cl_88160"
+      },
+      {
+        "art": "52935",
+        "raw": "Ribera del Duero 75 cl\nArt.Nr.   52935\n13.27 / l",
+        "href": "/shop/weine_2003/ribera-del-duero-75-cl_52935"
+      },
+      {
+        "art": "82384",
+        "raw": "Feuerheerd's Douro 75 cl\nArt.Nr.   82384\n12.27 / l",
+        "href": "/shop/weine_2003/feuerheerds-douro-75-cl_82384"
+      },
+      {
+        "art": "88010",
+        "raw": "Cuvée Blanc Suisse 50 cl\nArt.Nr.   88010\n9.- / l",
+        "href": "/shop/weine_2003/cuvee-blanc-suisse-50-cl_88010"
+      },
+      {
+        "art": "69946",
+        "raw": "Cuvée d'Or Goldbeere 75 cl\nArt.Nr.   69946\n14.- / l",
+        "href": "/shop/weine_2003/cuvee-dor-goldbeere-75-cl_69946"
+      },
+      {
+        "art": "90430",
+        "raw": "Clairette de Die Tradition 75 cl\nArt.Nr.   90430\n13.13 / l",
+        "href": "/shop/weine_2003/clairette-de-die-tradition-75-cl_90430"
+      },
+      {
+        "art": "91724",
+        "raw": "El Gringo Tempranillo 75 cl\nArt.Nr.   91724\n10.60 / l",
+        "href": "/shop/weine_2003/el-gringo-tempranillo-75-cl_91724"
+      },
+      {
+        "art": "63981",
+        "raw": "Rosato di Puglia 75 cl\nArt.Nr.   63981\n7.33 / l",
+        "href": "/shop/weine_2003/rosato-di-puglia-75-cl_63981"
+      },
+      {
+        "art": "88008",
+        "raw": "Fleurance Riesling Silv. 50 cl\nArt.Nr.   88008\n9.- / l",
+        "href": "/shop/weine_2003/fleurance-riesling-silv-50-cl_88008"
+      },
+      {
+        "art": "19542",
+        "raw": "Humagne Rouge VS 75 cl\nArt.Nr.   19542\n15.33 / l",
+        "href": "/shop/weine_2003/humagne-rouge-vs-75-cl_19542"
+      },
+      {
+        "art": "88791",
+        "raw": "Amarone Salvaterra 75 cl\nArt.Nr.   88791\n22.60 / l",
+        "href": "/shop/weine_2003/amarone-salvaterra-75-cl_88791"
+      },
+      {
+        "art": "35797",
+        "raw": "Blauburgunder SH 75cl\nArt.Nr.   35797\n10.40 / l",
+        "href": "/shop/weine_2003/blauburgunder-sh-75cl_35797"
+      },
+      {
+        "art": "06993",
+        "raw": "Pinot Noir Jenins GR AOC 75 cl\nArt.Nr.   06993\n19.47 / l",
+        "href": "/shop/weine_2003/pinot-noir-jenins-gr-aoc-75-cl_06993"
+      },
+      {
+        "art": "81844",
+        "raw": "Calivo Emilia IGT 75 cl\nArt.Nr.   81844\n11.60 / l",
+        "href": "/shop/weine_2003/calivo-emilia-igt-75-cl_81844"
+      },
+      {
+        "art": "88002",
+        "raw": "Riesling S. Duvallon 75cl\nArt.Nr.   88002\n7.93 / l",
+        "href": "/shop/weine_2003/riesling-s-duvallon-75cl_88002"
+      },
+      {
+        "art": "36442",
+        "raw": "Bonavita Red 75 cl\nArt.Nr.   36442\n8.40 / l",
+        "href": "/shop/weine_2003/bonavita-red-75-cl_36442"
+      },
+      {
+        "art": "02128",
+        "raw": "Aigle blanc AOC 75 cl\nArt.Nr.   02128\n15.87 / l",
+        "href": "/shop/weine_2003/aigle-blanc-aoc-75-cl_02128"
+      },
+      {
+        "art": "19517",
+        "raw": "Petite Arvine VS 75 cl\nArt.Nr.   19517\n15.93 / l",
+        "href": "/shop/weine_2003/petite-arvine-vs-75-cl_19517"
+      },
+      {
+        "art": "55123",
+        "raw": "Amore Uno 75 cl\nArt.Nr.   55123\n9.27 / l",
+        "href": "/shop/weine_2003/amore-uno-75-cl_55123"
+      },
+      {
+        "art": "04962",
+        "raw": "Johannisberg VS 50 cl\nArt.Nr.   04962\n15.90 / l",
+        "href": "/shop/weine_2003/johannisberg-vs-50-cl_04962"
+      },
+      {
+        "art": "52895",
+        "raw": "Pinot Noir Hallau 75 cl\nArt.Nr.   52895\n19.93 / l",
+        "href": "/shop/weine_2003/pinot-noir-hallau-75-cl_52895"
+      },
+      {
+        "art": "36832",
+        "raw": "Ripasso Salvaterra 50 cl\nArt.Nr.   36832\n13.90 / l",
+        "href": "/shop/weine_2003/ripasso-salvaterra-50-cl_36832"
+      },
+      {
+        "art": "14413",
+        "raw": "Pena Roja Jumilla 75 cl\nArt.Nr.   14413\n6.60 / l",
+        "href": "/shop/weine_2003/pena-roja-jumilla-75-cl_14413"
+      },
+      {
+        "art": "19527",
+        "raw": "Malvoisie VS 75 cl\nArt.Nr.   19527\n14.- / l",
+        "href": "/shop/weine_2003/malvoisie-vs-75-cl_19527"
+      },
+      {
+        "art": "88362",
+        "raw": "Zürcher Clevner 75 cl\nArt.Nr.   88362\n10.33 / l",
+        "href": "/shop/weine_2003/zuercher-clevner-75-cl_88362"
+      },
+      {
+        "art": "19569",
+        "raw": "Blauburgunder CH 75 cl\nArt.Nr.   19569\n7.93 / l",
+        "href": "/shop/weine_2003/blauburgunder-ch-75-cl_19569"
+      },
+      {
+        "art": "88142",
+        "raw": "Schafiser weiss 50 cl\nArt.Nr.   88142\n11.- / l",
+        "href": "/shop/weine_2003/schafiser-weiss-50-cl_88142"
+      },
+      {
+        "art": "19815",
+        "raw": "Gewürztraminer 75 cl\nArt.Nr.   19815\n11.93 / l",
+        "href": "/shop/weine_2003/gewuerztraminer-75-cl_19815"
+      },
+      {
+        "art": "75700",
+        "raw": "Domaine Moulin Saint-Jean 75 cl\nArt.Nr.   75700\n13.27 / l",
+        "href": "/shop/weine_2003/domaine-moulin-saint-jean-75-cl_75700"
+      },
+      {
+        "art": "10974",
+        "raw": "Nero d'Avola Sicilia 75cl\nArt.Nr.   10974\n5.87 / l",
+        "href": "/shop/weine_2003/nero-davola-sicilia-75cl_10974"
+      },
+      {
+        "art": "30045",
+        "raw": "Chardonnay Genève 75 cl\nArt.Nr.   30045\n10.60 / l",
+        "href": "/shop/weine_2003/chardonnay-geneve-75-cl_30045"
+      },
+      {
+        "art": "36830",
+        "raw": "Amarone Salvaterra 50 cl\nArt.Nr.   36830\n27.- / l",
+        "href": "/shop/weine_2003/amarone-salvaterra-50-cl_36830"
+      },
+      {
+        "art": "68907",
+        "raw": "Cantello Vino Tinto 75 cl\nArt.Nr.   68907\n11.33 / l",
+        "href": "/shop/weine_2003/cantello-vino-tinto-75-cl_68907"
+      },
+      {
+        "art": "73769",
+        "raw": "Chianti Terra Grande 75 cl\nArt.Nr.   73769\n10.60 / l",
+        "href": "/shop/weine_2003/chianti-terra-grande-75-cl_73769"
+      },
+      {
+        "art": "88954",
+        "raw": "Bar Royal Litchi 75 cl\nArt.Nr.   88954\n6.- / l",
+        "href": "/shop/weine_2003/bar-royal-litchi-75-cl_88954"
+      },
+      {
+        "art": "88988",
+        "raw": "Ohne Alkohol\nRimuss Litchi Perl 75cl\nArt.Nr.   88988\n7.47 / l",
+        "href": "/shop/weine_2003/rimuss-litchi-perl-75cl_88988"
+      },
+      {
+        "art": "08029",
+        "raw": "Malbec Fabre Montmayou 75 cl\nArt.Nr.   08029\n14.60 / l",
+        "href": "/shop/weine_2003/malbec-fabre-montmayou-75-cl_08029"
+      },
+      {
+        "art": "83859",
+        "raw": "Gamaret VS 75 cl\nArt.Nr.   83859\n12.73 / l",
+        "href": "/shop/weine_2003/gamaret-vs-75-cl_83859"
+      },
+      {
+        "art": "73752",
+        "raw": "Rosso Terre di Toscana 75 cl\nArt.Nr.   73752\n9.60 / l",
+        "href": "/shop/weine_2003/rosso-terre-di-toscana-75-cl_73752"
+      },
+      {
+        "art": "32556",
+        "raw": "Rioja El Coto Crianza 50 cl\nArt.Nr.   32556\n14.70 / l",
+        "href": "/shop/weine_2003/rioja-el-coto-crianza-50-cl_32556"
+      },
+      {
+        "art": "47616",
+        "raw": "Jaume Serra 75 cl\nArt.Nr.   47616\n10.- / l",
+        "href": "/shop/weine_2003/jaume-serra-75-cl_47616"
+      },
+      {
+        "art": "24279",
+        "raw": "Merlot del Veneto 50 cl\nArt.Nr.   24279\n5.80 / l",
+        "href": "/shop/weine_2003/merlot-del-veneto-50-cl_24279"
+      },
+      {
+        "art": "14415",
+        "raw": "Pinot blanc Suisse 75 cl\nArt.Nr.   14415\n8.67 / l",
+        "href": "/shop/weine_2003/pinot-blanc-suisse-75-cl_14415"
+      },
+      {
+        "art": "77902",
+        "raw": "Stone Cruz Cabernet 75 cl\nArt.Nr.   77902\n6.40 / l",
+        "href": "/shop/weine_2003/stone-cruz-cabernet-75-cl_77902"
+      },
+      {
+        "art": "35703",
+        "raw": "Ass. Cépages Duvallon 75cl\nArt.Nr.   35703\n7.93 / l",
+        "href": "/shop/weine_2003/ass-cepages-duvallon-75cl_35703"
+      },
+      {
+        "art": "63571",
+        "raw": "La Maison du Sud 75 cl\nArt.Nr.   63571\n6.13 / l",
+        "href": "/shop/weine_2003/la-maison-du-sud-75-cl_63571"
+      },
+      {
+        "art": "78657",
+        "raw": "Stone Cruz Chardonnay 75 cl\nArt.Nr.   78657\n6.40 / l",
+        "href": "/shop/weine_2003/stone-cruz-chardonnay-75-cl_78657"
+      },
+      {
+        "art": "95394",
+        "raw": "Schaumwein Volgaz rosé 75 cl\nArt.Nr.   95394\n15.93 / l",
+        "href": "/shop/weine_2003/schaumwein-volgaz-rose-75-cl_95394"
+      },
+      {
+        "art": "80436",
+        "raw": "Cannonau Sardegna Baiolu 75 cl\nArt.Nr.   80436\n14.- / l",
+        "href": "/shop/weine_2003/cannonau-sardegna-baiolu-75-cl_80436"
+      },
+      {
+        "art": "61581",
+        "raw": "Appassimento Coronati 75 cl\nArt.Nr.   61581\n7.93 / l",
+        "href": "/shop/weine_2003/appassimento-coronati-75-cl_61581"
+      },
+      {
+        "art": "53019",
+        "raw": "Barbian Roble 75 cl\nArt.Nr.   53019\n10.87 / l",
+        "href": "/shop/weine_2003/barbian-roble-75-cl_53019"
+      },
+      {
+        "art": "80434",
+        "raw": "Esprit Côtes du Rhône 75 cl\nArt.Nr.   80434\n10.60 / l",
+        "href": "/shop/weine_2003/esprit-cotes-du-rhone-75-cl_80434"
+      },
+      {
+        "art": "52879",
+        "raw": "St. Saphorin Petit Ver. 75 cl\nArt.Nr.   52879\n24.67 / l",
+        "href": "/shop/weine_2003/st-saphorin-petit-ver-75-cl_52879"
+      },
+      {
+        "art": "14417",
+        "raw": "Hauswein weiss Nr. 1 1 l\nArt.Nr.   14417\n3.70 / l",
+        "href": "/shop/weine_2003/hauswein-weiss-nr-1-1-l_14417"
+      },
+      {
+        "art": "61091",
+        "raw": "Hauswein rot Nr. 2 1 l\nArt.Nr.   61091\n3.70 / l",
+        "href": "/shop/weine_2003/hauswein-rot-nr-2-1-l_61091"
+      },
+      {
+        "art": "77543",
+        "raw": "Stone Cruz Zinfandel 75cl\nArt.Nr.   77543\n6.40 / l",
+        "href": "/shop/weine_2003/stone-cruz-zinfandel-75cl_77543"
+      },
+      {
+        "art": "72238",
+        "raw": "Merlot Rosso 75 cl\nArt.Nr.   72238\n16.67 / l",
+        "href": "/shop/weine_2003/merlot-rosso-75-cl_72238"
+      },
+      {
+        "art": "64440",
+        "raw": "Schafiser weiss 75 cl\nArt.Nr.   64440\n13.13 / l",
+        "href": "/shop/weine_2003/schafiser-weiss-75-cl_64440"
+      }
+    ]
+  }
+]
