@@ -691,7 +691,7 @@
 </div>
 
 <!-- SORTIMENT & APP-LOGIK -->
-<script src="sortiment.js?v=3"></script>
+<script src="sortiment.js?v=4"></script>
 <script>
 // Fallback-Sortiment, falls sortiment.js nicht geladen werden konnte
 if (typeof CATEGORIES === "undefined") {
@@ -862,7 +862,7 @@ function renderProducts() {
             <span class="product-name">${p.name}</span>${p.deal ? '<span class="tag">Solange Vorrat</span>' : ''}
             <div><span class="product-meta">Art.-Nr. ${p.art}</span></div>
           </div>
-          <div class="product-price">${p.caseSize ? money(p.price * p.caseSize) + ' <span class="unit">/ Pack (' + money(p.price) + ' / ' + getUnitLabel(p, true) + ')</span>' : money(p.price) + ' <span class="unit">/ ' + getUnitLabel(p, true) + '</span>'}</div>
+          <div class="product-price">${money(p.price)} <span class="unit">${p.caseSize ? '/ Pack (' + money(getUnitPrice(p)) + ' / ' + getUnitLabel(p, true) + ')' : '/ ' + getUnitLabel(p, true)}</span></div>
         </div>
         <div class="qty-row">${qtyHtml}</div>
       `;
@@ -911,12 +911,19 @@ function findProduct(id) {
   return null;
 }
 
+function getUnitPrice(p) {
+  return (p.caseSize && p.caseSize > 0) ? (p.price / p.caseSize) : p.price;
+}
+
 function getSelectedProducts() {
   const result = [];
   CATEGORIES.forEach(cat => {
     (cat.items || []).forEach(p => {
       const n = getBottleCount(p);
-      if (n > 0) result.push({ product: p, count: n, total: n * p.price });
+      if (n > 0) {
+        const uPrice = getUnitPrice(p);
+        result.push({ product: p, count: n, unitPrice: uPrice, total: n * uPrice });
+      }
     });
   });
   return result;

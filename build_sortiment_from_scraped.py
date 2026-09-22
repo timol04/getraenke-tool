@@ -55,18 +55,16 @@ for target_cat in target_categories:
             if pack_match:
                 case_size = int(pack_match.group(1))
 
-            # Calculate price per single item (Flasche/Dose/Stück)
+            # Set price to full Pack price (the big number on Landi badge)
             price = 0.0
-            if stk_price:
-                price = round(stk_price, 2)
+            if stk_price and case_size:
+                price = round(stk_price * case_size, 2)
+            elif stk_price:
+                price = stk_price
             else:
                 num_matches = re.findall(r'([0-9]+\.[0-9]{2})', raw_item['raw'])
                 if num_matches:
-                    total_p = float(num_matches[0])
-                    if case_size and case_size > 1:
-                        price = round(total_p / case_size, 2)
-                    else:
-                        price = total_p
+                    price = float(num_matches[0])
                 else:
                     price = 2.50
 
