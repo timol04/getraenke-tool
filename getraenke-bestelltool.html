@@ -16,10 +16,10 @@
     --primary-light: #F0FDF4;    /* Zartes Grün für Badges/Hintergründe */
     --primary-border: #BBF7D0;   /* Grüner Rahmen */
     
-    --bg: #F8FAFC;               /* Helles, modernes Off-White */
+    --bg: #F0FDF4;               /* Helles, modernes Grün-Off-White */
     --card: #FFFFFF;             /* Reines Weiss für Karten */
-    --border: #E2E8F0;           /* Feine graue Linien */
-    --border-light: #F1F5F9;
+    --border: #BBF7D0;           /* Feine grüne Linien */
+    --border-light: #DCFCE7;
     
     --text: #0F172A;             /* Sattes Slate für beste Lesbarkeit */
     --text-muted: #64748B;       /* Neutrales Mittelgrau */
@@ -779,6 +779,12 @@ function getBottleCount(p) {
 function renderProducts() {
   const term = document.getElementById("search").value.trim().toLowerCase();
   const wrap = document.getElementById("categories");
+  
+  const openStates = {};
+  wrap.querySelectorAll("details.category").forEach(det => {
+    openStates[det.dataset.catName] = det.open;
+  });
+  
   wrap.innerHTML = "";
 
   CATEGORIES.forEach(cat => {
@@ -790,7 +796,8 @@ function renderProducts() {
 
     const det = document.createElement("details");
     det.className = "category";
-    det.open = term.length > 0;
+    det.dataset.catName = cat.name;
+    det.open = term.length > 0 ? true : (openStates[cat.name] === true);
 
     const selectedInCat = items.filter(p => getBottleCount(p) > 0).length;
 
