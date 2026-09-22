@@ -11,19 +11,19 @@ const CATEGORIES = [
       {
         "art": "87523",
         "name": "Mineralwasser Farmer rot 6×150cl",
-        "price": 3.95,
+        "price": 3.65,
         "caseSize": 6
       },
       {
         "art": "87524",
         "name": "Mineralwasser Farmer blau 6×150cl",
-        "price": 3.95,
+        "price": 3.65,
         "caseSize": 6
       },
       {
         "art": "87534",
         "name": "Mineralwasser Farmer grün 6×150cl",
-        "price": 3.95,
+        "price": 3.65,
         "caseSize": 6
       },
       {
@@ -82,7 +82,7 @@ const CATEGORIES = [
       {
         "art": "87708",
         "name": "Ice Tea Farmer Lemon 6 × 150 cl",
-        "price": 3.95,
+        "price": 3.65,
         "caseSize": 6
       },
       {
@@ -100,7 +100,7 @@ const CATEGORIES = [
       {
         "art": "95913",
         "name": "Citro Farmer zéro 6 × 150 cl",
-        "price": 3.95,
+        "price": 3.65,
         "caseSize": 6
       },
       {
@@ -130,7 +130,7 @@ const CATEGORIES = [
       {
         "art": "87709",
         "name": "Ice Tea Farmer Peach 6 × 150 cl",
-        "price": 3.95,
+        "price": 3.65,
         "caseSize": 6
       },
       {
@@ -142,19 +142,19 @@ const CATEGORIES = [
       {
         "art": "99712",
         "name": "Grapefruit Farmer zéro 6×150cl",
-        "price": 3.95,
+        "price": 3.65,
         "caseSize": 6
       },
       {
         "art": "78099",
         "name": "Schnitzwasser Farmer 6 × 150 cl",
-        "price": 3.95,
+        "price": 3.65,
         "caseSize": 6
       },
       {
         "art": "82220",
         "name": "Ice Tea Farmer Mint 6 × 150 cl",
-        "price": 3.95,
+        "price": 3.65,
         "caseSize": 6
       },
       {
@@ -172,7 +172,7 @@ const CATEGORIES = [
       {
         "art": "78009",
         "name": "Cola Farmer zéro 6 × 150 cl",
-        "price": 3.95,
+        "price": 3.65,
         "caseSize": 6
       },
       {
@@ -214,7 +214,7 @@ const CATEGORIES = [
       {
         "art": "87810",
         "name": "Holunder-Melisse Farmer 6 × 150 cl",
-        "price": 3.95,
+        "price": 3.65,
         "caseSize": 6
       },
       {

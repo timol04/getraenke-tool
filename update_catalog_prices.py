@@ -23,7 +23,7 @@ def fix_price(item):
     case_size = item.get('caseSize')
 
     if 'farmer' in name and '6×150cl' in name.replace(' ', ''):
-        item['price'] = 3.95
+        item['price'] = 3.65
     elif 'farmer' in name and '6×50cl' in name.replace(' ', ''):
         item['price'] = 3.18
     elif 'quintus' in name and '6×150cl' in name.replace(' ', ''):
