@@ -675,7 +675,10 @@
 
 <header class="top">
   <div class="header-content">
-    <div class="brand-badge">Landi Vorbestellung</div>
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <div class="brand-badge">Landi Vorbestellung</div>
+      <button id="editPricesBtn" onclick="toggleEditPricesMode()" style="background:rgba(255,255,255,0.15); color:white; border:1px solid rgba(255,255,255,0.3); border-radius:20px; padding:4px 12px; font-size:0.78rem; font-weight:600; cursor:pointer;">✏️ Preise bearbeiten</button>
+    </div>
     <h1>Getränke bestellen</h1>
     <p class="sub">Wählt eure Produkte und Mengen aus und erstellt daraus ein PDF für die Abholung in eurer Filiale.</p>
     
@@ -689,6 +692,10 @@
 </header>
 
 <main>
+  <div id="editBanner" style="display:none; background:#FEF3C7; border:1px solid #FCD34D; color:#92400E; padding:12px 16px; border-radius:var(--radius); margin-bottom:16px; font-size:0.9rem;">
+    <strong>✏️ Preis-Bearbeitungsmodus aktiv:</strong> Ändere die Preise direkt bei den Produkten. Wenn du fertig bist, klicke auf <button onclick="exportUpdatedJs()" style="background:#B45309; color:white; border:none; padding:3px 10px; border-radius:12px; font-weight:bold; cursor:pointer;">💾 Sortiment-Code kopieren</button>, um den Code zu speichern!
+  </div>
+
   <div class="banner">
     <strong>Hinweis zur Vorbestellung:</strong> Preise und Verfügbarkeiten (insbesondere Top-Angebote) können abweichen. Eure Bestellung wird erst mit unserer Bestätigung verbindlich.
   </div>
@@ -741,7 +748,7 @@
 </div>
 
 <!-- SORTIMENT & APP-LOGIK -->
-<script src="sortiment.js?v=9"></script>
+<script src="sortiment.js?v=10"></script>
 <script>
 // Fallback-Sortiment, falls sortiment.js nicht geladen werden konnte
 if (typeof CATEGORIES === "undefined") {
@@ -829,6 +836,47 @@ function getBottleCount(p) {
   const q = qty[p.id] || { bottles: 0, cases: 0 };
   if (p.caseOnly) return q.cases * (p.caseSize || 1);
   return q.bottles;
+}
+
+let isEditPricesMode = false;
+
+function toggleEditPricesMode() {
+  isEditPricesMode = !isEditPricesMode;
+  document.getElementById("editBanner").style.display = isEditPricesMode ? "block" : "none";
+  document.getElementById("editPricesBtn").textContent = isEditPricesMode ? "✅ Bearbeiten beenden" : "✏️ Preise bearbeiten";
+  document.getElementById("editPricesBtn").style.background = isEditPricesMode ? "#B45309" : "rgba(255,255,255,0.15)";
+  renderProducts();
+}
+
+function updateProductPrice(id, val) {
+  const num = Math.max(0, parseFloat(val) || 0);
+  const p = findProduct(id);
+  if (p) {
+    p.price = num;
+    updateSummaryBar();
+  }
+}
+
+function exportUpdatedJs() {
+  const cleaned = CATEGORIES.map(c => ({
+    name: c.name,
+    items: c.items.map(i => {
+      const item = { art: i.art, name: i.name, price: i.price };
+      if (i.caseSize) item.caseSize = i.caseSize;
+      if (i.caseOnly) item.caseOnly = i.caseOnly;
+      if (i.deal) item.deal = i.deal;
+      if (i.unit) item.unit = i.unit;
+      return item;
+    })
+  }));
+
+  const code = "/**\n * LANDI GETRÄNKE-SORTIMENT (Stand " + new Date().toLocaleDateString("de-CH") + ")\n */\n\nconst CATEGORIES = " + JSON.stringify(cleaned, null, 2) + ";\n";
+  
+  navigator.clipboard.writeText(code).then(() => {
+    alert("✅ Der aktualisierte Sortiment-Code wurde in deine Zwischenablage kopiert! Du kannst ihn direkt in sortiment.js einfügen.");
+  }).catch(() => {
+    prompt("Hier ist der neue Code für sortiment.js (Strg+C / Cmd+C zum Kopieren):", code);
+  });
 }
 
 const activeSubFilters = {};
@@ -964,13 +1012,22 @@ function renderProducts() {
           </div>`;
       }
 
+      const priceDisplayHtml = isEditPricesMode ? `
+        <div class="product-price" style="text-align:right;">
+          <span style="font-size:0.75rem; color:var(--text-muted); font-weight:normal; display:block;">Pack-Preis (CHF):</span>
+          <input type="number" step="0.05" min="0" value="${p.price}" onchange="updateProductPrice('${p.id}', this.value)" style="width:75px; padding:4px 6px; font-weight:bold; font-size:0.92rem; color:var(--primary); border:1px solid var(--primary-border); border-radius:4px; text-align:right;">
+        </div>
+      ` : `
+        <div class="product-price">${money(p.price)} <span class="unit">${p.caseSize ? '/ Pack (' + money(getUnitPrice(p)) + ' / ' + getUnitLabel(p, true) + ')' : '/ ' + getUnitLabel(p, true)}</span></div>
+      `;
+
       row.innerHTML = `
         <div class="product-head">
           <div class="product-title-wrap">
             <span class="product-name">${p.name}</span>${p.deal ? '<span class="tag">Solange Vorrat</span>' : ''}
             <div><span class="product-meta">Art.-Nr. ${p.art}</span></div>
           </div>
-          <div class="product-price">${money(p.price)} <span class="unit">${p.caseSize ? '/ Pack (' + money(getUnitPrice(p)) + ' / ' + getUnitLabel(p, true) + ')' : '/ ' + getUnitLabel(p, true)}</span></div>
+          ${priceDisplayHtml}
         </div>
         <div class="qty-row">${qtyHtml}</div>
       `;
