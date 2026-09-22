@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="de-CH">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Getränke-Bestelltool</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #EFEAE0;
+    --bg-elevated: #FBFAF5;
+    --ink: #23301F;
+    --ink-soft: #5B6355;
+    --line: #D9D2C2;
+    --forest: #24352B;
+    --forest-soft: #33473A;
+    --gold: #B8891F;
+    --gold-soft: #F0E2BE;
+    --brick: #9A3324;
+    --brick-soft: #F3DAD3;
+    --white: #FFFFFF;
+    --radius: 10px;
+    --font-head: 'Space Grotesk', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'IBM Plex Mono', monospace;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  :root:not([data-theme="light"]) {
+    @media (prefers-color-scheme: dark) {
+      --bg: #1B211C;
+      --bg-elevated: #232A23;
+      --ink: #EDEBE3;
+      --ink-soft: #A9AF9E;
+      --line: #3A4237;
+      --forest: #7FAF8E;
+      --forest-soft: #6C9E7C;
+      --gold: #E0B451;
+      --gold-soft: #3A3423;
+      --brick: #E08066;
+      --brick-soft: #3A2620;
+      --white: #232A23;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1B211C;
+    --bg-elevated: #232A23;
+    --ink: #EDEBE3;
+    --ink-soft: #A9AF9E;
+    --line: #3A4237;
+    --forest: #7FAF8E;
+    --forest-soft: #6C9E7C;
+    --gold: #E0B451;
+    --gold-soft: #3A3423;
+    --brick: #E08066;
+    --brick-soft: #3A2620;
+    --white: #232A23;
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); height: 100%; }
+  * { box-sizing: border-box; }
+  body {
+    height: 100%;
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    line-height: 1.5;
+    padding-bottom: 92px;
+  }
+  header.top {
+    background: var(--forest);
+    color: var(--bg-elevated);
+    padding: 22px 20px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    padding-top: calc(22px + env(safe-area-inset-top, 0px));
+  }
+  header.top h1 {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin: 0 0 4px;
+    letter-spacing: -0.01em;
+  }
+  header.top p.sub {
+    margin: 0 0 14px;
+    color: var(--gold-soft);
+    font-size: 0.92rem;
+    max-width: 60ch;
+  }
+  .search-row {
+    display: flex;
+    gap: 8px;
+  }
+  .search-row input[type="search"] {
+    flex: 1;
+    padding: 10px 14px;
+    border-radius: var(--radius);
+    border: none;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    background: var(--bg-elevated);
+    color: var(--ink);
+  }
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 18px 16px 8px;
+  }
+  .banner {
+    background: var(--gold-soft);
+    border: 1px solid var(--gold);
+    color: var(--ink);
+    border-radius: var(--radius);
+    padding: 12px 14px;
+    font-size: 0.86rem;
+    margin-bottom: 18px;
+  }
+  details.category {
+    background: var(--bg-elevated);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+  details.category[open] summary { border-bottom: 1px solid var(--line); }
+  summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--font-head);
+    font-weight: 600;
+    font-size: 1.02rem;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary .count {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    font-weight: 500;
+  }
+  summary .chev { transition: transform 0.15s ease; color: var(--ink-soft); }
+  details[open] summary .chev { transform: rotate(90deg); }
+
+  .product {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--line);
+  }
+  .product:last-child { border-bottom: none; }
+  .product-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: baseline;
+  }
+  .product-name { font-weight: 600; font-size: 0.96rem; }
+  .product-meta {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    display: block;
+    margin-top: 2px;
+  }
+  .product-price {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+  .tag {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-family: var(--font-body);
+    font-weight: 600;
+    color: var(--brick);
+    background: var(--brick-soft);
+    padding: 2px 7px;
+    border-radius: 20px;
+    margin-left: 8px;
+  }
+  .qty-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .qty-field {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 4px 6px;
+  }
+  .qty-field label {
+    font-size: 0.74rem;
+    color: var(--ink-soft);
+    padding-left: 4px;
+    white-space: nowrap;
+  }
+  .qty-field button {
+    width: 26px; height: 26px;
+    border-radius: 6px;
+    border: 1px solid var(--line);
+    background: var(--bg-elevated);
+    color: var(--ink);
+    font-size: 1rem;
+    cursor: pointer;
+    line-height: 1;
+  }
+  .qty-field input {
+    width: 42px;
+    text-align: center;
+    border: none;
+    background: transparent;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--ink);
+  }
+  .qty-field input:focus { outline: 2px solid var(--forest-soft); outline-offset: 1px; }
+
+  .details-block {
+    background: var(--bg-elevated);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 16px;
+    margin: 18px 0;
+  }
+  .details-block h2 {
+    font-family: var(--font-head);
+    font-size: 1rem;
+    margin: 0 0 10px;
+  }
+  .field-pair { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 4px; }
+  .field {
+    flex: 1;
+    min-width: 160px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .field label { font-size: 0.78rem; color: var(--ink-soft); }
+  .field input {
+    padding: 9px 11px;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    background: var(--bg);
+    color: var(--ink);
+  }
+  .hint { font-size: 0.76rem; color: var(--ink-soft); margin-top: 8px; }
+
+  .summary-bar {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    background: var(--forest);
+    color: var(--bg-elevated);
+    padding: 12px 16px;
+    padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    z-index: 30;
+    box-shadow: 0 -4px 16px rgba(0,0,0,0.18);
+  }
+  .summary-bar .count {
+    font-size: 0.82rem;
+    color: var(--gold-soft);
+  }
+  .summary-bar .total {
+    font-family: var(--font-mono);
+    font-size: 1.15rem;
+    font-weight: 600;
+  }
+  .summary-bar button {
+    background: var(--gold);
+    color: var(--forest);
+    border: none;
+    font-family: var(--font-head);
+    font-weight: 700;
+    padding: 11px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.92rem;
+  }
+  .summary-bar button:disabled { opacity: 0.45; cursor: not-allowed; }
+
+  .overlay {
+    position: fixed; inset: 0;
+    background: rgba(15, 20, 15, 0.55);
+    display: none;
+    align-items: flex-end;
+    justify-content: center;
+    z-index: 40;
+  }
+  .overlay.open { display: flex; }
+  .sheet {
+    background: var(--bg-elevated);
+    width: 100%;
+    max-width: 560px;
+    max-height: 82vh;
+    overflow-y: auto;
+    border-radius: 16px 16px 0 0;
+    padding: 20px;
+    padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  }
+  .sheet h2 { font-family: var(--font-head); margin-top: 0; }
+  .sheet table { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin-bottom: 12px; }
+  .sheet th, .sheet td { text-align: left; padding: 6px 4px; border-bottom: 1px solid var(--line); }
+  .sheet th:last-child, .sheet td:last-child { text-align: right; }
+  .sheet-total { display: flex; justify-content: space-between; font-family: var(--font-mono); font-weight: 600; padding: 8px 4px 16px; }
+  .sheet-actions { display: flex; gap: 10px; }
+  .sheet-actions button {
+    flex: 1;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    font-family: var(--font-head);
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+  .sheet-actions .primary { background: var(--forest); color: var(--bg-elevated); border-color: var(--forest); }
+  .sheet-actions .secondary { background: transparent; color: var(--ink); }
+  .empty-note { color: var(--ink-soft); font-size: 0.85rem; padding: 4px; }
+
+  @media (max-width: 420px) {
+    .product-price { font-size: 0.82rem; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <h1>Getränke bestellen</h1>
+  <p class="sub">Wählt eure Produkte und Mengen aus und erstellt daraus ein PDF für die Abholung. Die Preise sind unverbindlich und gelten je nach Verfügbarkeit.</p>
+  <div class="search-row">
+    <input type="search" id="search" placeholder="Produkt oder Art.-Nr. suchen…" oninput="renderProducts()">
+  </div>
+</header>
+
+<main>
+  <div class="banner">
+    Dieses Tool dient nur der Vorbestellung. Preise können abweichen, Top-Angebote gelten nur solange Vorrat. Eure Bestellung wird erst mit unserer Bestätigung verbindlich.
+  </div>
+
+  <div id="categories"></div>
+
+  <div class="details-block">
+    <h2>Angaben zur Abholung (optional)</h2>
+    <div class="field-pair">
+      <div class="field">
+        <label for="custName">Name</label>
+        <input type="text" id="custName" placeholder="von Hand ausfüllen oder hier eintragen">
+      </div>
+      <div class="field">
+        <label for="custDate">Wunschtermin Abholung</label>
+        <input type="date" id="custDate">
+      </div>
+    </div>
+    <p class="hint">Diese Angaben bleiben nur auf eurem Gerät und werden nirgends gespeichert oder verschickt – sie erscheinen lediglich auf dem PDF, das ihr selbst herunterladet.</p>
+  </div>
+</main>
+
+<div class="summary-bar">
+  <div>
+    <div class="count" id="itemCount">0 Artikel ausgewählt</div>
+    <div class="total" id="totalPrice">CHF 0.00</div>
+  </div>
+  <button id="reviewBtn" onclick="openReview()" disabled>Bestellung ansehen</button>
+</div>
+
+<div class="overlay" id="overlay">
+  <div class="sheet">
+    <h2>Bestellung prüfen</h2>
+    <div id="reviewList"></div>
+    <div class="sheet-actions">
+      <button class="secondary" onclick="closeReview()">Zurück</button>
+      <button class="primary" onclick="downloadPdf()">PDF erstellen</button>
+    </div>
+  </div>
+</div>
+
+<!-- 
+  PRODUKTDATEN:
+  Die Datei sortiment.js enthält das eigentliche Sortiment und kann separat gepflegt werden.
+  Sollte sortiment.js fehlen, greift das Fallback-Sortiment darunter.
+-->
+<script src="sortiment.js"></script>
+<script>
+// Fallback-Sortiment, falls sortiment.js nicht geladen wurde
+if (typeof CATEGORIES === "undefined") {
+  window.CATEGORIES = [
+    {
+      name: "Bier",
+      items: [
+        { art: "10234", name: "Feldschlösschen Lager, Flasche 33cl", price: 1.60, caseSize: 20 },
+        { art: "10235", name: "Feldschlösschen Lager, Dose 50cl", price: 1.40, caseSize: 24, unit: "dose" },
+        { art: "10240", name: "Quöllfrisch, Flasche 33cl", price: 1.95, caseSize: 20 },
+      ]
+    },
+    {
+      name: "Wein",
+      items: [
+        { art: "20110", name: "Fendant AOC, Rotwein 75cl", price: 12.90, caseSize: 6 },
+        { art: "20115", name: "Pinot Noir AOC 75cl", price: 14.50, caseSize: 6 },
+        { art: "20120", name: "Chasselas AOC 75cl", price: 11.20, caseSize: 6 },
+      ]
+    },
+    {
+      name: "Süssgetränke",
+      items: [
+        { art: "30010", name: "Coca-Cola 1.5L", price: 2.30, caseSize: 6 },
+        { art: "30011", name: "Coca-Cola Zero 1.5L", price: 2.30, caseSize: 6 },
+        { art: "30020", name: "Sinalco 1.5L", price: 1.95, caseSize: 6 },
+      ]
+    },
+    {
+      name: "Mineralwasser",
+      items: [
+        { art: "40001", name: "Mineralwasser prickelnd 1.5L", price: 0.95, caseSize: 6 },
+        { art: "40002", name: "Mineralwasser still 1.5L", price: 0.95, caseSize: 6 },
+        { art: "40010", name: "Wasser Zitrone 1.5L", price: 1.20, caseSize: 6 },
+      ]
+    },
+    {
+      name: "Eistee",
+      items: [
+        { art: "50001", name: "Eistee Zitrone 1.5L", price: 1.85, caseSize: 6 },
+        { art: "50002", name: "Eistee Pfirsich 1.5L", price: 1.85, caseSize: 6 },
+      ]
+    },
+    {
+      name: "Top-Angebote",
+      items: [
+        { art: "60001", name: "Bier-Harass Aktion, 20x33cl", price: 17.90, caseSize: 20, caseOnly: true, deal: true },
+        { art: "60002", name: "Weinprobierpaket, 6 Flaschen", price: 59.00, unit: "stk", caseOnly: true, deal: true },
+      ]
+    }
+  ];
+}
+
+// Automatische Normalisierung:
+// Erleichtert die Datenpflege, da 'id' und 'unit' nicht zwingend manuell vergeben werden müssen.
+function normalizeAssortment() {
+  CATEGORIES.forEach((cat, cIdx) => {
+    (cat.items || []).forEach((p, pIdx) => {
+      if (!p.id) {
+        p.id = p.art ? "art-" + String(p.art).replace(/[^a-zA-Z0-9_-]/g, "_") : `item-${cIdx}-${pIdx}`;
+      }
+      if (!p.unit) {
+        p.unit = "flasche";
+      }
+      if (typeof p.price !== "number") {
+        p.price = parseFloat(p.price) || 0;
+      }
+    });
+  });
+}
+normalizeAssortment();
+
+// Menge pro Produkt-ID: { bottles: n, cases: n }
+const qty = {};
+
+function money(n) {
+  return "CHF " + (n || 0).toFixed(2);
+}
+
+function getUnitLabel(p, short = false) {
+  if (p.unit === "dose") return short ? "Dosen" : "Dosen";
+  if (p.unit === "stk") return short ? "Stk." : "Stück";
+  return short ? "Fl." : "Flaschen";
+}
+
+function getBottleCount(p) {
+  const q = qty[p.id] || { bottles: 0, cases: 0 };
+  if (p.caseOnly) return q.cases * (p.caseSize || 1);
+  return q.bottles;
+}
+
+function getLineTotal(p) {
+  return getBottleCount(p) * p.price;
+}
+
+function renderProducts() {
+  const term = document.getElementById("search").value.trim().toLowerCase();
+  const wrap = document.getElementById("categories");
+  wrap.innerHTML = "";
+
+  CATEGORIES.forEach(cat => {
+    // Suche prüft Name und Artikelnummer
+    const items = (cat.items || []).filter(p => 
+      (p.name && p.name.toLowerCase().includes(term)) || 
+      (p.art && String(p.art).toLowerCase().includes(term))
+    );
+    if (items.length === 0) return;
+
+    const det = document.createElement("details");
+    det.className = "category";
+    det.open = term.length > 0;
+
+    const selectedInCat = items.filter(p => getBottleCount(p) > 0).length;
+
+    det.innerHTML = `
+      <summary>
+        <span>${cat.name}</span>
+        <span style="display:flex;align-items:center;gap:8px">
+          <span class="count">${selectedInCat > 0 ? selectedInCat + " gewählt" : items.length + " Artikel"}</span>
+          <span class="chev">›</span>
+        </span>
+      </summary>
+    `;
+
+    items.forEach(p => {
+      const row = document.createElement("div");
+      row.className = "product";
+      const q = qty[p.id] || { bottles: 0, cases: 0 };
+
+      let qtyHtml = "";
+      if (p.caseOnly) {
+        qtyHtml = `
+          <div class="qty-field">
+            <button onclick="changeQty('${p.id}','cases',-1)">−</button>
+            <input type="number" min="0" value="${q.cases}" oninput="setQty('${p.id}','cases',this.value)">
+            <label>Harasse</label>
+            <button onclick="changeQty('${p.id}','cases',1)">+</button>
+          </div>`;
+      } else if (p.caseSize) {
+        qtyHtml = `
+          <div class="qty-field">
+            <button onclick="changeQty('${p.id}','bottles',-1)">−</button>
+            <input type="number" min="0" value="${q.bottles}" oninput="setQty('${p.id}','bottles',this.value)">
+            <label>${getUnitLabel(p)}</label>
+            <button onclick="changeQty('${p.id}','bottles',1)">+</button>
+          </div>
+          <div class="qty-field">
+            <button onclick="changeQty('${p.id}','cases',-1)">−</button>
+            <input type="number" min="0" value="${q.cases}" oninput="setQty('${p.id}','cases',this.value)">
+            <label>Harasse à ${p.caseSize}</label>
+            <button onclick="changeQty('${p.id}','cases',1)">+</button>
+          </div>`;
+      } else {
+        qtyHtml = `
+          <div class="qty-field">
+            <button onclick="changeQty('${p.id}','bottles',-1)">−</button>
+            <input type="number" min="0" value="${q.bottles}" oninput="setQty('${p.id}','bottles',this.value)">
+            <label>${getUnitLabel(p, true)}</label>
+            <button onclick="changeQty('${p.id}','bottles',1)">+</button>
+          </div>`;
+      }
+
+      row.innerHTML = `
+        <div class="product-head">
+          <div>
+            <span class="product-name">${p.name}</span>${p.deal ? '<span class="tag">solange Vorrat</span>' : ''}
+            <span class="product-meta">Art. ${p.art}</span>
+          </div>
+          <div class="product-price">${money(p.price)} / ${getUnitLabel(p, true)}</div>
+        </div>
+        <div class="qty-row">${qtyHtml}</div>
+      `;
+      det.appendChild(row);
+    });
+
+    wrap.appendChild(det);
+  });
+
+  updateSummaryBar();
+}
+
+function changeQty(id, field, delta) {
+  const q = qty[id] || { bottles: 0, cases: 0 };
+  q[field] = Math.max(0, (q[field] || 0) + delta);
+  qty[id] = q;
+  syncLinkedField(id, field);
+  renderProducts();
+}
+
+function setQty(id, field, value) {
+  const n = Math.max(0, parseInt(value, 10) || 0);
+  const q = qty[id] || { bottles: 0, cases: 0 };
+  q[field] = n;
+  qty[id] = q;
+  syncLinkedField(id, field);
+  renderProducts();
+}
+
+function syncLinkedField(id, changedField) {
+  const p = findProduct(id);
+  if (!p || !p.caseSize || p.caseOnly) return;
+  const q = qty[id];
+  if (changedField === "cases") {
+    q.bottles = q.cases * p.caseSize;
+  } else if (changedField === "bottles") {
+    q.cases = Math.floor(q.bottles / p.caseSize);
+  }
+}
+
+function findProduct(id) {
+  for (const cat of CATEGORIES) {
+    const found = (cat.items || []).find(p => p.id === id);
+    if (found) return found;
+  }
+  return null;
+}
+
+function getSelectedProducts() {
+  const result = [];
+  CATEGORIES.forEach(cat => {
+    (cat.items || []).forEach(p => {
+      const n = getBottleCount(p);
+      if (n > 0) result.push({ product: p, count: n, total: n * p.price });
+    });
+  });
+  return result;
+}
+
+function updateSummaryBar() {
+  const selected = getSelectedProducts();
+  const total = selected.reduce((sum, s) => sum + s.total, 0);
+  document.getElementById("itemCount").textContent =
+    selected.length === 0 ? "0 Artikel ausgewählt" : selected.length + " Artikel ausgewählt";
+  document.getElementById("totalPrice").textContent = money(total) + " ca.";
+  document.getElementById("reviewBtn").disabled = selected.length === 0;
+}
+
+function openReview() {
+  const selected = getSelectedProducts();
+  const total = selected.reduce((sum, s) => sum + s.total, 0);
+  const list = document.getElementById("reviewList");
+
+  let rows = selected.map(s => `
+    <tr>
+      <td>${s.product.name}<br><span style="color:var(--ink-soft);font-family:var(--font-mono);font-size:0.75rem">Art. ${s.product.art}</span></td>
+      <td>${s.count} ${getUnitLabel(s.product, true)}</td>
+      <td>${money(s.total)}</td>
+    </tr>
+  `).join("");
+
+  if (selected.length === 0) {
+    list.innerHTML = '<p class="empty-note">Noch keine Artikel ausgewählt.</p>';
+  } else {
+    list.innerHTML = `
+      <table>
+        <thead><tr><th>Produkt</th><th>Menge</th><th>Total</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+      <div class="sheet-total"><span>Total (unverbindlich)</span><span>${money(total)}</span></div>
+    `;
+  }
+
+  document.getElementById("overlay").classList.add("open");
+}
+
+function closeReview() {
+  document.getElementById("overlay").classList.remove("open");
+}
+
+function makeReference() {
+  const now = new Date();
+  const pad = n => String(n).padStart(2, "0");
+  return pad(now.getDate()) + pad(now.getMonth() + 1) + "-" + pad(now.getHours()) + pad(now.getMinutes());
+}
+
+function downloadPdf() {
+  const selected = getSelectedProducts();
+  if (selected.length === 0) return;
+
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  const total = selected.reduce((sum, s) => sum + s.total, 0);
+  const ref = makeReference();
+  const name = document.getElementById("custName").value.trim();
+  const dateRaw = document.getElementById("custDate").value;
+  const today = new Date().toLocaleDateString("de-CH");
+
+  let formattedDate = "____________________";
+  if (dateRaw) {
+    const parts = dateRaw.split("-");
+    if (parts.length === 3) {
+      formattedDate = parts[2] + "." + parts[1] + "." + parts[0];
+    }
+  }
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(16);
+  doc.text("Getränkebestellung", 14, 18);
+
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(10);
+  doc.text("Referenz: " + ref, 14, 26);
+  doc.text("Erstellt am: " + today, 14, 31);
+  doc.text("Name: " + (name || "____________________"), 14, 39);
+  doc.text("Wunschtermin: " + formattedDate, 14, 45);
+
+  doc.autoTable({
+    startY: 52,
+    head: [["Art.-Nr.", "Produkt", "Menge", "Preis/Stk", "Total"]],
+    body: selected.map(s => [
+      s.product.art,
+      s.product.name,
+      s.count + " " + getUnitLabel(s.product, true),
+      "CHF " + s.product.price.toFixed(2),
+      "CHF " + s.total.toFixed(2)
+    ]),
+    styles: { fontSize: 9 },
+    headStyles: { fillColor: [36, 53, 43] },
+  });
+
+  const finalY = doc.lastAutoTable.finalY + 8;
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(11);
+  doc.text("Total (unverbindlich): CHF " + total.toFixed(2), 14, finalY);
+
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(8.5);
+  doc.text(
+    "Diese Zusammenstellung ist unverbindlich. Preise und Verfügbarkeit (insb. Top-Angebote) können abweichen.\nDie Bestellung wird erst mit Bestätigung durch das Landi-Team verbindlich.",
+    14, finalY + 8
+  );
+
+  doc.save("bestellung-" + ref + ".pdf");
+}
+
+renderProducts();
+</script>
+</body>
+</html>
