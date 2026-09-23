@@ -4017,3 +4017,44 @@ const CATEGORIES = [
     ]
   }
 ];
+
+const PRESETS = [
+  {
+    "id": "grillfest",
+    "title": "Grillfest (ca. 10 Pers.)",
+    "description": "Bier-Harass, Mineralwasser, Softdrinks & Pinot Noir",
+    "icon": "🍖",
+    "items": [
+      { "art": "10234", "cases": 1 },
+      { "art": "40001", "bottles": 12 },
+      { "art": "30010", "bottles": 12 },
+      { "art": "20115", "bottles": 2 }
+    ]
+  },
+  {
+    "id": "apero",
+    "title": "Apéro (ca. 20 Pers.)",
+    "description": "Fendant AOC, Pinot Noir, Mineralwasser & Süssgetränke",
+    "icon": "🥂",
+    "items": [
+      { "art": "20110", "bottles": 4 },
+      { "art": "20115", "bottles": 4 },
+      { "art": "40002", "bottles": 18 },
+      { "art": "30020", "bottles": 12 }
+    ]
+  },
+  {
+    "id": "party",
+    "title": "Vereinsfest (ca. 50 Pers.)",
+    "description": "Bier-Harasse, Quöllfrisch, Eistee & Mineralwasser",
+    "icon": "⚽",
+    "items": [
+      { "art": "10234", "cases": 3 },
+      { "art": "10240", "cases": 2 },
+      { "art": "40001", "bottles": 30 },
+      { "art": "50001", "bottles": 24 },
+      { "art": "30010", "bottles": 18 }
+    ]
+  }
+];
+
