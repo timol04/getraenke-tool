@@ -89,6 +89,19 @@ for r in rows:
         categories_map['Top-Angebote'].append(top_item)
 
     dest_cat = cat_name_map.get(raw_kat, raw_kat)
+    if dest_cat == 'Weine' and not re.search(r'Bag-in-Box|3\s*l|5\s*l', name, re.IGNORECASE):
+        if not cs:
+            cs = 6
+            item_obj["caseSize"] = cs
+        if gebinde in ['', 'Einzeln']:
+            gebinde = 'Einzeln & Pack'
+            item_obj["gebinde"] = gebinde
+            item_obj["allowSingleBottle"] = True
+            item_obj["caseOnly"] = False
+        if pe is not None and pp is None:
+            item_obj["pricePack"] = round(pe * cs, 2)
+            item_obj["price"] = item_obj["pricePack"]
+
     if dest_cat in categories_map:
         categories_map[dest_cat].append(item_obj)
 

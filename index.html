@@ -1782,6 +1782,7 @@ if (typeof CATEGORIES === "undefined") {
 function normalizeAssortment() {
   CATEGORIES.forEach((cat, cIdx) => {
     (cat.items || []).forEach((p, pIdx) => {
+      p.category = cat.name;
       if (!p.id) {
         p.id = p.art ? "art-" + String(p.art).replace(/[^a-zA-Z0-9_-]/g, "_") : `item-${cIdx}-${pIdx}`;
       }
@@ -1790,6 +1791,13 @@ function normalizeAssortment() {
       }
       if (typeof p.price !== "number") {
         p.price = parseFloat(p.price) || 0;
+      }
+      const isWine = (cat.name === "Weine" || cat.name === "Schaumweine & Champagner") && !/Bag-in-Box|3\s*l|5\s*l/i.test(p.name);
+      if (isWine) {
+        if (!p.caseSize) p.caseSize = 6;
+        if (!p.gebinde || p.gebinde === "Einzeln") p.gebinde = "Einzeln & Pack";
+        if (p.priceSingle === undefined && p.price) p.priceSingle = p.price;
+        if (p.pricePack === undefined && p.priceSingle) p.pricePack = Math.round(p.priceSingle * p.caseSize * 100) / 100;
       }
       if (p.gebinde === "Pack" || p.caseOnly) {
         p.caseOnly = true;
@@ -1823,6 +1831,11 @@ function getUnitLabel(p, short = false) {
 }
 
 function getCaseLabel(p, short = false) {
+  const cat = (p.category || "").toLowerCase();
+  const isWine = cat === "weine" || cat.includes("wein") || cat.includes("schaumwein");
+  if (isWine) {
+    return p.caseSize ? (short ? `Kart. à ${p.caseSize}` : `Karton à ${p.caseSize}`) : (short ? "Kart." : "Karton");
+  }
   const isMW = /MW\b|Mehrweg/i.test(p.name);
   if (isMW) {
     return p.caseSize ? (short ? `Har. à ${p.caseSize}` : `Harass à ${p.caseSize}`) : (short ? "Har." : "Harass");
@@ -1834,7 +1847,7 @@ function getCaseLabel(p, short = false) {
 function getBottleCount(p) {
   const q = qty[p.id] || { bottles: 0, cases: 0 };
   if (p.caseOnly || p.gebinde === "Pack" || p.allowSingleBottle === false) return (q.cases || 0) * (p.caseSize || 1);
-  return q.bottles || ((q.cases || 0) * (p.caseSize || 1));
+  return (q.bottles || 0) + ((q.cases || 0) * (p.caseSize || 1));
 }
 
 const REPO_OWNER = "timol04";
@@ -2729,11 +2742,9 @@ function getItemTotal(p, q) {
   if (!p.caseSize || p.caseSize <= 1 || p.gebinde === "Einzeln") {
     return (q.bottles || 0) * (p.priceSingle || p.price);
   }
-  const cases = q.cases || Math.floor((q.bottles || 0) / p.caseSize);
-  const extraBottles = (q.bottles || 0) % p.caseSize;
-  const packPrice = p.pricePack || p.price;
-  const singlePrice = p.priceSingle || (packPrice / p.caseSize);
-  return (cases * packPrice) + (extraBottles * singlePrice);
+  const packPrice = p.pricePack !== undefined && p.pricePack !== null ? p.pricePack : (p.priceSingle ? p.priceSingle * p.caseSize : p.price);
+  const singlePrice = p.priceSingle !== undefined && p.priceSingle !== null ? p.priceSingle : (packPrice / p.caseSize);
+  return ((q.cases || 0) * packPrice) + ((q.bottles || 0) * singlePrice);
 }
 
 function getSelectedProducts() {
@@ -2771,12 +2782,14 @@ function openReview() {
   const list = document.getElementById("reviewList");
 
   let rows = selected.map(s => {
+    const q = qty[s.product.id] || { bottles: 0, cases: 0 };
     let qtyText = `${s.count} ${getUnitLabel(s.product, true)}`;
-    if (s.cases > 0 && s.product.caseSize && (s.count % s.product.caseSize !== 0)) {
-      const extra = s.count % s.product.caseSize;
-      qtyText = `${s.cases} Pack (${s.cases * s.product.caseSize} ${getUnitLabel(s.product, true)}) + ${extra} ${getUnitLabel(s.product, true)} einzeln`;
-    } else if (s.cases > 0 && s.product.caseSize) {
-      qtyText = `${s.cases} ${getCaseLabel(s.product, true)} (${s.count} ${getUnitLabel(s.product, true)})`;
+    if (q.cases > 0 && q.bottles > 0 && s.product.caseSize) {
+      qtyText = `${q.cases} ${getCaseLabel(s.product, true)} + ${q.bottles} ${getUnitLabel(s.product, true)} einz. (${s.count} ${getUnitLabel(s.product, true)})`;
+    } else if (q.cases > 0 && s.product.caseSize) {
+      qtyText = `${q.cases} ${getCaseLabel(s.product, true)} (${s.count} ${getUnitLabel(s.product, true)})`;
+    } else {
+      qtyText = `${s.count} ${getUnitLabel(s.product, true)} einzeln`;
     }
     return `
     <tr>
@@ -2873,12 +2886,12 @@ function downloadPdf() {
     startY: 58,
     head: [["Art.-Nr.", "Produkt", "Stückzahl", "Gebinde / Bereitstellung", "Total"]],
     body: selected.map(s => {
+      const q = qty[s.product.id] || { bottles: 0, cases: 0 };
       let gebindeDetail = "";
-      if (s.cases > 0 && s.product.caseSize && (s.count % s.product.caseSize !== 0)) {
-        const extra = s.count % s.product.caseSize;
-        gebindeDetail = `${s.cases} Pack (${s.cases * s.product.caseSize} Fl.) + ${extra} Fl. einzeln`;
-      } else if (s.cases > 0 && s.product.caseSize) {
-        gebindeDetail = `${s.cases} ${getCaseLabel(s.product, true)} (${s.count} ${getUnitLabel(s.product, true)})`;
+      if (q.cases > 0 && q.bottles > 0 && s.product.caseSize) {
+        gebindeDetail = `${q.cases} ${getCaseLabel(s.product, true)} + ${q.bottles} ${getUnitLabel(s.product, true)} einz.`;
+      } else if (q.cases > 0 && s.product.caseSize) {
+        gebindeDetail = `${q.cases} ${getCaseLabel(s.product, true)} (${s.count} ${getUnitLabel(s.product, true)})`;
       } else {
         gebindeDetail = `${s.count} ${getUnitLabel(s.product, true)} einzeln`;
       }
