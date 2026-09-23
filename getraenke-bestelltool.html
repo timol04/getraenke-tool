@@ -801,6 +801,7 @@
       </div>
       <div style="display:flex; gap:8px; flex-wrap:wrap;">
         <button id="saveGithubBtn" onclick="savePricesToGithub()" style="background:#0284C7; color:white; border:none; padding:8px 16px; border-radius:14px; font-weight:bold; font-size:0.86rem; cursor:pointer; box-shadow:0 2px 8px rgba(2,132,199,0.3); transition:all 0.15s ease;">☁️ Live auf GitHub speichern</button>
+        <button onclick="openTokenModal()" style="background:transparent; color:#92400E; border:1px solid #FCD34D; padding:8px 12px; border-radius:14px; font-weight:600; font-size:0.82rem; cursor:pointer;">⚙️ Token erneuern</button>
         <button onclick="exportUpdatedJs()" style="background:#B45309; color:white; border:none; padding:8px 16px; border-radius:14px; font-weight:bold; font-size:0.86rem; cursor:pointer;">📋 Code kopieren</button>
         <button onclick="logoutAdmin()" style="background:transparent; color:#92400E; border:1px solid #FCD34D; padding:8px 12px; border-radius:14px; font-weight:600; font-size:0.82rem; cursor:pointer;">Abmelden</button>
       </div>
@@ -859,25 +860,51 @@
 </div>
 
 <div class="overlay" id="adminOverlay" onclick="handleAdminOverlayClick(event)">
-  <div class="sheet" style="max-width: 480px;">
+  <div class="sheet" style="max-width: 440px;">
     <div class="sheet-head">
       <h2>🔐 Admin Login (nur für Timo)</h2>
       <button class="sheet-close" onclick="closeAdminModal()">✕</button>
     </div>
+    <form onsubmit="event.preventDefault(); loginAdmin();">
+      <div style="margin-bottom: 16px; font-size: 0.9rem; color: var(--text-muted); line-height: 1.5;">
+        Gib das Admin-Passwort ein, um den Preis-Bearbeitungsmodus freizuschalten.
+      </div>
+      <div style="margin-bottom: 18px;">
+        <label style="display:block; font-size:0.82rem; font-weight:600; color:var(--text-muted); margin-bottom:6px;" for="adminPasswordInput">Admin-Passwort:</label>
+        <input type="password" id="adminPasswordInput" placeholder="Passwort eingeben…" style="width:100%; padding:12px 14px; border-radius:var(--radius-sm); border:1px solid var(--border); font-size:0.95rem;">
+      </div>
+      <div style="font-size:0.8rem; color:var(--text-subtle); margin-bottom:20px; display:flex; justify-content:space-between; align-items:center;">
+        <span>🔑 Passwort geschützt</span>
+        <button type="button" onclick="openTokenModal()" style="background:none; border:none; color:var(--accent-dark); font-weight:600; cursor:pointer; text-decoration:underline; font-size:0.8rem;">⚙️ Token verwalten / erneuern</button>
+      </div>
+      <div class="sheet-actions">
+        <button type="button" class="secondary" onclick="closeAdminModal()">Abbrechen</button>
+        <button type="submit" class="primary">Anmelden</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="overlay" id="tokenOverlay" onclick="handleTokenOverlayClick(event)">
+  <div class="sheet" style="max-width: 480px;">
+    <div class="sheet-head">
+      <h2>⚙️ GitHub Token erneuern / verwalten</h2>
+      <button class="sheet-close" onclick="closeTokenModal()">✕</button>
+    </div>
     <div style="margin-bottom: 16px; font-size: 0.9rem; color: var(--text-muted); line-height: 1.5;">
-      Gib deinen GitHub Personal Access Token ein, um den Preis-Bearbeitungsmodus freizuschalten und Änderungen direkt live auf GitHub zu speichern.
+      Der Personal Access Token erlaubt das automatische Speichern neuer Preise auf GitHub. Falls er abgelaufen ist, kannst du hier jederzeit einen neuen hinterlegen.
     </div>
     <div style="margin-bottom: 16px;">
       <label style="display:block; font-size:0.82rem; font-weight:600; color:var(--text-muted); margin-bottom:6px;" for="githubTokenInput">GitHub Access Token (PAT):</label>
       <input type="password" id="githubTokenInput" placeholder="github_pat_... oder ghp_..." style="width:100%; padding:12px 14px; border-radius:var(--radius-sm); border:1px solid var(--border); font-family:monospace; font-size:0.9rem;">
     </div>
     <div style="font-size:0.8rem; color:var(--text-subtle); margin-bottom:20px; line-height:1.45;">
-      💡 Der Token wird sicher in deinem Browser gespeichert.<br>
+      💡 Tipp: Wähle beim Erstellen auf GitHub <em>"No expiration"</em> (Nie ablaufen).<br>
       <a href="https://github.com/settings/tokens/new?description=Getraenke-Tool-Admin&scopes=repo" target="_blank" style="color:var(--accent-dark); font-weight:600; text-decoration:underline;">Neuen Token auf GitHub erstellen ↗</a>
     </div>
     <div class="sheet-actions">
-      <button class="secondary" onclick="closeAdminModal()">Abbrechen</button>
-      <button class="primary" onclick="loginAdmin()">Anmelden</button>
+      <button type="button" class="secondary" onclick="closeTokenModal()">Abbrechen</button>
+      <button type="button" class="primary" onclick="saveTokenSettings()">Token Speichern</button>
     </div>
   </div>
 </div>
@@ -983,24 +1010,26 @@ const REPO_OWNER = "timol04";
 const REPO_NAME = "getraenke-tool";
 const FILE_PATH = "sortiment.js";
 const TOKEN_KEY = "landi_admin_gh_token";
+const ADMIN_PASSWORD = "Landiwasserschlossadmin26";
 
 let isEditPricesMode = false;
+let isAdminAuthenticated = false;
 
 function getAdminToken() {
   return localStorage.getItem(TOKEN_KEY) || "";
 }
 
 function openAdminModal() {
-  const currentToken = getAdminToken();
-  if (currentToken) {
+  if (isAdminAuthenticated) {
     toggleEditPricesMode(true);
-  } else {
-    document.getElementById("adminOverlay").classList.add("open");
-    setTimeout(() => {
-      const input = document.getElementById("githubTokenInput");
-      if (input) input.focus();
-    }, 100);
+    return;
   }
+  const input = document.getElementById("adminPasswordInput");
+  if (input) input.value = "";
+  document.getElementById("adminOverlay").classList.add("open");
+  setTimeout(() => {
+    if (input) input.focus();
+  }, 100);
 }
 
 function closeAdminModal() {
@@ -1011,19 +1040,61 @@ function handleAdminOverlayClick(e) {
   if (e.target.id === "adminOverlay") closeAdminModal();
 }
 
-function loginAdmin() {
+function openTokenModal() {
+  closeAdminModal();
+  const input = document.getElementById("githubTokenInput");
+  if (input) input.value = getAdminToken();
+  document.getElementById("tokenOverlay").classList.add("open");
+  setTimeout(() => {
+    if (input) input.focus();
+  }, 100);
+}
+
+function closeTokenModal() {
+  document.getElementById("tokenOverlay").classList.remove("open");
+}
+
+function handleTokenOverlayClick(e) {
+  if (e.target.id === "tokenOverlay") closeTokenModal();
+}
+
+function saveTokenSettings() {
   const token = document.getElementById("githubTokenInput").value.trim();
-  if (!token) {
-    alert("Bitte gib einen gültigen GitHub Personal Access Token ein.");
+  if (token) {
+    localStorage.setItem(TOKEN_KEY, token);
+    alert("✅ GitHub Access Token wurde erfolgreich gespeichert!");
+  } else {
+    localStorage.removeItem(TOKEN_KEY);
+    alert("GitHub Token wurde entfernt.");
+  }
+  closeTokenModal();
+  if (isAdminAuthenticated) {
+    toggleEditPricesMode(true);
+  } else {
+    openAdminModal();
+  }
+}
+
+function loginAdmin() {
+  const pwdInput = document.getElementById("adminPasswordInput");
+  const pwd = pwdInput ? pwdInput.value : "";
+  if (pwd !== ADMIN_PASSWORD) {
+    alert("❌ Falsches Admin-Passwort!");
     return;
   }
-  localStorage.setItem(TOKEN_KEY, token);
+  isAdminAuthenticated = true;
   closeAdminModal();
-  toggleEditPricesMode(true);
+
+  if (!getAdminToken()) {
+    alert("🔑 Passwort korrekt!\nBitte hinterlege einmalig deinen GitHub Access Token, um Live-Speichern zu aktivieren.");
+    openTokenModal();
+  } else {
+    toggleEditPricesMode(true);
+  }
 }
 
 function logoutAdmin() {
-  localStorage.removeItem(TOKEN_KEY);
+  isAdminAuthenticated = false;
   isEditPricesMode = false;
   document.getElementById("editBanner").style.display = "none";
   updateAdminHeaderBtn();
@@ -1033,11 +1104,10 @@ function logoutAdmin() {
 function updateAdminHeaderBtn() {
   const btn = document.getElementById("editPricesBtn");
   if (!btn) return;
-  const loggedIn = !!getAdminToken();
   if (isEditPricesMode) {
     btn.textContent = "✅ Bearbeiten beenden";
     btn.style.background = "#B45309";
-  } else if (loggedIn) {
+  } else if (isAdminAuthenticated) {
     btn.textContent = "✏️ Preise bearbeiten";
     btn.style.background = "rgba(255,255,255,0.14)";
   } else {
@@ -1052,8 +1122,8 @@ function toggleEditPricesMode(forceState) {
   } else {
     isEditPricesMode = !isEditPricesMode;
   }
-  
-  if (isEditPricesMode && !getAdminToken()) {
+
+  if (isEditPricesMode && !isAdminAuthenticated) {
     openAdminModal();
     return;
   }
