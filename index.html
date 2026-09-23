@@ -1256,6 +1256,15 @@ function getUnitLabel(p, short = false) {
   return short ? "Fl." : "Flaschen";
 }
 
+function getCaseLabel(p, short = false) {
+  const isMW = /MW\b|Mehrweg/i.test(p.name);
+  if (isMW) {
+    return p.caseSize ? (short ? `Har. à ${p.caseSize}` : `Harass à ${p.caseSize}`) : (short ? "Har." : "Harass");
+  } else {
+    return p.caseSize ? (short ? `Pck. à ${p.caseSize}` : `Pack à ${p.caseSize}`) : (short ? "Pck." : "Pack");
+  }
+}
+
 function getBottleCount(p) {
   const q = qty[p.id] || { bottles: 0, cases: 0 };
   if (p.caseOnly || p.allowSingleBottle === false) return (q.cases || 0) * (p.caseSize || 1);
@@ -1508,9 +1517,13 @@ const SUB_FILTERS = {
     { label: "Alle", match: () => true },
     { label: "Cola & Softdrinks", match: p => /coca|cola|citro|grapefruit|lemon soda|sanal|sinalco|rivella|san pellegrino/i.test(p.name) },
     { label: "Ice Tea", match: p => /ice tea|eistee/i.test(p.name) },
-    { label: "Energy Drinks", match: p => /red bull|energy/i.test(p.name) },
     { label: "Säfte & Most", match: p => /saft|orangensaft|traubensaft|cranberry|multivitamin|sauser|capri|most|süessmost|schnitzwasser/i.test(p.name) },
     { label: "Sirup & Punsch", match: p => /sirup|punsch|holunder|focus water|vitaminwater/i.test(p.name) }
+  ],
+  "Energy Drinks/Mate": [
+    { label: "Alle", match: () => true },
+    { label: "Energy Drinks", match: p => /energy|red bull/i.test(p.name) },
+    { label: "Mate", match: p => /mate/i.test(p.name) }
   ],
   "Biere": [
     { label: "Alle", match: () => true },
@@ -1549,6 +1562,10 @@ function getCategoryIconConfig(name) {
     "Eistee": {
       bg: "#EAF2E8", color: "#2D6A4F",
       svg: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.1 2 7a9 9 0 0 1-10 11z"></path><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path></svg>`
+    },
+    "Energy Drinks/Mate": {
+      bg: "#F3E8FF", color: "#7C3AED",
+      svg: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>`
     },
     "Top-Angebote": {
       bg: "#FDF5DC", color: "#C9A227",
@@ -1652,7 +1669,7 @@ function renderProducts() {
             <button class="qty-btn" onclick="changeQty('${p.id}','cases',-1)">−</button>
             <input type="number" id="input_${p.id}_cases" min="0" value="${q.cases}" oninput="setQty('${p.id}','cases',this.value)" onfocus="this.select()">
             <button class="qty-btn" onclick="changeQty('${p.id}','cases',1)">+</button>
-            <label>Harasse</label>
+            <label>${getCaseLabel(p)}</label>
           </div>`;
       } else if (p.caseSize) {
         qtyHtml = `
@@ -1666,7 +1683,7 @@ function renderProducts() {
             <button class="qty-btn" onclick="changeQty('${p.id}','cases',-1)">−</button>
             <input type="number" id="input_${p.id}_cases" min="0" value="${q.cases}" oninput="setQty('${p.id}','cases',this.value)" onfocus="this.select()">
             <button class="qty-btn" onclick="changeQty('${p.id}','cases',1)">+</button>
-            <label>Harasse à ${p.caseSize}</label>
+            <label>${getCaseLabel(p)}</label>
           </div>`;
       } else {
         qtyHtml = `

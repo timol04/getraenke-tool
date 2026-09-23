@@ -17,26 +17,6 @@ const CATEGORIES = [
         "unit": "flasche"
       },
       {
-        "art": "35400",
-        "name": "Coca-Cola Zero Dose 24 × 33 cl",
-        "price": 14.95,
-        "caseSize": 24,
-        "caseOnly": true,
-        "allowSingleBottle": false,
-        "deal": true,
-        "unit": "flasche"
-      },
-      {
-        "art": "35398",
-        "name": "Coca-Cola Dose 24 × 33 cl",
-        "price": 14.95,
-        "caseSize": 24,
-        "caseOnly": true,
-        "allowSingleBottle": false,
-        "deal": true,
-        "unit": "flasche"
-      },
-      {
         "art": "82128",
         "name": "San Pellegrino Chino 24 × 33 cl",
         "price": 16.5,
@@ -121,76 +101,6 @@ const CATEGORIES = [
         "name": "Sauser m.A. Ramseier 6 × 50 cl",
         "price": 10.95,
         "caseSize": 6,
-        "caseOnly": true,
-        "allowSingleBottle": false,
-        "deal": true,
-        "unit": "flasche"
-      },
-      {
-        "art": "46003",
-        "name": "Lagerbier Feld. Original 24 × 50 cl",
-        "price": 27.6,
-        "caseSize": 24,
-        "caseOnly": true,
-        "allowSingleBottle": false,
-        "deal": true,
-        "unit": "flasche"
-      },
-      {
-        "art": "87313",
-        "name": "Lagerbier Feld. Original 24 × 33 cl",
-        "price": 20.95,
-        "caseSize": 24,
-        "caseOnly": true,
-        "allowSingleBottle": false,
-        "deal": true,
-        "unit": "flasche"
-      },
-      {
-        "art": "88317",
-        "name": "Bier Quöllfrisch Dose 24 × 50 cl",
-        "price": 27.5,
-        "caseSize": 24,
-        "caseOnly": true,
-        "allowSingleBottle": false,
-        "deal": true,
-        "unit": "flasche"
-      },
-      {
-        "art": "91683",
-        "name": "Bier Moretti Dose 12 × 50 cl",
-        "price": 19.92,
-        "caseSize": 12,
-        "caseOnly": true,
-        "allowSingleBottle": false,
-        "deal": true,
-        "unit": "flasche"
-      },
-      {
-        "art": "72340",
-        "name": "Calanda Radler Zitrone 24 × 50 cl",
-        "price": 16.5,
-        "caseSize": 24,
-        "caseOnly": true,
-        "allowSingleBottle": false,
-        "deal": true,
-        "unit": "flasche"
-      },
-      {
-        "art": "68896",
-        "name": "Bier Moretti Dose 24 × 50 cl",
-        "price": 20.95,
-        "caseSize": 24,
-        "caseOnly": true,
-        "allowSingleBottle": false,
-        "deal": true,
-        "unit": "flasche"
-      },
-      {
-        "art": "50898",
-        "name": "Eve Strawberry Mojito 10 × 27,5 cl",
-        "price": 17.25,
-        "caseSize": 10,
         "caseOnly": true,
         "allowSingleBottle": false,
         "deal": true,
@@ -250,6 +160,87 @@ const CATEGORIES = [
         "allowSingleBottle": false,
         "deal": true,
         "unit": "flasche"
+      },
+      {
+        "art": "46003",
+        "name": "Lagerbier Feld. Original 24x50cl",
+        "price": 27.6,
+        "caseSize": 24,
+        "caseOnly": true,
+        "allowSingleBottle": false,
+        "deal": true
+      },
+      {
+        "art": "109340",
+        "name": "Bier Moretti Dose 24x33cl",
+        "price": 20.95,
+        "caseSize": 24,
+        "caseOnly": true,
+        "allowSingleBottle": false,
+        "deal": true
+      },
+      {
+        "art": "88317",
+        "name": "Bier Quoellfrisch Dose 24x50cl",
+        "price": 29.95,
+        "caseSize": 24,
+        "caseOnly": true,
+        "allowSingleBottle": false,
+        "deal": true
+      },
+      {
+        "art": "111698",
+        "name": "Farmer Bier Lager Dose 24x33cl",
+        "price": 11.95,
+        "caseSize": 24,
+        "caseOnly": true,
+        "allowSingleBottle": false,
+        "deal": true
+      },
+      {
+        "art": "109408",
+        "name": "Bier Peroni Dose 24x33cl",
+        "price": 19.95,
+        "caseSize": 24,
+        "caseOnly": true,
+        "allowSingleBottle": false,
+        "deal": true
+      },
+      {
+        "art": "105553",
+        "name": "Bier Quoellfrisch 24x33cl",
+        "price": 19.95,
+        "caseSize": 24,
+        "caseOnly": true,
+        "allowSingleBottle": false,
+        "deal": true
+      },
+      {
+        "art": "68896",
+        "name": "Bier Moretti Dose 24x50cl",
+        "price": 29.5,
+        "caseSize": 24,
+        "caseOnly": true,
+        "allowSingleBottle": false,
+        "deal": true
+      },
+      {
+        "art": "50898",
+        "name": "Eve Strawberry Mojito 10x27.5cl",
+        "price": 17.25,
+        "caseSize": 10,
+        "caseOnly": true,
+        "allowSingleBottle": false,
+        "deal": true
+      },
+      {
+        "art": "113708",
+        "name": "Bier Moretti Sale d. M. 24x33cl",
+        "price": 26.95,
+        "caseSize": 24,
+        "caseOnly": true,
+        "allowSingleBottle": false,
+        "deal": true
       }
     ]
   },
@@ -261,88 +252,99 @@ const CATEGORIES = [
         "name": "Mineralwasser Farmer rot 6×150cl",
         "price": 3.65,
         "caseSize": 6,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "allowSingleBottle": false,
+        "unit": "flasche",
+        "caseOnly": true
       },
       {
         "art": "87524",
         "name": "Mineralwasser Farmer blau 6×150cl",
         "price": 3.65,
         "caseSize": 6,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "allowSingleBottle": false,
+        "unit": "flasche",
+        "caseOnly": true
       },
       {
         "art": "87534",
         "name": "Mineralwasser Farmer grün 6×150cl",
         "price": 3.65,
         "caseSize": 6,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "allowSingleBottle": false,
+        "unit": "flasche",
+        "caseOnly": true
       },
       {
         "art": "35282",
         "name": "Quintus Quelle blau 6 × 150 cl",
         "price": 1.95,
         "caseSize": 6,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "allowSingleBottle": false,
+        "unit": "flasche",
+        "caseOnly": true
       },
       {
         "art": "09018",
         "name": "Mineralwasser Farmer blau 6×50cl",
         "price": 3.2,
         "caseSize": 6,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "allowSingleBottle": false,
+        "unit": "flasche",
+        "caseOnly": true
       },
       {
         "art": "12356",
         "name": "Mineralwasser Farmer rot 6×50cl",
         "price": 3.2,
         "caseSize": 6,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "allowSingleBottle": false,
+        "unit": "flasche",
+        "caseOnly": true
       },
       {
         "art": "45516",
         "name": "Quintus Quelle rot 6 ×150 cl",
         "price": 1.95,
         "caseSize": 6,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "allowSingleBottle": false,
+        "unit": "flasche",
+        "caseOnly": true
       },
       {
         "art": "09015",
         "name": "Mineralwasser Farmer grün 6×50cl",
         "price": 3.2,
         "caseSize": 6,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "allowSingleBottle": false,
+        "unit": "flasche",
+        "caseOnly": true
       },
       {
         "art": "87512",
         "name": "Henniez grün 6 × 50 cl",
         "price": 4.7,
         "caseSize": 6,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "allowSingleBottle": false,
+        "unit": "flasche",
+        "caseOnly": true
       },
       {
         "art": "87507",
         "name": "Henniez rot 6 × 50 cl",
         "price": 4.7,
         "caseSize": 6,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "allowSingleBottle": false,
+        "unit": "flasche",
+        "caseOnly": true
       },
       {
         "art": "02166",
         "name": "Henniez blau 6 × 50 cl",
         "price": 4.7,
         "caseSize": 6,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "allowSingleBottle": false,
+        "unit": "flasche",
+        "caseOnly": true
       }
     ]
   },
@@ -354,8 +356,9 @@ const CATEGORIES = [
         "name": "Ice Tea Farmer Lemon 6 × 150 cl",
         "price": 3.95,
         "caseSize": 6,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "allowSingleBottle": false,
+        "unit": "flasche",
+        "caseOnly": true
       },
       {
         "art": "88632",
@@ -382,16 +385,18 @@ const CATEGORIES = [
         "name": "Citro Farmer zéro 6 × 150 cl",
         "price": 3.65,
         "caseSize": 6,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "allowSingleBottle": false,
+        "unit": "flasche",
+        "caseOnly": true
       },
       {
         "art": "09014",
         "name": "Ice Tea Farmer Lemon 6 × 50 cl",
         "price": 2.95,
         "caseSize": 6,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "allowSingleBottle": false,
+        "unit": "flasche",
+        "caseOnly": true
       },
       {
         "art": "35398",
@@ -408,64 +413,72 @@ const CATEGORIES = [
         "name": "Citro Farmer zéro 6 × 50 cl",
         "price": 3.18,
         "caseSize": 6,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "allowSingleBottle": false,
+        "unit": "flasche",
+        "caseOnly": true
       },
       {
         "art": "09017",
         "name": "Ice Tea Farmer Peach 6 × 50 cl",
         "price": 2.95,
         "caseSize": 6,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "allowSingleBottle": false,
+        "unit": "flasche",
+        "caseOnly": true
       },
       {
         "art": "87709",
         "name": "Ice Tea Farmer Peach 6 × 150 cl",
         "price": 3.95,
         "caseSize": 6,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "allowSingleBottle": false,
+        "unit": "flasche",
+        "caseOnly": true
       },
       {
         "art": "13152",
         "name": "Coca-Cola 8 × 150 cl",
         "price": 16.48,
         "caseSize": 8,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "allowSingleBottle": false,
+        "unit": "flasche",
+        "caseOnly": true
       },
       {
         "art": "99712",
         "name": "Grapefruit Farmer zéro 6×150cl",
         "price": 3.65,
         "caseSize": 6,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "allowSingleBottle": false,
+        "unit": "flasche",
+        "caseOnly": true
       },
       {
         "art": "78099",
         "name": "Schnitzwasser Farmer 6 × 150 cl",
         "price": 3.65,
         "caseSize": 6,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "allowSingleBottle": false,
+        "unit": "flasche",
+        "caseOnly": true
       },
       {
         "art": "82220",
         "name": "Ice Tea Farmer Mint 6 × 150 cl",
         "price": 4.95,
         "caseSize": 6,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "allowSingleBottle": false,
+        "unit": "flasche",
+        "caseOnly": true
       },
       {
         "art": "35378",
         "name": "Coca-Cola 8 × 50 cl",
         "price": 11.44,
         "caseSize": 8,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "allowSingleBottle": false,
+        "unit": "flasche",
+        "caseOnly": true
       },
       {
         "art": "82128",
@@ -482,40 +495,45 @@ const CATEGORIES = [
         "name": "Cola Farmer zéro 6 × 150 cl",
         "price": 3.65,
         "caseSize": 6,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "allowSingleBottle": false,
+        "unit": "flasche",
+        "caseOnly": true
       },
       {
         "art": "35376",
         "name": "Coca-Cola Zero 8 × 50 cl",
         "price": 11.44,
         "caseSize": 8,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "allowSingleBottle": false,
+        "unit": "flasche",
+        "caseOnly": true
       },
       {
         "art": "13153",
         "name": "Coca-Cola Zero 8 × 150 cl",
         "price": 16.48,
         "caseSize": 8,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "allowSingleBottle": false,
+        "unit": "flasche",
+        "caseOnly": true
       },
       {
         "art": "85041",
         "name": "Schnitzwasser Farmer 6 × 50 cl",
         "price": 3.18,
         "caseSize": 6,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "allowSingleBottle": false,
+        "unit": "flasche",
+        "caseOnly": true
       },
       {
         "art": "87319",
         "name": "Vitaminwater Farmer Zitrone 6×50cl",
         "price": 3.18,
         "caseSize": 6,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "allowSingleBottle": false,
+        "unit": "flasche",
+        "caseOnly": true
       },
       {
         "art": "68904",
@@ -532,24 +550,27 @@ const CATEGORIES = [
         "name": "Ice Tea Farmer Mint 6 × 50 cl",
         "price": 3.5,
         "caseSize": 6,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "allowSingleBottle": false,
+        "unit": "flasche",
+        "caseOnly": true
       },
       {
         "art": "87810",
         "name": "Holunder-Melisse Farmer 6 × 150 cl",
         "price": 3.65,
         "caseSize": 6,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "allowSingleBottle": false,
+        "unit": "flasche",
+        "caseOnly": true
       },
       {
         "art": "46020",
         "name": "Rivella rot 8 × 50 cl",
         "price": 11.92,
         "caseSize": 8,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "allowSingleBottle": false,
+        "unit": "flasche",
+        "caseOnly": true
       },
       {
         "art": "82126",
@@ -566,8 +587,9 @@ const CATEGORIES = [
         "name": "Holunder-Melisse Farmer 6×50cl",
         "price": 3.18,
         "caseSize": 6,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "allowSingleBottle": false,
+        "unit": "flasche",
+        "caseOnly": true
       },
       {
         "art": "40938",
@@ -604,24 +626,27 @@ const CATEGORIES = [
         "name": "Energy Drink Red Bull Dose 6×25cl",
         "price": 8.88,
         "caseSize": 6,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "allowSingleBottle": false,
+        "unit": "flasche",
+        "caseOnly": true
       },
       {
         "art": "38994",
         "name": "Energy Drink Red Bull S.free 6×25cl",
         "price": 8.88,
         "caseSize": 6,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "allowSingleBottle": false,
+        "unit": "flasche",
+        "caseOnly": true
       },
       {
         "art": "42617",
         "name": "Orangensaft Farmer 6 × 100 cl",
         "price": 7.8,
         "caseSize": 6,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "allowSingleBottle": false,
+        "unit": "flasche",
+        "caseOnly": true
       },
       {
         "art": "87543",
@@ -648,56 +673,63 @@ const CATEGORIES = [
         "name": "Traubensaft Farmer rot 4 × 100 cl",
         "price": 6.24,
         "caseSize": 4,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "allowSingleBottle": false,
+        "unit": "flasche",
+        "caseOnly": true
       },
       {
         "art": "41741",
         "name": "Cranberry Farmer 4 × 100 cl",
         "price": 6.96,
         "caseSize": 4,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "allowSingleBottle": false,
+        "unit": "flasche",
+        "caseOnly": true
       },
       {
         "art": "51528",
         "name": "Multivitamin Farmer 6 × 100 cl",
         "price": 9.54,
         "caseSize": 6,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "allowSingleBottle": false,
+        "unit": "flasche",
+        "caseOnly": true
       },
       {
         "art": "87743",
         "name": "Sauser m.A. Ramseier 6 × 100 cl",
         "price": 19.32,
         "caseSize": 6,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "allowSingleBottle": false,
+        "unit": "flasche",
+        "caseOnly": true
       },
       {
         "art": "38358",
         "name": "Capri Sun Multivitamin 15 × 33 cl",
         "price": 18,
         "caseSize": 15,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "allowSingleBottle": false,
+        "unit": "flasche",
+        "caseOnly": true
       },
       {
         "art": "96103",
         "name": "Direkt Orangensaft Farmer 6×100cl",
         "price": 14.7,
         "caseSize": 6,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "allowSingleBottle": false,
+        "unit": "flasche",
+        "caseOnly": true
       },
       {
         "art": "34965",
         "name": "Capri Sun Orange-Peach 15×33cl",
         "price": 17.95,
         "caseSize": 15,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "allowSingleBottle": false,
+        "unit": "flasche",
+        "caseOnly": true
       },
       {
         "art": "54906",
@@ -712,363 +744,882 @@ const CATEGORIES = [
     ]
   },
   {
+    "name": "Energy Drinks/Mate",
+    "items": [
+      {
+        "art": "16149",
+        "name": "Energy Drink Red Bull Dose 24 × 25 cl",
+        "price": 19.95,
+        "caseSize": 24,
+        "caseOnly": true,
+        "allowSingleBottle": false,
+        "unit": "dose"
+      },
+      {
+        "art": "87800",
+        "name": "Energy Drink Red Bull Dose 6 × 25 cl",
+        "price": 8.88,
+        "caseSize": 6,
+        "caseOnly": true,
+        "allowSingleBottle": false,
+        "unit": "dose"
+      },
+      {
+        "art": "38994",
+        "name": "Energy Drink Red Bull Sugarfree 6 × 25 cl",
+        "price": 8.88,
+        "caseSize": 6,
+        "caseOnly": true,
+        "allowSingleBottle": false,
+        "unit": "dose"
+      },
+      {
+        "art": "98124",
+        "name": "Farmer Energy Drink Dose 24 × 25 cl",
+        "price": 11.8,
+        "caseSize": 24,
+        "caseOnly": true,
+        "allowSingleBottle": false,
+        "unit": "dose"
+      },
+      {
+        "art": "98125",
+        "name": "Farmer Energy Drink Dose 25 cl",
+        "price": 0.5,
+        "caseOnly": false,
+        "allowSingleBottle": true,
+        "unit": "dose"
+      },
+      {
+        "art": "99401",
+        "name": "Club-Mate 20 × 50 cl",
+        "price": 24.5,
+        "caseSize": 20,
+        "caseOnly": true,
+        "allowSingleBottle": false,
+        "unit": "flasche"
+      }
+    ]
+  },
+  {
     "name": "Biere",
     "items": [
       {
         "art": "46003",
-        "name": "Lagerbier Feld. Original 24 × 50 cl",
+        "name": "Lagerbier Feld. Original 24x50cl",
         "price": 27.6,
         "caseSize": 24,
         "caseOnly": true,
         "allowSingleBottle": false,
-        "deal": true,
-        "unit": "flasche"
+        "deal": true
       },
       {
         "art": "87313",
-        "name": "Lagerbier Feld. Original 24 × 33 cl",
+        "name": "Lagerbier Feld. Original 24x33cl",
+        "price": 20.95,
+        "caseSize": 24,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "109340",
+        "name": "Bier Moretti Dose 24x33cl",
         "price": 20.95,
         "caseSize": 24,
         "caseOnly": true,
         "allowSingleBottle": false,
-        "deal": true,
-        "unit": "flasche"
+        "deal": true
       },
       {
         "art": "87448",
-        "name": "Lagerbier Farmer Dose 50 cl",
-        "price": 0.12,
+        "name": "Lagerbier Farmer Dose 50cl",
+        "price": 0.6,
+        "caseOnly": false,
         "allowSingleBottle": true,
-        "unit": "flasche"
+        "unit": "dose"
       },
       {
         "art": "75884",
-        "name": "Bier Quöllfrisch 15 × 33 cl",
-        "price": 15.9,
+        "name": "Bier Quoellfrisch 15x33cl",
+        "price": 15.95,
         "caseSize": 15,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "caseOnly": true,
+        "allowSingleBottle": false
       },
       {
         "art": "88317",
-        "name": "Bier Quöllfrisch Dose 24 × 50 cl",
-        "price": 27.5,
+        "name": "Bier Quoellfrisch Dose 24x50cl",
+        "price": 29.95,
         "caseSize": 24,
         "caseOnly": true,
         "allowSingleBottle": false,
-        "deal": true,
-        "unit": "flasche"
+        "deal": true
+      },
+      {
+        "art": "107843",
+        "name": "Bier Moretti EW 15x33cl",
+        "price": 18.95,
+        "caseSize": 15,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "109341",
+        "name": "Bier Moretti Limone 3x33cl",
+        "price": 4.95,
+        "caseSize": 3,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "111698",
+        "name": "Farmer Bier Lager Dose 24x33cl",
+        "price": 11.95,
+        "caseSize": 24,
+        "caseOnly": true,
+        "allowSingleBottle": false,
+        "deal": true
       },
       {
         "art": "18249",
-        "name": "Bier Calanda Radler 10 × 33 cl",
+        "name": "Bier Calanda Radler 10x33cl",
         "price": 12.5,
         "caseSize": 10,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "caseOnly": true,
+        "allowSingleBottle": false
       },
       {
         "art": "75827",
-        "name": "Bier Boxer old 24 × 33 cl",
-        "price": 19.92,
+        "name": "Bier Boxer old 24x33cl",
+        "price": 19.95,
         "caseSize": 24,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "caseOnly": true,
+        "allowSingleBottle": false
       },
       {
         "art": "26980",
-        "name": "Lagerbier Farmer Dose 18 × 50 cl",
+        "name": "Lagerbier Farmer Dose 18x50cl",
         "price": 10.8,
         "caseSize": 18,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "caseOnly": true,
+        "allowSingleBottle": false
       },
       {
         "art": "15492",
-        "name": "Corona Extra Bier 6 × 33 cl",
-        "price": 7.98,
+        "name": "Corona Extra Bier 6x33cl",
+        "price": 7.95,
         "caseSize": 6,
-        "allowSingleBottle": true,
-        "unit": "flasche"
-      },
-      {
-        "art": "87303",
-        "name": "Lagerbier Feld. Original MW 50 cl",
-        "price": 0.34,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "caseOnly": true,
+        "allowSingleBottle": false
       },
       {
         "art": "91683",
-        "name": "Bier Moretti Dose 12 × 50 cl",
-        "price": 19.92,
+        "name": "Bier Moretti Dose 12x50cl",
+        "price": 19.95,
         "caseSize": 12,
         "caseOnly": true,
-        "allowSingleBottle": false,
-        "deal": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "87303",
+        "name": "Lagerbier Feld. Original MW 50cl",
+        "price": 1.7,
+        "caseOnly": false,
+        "allowSingleBottle": true,
         "unit": "flasche"
       },
       {
         "art": "38092",
-        "name": "Bier Farmer Naturtrüb 50 cl",
-        "price": 0.15,
+        "name": "Bier Farmer Naturtrueb 50cl",
+        "price": 0.75,
+        "caseOnly": false,
         "allowSingleBottle": true,
         "unit": "flasche"
       },
       {
         "art": "46423",
-        "name": "Amberbier Farmer Dose 50 cl",
-        "price": 1.5,
+        "name": "Amberbier Farmer Dose 50cl",
+        "price": 0.75,
+        "caseOnly": false,
         "allowSingleBottle": true,
-        "unit": "flasche"
+        "unit": "dose"
       },
       {
-        "art": "72340",
-        "name": "Calanda Radler Zitrone 24 × 50 cl",
-        "price": 16.5,
+        "art": "109408",
+        "name": "Bier Peroni Dose 24x33cl",
+        "price": 19.95,
         "caseSize": 24,
         "caseOnly": true,
         "allowSingleBottle": false,
-        "deal": true,
-        "unit": "flasche"
+        "deal": true
+      },
+      {
+        "art": "72340",
+        "name": "Calanda Radler Zitrone 24x50cl",
+        "price": 27.95,
+        "caseSize": 24,
+        "caseOnly": true,
+        "allowSingleBottle": false
       },
       {
         "art": "35247",
-        "name": "Bier Sagres 24 × 25 cl",
-        "price": 15.84,
+        "name": "Bier Sagres 24x25cl",
+        "price": 15.95,
         "caseSize": 24,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "caseOnly": true,
+        "allowSingleBottle": false
       },
       {
         "art": "66226",
-        "name": "Quöllfrisch naturtrüb 15 × 33cl",
-        "price": 15.9,
+        "name": "Quoellfrisch naturtrueb 15x33cl",
+        "price": 15.95,
         "caseSize": 15,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "caseOnly": true,
+        "allowSingleBottle": false
       },
       {
         "art": "30234",
-        "name": "Lagerbier Feld. Original Dose 15×50cl",
-        "price": 24.9,
+        "name": "Lagerbier Feld. Original Dose 15x50cl",
+        "price": 24.95,
         "caseSize": 15,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "caseOnly": true,
+        "allowSingleBottle": false
       },
       {
         "art": "13151",
-        "name": "Panaché Farmer Lemon Dose 50cl",
-        "price": 0.12,
+        "name": "Panache Farmer Lemon Dose 50cl",
+        "price": 0.6,
+        "caseOnly": false,
         "allowSingleBottle": true,
-        "unit": "flasche"
+        "unit": "dose"
+      },
+      {
+        "art": "105553",
+        "name": "Bier Quoellfrisch 24x33cl",
+        "price": 19.95,
+        "caseSize": 24,
+        "caseOnly": true,
+        "allowSingleBottle": false,
+        "deal": true
+      },
+      {
+        "art": "68896",
+        "name": "Bier Moretti Dose 24x50cl",
+        "price": 29.5,
+        "caseSize": 24,
+        "caseOnly": true,
+        "allowSingleBottle": false,
+        "deal": true
       },
       {
         "art": "87441",
-        "name": "Spezialbier Rugenbräu MW 33 cl",
-        "price": 0.47,
+        "name": "Spezialbier Rugenbraeu MW 33cl",
+        "price": 1.55,
+        "caseOnly": false,
         "allowSingleBottle": true,
         "unit": "flasche"
       },
       {
         "art": "88308",
-        "name": "Bier Pale Ale Farmer Dose 50 cl",
-        "price": 1.6,
+        "name": "Bier Pale Ale Farmer Dose 50cl",
+        "price": 0.8,
+        "caseOnly": false,
         "allowSingleBottle": true,
-        "unit": "flasche"
+        "unit": "dose"
       },
       {
-        "art": "68896",
-        "name": "Bier Moretti Dose 24 × 50 cl",
-        "price": 20.95,
-        "caseSize": 24,
+        "art": "102400",
+        "name": "Bier Moretti XL 15x66cl",
+        "price": 25.95,
+        "caseSize": 15,
         "caseOnly": true,
-        "allowSingleBottle": false,
-        "deal": true,
-        "unit": "flasche"
+        "allowSingleBottle": false
       },
       {
         "art": "87351",
-        "name": "Eve Litchi 4 × 27,5 cl",
-        "price": 9.44,
+        "name": "Eve Litchi 4x27.5cl",
+        "price": 9.45,
         "caseSize": 4,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "caseOnly": true,
+        "allowSingleBottle": false
       },
       {
         "art": "15107",
-        "name": "Bier Zitronen Panaché 15 × 33 cl",
-        "price": 15,
+        "name": "Bier Zitronen Panache 15x33cl",
+        "price": 14.95,
         "caseSize": 15,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "caseOnly": true,
+        "allowSingleBottle": false
       },
       {
         "art": "77382",
-        "name": "Bier Ginger Appenzeller 6 × 33 cl",
-        "price": 15.24,
+        "name": "Bier Ginger Appenzeller 6x33cl",
+        "price": 15.25,
         "caseSize": 6,
-        "allowSingleBottle": true,
-        "unit": "flasche"
-      },
-      {
-        "art": "87428",
-        "name": "Bier Schützengarten Edelspez MW 33cl",
-        "price": 0.47,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "caseOnly": true,
+        "allowSingleBottle": false
       },
       {
         "art": "51891",
-        "name": "Bier Calanda Glatsch 6 × 50 cl",
-        "price": 11.22,
+        "name": "Bier Calanda Glatsch 6x50cl",
+        "price": 11.2,
         "caseSize": 6,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "87428",
+        "name": "Bier Schuetzengarten Edelspez MW 33cl",
+        "price": 1.55,
+        "caseOnly": false,
         "allowSingleBottle": true,
         "unit": "flasche"
       },
       {
         "art": "87444",
-        "name": "Bier Quöllfrisch MW 50 cl",
-        "price": 0.39,
+        "name": "Bier Quoellfrisch MW 50cl",
+        "price": 1.95,
+        "caseOnly": false,
+        "allowSingleBottle": true,
+        "unit": "flasche"
+      },
+      {
+        "art": "87450",
+        "name": "Lagerbier Farmer MW 50cl",
+        "price": 0.6,
+        "caseOnly": false,
         "allowSingleBottle": true,
         "unit": "flasche"
       },
       {
         "art": "50898",
-        "name": "Eve Strawberry Mojito 10 × 27,5 cl",
+        "name": "Eve Strawberry Mojito 10x27.5cl",
         "price": 17.25,
         "caseSize": 10,
         "caseOnly": true,
         "allowSingleBottle": false,
-        "deal": true,
-        "unit": "flasche"
+        "deal": true
       },
       {
-        "art": "87450",
-        "name": "Lagerbier Farmer MW 50 cl",
-        "price": 0.12,
+        "art": "51734",
+        "name": "Lagerbier Farmer 18x33cl",
+        "price": 9.95,
+        "caseSize": 18,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "36054",
+        "name": "Landbier Eichbaum 50cl",
+        "price": 0.55,
+        "caseOnly": false,
         "allowSingleBottle": true,
         "unit": "flasche"
       },
       {
-        "art": "74766",
-        "name": "Bier Feld. o.A. 15 × 33 cl",
-        "price": 16.95,
-        "caseSize": 15,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "art": "66227",
+        "name": "Lagerbier Eichhof hell 20x33cl",
+        "price": 17.95,
+        "caseSize": 20,
+        "caseOnly": true,
+        "allowSingleBottle": false
       },
       {
-        "art": "66216",
-        "name": "Bier Feld. o.A. Dose 15 × 50 cl",
-        "price": 24.9,
-        "caseSize": 15,
-        "allowSingleBottle": true,
-        "unit": "flasche"
-      },
-      {
-        "art": "91134",
-        "name": "Bier Eichhof o.A. 0.0% 10 × 33 cl",
-        "price": 10.7,
-        "caseSize": 10,
-        "allowSingleBottle": true,
-        "unit": "flasche"
-      },
-      {
-        "art": "87457",
-        "name": "Bier Schützengarten o.A. MW 50 cl",
-        "price": 0.34,
-        "allowSingleBottle": true,
-        "unit": "flasche"
-      },
-      {
-        "art": "57218",
-        "name": "Bschorle EW 6 × 33 cl",
-        "price": 8.4,
-        "caseSize": 6,
-        "allowSingleBottle": true,
-        "unit": "flasche"
-      },
-      {
-        "art": "15526",
-        "name": "Panaché Bilz Himbeere 10 × 33 cl",
-        "price": 10.9,
+        "art": "87453",
+        "name": "Bier Farmer Litchi 10x33cl",
+        "price": 9.55,
         "caseSize": 10,
         "caseOnly": true,
-        "allowSingleBottle": false,
-        "deal": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "87344",
+        "name": "Bier Cardinal Blonde MW 33cl",
+        "price": 1.4,
+        "caseOnly": false,
+        "allowSingleBottle": true,
         "unit": "flasche"
       },
       {
-        "art": "34815",
-        "name": "Radler Calanda Lemon 0.0 % 6 × 33 cl",
-        "price": 7.98,
+        "art": "34436",
+        "name": "Bier Valaisanne Lager 12x33cl",
+        "price": 14.95,
+        "caseSize": 12,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "107846",
+        "name": "Bier Moretti Sale d. M. 6x33cl",
+        "price": 8.95,
         "caseSize": 6,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "87421",
+        "name": "Lagerbier Schuetzengarten MW 50cl",
+        "price": 1.6,
+        "caseOnly": false,
         "allowSingleBottle": true,
         "unit": "flasche"
       },
       {
-        "art": "87602",
-        "name": "Mountain Twister o.A. 8×33cl",
-        "price": 10.88,
-        "caseSize": 8,
+        "art": "89515",
+        "name": "Bier Quoellfrisch Dose 15x50cl",
+        "price": 23.95,
+        "caseSize": 15,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "87420",
+        "name": "Lagerbier Schuetzengarten MW 50cl",
+        "price": 1.6,
+        "caseOnly": false,
         "allowSingleBottle": true,
         "unit": "flasche"
       },
       {
-        "art": "97498",
-        "name": "Bier Feld. Zitrone 0.0% 8 × 50 cl",
-        "price": 13.52,
-        "caseSize": 8,
-        "allowSingleBottle": true,
-        "unit": "flasche"
+        "art": "87309",
+        "name": "Bier Farmer Erdb.-Rhab. 10x33cl",
+        "price": 9.55,
+        "caseSize": 10,
+        "caseOnly": true,
+        "allowSingleBottle": false
       },
       {
-        "art": "95031",
-        "name": "Radler Calanda Grape 0.0 % 6 × 33 cl",
-        "price": 7.98,
-        "caseSize": 6,
-        "allowSingleBottle": true,
-        "unit": "flasche"
-      },
-      {
-        "art": "67713",
-        "name": "Bier Grapefruit o.A. 6 × 33 cl",
-        "price": 7.74,
-        "caseSize": 6,
-        "allowSingleBottle": true,
-        "unit": "flasche"
-      },
-      {
-        "art": "96385",
-        "name": "Bier Schützengarten o.A. 6 × 33 cl",
-        "price": 7.32,
-        "caseSize": 6,
-        "allowSingleBottle": true,
-        "unit": "flasche"
-      },
-      {
-        "art": "15102",
-        "name": "Bier Feld. Peach 0.0 6 × 50 cl",
-        "price": 10.98,
-        "caseSize": 6,
-        "allowSingleBottle": true,
-        "unit": "flasche"
-      },
-      {
-        "art": "05265",
-        "name": "Eve Litchi 0.0 % 4 × 27,5 cl",
-        "price": 9.44,
+        "art": "40901",
+        "name": "Somersby Apple 4x33cl",
+        "price": 8.95,
         "caseSize": 4,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "63459",
+        "name": "Bier Boxer old 18x25cl",
+        "price": 16.5,
+        "caseSize": 18,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "87447",
+        "name": "Bier Farmer dunkel 6x33cl",
+        "price": 6.55,
+        "caseSize": 6,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "87252",
+        "name": "Weizenbier Maisels 4x50cl",
+        "price": 6.6,
+        "caseSize": 4,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "87302",
+        "name": "Lagerbier Feld. Original MW 50cl",
+        "price": 1.7,
+        "caseOnly": false,
         "allowSingleBottle": true,
         "unit": "flasche"
       },
       {
-        "art": "87315",
-        "name": "Bier Feld. o.A. MW 50 cl",
-        "price": 0.34,
+        "art": "87414",
+        "name": "Lagerbier Schuetzengarten 18x33cl",
+        "price": 17.95,
+        "caseSize": 18,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "87373",
+        "name": "Bier Boxer old MW 50cl",
+        "price": 1.8,
+        "caseOnly": false,
         "allowSingleBottle": true,
         "unit": "flasche"
+      },
+      {
+        "art": "15524",
+        "name": "Bier Valaisanne Lager 18x33cl",
+        "price": 17.5,
+        "caseSize": 18,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "88309",
+        "name": "Bier Pale Ale Farmer Dose 18x50cl",
+        "price": 14.4,
+        "caseSize": 18,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "12805",
+        "name": "Bier Feld. Buegel MW 50cl",
+        "price": 2.1,
+        "caseOnly": false,
+        "allowSingleBottle": true,
+        "unit": "flasche"
+      },
+      {
+        "art": "32729",
+        "name": "Bier Calanda Dose 24x50cl",
+        "price": 30.95,
+        "caseSize": 24,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "38093",
+        "name": "Bier Farmer Naturtrueb Dose 18x50cl",
+        "price": 13.5,
+        "caseSize": 18,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "87391",
+        "name": "Lagerbier Eichhof MW 50cl",
+        "price": 1.55,
+        "caseOnly": false,
+        "allowSingleBottle": true,
+        "unit": "flasche"
+      },
+      {
+        "art": "87260",
+        "name": "Lagerbier Eichhof Dose 6x50cl",
+        "price": 9.95,
+        "caseSize": 6,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "113708",
+        "name": "Bier Moretti Sale d. M. 24x33cl",
+        "price": 26.95,
+        "caseSize": 24,
+        "caseOnly": true,
+        "allowSingleBottle": false,
+        "deal": true
+      },
+      {
+        "art": "77381",
+        "name": "Bier Valaisanne Lager 6x50cl",
+        "price": 11.9,
+        "caseSize": 6,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "68192",
+        "name": "Bier Desperados Tequilla 6x50cl",
+        "price": 13.2,
+        "caseSize": 6,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "87307",
+        "name": "Lagerbier Feld. Original MW 33cl",
+        "price": 1.55,
+        "caseOnly": false,
+        "allowSingleBottle": true,
+        "unit": "flasche"
+      },
+      {
+        "art": "87305",
+        "name": "Lagerbier Feld. Original 10x33cl",
+        "price": 12.5,
+        "caseSize": 10,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "87425",
+        "name": "Bier Schuetzengarten Kl.braeu MW 50cl",
+        "price": 1.8,
+        "caseOnly": false,
+        "allowSingleBottle": true,
+        "unit": "flasche"
+      },
+      {
+        "art": "111264",
+        "name": "Bier Feld. Braufrisch Dose 12x50cl",
+        "price": 19.95,
+        "caseSize": 12,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "29462",
+        "name": "Panache Farmer Lemon Dose 18x50cl",
+        "price": 10.8,
+        "caseSize": 18,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "87440",
+        "name": "Lagerbier Rugenbraeu MW 50cl",
+        "price": 1.6,
+        "caseOnly": false,
+        "allowSingleBottle": true,
+        "unit": "flasche"
+      },
+      {
+        "art": "45949",
+        "name": "Amberbier Farmer Dose 18x50cl",
+        "price": 13.5,
+        "caseSize": 18,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "87341",
+        "name": "Bier Cardinal Blonde MW 50cl",
+        "price": 1.75,
+        "caseOnly": false,
+        "allowSingleBottle": true,
+        "unit": "flasche"
+      },
+      {
+        "art": "26917",
+        "name": "Lagerbier Eichhof Do. 24x50cl",
+        "price": 30.95,
+        "caseSize": 24,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "32882",
+        "name": "Eve Pink Mimosa 4x27.5cl",
+        "price": 9.45,
+        "caseSize": 4,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "96173",
+        "name": "Bier Chopfab Draft 10x33cl",
+        "price": 11.95,
+        "caseSize": 10,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "36950",
+        "name": "Panache Edelweiss 6x33cl",
+        "price": 7.75,
+        "caseSize": 6,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "40899",
+        "name": "Cardinal Lager EW 15x33cl",
+        "price": 17.5,
+        "caseSize": 15,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "36055",
+        "name": "Landbier Eichbaum Dose 18x50cl",
+        "price": 9.9,
+        "caseSize": 18,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "97497",
+        "name": "Bier Valaisanne Juicy IPA 4x33cl",
+        "price": 10.95,
+        "caseSize": 4,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "87439",
+        "name": "Lagerbier Rugenbraeu MW 50cl",
+        "price": 1.6,
+        "caseOnly": false,
+        "allowSingleBottle": true,
+        "unit": "flasche"
+      },
+      {
+        "art": "34810",
+        "name": "Bier Schuetzengarten Edelspez 6x33cl",
+        "price": 8.3,
+        "caseSize": 6,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "109412",
+        "name": "BrewDog Wingman 4x33cl",
+        "price": 9.5,
+        "caseSize": 4,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "87442",
+        "name": "Bier Rugenbraeu Zwickel MW 50cl",
+        "price": 2.0,
+        "caseOnly": false,
+        "allowSingleBottle": true,
+        "unit": "flasche"
+      },
+      {
+        "art": "10639",
+        "name": "Bier Boxer old MW 33cl",
+        "price": 1.65,
+        "caseOnly": false,
+        "allowSingleBottle": true,
+        "unit": "flasche"
+      },
+      {
+        "art": "45951",
+        "name": "Bier Quoellfrisch Dose 6x50cl",
+        "price": 10.85,
+        "caseSize": 6,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "32224",
+        "name": "Bier Boxer old Dose 6x50cl",
+        "price": 9.95,
+        "caseSize": 6,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "96005",
+        "name": "Lagerbier Rugenbraeu 15x33cl",
+        "price": 16.5,
+        "caseSize": 15,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "74771",
+        "name": "Lagerbier Schuetzengarten 6x50cl",
+        "price": 9.25,
+        "caseSize": 6,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "111263",
+        "name": "Lagerbier Feld. Original 12x33cl",
+        "price": 14.95,
+        "caseSize": 12,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "61762",
+        "name": "Eve Grape Cosmop. 4x27.5cl",
+        "price": 9.45,
+        "caseSize": 4,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "104236",
+        "name": "Bier Feld. Pils Dose 6x50cl",
+        "price": 11.5,
+        "caseSize": 6,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "113710",
+        "name": "Weissbier Paulaner 24x50cl",
+        "price": 26.95,
+        "caseSize": 24,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "104238",
+        "name": "Lagerbier Feld. Original 8x56.5cl",
+        "price": 14.6,
+        "caseSize": 8,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "34447",
+        "name": "St.Galler Klosterbraeu 6x33cl",
+        "price": 8.3,
+        "caseSize": 6,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "87424",
+        "name": "Lagerbier Schuetzeng. MW 33cl",
+        "price": 1.3,
+        "caseOnly": false,
+        "allowSingleBottle": true,
+        "unit": "flasche"
+      },
+      {
+        "art": "85477",
+        "name": "Lagerbier Rugenbraeu 6x50cl",
+        "price": 9.95,
+        "caseSize": 6,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "52950",
+        "name": "Bier Amber Oberland Prem. 6x33cl",
+        "price": 9.2,
+        "caseSize": 6,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "57529",
+        "name": "Bier Superbock 24x25cl",
+        "price": 17.95,
+        "caseSize": 24,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "87432",
+        "name": "St.Galler Klosterbraeu 6x50cl",
+        "price": 11.3,
+        "caseSize": 6,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "63449",
+        "name": "Bier Draft Oberland 6x33cl",
+        "price": 9.2,
+        "caseSize": 6,
+        "caseOnly": true,
+        "allowSingleBottle": false
+      },
+      {
+        "art": "113711",
+        "name": "Lagerbier Schuetzengarten 6x33cl",
+        "price": 6.95,
+        "caseSize": 6,
+        "caseOnly": true,
+        "allowSingleBottle": false
       }
     ]
   },
