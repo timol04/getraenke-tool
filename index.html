@@ -811,7 +811,7 @@
   @keyframes calmConfirm {
     0% {
       border-color: #0D7A65;
-      box-shadow: 0 0 0 4px rgba(13, 122, 101, 0.25);
+      box-shadow: 0 0 0 4px rgba(13, 122, 101, 0.28);
     }
     100% {
       border-color: var(--border);
@@ -819,7 +819,7 @@
     }
   }
   .product.qty-just-added {
-    animation: calmConfirm 0.75s ease-out forwards;
+    animation: calmConfirm 1.8s ease-out forwards;
   }
   .qty-confirm-toast {
     position: absolute;
@@ -836,12 +836,12 @@
     align-items: center;
     gap: 5px;
     pointer-events: none;
-    animation: fadeToast 0.85s ease forwards;
+    animation: fadeToast 2.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     z-index: 5;
   }
   @keyframes fadeToast {
-    0% { opacity: 0; transform: translateY(-4px); }
-    20% { opacity: 1; transform: translateY(0); }
+    0% { opacity: 0; transform: translateY(-6px); }
+    22% { opacity: 1; transform: translateY(0); }
     80% { opacity: 1; transform: translateY(0); }
     100% { opacity: 0; transform: translateY(-4px); }
   }
@@ -1719,14 +1719,16 @@ function renderProducts() {
 
 function updateQtyDOM(id) {
   const q = qty[id] || { bottles: 0, cases: 0 };
-  const bInput = document.getElementById(`input_${id}_bottles`);
-  if (bInput && document.activeElement !== bInput) {
-    bInput.value = q.bottles || 0;
-  }
-  const cInput = document.getElementById(`input_${id}_cases`);
-  if (cInput && document.activeElement !== cInput) {
-    cInput.value = q.cases || 0;
-  }
+  document.querySelectorAll(`input[id="input_${id}_bottles"]`).forEach(bInput => {
+    if (document.activeElement !== bInput) {
+      bInput.value = q.bottles || 0;
+    }
+  });
+  document.querySelectorAll(`input[id="input_${id}_cases"]`).forEach(cInput => {
+    if (document.activeElement !== cInput) {
+      cInput.value = q.cases || 0;
+    }
+  });
 }
 
 function updateCategoryBadges() {
@@ -1976,27 +1978,28 @@ function updateFloatingCartBtn() {
 }
 
 function triggerQtyFeedback(id) {
-  const inputEl = document.getElementById(`input_${id}_bottles`) || document.getElementById(`input_${id}_cases`);
-  if (!inputEl) return;
-  const productCard = inputEl.closest(".product");
-  if (!productCard) return;
+  const inputs = document.querySelectorAll(`input[id="input_${id}_bottles"], input[id="input_${id}_cases"]`);
+  inputs.forEach(inputEl => {
+    const productCard = inputEl.closest(".product");
+    if (!productCard) return;
 
-  productCard.classList.remove("qty-just-added");
-  const oldToast = productCard.querySelector(".qty-confirm-toast");
-  if (oldToast) oldToast.remove();
-
-  void productCard.offsetWidth;
-  productCard.classList.add("qty-just-added");
-
-  const toast = document.createElement("div");
-  toast.className = "qty-confirm-toast";
-  toast.innerHTML = `<span>✓</span> <span>Hinzugefügt</span>`;
-  productCard.appendChild(toast);
-
-  setTimeout(() => {
     productCard.classList.remove("qty-just-added");
-    toast.remove();
-  }, 900);
+    const oldToast = productCard.querySelector(".qty-confirm-toast");
+    if (oldToast) oldToast.remove();
+
+    void productCard.offsetWidth;
+    productCard.classList.add("qty-just-added");
+
+    const toast = document.createElement("div");
+    toast.className = "qty-confirm-toast";
+    toast.innerHTML = `<span>✓</span> <span>Hinzugefügt</span>`;
+    productCard.appendChild(toast);
+
+    setTimeout(() => {
+      productCard.classList.remove("qty-just-added");
+      toast.remove();
+    }, 2200);
+  });
 }
 
 const PRESETS = {
