@@ -802,47 +802,9 @@
     .preset-section { padding: 18px; }
   }
 
-  /* SCHWEBENDER WARENKORB-BUTTON */
+  /* SCHWEBENDER WARENKORB-BUTTON (Deaktiviert) */
   .floating-cart-btn {
-    position: fixed;
-    bottom: 92px;
-    right: 24px;
-    background: var(--primary);
-    color: #FFFFFF;
-    border: 2px solid var(--accent);
-    border-radius: 30px;
-    padding: 12px 22px;
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 700;
-    font-size: 1.02rem;
-    box-shadow: 0 8px 24px rgba(31, 58, 46, 0.35);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-    z-index: 28;
-    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(12px);
-  }
-  .floating-cart-btn.visible {
-    opacity: 1;
-    pointer-events: auto;
-    transform: translateY(0);
-  }
-  .floating-cart-btn:hover {
-    transform: translateY(-3px) scale(1.03);
-    background: var(--primary-dark);
-    box-shadow: 0 12px 28px rgba(31, 58, 46, 0.45);
-  }
-  .floating-cart-badge {
-    background: var(--accent);
-    color: #FFFFFF;
-    font-weight: 800;
-    padding: 3px 10px;
-    border-radius: 12px;
-    font-size: 0.95rem;
+    display: none !important;
   }
 
   /* BESTÄTIGUNGS-ANIMATION BEIM HINZUFÜGEN */
@@ -1125,11 +1087,7 @@
   </div>
 </div>
 
-<!-- SCHWEBENDER WARENKORB BUTTON -->
-<button id="floatingCartBtn" class="floating-cart-btn" onclick="toggleCartDrawer()" title="Zusammenstellung Übersicht">
-  <span style="font-size: 1.15rem;">🛒</span>
-  <span id="floatingCartText">0 Artikel ausgewählt</span>
-</button>
+
 
 <!-- RESET CONFIRMATION MODAL -->
 <div class="overlay" id="resetModalOverlay" onclick="handleResetOverlayClick(event)">
