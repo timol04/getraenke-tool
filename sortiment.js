@@ -4025,10 +4025,10 @@ const PRESETS = [
     "description": "Bier-Harass, Mineralwasser, Softdrinks & Pinot Noir",
     "icon": "🍖",
     "items": [
-      { "art": "10234", "cases": 1 },
-      { "art": "40001", "bottles": 12 },
-      { "art": "30010", "bottles": 12 },
-      { "art": "20115", "bottles": 2 }
+      { "art": "111698", "cases": 1 },
+      { "art": "87524", "cases": 2 },
+      { "art": "13152", "cases": 1 },
+      { "art": "66471", "bottles": 2 }
     ]
   },
   {
@@ -4037,10 +4037,10 @@ const PRESETS = [
     "description": "Fendant AOC, Pinot Noir, Mineralwasser & Süssgetränke",
     "icon": "🥂",
     "items": [
-      { "art": "20110", "bottles": 4 },
-      { "art": "20115", "bottles": 4 },
-      { "art": "40002", "bottles": 18 },
-      { "art": "30020", "bottles": 12 }
+      { "art": "88160", "bottles": 4 },
+      { "art": "66471", "bottles": 4 },
+      { "art": "87524", "cases": 3 },
+      { "art": "13152", "cases": 2 }
     ]
   },
   {
@@ -4049,11 +4049,10 @@ const PRESETS = [
     "description": "Bier-Harasse, Quöllfrisch, Eistee & Mineralwasser",
     "icon": "⚽",
     "items": [
-      { "art": "10234", "cases": 3 },
-      { "art": "10240", "cases": 2 },
-      { "art": "40001", "bottles": 30 },
-      { "art": "50001", "bottles": 24 },
-      { "art": "30010", "bottles": 18 }
+      { "art": "111698", "cases": 3 },
+      { "art": "105553", "cases": 2 },
+      { "art": "87524", "cases": 5 },
+      { "art": "13152", "cases": 4 }
     ]
   }
 ];
