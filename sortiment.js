@@ -162,19 +162,6 @@ const CATEGORIES = [
         "unit": "dose"
       },
       {
-        "art": "88632",
-        "name": "Focus Water Active 12 × 50 cl",
-        "price": 14.95,
-        "pricePack": 14.95,
-        "gebinde": "Pack",
-        "caseSize": 12,
-        "caseOnly": true,
-        "allowSingleBottle": false,
-        "deal": true,
-        "topAngebot": true,
-        "unit": "flasche"
-      },
-      {
         "art": "87544",
         "name": "Fruchtcocktail Granini 6 × 100 cl",
         "price": 13.3,
@@ -334,6 +321,20 @@ const CATEGORIES = [
         "price": 8.5,
         "priceSingle": 8.5,
         "gebinde": "Pack",
+        "caseOnly": true,
+        "allowSingleBottle": false,
+        "deal": true,
+        "topAngebot": true,
+        "unit": "flasche"
+      },
+      {
+        "art": "88632",
+        "name": "Focus Water Active 12 × 50 cl",
+        "price": 14.95,
+        "pricePack": 14.95,
+        "gebinde": "Pack",
+        "subCategory": "Cola & Softdrinks",
+        "caseSize": 12,
         "caseOnly": true,
         "allowSingleBottle": false,
         "deal": true,
@@ -614,18 +615,6 @@ const CATEGORIES = [
         "gebinde": "Einzeln & Pack",
         "caseSize": 6,
         "allowSingleBottle": true,
-        "unit": "flasche"
-      },
-      {
-        "art": "88632",
-        "name": "Focus Water Active 12 × 50 cl",
-        "price": 14.95,
-        "pricePack": 14.95,
-        "gebinde": "Pack",
-        "caseSize": 12,
-        "caseOnly": true,
-        "allowSingleBottle": false,
-        "topAngebot": true,
         "unit": "flasche"
       },
       {
@@ -986,6 +975,19 @@ const CATEGORIES = [
         "gebinde": "Einzeln & Pack",
         "caseSize": 6,
         "allowSingleBottle": true,
+        "unit": "flasche"
+      },
+      {
+        "art": "88632",
+        "name": "Focus Water Active 12 × 50 cl",
+        "price": 14.95,
+        "pricePack": 14.95,
+        "gebinde": "Pack",
+        "subCategory": "Cola & Softdrinks",
+        "caseSize": 12,
+        "caseOnly": true,
+        "allowSingleBottle": false,
+        "topAngebot": true,
         "unit": "flasche"
       }
     ]
