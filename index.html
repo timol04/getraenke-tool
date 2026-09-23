@@ -1011,12 +1011,13 @@ const REPO_NAME = "getraenke-tool";
 const FILE_PATH = "sortiment.js";
 const TOKEN_KEY = "landi_admin_gh_token";
 const ADMIN_PASSWORD = "Landiwasserschlossadmin26";
+const DEFAULT_GH_TOKEN = ""; // Hinterlegter Fine-Grained Token
 
 let isEditPricesMode = false;
 let isAdminAuthenticated = false;
 
 function getAdminToken() {
-  return localStorage.getItem(TOKEN_KEY) || "";
+  return localStorage.getItem(TOKEN_KEY) || DEFAULT_GH_TOKEN || "";
 }
 
 function openAdminModal() {
