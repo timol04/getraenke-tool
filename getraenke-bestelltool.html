@@ -1001,15 +1001,148 @@
     padding: 3px 8px;
     border-radius: 999px;
   }
+
+  /* DARK MODE THEME SYSTEM (Aesthetic Dark Slate Grey) */
+  body.dark-mode {
+    --bg: #141A17;
+    --card: #1C2420;
+    --card-hover: #242E29;
+    --border: #2A3630;
+    --border-light: #212C26;
+    
+    --text: #F2F5F3;
+    --text-muted: #9BA8A1;
+    --text-subtle: #708077;
+    
+    --primary-light: #1D2A24;
+    --primary-border: #2B3D34;
+    
+    --accent: #D6AB2D;
+    --accent-dark: #E6B833;
+    --accent-light: #282416;
+    --accent-border: #4A3E17;
+
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
+    --shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+    --shadow-lg: 0 14px 32px -4px rgba(0, 0, 0, 0.5);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body:not(.light-mode) {
+      --bg: #141A17;
+      --card: #1C2420;
+      --card-hover: #242E29;
+      --border: #2A3630;
+      --border-light: #212C26;
+      
+      --text: #F2F5F3;
+      --text-muted: #9BA8A1;
+      --text-subtle: #708077;
+      
+      --primary-light: #1D2A24;
+      --primary-border: #2B3D34;
+      
+      --accent: #D6AB2D;
+      --accent-dark: #E6B833;
+      --accent-light: #282416;
+      --accent-border: #4A3E17;
+
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
+      --shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+      --shadow-lg: 0 14px 32px -4px rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  body.dark-mode input[type="search"],
+  body.dark-mode input[type="text"],
+  body.dark-mode input[type="number"],
+  body.dark-mode input[type="date"],
+  body.dark-mode input[type="tel"],
+  body.dark-mode select {
+    background-color: #1A221E !important;
+    color: #F2F5F3 !important;
+    border-color: #2E3B33 !important;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body:not(.light-mode) input[type="search"],
+    body:not(.light-mode) input[type="text"],
+    body:not(.light-mode) input[type="number"],
+    body:not(.light-mode) input[type="date"],
+    body:not(.light-mode) input[type="tel"],
+    body:not(.light-mode) select {
+      background-color: #1A221E !important;
+      color: #F2F5F3 !important;
+      border-color: #2E3B33 !important;
+    }
+  }
+
+  body.dark-mode .sheet {
+    background-color: #1A221E;
+    color: #F2F5F3;
+    border: 1px solid #2A3630;
+  }
+  @media (prefers-color-scheme: dark) {
+    body:not(.light-mode) .sheet {
+      background-color: #1A221E;
+      color: #F2F5F3;
+      border: 1px solid #2A3630;
+    }
+  }
+
+  body.dark-mode .admin-table-wrap {
+    background-color: #1A221E;
+  }
+  @media (prefers-color-scheme: dark) {
+    body:not(.light-mode) .admin-table-wrap {
+      background-color: #1A221E;
+    }
+  }
+
+  body.dark-mode .admin-table th {
+    background-color: #222C27;
+    color: #F2F5F3;
+  }
+  @media (prefers-color-scheme: dark) {
+    body:not(.light-mode) .admin-table th {
+      background-color: #222C27;
+      color: #F2F5F3;
+    }
+  }
+
+  .theme-toggle-btn {
+    background: rgba(255, 255, 255, 0.14);
+    color: #FFFFFF;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .theme-toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.24);
+    border-color: rgba(255, 255, 255, 0.45);
+    transform: translateY(-1px);
+  }
 </style>
 </head>
 <body>
 
 <header class="top">
   <div class="header-content">
-    <div style="display:flex; justify-content:space-between; align-items:center;">
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
       <div class="brand-badge">LANDI GETRÄNKE-ZUSAMMENSTELLUNG</div>
-      <button id="editPricesBtn" onclick="toggleEditPricesMode()" style="background:rgba(255,255,255,0.14); color:white; border:1px solid rgba(255,255,255,0.28); border-radius:20px; padding:5px 14px; font-size:0.78rem; font-weight:600; cursor:pointer; transition:all 0.15s ease;">🔐 Admin Login</button>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <button id="themeToggleBtn" onclick="toggleTheme()" class="theme-toggle-btn" title="Design-Modus umschalten">🌙 Dunkel</button>
+        <button id="editPricesBtn" onclick="toggleEditPricesMode()" style="background:rgba(255,255,255,0.14); color:white; border:1px solid rgba(255,255,255,0.28); border-radius:20px; padding:5px 14px; font-size:0.78rem; font-weight:600; cursor:pointer; transition:all 0.15s ease;">🔐 Admin Login</button>
+      </div>
     </div>
     
     <div class="header-collapsible">
@@ -1554,7 +1687,56 @@ function logoutAdmin() {
   isAdminAuthenticated = false;
   isEditPricesMode = false;
   document.getElementById("editBanner").style.display = "none";
-  updateAdminHeaderBtn();
+  
+function initTheme() {
+  const saved = localStorage.getItem("landi_theme");
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  
+  if (saved === "dark" || (!saved && prefersDark)) {
+    document.body.classList.add("dark-mode");
+    document.body.classList.remove("light-mode");
+    updateThemeToggleBtn(true);
+  } else {
+    document.body.classList.add("light-mode");
+    document.body.classList.remove("dark-mode");
+    updateThemeToggleBtn(false);
+  }
+}
+
+function toggleTheme() {
+  const isCurrentlyDark = document.body.classList.contains("dark-mode") || 
+    (!document.body.classList.contains("light-mode") && window.matchMedia("(prefers-color-scheme: dark)").matches);
+  
+  if (isCurrentlyDark) {
+    document.body.classList.remove("dark-mode");
+    document.body.classList.add("light-mode");
+    localStorage.setItem("landi_theme", "light");
+    updateThemeToggleBtn(false);
+  } else {
+    document.body.classList.remove("light-mode");
+    document.body.classList.add("dark-mode");
+    localStorage.setItem("landi_theme", "dark");
+    updateThemeToggleBtn(true);
+  }
+}
+
+function updateThemeToggleBtn(isDark) {
+  const btn = document.getElementById("themeToggleBtn");
+  if (btn) {
+    btn.innerHTML = isDark ? "☀️ Hell" : "🌙 Dunkel";
+    btn.title = isDark ? "Zu hellem Design wechseln" : "Zu dunklem Design wechseln";
+  }
+}
+
+initTheme();
+
+window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
+  if (!localStorage.getItem("landi_theme")) {
+    initTheme();
+  }
+});
+
+updateAdminHeaderBtn();
   renderProducts();
 }
 
@@ -1897,7 +2079,56 @@ function toggleEditPricesMode(forceState) {
   }
 
   document.getElementById("editBanner").style.display = isEditPricesMode ? "block" : "none";
-  updateAdminHeaderBtn();
+  
+function initTheme() {
+  const saved = localStorage.getItem("landi_theme");
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  
+  if (saved === "dark" || (!saved && prefersDark)) {
+    document.body.classList.add("dark-mode");
+    document.body.classList.remove("light-mode");
+    updateThemeToggleBtn(true);
+  } else {
+    document.body.classList.add("light-mode");
+    document.body.classList.remove("dark-mode");
+    updateThemeToggleBtn(false);
+  }
+}
+
+function toggleTheme() {
+  const isCurrentlyDark = document.body.classList.contains("dark-mode") || 
+    (!document.body.classList.contains("light-mode") && window.matchMedia("(prefers-color-scheme: dark)").matches);
+  
+  if (isCurrentlyDark) {
+    document.body.classList.remove("dark-mode");
+    document.body.classList.add("light-mode");
+    localStorage.setItem("landi_theme", "light");
+    updateThemeToggleBtn(false);
+  } else {
+    document.body.classList.remove("light-mode");
+    document.body.classList.add("dark-mode");
+    localStorage.setItem("landi_theme", "dark");
+    updateThemeToggleBtn(true);
+  }
+}
+
+function updateThemeToggleBtn(isDark) {
+  const btn = document.getElementById("themeToggleBtn");
+  if (btn) {
+    btn.innerHTML = isDark ? "☀️ Hell" : "🌙 Dunkel";
+    btn.title = isDark ? "Zu hellem Design wechseln" : "Zu dunklem Design wechseln";
+  }
+}
+
+initTheme();
+
+window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
+  if (!localStorage.getItem("landi_theme")) {
+    initTheme();
+  }
+});
+
+updateAdminHeaderBtn();
   renderProducts();
 }
 
@@ -2669,6 +2900,55 @@ window.addEventListener("scroll", () => {
     scrollTicking = true;
   }
 }, { passive: true });
+
+
+function initTheme() {
+  const saved = localStorage.getItem("landi_theme");
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  
+  if (saved === "dark" || (!saved && prefersDark)) {
+    document.body.classList.add("dark-mode");
+    document.body.classList.remove("light-mode");
+    updateThemeToggleBtn(true);
+  } else {
+    document.body.classList.add("light-mode");
+    document.body.classList.remove("dark-mode");
+    updateThemeToggleBtn(false);
+  }
+}
+
+function toggleTheme() {
+  const isCurrentlyDark = document.body.classList.contains("dark-mode") || 
+    (!document.body.classList.contains("light-mode") && window.matchMedia("(prefers-color-scheme: dark)").matches);
+  
+  if (isCurrentlyDark) {
+    document.body.classList.remove("dark-mode");
+    document.body.classList.add("light-mode");
+    localStorage.setItem("landi_theme", "light");
+    updateThemeToggleBtn(false);
+  } else {
+    document.body.classList.remove("light-mode");
+    document.body.classList.add("dark-mode");
+    localStorage.setItem("landi_theme", "dark");
+    updateThemeToggleBtn(true);
+  }
+}
+
+function updateThemeToggleBtn(isDark) {
+  const btn = document.getElementById("themeToggleBtn");
+  if (btn) {
+    btn.innerHTML = isDark ? "☀️ Hell" : "🌙 Dunkel";
+    btn.title = isDark ? "Zu hellem Design wechseln" : "Zu dunklem Design wechseln";
+  }
+}
+
+initTheme();
+
+window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
+  if (!localStorage.getItem("landi_theme")) {
+    initTheme();
+  }
+});
 
 updateAdminHeaderBtn();
 renderProducts();
