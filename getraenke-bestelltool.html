@@ -1910,7 +1910,7 @@ async function savePricesToGithub() {
 
     if (!getResp.ok) {
       if (getResp.status === 401 || getResp.status === 403) {
-        throw new Error("Ungültiger GitHub Token oder ungenügende Rechte. (Repo scope benötigt)");
+        throw new Error("Dein GitHub Token ist abgelaufen oder hat keine Schreibrechte. Bitte klicke im Admin-Banner auf '⚙️ Token erneuern' und füge deinen neuen GitHub Token (ghp_...) ein.");
       }
       throw new Error(`Fehler beim Abrufen von GitHub (Status ${getResp.status}).`);
     }
@@ -1936,6 +1936,9 @@ async function savePricesToGithub() {
 
     if (!putResp.ok) {
       const errJson = await putResp.json().catch(() => ({}));
+      if (putResp.status === 403 || (errJson.message && errJson.message.includes("Resource not accessible"))) {
+        throw new Error("Der aktuelle GitHub-Token hat keine Schreibrechte ('repo'-Scope fehlt). Bitte klicke im Admin-Banner auf '⚙️ Token erneuern' und füge einen neuen Token ein.");
+      }
       throw new Error(errJson.message || `Fehler beim Speichern auf GitHub (Status ${putResp.status}).`);
     }
 
