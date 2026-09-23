@@ -97,19 +97,6 @@ const CATEGORIES = [
         "unit": "flasche"
       },
       {
-        "art": "16149",
-        "name": "Energy Drink Red Bull Dose 24 × 25 cl",
-        "price": 29.95,
-        "priceSingle": 1.25,
-        "pricePack": 29.95,
-        "gebinde": "Einzeln & Pack",
-        "caseSize": 24,
-        "allowSingleBottle": true,
-        "deal": true,
-        "topAngebot": true,
-        "unit": "dose"
-      },
-      {
         "art": "50898",
         "name": "Eve Strawberry Mojito 10x27.5cl",
         "price": 17.25,
@@ -970,18 +957,6 @@ const CATEGORIES = [
     "name": "Energy Drinks/Mate",
     "items": [
       {
-        "art": "16149",
-        "name": "Energy Drink Red Bull Dose 24 × 25 cl",
-        "price": 29.95,
-        "priceSingle": 1.25,
-        "pricePack": 29.95,
-        "gebinde": "Einzeln & Pack",
-        "caseSize": 24,
-        "allowSingleBottle": true,
-        "topAngebot": true,
-        "unit": "dose"
-      },
-      {
         "art": "87800",
         "name": "Energy Drink Red Bull Dose 6 × 25 cl",
         "price": 8.9,
@@ -1064,6 +1039,17 @@ const CATEGORIES = [
         "pricePack": 5.95,
         "gebinde": "Einzeln & Pack",
         "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "dose"
+      },
+      {
+        "art": "16149",
+        "name": "Energy Drink Red Bull Dose 24 × 25 cl",
+        "price": 29.95,
+        "priceSingle": 1.25,
+        "pricePack": 29.95,
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 24,
         "allowSingleBottle": true,
         "unit": "dose"
       }
