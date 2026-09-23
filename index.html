@@ -852,6 +852,38 @@
     100% { opacity: 0; transform: translateY(-4px); }
   }
 
+  /* ZUSAMMENSTELLUNG REVIEW MODAL QTY CONTROLS */
+  .review-qty-control {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 3px 6px;
+  }
+  .review-qty-btn {
+    background: var(--btn-bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    width: 28px;
+    height: 28px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s ease;
+    user-select: none;
+  }
+  .review-qty-btn:hover {
+    background: var(--primary);
+    color: #ffffff;
+    border-color: var(--primary);
+  }
+
   /* BELIEBTE ZUSAMMENSTELLUNGEN (PRESETS) */
   .preset-section {
     background: #FAF7F0;
@@ -2839,26 +2871,81 @@ function updateSummaryBar() {
   updateFloatingCartBtn();
 }
 
+function changeReviewQty(id, field, delta) {
+  if (!qty[id]) qty[id] = { bottles: 0, cases: 0 };
+  const current = qty[id][field] || 0;
+  const next = Math.max(0, current + delta);
+  qty[id][field] = next;
+
+  const input = document.getElementById(`input_${id}_${field}`);
+  if (input) input.value = next;
+
+  renderProducts();
+  updateCategoryBadges();
+  updateSummaryBar();
+  openReview();
+}
+
 function openReview() {
   const selected = getSelectedProducts();
   const total = selected.reduce((sum, s) => sum + s.total, 0);
   const list = document.getElementById("reviewList");
 
   let rows = selected.map(s => {
-    const q = qty[s.product.id] || { bottles: 0, cases: 0 };
-    let qtyText = `${s.count} ${getUnitLabel(s.product, true)}`;
-    if (q.cases > 0 && q.bottles > 0 && s.product.caseSize) {
-      qtyText = `${q.cases} ${getCaseLabel(s.product, true)} + ${q.bottles} ${getUnitLabel(s.product, true)} einz. (${s.count} ${getUnitLabel(s.product, true)})`;
-    } else if (q.cases > 0 && s.product.caseSize) {
-      qtyText = `${q.cases} ${getCaseLabel(s.product, true)} (${s.count} ${getUnitLabel(s.product, true)})`;
+    const p = s.product;
+    const q = qty[p.id] || { bottles: 0, cases: 0 };
+    
+    let controlsHtml = "";
+
+    if (p.caseOnly || p.gebinde === "Pack" || p.allowSingleBottle === false) {
+      controlsHtml = `
+        <div class="review-qty-control">
+          <button class="review-qty-btn" onclick="changeReviewQty('${p.id}', 'cases', -1)">−</button>
+          <span style="font-weight:600; padding:0 4px; font-size:0.85rem;">${q.cases} ${getCaseLabel(p, true)}</span>
+          <button class="review-qty-btn" onclick="changeReviewQty('${p.id}', 'cases', 1)">+</button>
+        </div>
+      `;
+    } else if (q.cases > 0 && q.bottles > 0 && p.caseSize) {
+      controlsHtml = `
+        <div style="display:flex; flex-direction:column; gap:4px;">
+          <div class="review-qty-control">
+            <button class="review-qty-btn" onclick="changeReviewQty('${p.id}', 'cases', -1)">−</button>
+            <span style="font-weight:600; padding:0 4px; font-size:0.82rem;">${q.cases} ${getCaseLabel(p, true)}</span>
+            <button class="review-qty-btn" onclick="changeReviewQty('${p.id}', 'cases', 1)">+</button>
+          </div>
+          <div class="review-qty-control">
+            <button class="review-qty-btn" onclick="changeReviewQty('${p.id}', 'bottles', -1)">−</button>
+            <span style="font-weight:600; padding:0 4px; font-size:0.82rem;">${q.bottles} ${getUnitLabel(p, true)} einz.</span>
+            <button class="review-qty-btn" onclick="changeReviewQty('${p.id}', 'bottles', 1)">+</button>
+          </div>
+        </div>
+      `;
+    } else if (q.cases > 0 && p.caseSize) {
+      controlsHtml = `
+        <div class="review-qty-control">
+          <button class="review-qty-btn" onclick="changeReviewQty('${p.id}', 'cases', -1)">−</button>
+          <span style="font-weight:600; padding:0 4px; font-size:0.85rem;">${q.cases} ${getCaseLabel(p, true)}</span>
+          <button class="review-qty-btn" onclick="changeReviewQty('${p.id}', 'cases', 1)">+</button>
+        </div>
+      `;
     } else {
-      qtyText = `${s.count} ${getUnitLabel(s.product, true)} einzeln`;
+      controlsHtml = `
+        <div class="review-qty-control">
+          <button class="review-qty-btn" onclick="changeReviewQty('${p.id}', 'bottles', -1)">−</button>
+          <span style="font-weight:600; padding:0 4px; font-size:0.85rem;">${q.bottles || s.count} ${getUnitLabel(p, true)}</span>
+          <button class="review-qty-btn" onclick="changeReviewQty('${p.id}', 'bottles', 1)">+</button>
+        </div>
+      `;
     }
+
     return `
     <tr>
-      <td><strong>${s.product.name}</strong><br><span style="color:var(--text-muted);font-size:0.78rem">Art.-Nr. ${s.product.art}</span></td>
-      <td>${qtyText}</td>
-      <td>${money(s.total)}</td>
+      <td>
+        <strong>${p.name}</strong><br>
+        <span style="color:var(--text-muted);font-size:0.78rem">Art.-Nr. ${p.art}</span>
+      </td>
+      <td>${controlsHtml}</td>
+      <td style="font-weight:700; color:var(--primary-dark); text-align:right;">${money(s.total)}</td>
     </tr>
     `;
   }).join("");
@@ -2871,11 +2958,17 @@ function openReview() {
   });
 
   if (selected.length === 0) {
-    list.innerHTML = '<p class="empty-note">Noch keine Artikel ausgewählt.</p>';
+    list.innerHTML = '<p class="empty-note" style="padding:24px 0; text-align:center; color:var(--text-muted);">Keine Artikel in der Zusammenstellung.</p>';
   } else {
     list.innerHTML = `
-      <table>
-        <thead><tr><th>Produkt</th><th>Menge & Gebinde</th><th>Total</th></tr></thead>
+      <table style="width:100%;">
+        <thead>
+          <tr>
+            <th>Produkt</th>
+            <th>Menge anpassen</th>
+            <th style="text-align:right;">Total</th>
+          </tr>
+        </thead>
         <tbody>${rows}</tbody>
       </table>
       <div style="background:var(--primary-light); padding:10px 14px; border-radius:8px; margin-top:12px; font-size:0.88rem; font-weight:600; color:var(--primary-dark); border:1px solid var(--primary-border);">
