@@ -778,7 +778,7 @@
   <div class="header-content">
     <div style="display:flex; justify-content:space-between; align-items:center;">
       <div class="brand-badge">LANDI GETRÄNKE-ZUSAMMENSTELLUNG</div>
-      <button id="editPricesBtn" onclick="toggleEditPricesMode()" style="background:rgba(255,255,255,0.14); color:white; border:1px solid rgba(255,255,255,0.28); border-radius:20px; padding:5px 14px; font-size:0.78rem; font-weight:600; cursor:pointer; transition:all 0.15s ease;">✏️ Preise bearbeiten</button>
+      <button id="editPricesBtn" onclick="toggleEditPricesMode()" style="background:rgba(255,255,255,0.14); color:white; border:1px solid rgba(255,255,255,0.28); border-radius:20px; padding:5px 14px; font-size:0.78rem; font-weight:600; cursor:pointer; transition:all 0.15s ease;">🔐 Admin / Preise bearbeiten</button>
     </div>
     <h1>Getränke zusammenstellen</h1>
     <p class="sub">Wählen Sie Ihre Produkte und Mengen aus und erstellen Sie daraus ein PDF, das Sie ausgedruckt direkt in der Filiale abgeben oder uns per E-Mail zusenden können.</p>
@@ -793,8 +793,18 @@
 </header>
 
 <main>
-  <div id="editBanner" style="display:none; background:#FEF3C7; border:1px solid #FCD34D; color:#92400E; padding:14px 18px; border-radius:var(--radius); margin-bottom:20px; font-size:0.9rem;">
-    <strong>✏️ Preis-Bearbeitungsmodus aktiv (nur für Timo):</strong> Ändere die Preise direkt bei den Produkten. Wenn du fertig bist, klicke auf <button onclick="exportUpdatedJs()" style="background:#B45309; color:white; border:none; padding:4px 12px; border-radius:14px; font-weight:bold; cursor:pointer;">💾 Sortiment-Code kopieren</button>, um den Code zu speichern!
+  <div id="editBanner" style="display:none; background:#FEF3C7; border:1px solid #FCD34D; color:#92400E; padding:16px 20px; border-radius:var(--radius); margin-bottom:20px; font-size:0.9rem; box-shadow:var(--shadow-sm);">
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+      <div>
+        <span style="display:inline-block; background:#B45309; color:white; font-size:0.75rem; font-weight:bold; padding:2px 8px; border-radius:10px; margin-right:8px; text-transform:uppercase;">nur für Timo</span>
+        <strong>✏️ Preis-Bearbeitungsmodus aktiv:</strong> Ändere die Preise direkt bei den Produkten.
+      </div>
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <button id="saveGithubBtn" onclick="savePricesToGithub()" style="background:#0284C7; color:white; border:none; padding:8px 16px; border-radius:14px; font-weight:bold; font-size:0.86rem; cursor:pointer; box-shadow:0 2px 8px rgba(2,132,199,0.3); transition:all 0.15s ease;">☁️ Live auf GitHub speichern</button>
+        <button onclick="exportUpdatedJs()" style="background:#B45309; color:white; border:none; padding:8px 16px; border-radius:14px; font-weight:bold; font-size:0.86rem; cursor:pointer;">📋 Code kopieren</button>
+        <button onclick="logoutAdmin()" style="background:transparent; color:#92400E; border:1px solid #FCD34D; padding:8px 12px; border-radius:14px; font-weight:600; font-size:0.82rem; cursor:pointer;">Abmelden</button>
+      </div>
+    </div>
   </div>
 
   <div class="banner">
@@ -844,6 +854,30 @@
     <div class="sheet-actions">
       <button class="secondary" onclick="closeReview()">Zurück</button>
       <button class="primary" onclick="downloadPdf()">PDF erstellen</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="adminOverlay" onclick="handleAdminOverlayClick(event)">
+  <div class="sheet" style="max-width: 480px;">
+    <div class="sheet-head">
+      <h2>🔐 Admin Login (nur für Timo)</h2>
+      <button class="sheet-close" onclick="closeAdminModal()">✕</button>
+    </div>
+    <div style="margin-bottom: 16px; font-size: 0.9rem; color: var(--text-muted); line-height: 1.5;">
+      Gib deinen GitHub Personal Access Token ein, um den Preis-Bearbeitungsmodus freizuschalten und Änderungen direkt live auf GitHub zu speichern.
+    </div>
+    <div style="margin-bottom: 16px;">
+      <label style="display:block; font-size:0.82rem; font-weight:600; color:var(--text-muted); margin-bottom:6px;" for="githubTokenInput">GitHub Access Token (PAT):</label>
+      <input type="password" id="githubTokenInput" placeholder="github_pat_... oder ghp_..." style="width:100%; padding:12px 14px; border-radius:var(--radius-sm); border:1px solid var(--border); font-family:monospace; font-size:0.9rem;">
+    </div>
+    <div style="font-size:0.8rem; color:var(--text-subtle); margin-bottom:20px; line-height:1.45;">
+      💡 Der Token wird sicher in deinem Browser gespeichert.<br>
+      <a href="https://github.com/settings/tokens/new?description=Getraenke-Tool-Admin&scopes=repo" target="_blank" style="color:var(--accent-dark); font-weight:600; text-decoration:underline;">Neuen Token auf GitHub erstellen ↗</a>
+    </div>
+    <div class="sheet-actions">
+      <button class="secondary" onclick="closeAdminModal()">Abbrechen</button>
+      <button class="primary" onclick="loginAdmin()">Anmelden</button>
     </div>
   </div>
 </div>
@@ -945,13 +979,87 @@ function getBottleCount(p) {
   return q.bottles || 0;
 }
 
+const REPO_OWNER = "timol04";
+const REPO_NAME = "getraenke-tool";
+const FILE_PATH = "sortiment.js";
+const TOKEN_KEY = "landi_admin_gh_token";
+
 let isEditPricesMode = false;
 
-function toggleEditPricesMode() {
-  isEditPricesMode = !isEditPricesMode;
+function getAdminToken() {
+  return localStorage.getItem(TOKEN_KEY) || "";
+}
+
+function openAdminModal() {
+  const currentToken = getAdminToken();
+  if (currentToken) {
+    toggleEditPricesMode(true);
+  } else {
+    document.getElementById("adminOverlay").classList.add("open");
+    setTimeout(() => {
+      const input = document.getElementById("githubTokenInput");
+      if (input) input.focus();
+    }, 100);
+  }
+}
+
+function closeAdminModal() {
+  document.getElementById("adminOverlay").classList.remove("open");
+}
+
+function handleAdminOverlayClick(e) {
+  if (e.target.id === "adminOverlay") closeAdminModal();
+}
+
+function loginAdmin() {
+  const token = document.getElementById("githubTokenInput").value.trim();
+  if (!token) {
+    alert("Bitte gib einen gültigen GitHub Personal Access Token ein.");
+    return;
+  }
+  localStorage.setItem(TOKEN_KEY, token);
+  closeAdminModal();
+  toggleEditPricesMode(true);
+}
+
+function logoutAdmin() {
+  localStorage.removeItem(TOKEN_KEY);
+  isEditPricesMode = false;
+  document.getElementById("editBanner").style.display = "none";
+  updateAdminHeaderBtn();
+  renderProducts();
+}
+
+function updateAdminHeaderBtn() {
+  const btn = document.getElementById("editPricesBtn");
+  if (!btn) return;
+  const loggedIn = !!getAdminToken();
+  if (isEditPricesMode) {
+    btn.textContent = "✅ Bearbeiten beenden";
+    btn.style.background = "#B45309";
+  } else if (loggedIn) {
+    btn.textContent = "✏️ Preise bearbeiten";
+    btn.style.background = "rgba(255,255,255,0.14)";
+  } else {
+    btn.textContent = "🔐 Admin Login";
+    btn.style.background = "rgba(255,255,255,0.14)";
+  }
+}
+
+function toggleEditPricesMode(forceState) {
+  if (forceState !== undefined) {
+    isEditPricesMode = forceState;
+  } else {
+    isEditPricesMode = !isEditPricesMode;
+  }
+  
+  if (isEditPricesMode && !getAdminToken()) {
+    openAdminModal();
+    return;
+  }
+
   document.getElementById("editBanner").style.display = isEditPricesMode ? "block" : "none";
-  document.getElementById("editPricesBtn").textContent = isEditPricesMode ? "✅ Bearbeiten beenden" : "✏️ Preise bearbeiten";
-  document.getElementById("editPricesBtn").style.background = isEditPricesMode ? "#B45309" : "rgba(255,255,255,0.14)";
+  updateAdminHeaderBtn();
   renderProducts();
 }
 
@@ -971,6 +1079,7 @@ function exportUpdatedJs() {
       const item = { art: i.art, name: i.name, price: i.price };
       if (i.caseSize) item.caseSize = i.caseSize;
       if (i.caseOnly) item.caseOnly = i.caseOnly;
+      if (i.allowSingleBottle !== undefined) item.allowSingleBottle = i.allowSingleBottle;
       if (i.deal) item.deal = i.deal;
       if (i.unit) item.unit = i.unit;
       return item;
@@ -984,6 +1093,84 @@ function exportUpdatedJs() {
   }).catch(() => {
     prompt("Hier ist der neue Code für sortiment.js (Strg+C / Cmd+C zum Kopieren):", code);
   });
+}
+
+async function savePricesToGithub() {
+  const token = getAdminToken();
+  if (!token) {
+    alert("Bitte melde dich zuerst als Admin an.");
+    openAdminModal();
+    return;
+  }
+
+  const saveBtn = document.getElementById("saveGithubBtn");
+  const originalText = saveBtn.textContent;
+  saveBtn.disabled = true;
+  saveBtn.textContent = "⏳ Speichere auf GitHub...";
+
+  try {
+    const cleaned = CATEGORIES.map(c => ({
+      name: c.name,
+      items: c.items.map(i => {
+        const item = { art: i.art, name: i.name, price: i.price };
+        if (i.caseSize) item.caseSize = i.caseSize;
+        if (i.caseOnly) item.caseOnly = i.caseOnly;
+        if (i.allowSingleBottle !== undefined) item.allowSingleBottle = i.allowSingleBottle;
+        if (i.deal) item.deal = i.deal;
+        if (i.unit) item.unit = i.unit;
+        return item;
+      })
+    }));
+
+    const newJsCode = "/**\n * LANDI GETRÄNKE-SORTIMENT (Stand " + new Date().toLocaleDateString("de-CH") + ")\n */\n\nconst CATEGORIES = " + JSON.stringify(cleaned, null, 2) + ";\n";
+
+    const getUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`;
+    const getResp = await fetch(getUrl, {
+      headers: {
+        "Authorization": `token ${token}`,
+        "Accept": "application/vnd.github.v3+json"
+      }
+    });
+
+    if (!getResp.ok) {
+      if (getResp.status === 401 || getResp.status === 403) {
+        throw new Error("Ungültiger GitHub Token oder ungenügende Rechte. (Repo scope benötigt)");
+      }
+      throw new Error(`Fehler beim Abrufen von GitHub (Status ${getResp.status}).`);
+    }
+
+    const fileData = await getResp.json();
+    const currentSha = fileData.sha;
+
+    const b64Content = btoa(unescape(encodeURIComponent(newJsCode)));
+
+    const putResp = await fetch(getUrl, {
+      method: "PUT",
+      headers: {
+        "Authorization": `token ${token}`,
+        "Accept": "application/vnd.github.v3+json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        message: "Update catalog prices via Admin UI",
+        content: b64Content,
+        sha: currentSha
+      })
+    });
+
+    if (!putResp.ok) {
+      const errJson = await putResp.json().catch(() => ({}));
+      throw new Error(errJson.message || `Fehler beim Speichern auf GitHub (Status ${putResp.status}).`);
+    }
+
+    alert("✅ Die Preise wurden erfolgreich live auf GitHub gespeichert!\nIn wenigen Sekunden sind die neuen Preise für alle Kunden live.");
+
+  } catch (err) {
+    alert("❌ Fehler beim Speichern: " + err.message);
+  } finally {
+    saveBtn.disabled = false;
+    saveBtn.textContent = originalText;
+  }
 }
 
 const activeSubFilters = {};
@@ -1428,6 +1615,7 @@ function downloadPdf() {
   doc.save("landi-bestellung-" + ref + ".pdf");
 }
 
+updateAdminHeaderBtn();
 renderProducts();
 </script>
 </body>
