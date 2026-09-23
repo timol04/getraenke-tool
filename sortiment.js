@@ -1088,6 +1088,7 @@ const CATEGORIES = [
         "caseSize": 6,
         "caseOnly": true,
         "allowSingleBottle": false,
+        "disabled": true,
         "unit": "flasche"
       },
       {
@@ -1181,6 +1182,7 @@ const CATEGORIES = [
         "priceSingle": 1.4,
         "gebinde": "Einzeln",
         "allowSingleBottle": true,
+        "disabled": true,
         "unit": "flasche"
       },
       {
@@ -1190,6 +1192,7 @@ const CATEGORIES = [
         "priceSingle": 1.75,
         "gebinde": "Einzeln",
         "allowSingleBottle": true,
+        "disabled": true,
         "unit": "flasche"
       },
       {
@@ -1223,6 +1226,7 @@ const CATEGORIES = [
         "caseSize": 6,
         "caseOnly": true,
         "allowSingleBottle": false,
+        "disabled": true,
         "unit": "flasche"
       },
       {
@@ -1517,6 +1521,7 @@ const CATEGORIES = [
         "priceSingle": 2,
         "gebinde": "Einzeln",
         "allowSingleBottle": true,
+        "disabled": true,
         "unit": "flasche"
       },
       {
@@ -1539,6 +1544,7 @@ const CATEGORIES = [
         "caseSize": 6,
         "caseOnly": true,
         "allowSingleBottle": false,
+        "disabled": true,
         "unit": "flasche"
       },
       {
@@ -1548,6 +1554,7 @@ const CATEGORIES = [
         "priceSingle": 1.55,
         "gebinde": "Einzeln",
         "allowSingleBottle": true,
+        "disabled": true,
         "unit": "flasche"
       },
       {
@@ -1557,6 +1564,7 @@ const CATEGORIES = [
         "priceSingle": 1.8,
         "gebinde": "Einzeln",
         "allowSingleBottle": true,
+        "disabled": true,
         "unit": "flasche"
       },
       {
@@ -1912,6 +1920,7 @@ const CATEGORIES = [
         "caseSize": 15,
         "caseOnly": true,
         "allowSingleBottle": false,
+        "disabled": true,
         "unit": "flasche"
       },
       {
@@ -1923,6 +1932,7 @@ const CATEGORIES = [
         "caseSize": 6,
         "caseOnly": true,
         "allowSingleBottle": false,
+        "disabled": true,
         "unit": "flasche"
       },
       {
@@ -1932,6 +1942,7 @@ const CATEGORIES = [
         "priceSingle": 1.6,
         "gebinde": "Einzeln",
         "allowSingleBottle": true,
+        "disabled": true,
         "unit": "flasche"
       },
       {
@@ -1941,6 +1952,7 @@ const CATEGORIES = [
         "priceSingle": 1.6,
         "gebinde": "Einzeln",
         "allowSingleBottle": true,
+        "disabled": true,
         "unit": "flasche"
       },
       {
@@ -1950,6 +1962,7 @@ const CATEGORIES = [
         "priceSingle": 1.3,
         "gebinde": "Einzeln",
         "allowSingleBottle": true,
+        "disabled": true,
         "unit": "flasche"
       },
       {
@@ -1961,6 +1974,7 @@ const CATEGORIES = [
         "caseSize": 18,
         "caseOnly": true,
         "allowSingleBottle": false,
+        "disabled": true,
         "unit": "flasche"
       },
       {
@@ -1972,6 +1986,7 @@ const CATEGORIES = [
         "caseSize": 6,
         "caseOnly": true,
         "allowSingleBottle": false,
+        "disabled": true,
         "unit": "flasche"
       },
       {
@@ -1983,6 +1998,7 @@ const CATEGORIES = [
         "caseSize": 6,
         "caseOnly": true,
         "allowSingleBottle": false,
+        "disabled": true,
         "unit": "flasche"
       },
       {
@@ -1992,6 +2008,7 @@ const CATEGORIES = [
         "priceSingle": 1.6,
         "gebinde": "Einzeln",
         "allowSingleBottle": true,
+        "disabled": true,
         "unit": "flasche"
       },
       {
@@ -2001,6 +2018,7 @@ const CATEGORIES = [
         "priceSingle": 1.6,
         "gebinde": "Einzeln",
         "allowSingleBottle": true,
+        "disabled": true,
         "unit": "flasche"
       },
       {
@@ -2010,6 +2028,7 @@ const CATEGORIES = [
         "priceSingle": 0.55,
         "gebinde": "Einzeln",
         "allowSingleBottle": true,
+        "disabled": true,
         "unit": "flasche"
       },
       {
