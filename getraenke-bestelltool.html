@@ -1005,8 +1005,8 @@
   <div class="preset-section">
     <div class="preset-header">
       <div>
-        <h2 class="preset-title">⚡ Beliebte Zusammenstellungen (Schnellstart)</h2>
-        <p class="preset-sub">Klicken Sie auf ein Vorlagen-Paket für vorgefertigte Mengen. Alle Angaben können danach beliebig angepasst werden.</p>
+        <h2 class="preset-title">⚡ Beliebte Zusammenstellungen (in Bearbeitung)</h2>
+        <p class="preset-sub">Klicken Sie auf ein Vorlagen-Paket für vorgefertigte Mengen. (Noch in Konfiguration – alle Angaben danach beliebig anpassbar).</p>
       </div>
       <button class="reset-top-btn" onclick="confirmResetAll()">
         🗑️ Auswahl zurücksetzen
@@ -1095,10 +1095,9 @@
 </div>
 
 <!-- SCHWEBENDER WARENKORB BUTTON -->
-<button id="floatingCartBtn" class="floating-cart-btn" onclick="scrollToSummary()" title="Zur Zusammenfassung springen">
-  <span>🛒</span>
-  <span>Zusammenstellung</span>
-  <span class="floating-cart-badge" id="floatingCartCount">0</span>
+<button id="floatingCartBtn" class="floating-cart-btn" onclick="toggleCartDrawer()" title="Zusammenstellung Übersicht">
+  <span style="font-size: 1.15rem;">🛒</span>
+  <span id="floatingCartText">0 Artikel ausgewählt</span>
 </button>
 
 <!-- RESET CONFIRMATION MODAL -->
@@ -1944,26 +1943,29 @@ function downloadPdf() {
   doc.save("landi-zusammenstellung-" + ref + ".pdf");
 }
 
-function scrollToSummary() {
-  const bar = document.querySelector(".summary-bar");
-  if (bar) {
-    bar.scrollIntoView({ behavior: "smooth" });
+function toggleCartDrawer() {
+  const overlay = document.getElementById("overlay");
+  if (overlay && overlay.classList.contains("open")) {
+    closeReview();
+  } else {
+    openReview();
   }
 }
 
 function updateFloatingCartBtn() {
   const btn = document.getElementById("floatingCartBtn");
-  const countSpan = document.getElementById("floatingCartCount");
-  if (!btn || !countSpan) return;
+  const textSpan = document.getElementById("floatingCartText");
+  if (!btn || !textSpan) return;
 
   const selected = getSelectedProducts();
-  const totalCount = selected.reduce((acc, s) => acc + s.count, 0);
+  const selectedCount = selected.length;
 
-  if (totalCount > 0) {
-    countSpan.textContent = totalCount;
+  if (selectedCount > 0) {
+    textSpan.textContent = selectedCount + (selectedCount === 1 ? " Artikel ausgewählt" : " Artikel ausgewählt");
     btn.classList.add("visible");
   } else {
     btn.classList.remove("visible");
+    closeReview();
   }
 }
 
@@ -2053,11 +2055,7 @@ function handleResetOverlayClick(e) {
 }
 
 function executeResetAll() {
-  qty = {};
-  renderProducts();
-  updateCategoryBadges();
-  updateSummaryBar();
-  closeResetModal();
+  window.location.reload();
 }
 
 updateAdminHeaderBtn();
