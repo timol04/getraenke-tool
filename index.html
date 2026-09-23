@@ -616,6 +616,13 @@
     color: var(--accent-dark);
     letter-spacing: -0.01em;
   }
+  .summary-bar .price-notice {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-top: 1px;
+    line-height: 1.2;
+  }
   .summary-bar button {
     background: linear-gradient(135deg, #C9A227 0%, #B58F1E 100%);
     color: #FFFFFF;
@@ -1093,6 +1100,7 @@
     <div>
       <div class="count" id="itemCount">0 Artikel ausgewählt</div>
       <div class="total" id="totalPrice">CHF 0.00</div>
+      <div class="price-notice">* Unverbindliche Schätzung (Preise im Laden können abweichen)</div>
     </div>
     <button id="reviewBtn" onclick="openReview()" disabled>
       Zusammenstellung ansehen (PDF)
