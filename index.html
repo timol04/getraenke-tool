@@ -1744,9 +1744,8 @@
         <label style="display:block; font-size:0.82rem; font-weight:600; color:var(--text-muted); margin-bottom:6px;" for="adminPasswordInput">Admin-Passwort:</label>
         <input type="password" id="adminPasswordInput" placeholder="Passwort eingeben…" style="width:100%; padding:12px 14px; border-radius:var(--radius-sm); border:1px solid var(--border); font-size:0.95rem;">
       </div>
-      <div style="font-size:0.8rem; color:var(--text-subtle); margin-bottom:20px; display:flex; justify-content:space-between; align-items:center;">
+      <div style="font-size:0.8rem; color:var(--text-subtle); margin-bottom:20px;">
         <span>🔑 Passwort geschützt</span>
-        <button type="button" onclick="openTokenModal()" style="background:none; border:none; color:var(--accent-dark); font-weight:600; cursor:pointer; text-decoration:underline; font-size:0.8rem;">⚙️ Token verwalten / erneuern</button>
       </div>
       <div class="sheet-actions">
         <button type="button" class="secondary" onclick="closeAdminModal()">Abbrechen</button>
@@ -1943,6 +1942,11 @@ function handleAdminOverlayClick(e) {
 }
 
 function openTokenModal() {
+  if (!isAdminAuthenticated) {
+    alert("🔒 Token verwalten erfordert Admin-Rechte. Bitte melde dich zuerst mit dem Admin-Passwort an.");
+    openAdminModal();
+    return;
+  }
   closeAdminModal();
   const input = document.getElementById("githubTokenInput");
   if (input) input.value = getAdminToken();
@@ -1961,6 +1965,11 @@ function handleTokenOverlayClick(e) {
 }
 
 function saveTokenSettings() {
+  if (!isAdminAuthenticated) {
+    alert("🔒 Nur angemeldete Admins dürfen den GitHub Token ändern.");
+    closeTokenModal();
+    return;
+  }
   const token = document.getElementById("githubTokenInput").value.trim();
   if (token) {
     localStorage.setItem(TOKEN_KEY, token);
@@ -1970,11 +1979,7 @@ function saveTokenSettings() {
     alert("GitHub Token wurde entfernt.");
   }
   closeTokenModal();
-  if (isAdminAuthenticated) {
-    toggleEditPricesMode(true);
-  } else {
-    openAdminModal();
-  }
+  toggleEditPricesMode(true);
 }
 
 function loginAdmin() {
