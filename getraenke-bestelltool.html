@@ -243,12 +243,12 @@
     position: relative;
   }
   summary:hover {
-    background: #F4F1E8;
+    background: var(--bg-subtle);
   }
   summary::-webkit-details-marker { display: none; }
   details.category[open] summary {
     border-bottom: 1px solid var(--border);
-    background: linear-gradient(135deg, #F5F2E9 0%, #FBFAF5 100%);
+    background: var(--bg-subtle);
   }
 
   .cat-left {
@@ -286,7 +286,7 @@
     font-weight: 600;
     padding: 5px 14px;
     border-radius: var(--radius-full);
-    background: #EDEAE1;
+    background: var(--bg-inset);
     color: var(--text-muted);
     border: 1px solid var(--border);
     transition: all 0.2s ease;
@@ -324,7 +324,7 @@
     flex-wrap: wrap;
     gap: 10px;
     padding: 16px 24px;
-    background: #F4F1E8;
+    background: var(--bg-subtle);
     border-bottom: 1px solid var(--border);
   }
   .sub-filter-btn {
@@ -359,7 +359,7 @@
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr));
     gap: 18px;
     padding: 24px;
-    background: #F4F1E8;
+    background: var(--bg-subtle);
   }
   .product {
     display: flex;
@@ -458,7 +458,7 @@
   .qty-field {
     display: inline-flex;
     align-items: center;
-    background: #EDEAE1;
+    background: var(--bg-inset);
     border: 1px solid var(--border);
     border-radius: 12px;
     padding: 4px 8px;
@@ -475,8 +475,8 @@
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    border: 1px solid #D5D0C3;
-    background: #FFFFFF;
+    border: 1px solid var(--border-btn);
+    background: var(--bg-btn);
     color: var(--text);
     font-size: 1.15rem;
     display: flex;
@@ -1002,54 +1002,64 @@
     border-radius: 999px;
   }
 
-  /* DARK MODE THEME SYSTEM (Aesthetic Dark Slate Grey) */
+  /* MULTI-SHADE AESTHETIC DARK GREY THEME */
   body.dark-mode {
-    --bg: #141A17;
-    --card: #1C2420;
-    --card-hover: #242E29;
-    --border: #2A3630;
-    --border-light: #212C26;
+    --bg: #121614;
+    --bg-subtle: #171E1A;
+    --card: #1E2722;
+    --card-hover: #26322B;
+    --border: #2C3A33;
+    --border-light: #222D28;
     
-    --text: #F2F5F3;
-    --text-muted: #9BA8A1;
-    --text-subtle: #708077;
+    --bg-inset: #161C19;
+    --bg-btn: #242F29;
+    --border-btn: #35453D;
     
-    --primary-light: #1D2A24;
+    --text: #F4F7F5;
+    --text-muted: #9EB0A8;
+    --text-subtle: #718279;
+    
+    --primary-light: #1A2620;
     --primary-border: #2B3D34;
     
-    --accent: #D6AB2D;
-    --accent-dark: #E6B833;
-    --accent-light: #282416;
-    --accent-border: #4A3E17;
+    --accent: #E5BB32;
+    --accent-dark: #F2C73B;
+    --accent-light: #242013;
+    --accent-border: #4D4017;
 
-    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
-    --shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
-    --shadow-lg: 0 14px 32px -4px rgba(0, 0, 0, 0.5);
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 14px 32px -4px rgba(0, 0, 0, 0.55);
   }
 
   @media (prefers-color-scheme: dark) {
     body:not(.light-mode) {
-      --bg: #141A17;
-      --card: #1C2420;
-      --card-hover: #242E29;
-      --border: #2A3630;
-      --border-light: #212C26;
+      --bg: #121614;
+      --bg-subtle: #171E1A;
+      --card: #1E2722;
+      --card-hover: #26322B;
+      --border: #2C3A33;
+      --border-light: #222D28;
       
-      --text: #F2F5F3;
-      --text-muted: #9BA8A1;
-      --text-subtle: #708077;
+      --bg-inset: #161C19;
+      --bg-btn: #242F29;
+      --border-btn: #35453D;
       
-      --primary-light: #1D2A24;
+      --text: #F4F7F5;
+      --text-muted: #9EB0A8;
+      --text-subtle: #718279;
+      
+      --primary-light: #1A2620;
       --primary-border: #2B3D34;
       
-      --accent: #D6AB2D;
-      --accent-dark: #E6B833;
-      --accent-light: #282416;
-      --accent-border: #4A3E17;
+      --accent: #E5BB32;
+      --accent-dark: #F2C73B;
+      --accent-light: #242013;
+      --accent-border: #4D4017;
 
-      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
-      --shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
-      --shadow-lg: 0 14px 32px -4px rgba(0, 0, 0, 0.5);
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+      --shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+      --shadow-lg: 0 14px 32px -4px rgba(0, 0, 0, 0.55);
     }
   }
 
@@ -1115,7 +1125,7 @@
     color: #FFFFFF;
     border: 1px solid rgba(255, 255, 255, 0.28);
     border-radius: 20px;
-    padding: 5px 14px;
+    padding: 6px 14px;
     font-size: 0.78rem;
     font-weight: 600;
     cursor: pointer;
@@ -1125,11 +1135,22 @@
     gap: 6px;
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
+    user-select: none;
   }
   .theme-toggle-btn:hover {
-    background: rgba(255, 255, 255, 0.24);
+    background: rgba(255, 255, 255, 0.26);
     border-color: rgba(255, 255, 255, 0.45);
     transform: translateY(-1px);
+  }
+  .theme-toggle-btn .sun-icon { display: none; }
+  .theme-toggle-btn .moon-icon { display: inline-block; }
+  
+  body.dark-mode .theme-toggle-btn .sun-icon { display: inline-block !important; }
+  body.dark-mode .theme-toggle-btn .moon-icon { display: none !important; }
+  
+  @media (prefers-color-scheme: dark) {
+    body:not(.light-mode) .theme-toggle-btn .sun-icon { display: inline-block !important; }
+    body:not(.light-mode) .theme-toggle-btn .moon-icon { display: none !important; }
   }
 </style>
 </head>
@@ -1140,7 +1161,11 @@
     <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
       <div class="brand-badge">LANDI GETRÄNKE-ZUSAMMENSTELLUNG</div>
       <div style="display:flex; align-items:center; gap:8px;">
-        <button id="themeToggleBtn" onclick="toggleTheme()" class="theme-toggle-btn" title="Design-Modus umschalten">🌙 Dunkel</button>
+        <button id="themeToggleBtn" onclick="toggleTheme()" class="theme-toggle-btn" title="Design-Modus umschalten" aria-label="Design-Modus umschalten">
+          <svg class="sun-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          <svg class="moon-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+          <span id="themeToggleLabel">Design</span>
+        </button>
         <button id="editPricesBtn" onclick="toggleEditPricesMode()" style="background:rgba(255,255,255,0.14); color:white; border:1px solid rgba(255,255,255,0.28); border-radius:20px; padding:5px 14px; font-size:0.78rem; font-weight:600; cursor:pointer; transition:all 0.15s ease;">🔐 Admin Login</button>
       </div>
     </div>
@@ -1723,7 +1748,6 @@ function toggleTheme() {
 function updateThemeToggleBtn(isDark) {
   const btn = document.getElementById("themeToggleBtn");
   if (btn) {
-    btn.innerHTML = isDark ? "☀️ Hell" : "🌙 Dunkel";
     btn.title = isDark ? "Zu hellem Design wechseln" : "Zu dunklem Design wechseln";
   }
 }
@@ -2115,7 +2139,6 @@ function toggleTheme() {
 function updateThemeToggleBtn(isDark) {
   const btn = document.getElementById("themeToggleBtn");
   if (btn) {
-    btn.innerHTML = isDark ? "☀️ Hell" : "🌙 Dunkel";
     btn.title = isDark ? "Zu hellem Design wechseln" : "Zu dunklem Design wechseln";
   }
 }
@@ -2937,7 +2960,6 @@ function toggleTheme() {
 function updateThemeToggleBtn(isDark) {
   const btn = document.getElementById("themeToggleBtn");
   if (btn) {
-    btn.innerHTML = isDark ? "☀️ Hell" : "🌙 Dunkel";
     btn.title = isDark ? "Zu hellem Design wechseln" : "Zu dunklem Design wechseln";
   }
 }
