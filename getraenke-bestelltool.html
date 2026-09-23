@@ -70,9 +70,29 @@
     position: sticky;
     top: 0;
     z-index: 20;
-    padding: 20px 24px 22px;
+    padding: 18px 24px 18px;
     box-shadow: 0 8px 24px rgba(21, 39, 31, 0.3);
     border-bottom: 1px solid rgba(201, 162, 39, 0.2);
+    transition: padding 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  header.top.scrolled {
+    padding: 10px 24px 12px;
+    box-shadow: 0 10px 30px rgba(15, 30, 24, 0.45);
+  }
+
+  .header-collapsible {
+    max-height: 160px;
+    opacity: 1;
+    overflow: hidden;
+    transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, margin 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    margin-top: 10px;
+    margin-bottom: 14px;
+  }
+  header.top.scrolled .header-collapsible {
+    max-height: 0;
+    opacity: 0;
+    margin-top: 0;
+    margin-bottom: 8px;
   }
   .header-content {
     max-width: 1300px;
@@ -967,10 +987,13 @@
   <div class="header-content">
     <div style="display:flex; justify-content:space-between; align-items:center;">
       <div class="brand-badge">LANDI GETRÄNKE-ZUSAMMENSTELLUNG</div>
-      <button id="editPricesBtn" onclick="toggleEditPricesMode()" style="background:rgba(255,255,255,0.14); color:white; border:1px solid rgba(255,255,255,0.28); border-radius:20px; padding:5px 14px; font-size:0.78rem; font-weight:600; cursor:pointer; transition:all 0.15s ease;">🔐 Admin / Preise bearbeiten</button>
+      <button id="editPricesBtn" onclick="toggleEditPricesMode()" style="background:rgba(255,255,255,0.14); color:white; border:1px solid rgba(255,255,255,0.28); border-radius:20px; padding:5px 14px; font-size:0.78rem; font-weight:600; cursor:pointer; transition:all 0.15s ease;">🔐 Admin Login</button>
     </div>
-    <h1>Getränke zusammenstellen</h1>
-    <p class="sub">Wählen Sie Ihre Produkte und Mengen aus und erstellen Sie daraus ein PDF, das Sie ausgedruckt direkt in der Filiale abgeben oder uns per E-Mail zusenden können.</p>
+    
+    <div class="header-collapsible">
+      <h1>Getränke zusammenstellen</h1>
+      <p class="sub">Wählen Sie Ihre Produkte und Mengen aus und erstellen Sie daraus ein PDF, das Sie ausgedruckt direkt in der Filiale abgeben oder uns per E-Mail zusenden können.</p>
+    </div>
     
     <div class="search-wrapper">
       <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -2074,6 +2097,16 @@ function handleResetOverlayClick(e) {
 function executeResetAll() {
   window.location.reload();
 }
+
+window.addEventListener("scroll", () => {
+  const header = document.querySelector("header.top");
+  if (!header) return;
+  if (window.scrollY > 30) {
+    header.classList.add("scrolled");
+  } else {
+    header.classList.remove("scrolled");
+  }
+}, { passive: true });
 
 updateAdminHeaderBtn();
 renderProducts();
