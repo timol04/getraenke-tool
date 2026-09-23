@@ -1046,11 +1046,15 @@
   <div id="categories"></div>
 
   <div class="details-block">
-    <h2>Angaben zur Abholung (optional)</h2>
+    <h2>Angaben zur Abholung / Person (optional)</h2>
     <div class="field-pair">
       <div class="field">
         <label for="custName">Name / Firma</label>
-        <input type="text" id="custName" placeholder="z. B. Max Muster">
+        <input type="text" id="custName" placeholder="z. B. Max Muster / Verein XYZ">
+      </div>
+      <div class="field">
+        <label for="custPhone">Telefon / Kontakt</label>
+        <input type="tel" id="custPhone" placeholder="z. B. 079 123 45 67">
       </div>
       <div class="field">
         <label for="custDate">Wunschtermin Abholung</label>
@@ -1881,6 +1885,7 @@ function downloadPdf() {
   const total = selected.reduce((sum, s) => sum + s.total, 0);
   const ref = makeReference();
   const name = document.getElementById("custName").value.trim();
+  const phone = document.getElementById("custPhone") ? document.getElementById("custPhone").value.trim() : "";
   const dateRaw = document.getElementById("custDate").value;
   const today = new Date().toLocaleDateString("de-CH");
 
@@ -1903,11 +1908,12 @@ function downloadPdf() {
   doc.setFontSize(10);
   doc.text("Referenz-Nr.: " + ref, 14, 26);
   doc.text("Erstellt am: " + today, 14, 31);
-  doc.text("Kunde: " + (name || "____________________"), 14, 39);
-  doc.text("Wunschtermin Abholung: " + formattedDate, 14, 45);
+  doc.text("Kunde / Firma: " + (name || "____________________"), 14, 39);
+  doc.text("Telefon / Kontakt: " + (phone || "____________________"), 14, 45);
+  doc.text("Wunschtermin Abholung: " + formattedDate, 14, 51);
 
   doc.autoTable({
-    startY: 52,
+    startY: 58,
     head: [["Art.-Nr.", "Produkt", "Menge", "Preis/Einheit", "Total"]],
     body: selected.map(s => [
       s.product.art,
