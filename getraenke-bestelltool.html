@@ -1104,7 +1104,7 @@ function logoutAdmin() {
 function updateAdminHeaderBtn() {
   const btn = document.getElementById("editPricesBtn");
   if (!btn) return;
-  if (isEditPricesMode) {
+  if (isEditPricesMode && isAdminAuthenticated) {
     btn.textContent = "✅ Bearbeiten beenden";
     btn.style.background = "#B45309";
   } else if (isAdminAuthenticated) {
@@ -1117,15 +1117,16 @@ function updateAdminHeaderBtn() {
 }
 
 function toggleEditPricesMode(forceState) {
+  if (!isAdminAuthenticated) {
+    isEditPricesMode = false;
+    openAdminModal();
+    return;
+  }
+
   if (forceState !== undefined) {
     isEditPricesMode = forceState;
   } else {
     isEditPricesMode = !isEditPricesMode;
-  }
-
-  if (isEditPricesMode && !isAdminAuthenticated) {
-    openAdminModal();
-    return;
   }
 
   document.getElementById("editBanner").style.display = isEditPricesMode ? "block" : "none";
