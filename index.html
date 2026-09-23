@@ -2806,7 +2806,7 @@ function setQty(id, field, value) {
 
 function syncLinkedField(id, changedField) {
   const p = findProduct(id);
-  if (!p || !p.caseSize || p.caseOnly || p.gebinde === "Pack") return;
+  if (!p || !p.caseSize || p.caseOnly || p.gebinde === "Pack" || p.gebinde === "Einzeln & Pack" || (p.allowSingleBottle && p.caseSize > 1)) return;
   const q = qty[id];
   if (changedField === "cases") {
     q.bottles = q.cases * p.caseSize;
