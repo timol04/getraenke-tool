@@ -70,29 +70,29 @@
     position: sticky;
     top: 0;
     z-index: 20;
-    padding: 18px 24px 18px;
+    padding: 16px 24px 16px;
     box-shadow: 0 8px 24px rgba(21, 39, 31, 0.3);
     border-bottom: 1px solid rgba(201, 162, 39, 0.2);
-    transition: padding 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: padding 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
   }
   header.top.scrolled {
-    padding: 10px 24px 12px;
+    padding: 10px 24px 10px;
     box-shadow: 0 10px 30px rgba(15, 30, 24, 0.45);
   }
 
   .header-collapsible {
-    max-height: 160px;
+    max-height: 140px;
     opacity: 1;
     overflow: hidden;
-    transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, margin 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-    margin-top: 10px;
-    margin-bottom: 14px;
+    transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, margin 0.35s ease;
+    margin-top: 8px;
+    margin-bottom: 12px;
   }
   header.top.scrolled .header-collapsible {
     max-height: 0;
     opacity: 0;
     margin-top: 0;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
   }
   .header-content {
     max-width: 1300px;
@@ -2098,12 +2098,17 @@ function executeResetAll() {
   window.location.reload();
 }
 
+let isHeaderScrolled = false;
 window.addEventListener("scroll", () => {
   const header = document.querySelector("header.top");
   if (!header) return;
-  if (window.scrollY > 30) {
+  const sy = window.scrollY;
+
+  if (!isHeaderScrolled && sy > 80) {
+    isHeaderScrolled = true;
     header.classList.add("scrolled");
-  } else {
+  } else if (isHeaderScrolled && sy < 20) {
+    isHeaderScrolled = false;
     header.classList.remove("scrolled");
   }
 }, { passive: true });
