@@ -1085,13 +1085,7 @@ function loginAdmin() {
   }
   isAdminAuthenticated = true;
   closeAdminModal();
-
-  if (!getAdminToken()) {
-    alert("🔑 Passwort korrekt!\nBitte hinterlege einmalig deinen GitHub Access Token, um Live-Speichern zu aktivieren.");
-    openTokenModal();
-  } else {
-    toggleEditPricesMode(true);
-  }
+  toggleEditPricesMode(true);
 }
 
 function logoutAdmin() {
