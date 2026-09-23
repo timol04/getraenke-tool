@@ -791,13 +791,22 @@ const CATEGORIES = [
         "unit": "dose"
       },
       {
-        "art": "99401",
-        "name": "Club-Mate 20 × 50 cl",
-        "price": 24.5,
-        "caseSize": 20,
-        "caseOnly": true,
-        "allowSingleBottle": false,
-        "unit": "flasche"
+        "art": "103976",
+        "name": "Farmer Mate Dose 6 × 33 cl",
+        "price": 5.95,
+        "caseSize": 6,
+        "caseOnly": false,
+        "allowSingleBottle": true,
+        "unit": "dose"
+      },
+      {
+        "art": "114544",
+        "name": "Farmer Mate zéro Dose 6 × 33 cl",
+        "price": 5.95,
+        "caseSize": 6,
+        "caseOnly": false,
+        "allowSingleBottle": true,
+        "unit": "dose"
       }
     ]
   },
