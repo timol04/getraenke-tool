@@ -85,32 +85,6 @@ const CATEGORIES = [
         "unit": "dose"
       },
       {
-        "art": "35398",
-        "name": "Coca-Cola Dose 24 × 33 cl",
-        "price": 14.95,
-        "priceSingle": 0.65,
-        "pricePack": 14.95,
-        "gebinde": "Einzeln & Pack",
-        "caseSize": 24,
-        "allowSingleBottle": true,
-        "deal": true,
-        "topAngebot": true,
-        "unit": "dose"
-      },
-      {
-        "art": "35400",
-        "name": "Coca-Cola Zero Dose 24 × 33 cl",
-        "price": 14.95,
-        "priceSingle": 0.65,
-        "pricePack": 14.95,
-        "gebinde": "Einzeln & Pack",
-        "caseSize": 24,
-        "allowSingleBottle": true,
-        "deal": true,
-        "topAngebot": true,
-        "unit": "dose"
-      },
-      {
         "art": "16800",
         "name": "El Pescaito 75 cl",
         "price": 4.95,
@@ -539,18 +513,6 @@ const CATEGORIES = [
         "unit": "flasche"
       },
       {
-        "art": "35398",
-        "name": "Coca-Cola Dose 24 × 33 cl",
-        "price": 14.95,
-        "priceSingle": 0.65,
-        "pricePack": 14.95,
-        "gebinde": "Einzeln & Pack",
-        "caseSize": 24,
-        "allowSingleBottle": true,
-        "topAngebot": true,
-        "unit": "dose"
-      },
-      {
         "art": "13153",
         "name": "Coca-Cola Zero 8 × 150 cl",
         "price": 16.45,
@@ -571,18 +533,6 @@ const CATEGORIES = [
         "caseSize": 8,
         "allowSingleBottle": true,
         "unit": "flasche"
-      },
-      {
-        "art": "35400",
-        "name": "Coca-Cola Zero Dose 24 × 33 cl",
-        "price": 14.95,
-        "priceSingle": 0.65,
-        "pricePack": 14.95,
-        "gebinde": "Einzeln & Pack",
-        "caseSize": 24,
-        "allowSingleBottle": true,
-        "topAngebot": true,
-        "unit": "dose"
       },
       {
         "art": "78009",
@@ -989,6 +939,30 @@ const CATEGORIES = [
         "allowSingleBottle": false,
         "topAngebot": true,
         "unit": "flasche"
+      },
+      {
+        "art": "35398",
+        "name": "Coca-Cola Dose 24 × 33 cl",
+        "price": 14.95,
+        "priceSingle": 0.65,
+        "pricePack": 14.95,
+        "gebinde": "Einzeln & Pack",
+        "subCategory": "Cola & Softdrinks",
+        "caseSize": 24,
+        "allowSingleBottle": true,
+        "unit": "dose"
+      },
+      {
+        "art": "35400",
+        "name": "Coca-Cola Zero Dose 24 × 33 cl",
+        "price": 14.95,
+        "priceSingle": 0.65,
+        "pricePack": 14.95,
+        "gebinde": "Einzeln & Pack",
+        "subCategory": "Cola & Softdrinks",
+        "caseSize": 24,
+        "allowSingleBottle": true,
+        "unit": "dose"
       }
     ]
   },
