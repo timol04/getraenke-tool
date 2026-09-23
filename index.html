@@ -1152,6 +1152,219 @@
     body:not(.light-mode) .theme-toggle-btn .sun-icon { display: inline-block !important; }
     body:not(.light-mode) .theme-toggle-btn .moon-icon { display: none !important; }
   }
+
+  /* PRESET SECTION & SUMMARY BAR DARK MODE FIXES */
+  body.dark-mode .preset-section,
+  @media (prefers-color-scheme: dark) {
+    body:not(.light-mode) .preset-section {
+      background: var(--card) !important;
+      border-color: var(--border) !important;
+    }
+  }
+  body.dark-mode .preset-title,
+  @media (prefers-color-scheme: dark) {
+    body:not(.light-mode) .preset-title {
+      color: var(--text) !important;
+    }
+  }
+  body.dark-mode .preset-card,
+  @media (prefers-color-scheme: dark) {
+    body:not(.light-mode) .preset-card {
+      background: var(--bg-subtle) !important;
+      border-color: var(--border) !important;
+    }
+  }
+  body.dark-mode .preset-card:hover,
+  @media (prefers-color-scheme: dark) {
+    body:not(.light-mode) .preset-card:hover {
+      background: var(--card-hover) !important;
+      border-color: var(--accent) !important;
+    }
+  }
+  body.dark-mode .preset-card-icon,
+  @media (prefers-color-scheme: dark) {
+    body:not(.light-mode) .preset-card-icon {
+      background: var(--bg-inset) !important;
+    }
+  }
+  body.dark-mode .preset-card-body h3,
+  @media (prefers-color-scheme: dark) {
+    body:not(.light-mode) .preset-card-body h3 {
+      color: var(--text) !important;
+    }
+  }
+  body.dark-mode .reset-top-btn,
+  @media (prefers-color-scheme: dark) {
+    body:not(.light-mode) .reset-top-btn {
+      background: #3B1B1B !important;
+      color: #F87171 !important;
+      border-color: #7F1D1D !important;
+    }
+  }
+
+  body.dark-mode .summary-bar,
+  @media (prefers-color-scheme: dark) {
+    body:not(.light-mode) .summary-bar {
+      background: rgba(18, 22, 20, 0.94) !important;
+      backdrop-filter: blur(16px) !important;
+      -webkit-backdrop-filter: blur(16px) !important;
+      border-top: 1px solid var(--border) !important;
+      box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.55) !important;
+    }
+  }
+  body.dark-mode .summary-bar button:disabled,
+  @media (prefers-color-scheme: dark) {
+    body:not(.light-mode) .summary-bar button:disabled {
+      background: #242E28 !important;
+      color: #64756D !important;
+      border-color: #2F3B34 !important;
+      opacity: 0.7 !important;
+    }
+  }
+
+
+  /* RESET BUTTON IN BOTTOM BAR */
+  .reset-bottom-btn {
+    background: #FEE2E2 !important;
+    color: #991B1B !important;
+    border: 1px solid #FCA5A5 !important;
+    border-radius: var(--radius) !important;
+    padding: 13px 20px !important;
+    font-family: 'Space Grotesk', sans-serif !important;
+    font-size: 0.9rem !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+    transition: all 0.18s ease !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    box-shadow: 0 2px 6px rgba(153, 27, 27, 0.12) !important;
+    user-select: none !important;
+  }
+  .reset-bottom-btn:hover {
+    background: #FCA5A5 !important;
+    color: #7F1D1D !important;
+    transform: translateY(-1px) !important;
+  }
+
+  body.dark-mode .reset-bottom-btn,
+  @media (prefers-color-scheme: dark) {
+    body:not(.light-mode) .reset-bottom-btn {
+      background: #2C1818 !important;
+      color: #FCA5A5 !important;
+      border: 1px solid #7F1D1D !important;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3) !important;
+    }
+  }
+  body.dark-mode .reset-bottom-btn:hover,
+  @media (prefers-color-scheme: dark) {
+    body:not(.light-mode) .reset-bottom-btn:hover {
+      background: #451A1A !important;
+      color: #F87171 !important;
+      border-color: #991B1B !important;
+    }
+  }
+
+  /* COMPLETE PRESET SECTION DARK MODE STYLING */
+  body.dark-mode .preset-section,
+  @media (prefers-color-scheme: dark) {
+    body:not(.light-mode) .preset-section {
+      background: var(--card) !important;
+      border-color: var(--border) !important;
+    }
+  }
+  body.dark-mode .preset-title,
+  @media (prefers-color-scheme: dark) {
+    body:not(.light-mode) .preset-title {
+      color: var(--text) !important;
+    }
+  }
+  body.dark-mode .preset-sub,
+  @media (prefers-color-scheme: dark) {
+    body:not(.light-mode) .preset-sub {
+      color: var(--text-muted) !important;
+    }
+  }
+  body.dark-mode .preset-card,
+  @media (prefers-color-scheme: dark) {
+    body:not(.light-mode) .preset-card {
+      background: var(--bg-subtle) !important;
+      border-color: var(--border) !important;
+    }
+  }
+  body.dark-mode .preset-card:hover,
+  @media (prefers-color-scheme: dark) {
+    body:not(.light-mode) .preset-card:hover {
+      background: var(--card-hover) !important;
+      border-color: var(--accent) !important;
+    }
+  }
+  body.dark-mode .preset-card-icon,
+  @media (prefers-color-scheme: dark) {
+    body:not(.light-mode) .preset-card-icon {
+      background: var(--bg-inset) !important;
+    }
+  }
+  body.dark-mode .preset-card-body h3,
+  @media (prefers-color-scheme: dark) {
+    body:not(.light-mode) .preset-card-body h3 {
+      color: var(--text) !important;
+    }
+  }
+  body.dark-mode .preset-card-body p,
+  @media (prefers-color-scheme: dark) {
+    body:not(.light-mode) .preset-card-body p {
+      color: var(--text-muted) !important;
+    }
+  }
+  body.dark-mode .preset-card-tag,
+  @media (prefers-color-scheme: dark) {
+    body:not(.light-mode) .preset-card-tag {
+      background: var(--accent-light) !important;
+      color: var(--accent-dark) !important;
+      border-color: var(--accent-border) !important;
+    }
+  }
+
+  /* SUMMARY BAR DARK MODE FIXES */
+  body.dark-mode .summary-bar,
+  @media (prefers-color-scheme: dark) {
+    body:not(.light-mode) .summary-bar {
+      background: rgba(18, 22, 20, 0.95) !important;
+      backdrop-filter: blur(16px) !important;
+      -webkit-backdrop-filter: blur(16px) !important;
+      border-top: 1px solid var(--border) !important;
+      box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.55) !important;
+    }
+  }
+  body.dark-mode .summary-bar .count,
+  @media (prefers-color-scheme: dark) {
+    body:not(.light-mode) .summary-bar .count {
+      color: var(--text-muted) !important;
+    }
+  }
+  body.dark-mode .summary-bar .total,
+  @media (prefers-color-scheme: dark) {
+    body:not(.light-mode) .summary-bar .total {
+      color: var(--accent-dark) !important;
+    }
+  }
+  body.dark-mode .summary-bar .price-notice,
+  @media (prefers-color-scheme: dark) {
+    body:not(.light-mode) .summary-bar .price-notice {
+      color: var(--text-subtle) !important;
+    }
+  }
+  body.dark-mode .summary-bar button:disabled,
+  @media (prefers-color-scheme: dark) {
+    body:not(.light-mode) .summary-bar button:disabled {
+      background: #242E28 !important;
+      color: #64756D !important;
+      border-color: #2F3B34 !important;
+      opacity: 0.7 !important;
+    }
+  }
+
 </style>
 </head>
 <body>
@@ -1212,9 +1425,6 @@
         <h2 class="preset-title">⚡ Beliebte Zusammenstellungen (in Bearbeitung)</h2>
         <p class="preset-sub">Klicken Sie auf ein Vorlagen-Paket für vorgefertigte Mengen. (Noch in Konfiguration – alle Angaben danach beliebig anpassbar).</p>
       </div>
-      <button class="reset-top-btn" onclick="confirmResetAll()">
-        🗑️ Auswahl zurücksetzen
-      </button>
     </div>
 
     <div class="preset-cards-grid">
@@ -1276,12 +1486,17 @@
       <div class="total" id="totalPrice">CHF 0.00</div>
       <div class="price-notice">* Unverbindliche Schätzung (Preise im Laden können abweichen)</div>
     </div>
-    <button id="reviewBtn" onclick="openReview()" disabled>
-      Zusammenstellung ansehen (PDF)
-      <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 5l7 7-7 7"></path>
-      </svg>
-    </button>
+    <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+      <button class="reset-bottom-btn" onclick="confirmResetAll()" title="Auswahl zurücksetzen">
+        🗑️ Zurücksetzen
+      </button>
+      <button id="reviewBtn" onclick="openReview()" disabled>
+        Zusammenstellung ansehen (PDF)
+        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </button>
+    </div>
   </div>
 </div>
 
