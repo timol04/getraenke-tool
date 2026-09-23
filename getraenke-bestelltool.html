@@ -916,6 +916,12 @@ function normalizeAssortment() {
       if (typeof p.price !== "number") {
         p.price = parseFloat(p.price) || 0;
       }
+      if (p.deal || p.topAngebot || cat.name === "Top-Angebote") {
+        p.caseOnly = true;
+        p.allowSingleBottle = false;
+      } else if (p.allowSingleBottle === undefined) {
+        p.allowSingleBottle = p.caseOnly ? false : true;
+      }
     });
   });
 }
@@ -935,8 +941,8 @@ function getUnitLabel(p, short = false) {
 
 function getBottleCount(p) {
   const q = qty[p.id] || { bottles: 0, cases: 0 };
-  if (p.caseOnly) return q.cases * (p.caseSize || 1);
-  return q.bottles;
+  if (p.caseOnly || p.allowSingleBottle === false) return (q.cases || 0) * (p.caseSize || 1);
+  return q.bottles || 0;
 }
 
 let isEditPricesMode = false;
@@ -1278,7 +1284,7 @@ function getUnitPrice(p) {
 }
 
 function getItemTotal(p, q) {
-  if (p.caseOnly) return (q.cases || 0) * p.price;
+  if (p.caseOnly || p.allowSingleBottle === false) return (q.cases || 0) * p.price;
   if (!p.caseSize || p.caseSize <= 1) return (q.bottles || 0) * p.price;
   const cases = q.cases || Math.floor((q.bottles || 0) / p.caseSize);
   const extraBottles = (q.bottles || 0) % p.caseSize;
@@ -1288,8 +1294,12 @@ function getItemTotal(p, q) {
 
 function getSelectedProducts() {
   const result = [];
+  const processedIds = new Set();
   CATEGORIES.forEach(cat => {
     (cat.items || []).forEach(p => {
+      if (processedIds.has(p.id)) return;
+      processedIds.add(p.id);
+
       const q = qty[p.id] || { bottles: 0, cases: 0 };
       const n = getBottleCount(p);
       if (n > 0 || q.cases > 0) {
