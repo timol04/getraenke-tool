@@ -13,17 +13,22 @@ if not match:
 categories = json.loads(match.group(1))
 
 with open('sortiment.csv', 'w', newline='', encoding='utf-8-sig') as f:
-    writer = csv.writer(f, delimiter=';')
-    writer.writerow(['Kategorie', 'Artikelnummer', 'Produktname', 'Pack_Preis_CHF', 'Packungsgroesse_Flaschen'])
+    writer = csv.writer(f)
+    writer.writerow(['Art.-Nr.', 'Name des Produkts', 'Gebinde', 'Kategorie', 'Top-Angebot', 'Unterkategorie', 'Preis Einzeln(CHF)', 'Preis Pack (CHF)'])
 
     for cat in categories:
+        if cat['name'] == 'Top-Angebote':
+            continue
         for item in cat['items']:
             writer.writerow([
-                cat['name'],
-                item['art'],
-                item['name'],
-                item['price'],
-                item.get('caseSize', 1)
+                item.get('art', ''),
+                item.get('name', ''),
+                item.get('gebinde', ''),
+                cat.get('name', ''),
+                'TRUE' if item.get('topAngebot') else 'FALSE',
+                item.get('subCategory', ''),
+                item.get('priceSingle', '') if item.get('priceSingle') is not None else '',
+                item.get('pricePack', '') if item.get('pricePack') is not None else ''
             ])
 
-print("Successfully generated sortiment.csv!")
+print("Successfully exported sortiment.csv from sortiment.js!")

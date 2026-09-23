@@ -1222,11 +1222,19 @@ function normalizeAssortment() {
       if (typeof p.price !== "number") {
         p.price = parseFloat(p.price) || 0;
       }
-      if (p.deal || p.topAngebot || cat.name === "Top-Angebote") {
+      if (p.gebinde === "Pack" || p.caseOnly) {
         p.caseOnly = true;
         p.allowSingleBottle = false;
-      } else if (p.allowSingleBottle === undefined) {
-        p.allowSingleBottle = p.caseOnly ? false : true;
+      } else if (p.gebinde === "Einzeln") {
+        p.caseOnly = false;
+        p.allowSingleBottle = true;
+      } else if (p.gebinde === "Einzeln & Pack") {
+        p.caseOnly = false;
+        p.allowSingleBottle = true;
+      } else {
+        if (p.allowSingleBottle === undefined) {
+          p.allowSingleBottle = p.caseOnly ? false : true;
+        }
       }
     });
   });
@@ -1256,8 +1264,8 @@ function getCaseLabel(p, short = false) {
 
 function getBottleCount(p) {
   const q = qty[p.id] || { bottles: 0, cases: 0 };
-  if (p.caseOnly || p.allowSingleBottle === false) return (q.cases || 0) * (p.caseSize || 1);
-  return q.bottles || 0;
+  if (p.caseOnly || p.gebinde === "Pack" || p.allowSingleBottle === false) return (q.cases || 0) * (p.caseSize || 1);
+  return q.bottles || ((q.cases || 0) * (p.caseSize || 1));
 }
 
 const REPO_OWNER = "timol04";
@@ -1392,19 +1400,27 @@ function updateProductPrice(id, val) {
   }
 }
 
-function exportUpdatedJs() {
-  const cleaned = CATEGORIES.map(c => ({
+function cleanCategoriesForExport() {
+  return CATEGORIES.map(c => ({
     name: c.name,
     items: c.items.map(i => {
       const item = { art: i.art, name: i.name, price: i.price };
+      if (i.priceSingle !== undefined && i.priceSingle !== null) item.priceSingle = i.priceSingle;
+      if (i.pricePack !== undefined && i.pricePack !== null) item.pricePack = i.pricePack;
+      if (i.gebinde) item.gebinde = i.gebinde;
       if (i.caseSize) item.caseSize = i.caseSize;
       if (i.caseOnly) item.caseOnly = i.caseOnly;
       if (i.allowSingleBottle !== undefined) item.allowSingleBottle = i.allowSingleBottle;
       if (i.deal) item.deal = i.deal;
+      if (i.topAngebot) item.topAngebot = i.topAngebot;
       if (i.unit) item.unit = i.unit;
       return item;
     })
   }));
+}
+
+function exportUpdatedJs() {
+  const cleaned = cleanCategoriesForExport();
 
   const code = "/**\n * LANDI GETRÄNKE-SORTIMENT (Stand " + new Date().toLocaleDateString("de-CH") + ")\n */\n\nconst CATEGORIES = " + JSON.stringify(cleaned, null, 2) + ";\n";
   
@@ -1429,18 +1445,7 @@ async function savePricesToGithub() {
   saveBtn.textContent = "⏳ Speichere auf GitHub...";
 
   try {
-    const cleaned = CATEGORIES.map(c => ({
-      name: c.name,
-      items: c.items.map(i => {
-        const item = { art: i.art, name: i.name, price: i.price };
-        if (i.caseSize) item.caseSize = i.caseSize;
-        if (i.caseOnly) item.caseOnly = i.caseOnly;
-        if (i.allowSingleBottle !== undefined) item.allowSingleBottle = i.allowSingleBottle;
-        if (i.deal) item.deal = i.deal;
-        if (i.unit) item.unit = i.unit;
-        return item;
-      })
-    }));
+    const cleaned = cleanCategoriesForExport();
 
     const newJsCode = "/**\n * LANDI GETRÄNKE-SORTIMENT (Stand " + new Date().toLocaleDateString("de-CH") + ")\n */\n\nconst CATEGORIES = " + JSON.stringify(cleaned, null, 2) + ";\n";
 
@@ -1652,7 +1657,7 @@ function renderProducts() {
       const q = qty[p.id] || { bottles: 0, cases: 0 };
 
       let qtyHtml = "";
-      if (p.caseOnly) {
+      if (p.caseOnly || p.gebinde === "Pack") {
         qtyHtml = `
           <div class="qty-field">
             <button class="qty-btn" onclick="changeQty('${p.id}','cases',-1)">−</button>
@@ -1660,7 +1665,7 @@ function renderProducts() {
             <button class="qty-btn" onclick="changeQty('${p.id}','cases',1)">+</button>
             <label>${getCaseLabel(p)}</label>
           </div>`;
-      } else if (p.caseSize) {
+      } else if (p.caseSize && (p.gebinde === "Einzeln & Pack" || (p.allowSingleBottle && p.caseSize > 1))) {
         qtyHtml = `
           <div class="qty-field">
             <button class="qty-btn" onclick="changeQty('${p.id}','bottles',-1)">−</button>
@@ -1684,15 +1689,24 @@ function renderProducts() {
           </div>`;
       }
 
+      let priceSubText = "";
+      if (p.gebinde === "Einzeln & Pack" && p.priceSingle && p.pricePack) {
+        priceSubText = `/ Pack (${money(p.priceSingle)} / ${getUnitLabel(p, true)} Einzeln)`;
+      } else if (p.caseSize) {
+        priceSubText = `/ Pack (${money(getUnitPrice(p))} / ${getUnitLabel(p, true)})`;
+      } else {
+        priceSubText = `/ ${getUnitLabel(p, true)}`;
+      }
+
       const priceDisplayHtml = isEditPricesMode ? `
         <div class="product-price-box" style="text-align:right;">
-          <span style="font-size:0.75rem; color:var(--text-muted); font-weight:normal; display:block;">Pack-Preis (CHF):</span>
+          <span style="font-size:0.75rem; color:var(--text-muted); font-weight:normal; display:block;">Preis (CHF):</span>
           <input type="number" step="0.05" min="0" value="${p.price}" onchange="updateProductPrice('${p.id}', this.value)" style="width:85px; padding:6px 8px; font-weight:bold; font-size:1rem; color:var(--accent-dark); border:1px solid var(--accent-border); border-radius:8px; text-align:right;">
         </div>
       ` : `
         <div class="product-price-box">
           <span class="price-val">${money(p.price)}</span>
-          <span class="price-sub">${p.caseSize ? '/ Pack (' + money(getUnitPrice(p)) + ' / ' + getUnitLabel(p, true) + ')' : '/ ' + getUnitLabel(p, true)}</span>
+          <span class="price-sub">${priceSubText}</span>
         </div>
       `;
 
@@ -1782,7 +1796,7 @@ function setQty(id, field, value) {
 
 function syncLinkedField(id, changedField) {
   const p = findProduct(id);
-  if (!p || !p.caseSize || p.caseOnly) return;
+  if (!p || !p.caseSize || p.caseOnly || p.gebinde === "Pack") return;
   const q = qty[id];
   if (changedField === "cases") {
     q.bottles = q.cases * p.caseSize;
@@ -1800,16 +1814,22 @@ function findProduct(id) {
 }
 
 function getUnitPrice(p) {
+  if (p.priceSingle) return p.priceSingle;
   return (p.caseSize && p.caseSize > 0) ? (p.price / p.caseSize) : p.price;
 }
 
 function getItemTotal(p, q) {
-  if (p.caseOnly || p.allowSingleBottle === false) return (q.cases || 0) * p.price;
-  if (!p.caseSize || p.caseSize <= 1) return (q.bottles || 0) * p.price;
+  if (p.caseOnly || p.gebinde === "Pack" || p.allowSingleBottle === false) {
+    return (q.cases || 0) * (p.pricePack || p.price);
+  }
+  if (!p.caseSize || p.caseSize <= 1 || p.gebinde === "Einzeln") {
+    return (q.bottles || 0) * (p.priceSingle || p.price);
+  }
   const cases = q.cases || Math.floor((q.bottles || 0) / p.caseSize);
   const extraBottles = (q.bottles || 0) % p.caseSize;
-  const unitPrice = p.price / p.caseSize;
-  return (cases * p.price) + (extraBottles * unitPrice);
+  const packPrice = p.pricePack || p.price;
+  const singlePrice = p.priceSingle || (packPrice / p.caseSize);
+  return (cases * packPrice) + (extraBottles * singlePrice);
 }
 
 function getSelectedProducts() {
@@ -1846,13 +1866,22 @@ function openReview() {
   const total = selected.reduce((sum, s) => sum + s.total, 0);
   const list = document.getElementById("reviewList");
 
-  let rows = selected.map(s => `
+  let rows = selected.map(s => {
+    let qtyText = `${s.count} ${getUnitLabel(s.product, true)}`;
+    if (s.cases > 0 && s.product.caseSize && (s.count % s.product.caseSize !== 0)) {
+      const extra = s.count % s.product.caseSize;
+      qtyText = `${s.cases} Pack (${s.cases * s.product.caseSize} ${getUnitLabel(s.product, true)}) + ${extra} ${getUnitLabel(s.product, true)} einzeln`;
+    } else if (s.cases > 0 && s.product.caseSize) {
+      qtyText = `${s.cases} ${getCaseLabel(s.product, true)} (${s.count} ${getUnitLabel(s.product, true)})`;
+    }
+    return `
     <tr>
       <td><strong>${s.product.name}</strong><br><span style="color:var(--text-muted);font-size:0.78rem">Art.-Nr. ${s.product.art}</span></td>
-      <td>${s.count} ${getUnitLabel(s.product, true)}</td>
+      <td>${qtyText}</td>
       <td>${money(s.total)}</td>
     </tr>
-  `).join("");
+    `;
+  }).join("");
 
   if (selected.length === 0) {
     list.innerHTML = '<p class="empty-note">Noch keine Artikel ausgewählt.</p>';

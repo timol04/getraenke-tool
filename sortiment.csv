@@ -1,237 +1,325 @@
-﻿Kategorie;Artikelnummer;Produktname;Pack_Preis_CHF;Packungsgroesse_Flaschen
-Mineralwasser;87523;Mineralwasser Farmer rot 6×150cl;3.65;6
-Mineralwasser;87524;Mineralwasser Farmer blau 6×150cl;3.65;6
-Mineralwasser;87534;Mineralwasser Farmer grün 6×150cl;3.65;6
-Mineralwasser;35282;Quintus Quelle blau 6 × 150 cl;1.95;6
-Mineralwasser;09018;Mineralwasser Farmer blau 6×50cl;3.18;6
-Mineralwasser;12356;Mineralwasser Farmer rot 6×50cl;3.18;6
-Mineralwasser;45516;Quintus Quelle rot 6 ×150 cl;1.95;6
-Mineralwasser;09015;Mineralwasser Farmer grün 6×50cl;3.18;6
-Mineralwasser;87512;Henniez grün 6 × 50 cl;4.68;6
-Mineralwasser;87507;Henniez rot 6 × 50 cl;4.68;6
-Mineralwasser;02166;Henniez blau 6 × 50 cl;4.68;6
-Süssgetränke;87708;Ice Tea Farmer Lemon 6 × 150 cl;3.65;6
-Süssgetränke;88632;Focus Water Active 12 × 50 cl;15.0;12
-Süssgetränke;35400;Coca-Cola Zero Dose 24 × 33 cl;14.95;24
-Süssgetränke;95913;Citro Farmer zéro 6 × 150 cl;3.65;6
-Süssgetränke;09014;Ice Tea Farmer Lemon 6 × 50 cl;3.18;6
-Süssgetränke;35398;Coca-Cola Dose 24 × 33 cl;14.95;24
-Süssgetränke;95926;Citro Farmer zéro 6 × 50 cl;3.18;6
-Süssgetränke;09017;Ice Tea Farmer Peach 6 × 50 cl;3.18;6
-Süssgetränke;87709;Ice Tea Farmer Peach 6 × 150 cl;3.65;6
-Süssgetränke;13152;Coca-Cola 8 × 150 cl;16.48;8
-Süssgetränke;99712;Grapefruit Farmer zéro 6×150cl;3.65;6
-Süssgetränke;78099;Schnitzwasser Farmer 6 × 150 cl;3.65;6
-Süssgetränke;82220;Ice Tea Farmer Mint 6 × 150 cl;3.65;6
-Süssgetränke;35378;Coca-Cola 8 × 50 cl;11.44;8
-Süssgetränke;82128;San Pellegrino Chino 24 × 33 cl;16.56;24
-Süssgetränke;78009;Cola Farmer zéro 6 × 150 cl;3.65;6
-Süssgetränke;35376;Coca-Cola Zero 8 × 50 cl;11.44;8
-Süssgetränke;13153;Coca-Cola Zero 8 × 150 cl;16.48;8
-Süssgetränke;85041;Schnitzwasser Farmer 6 × 50 cl;3.18;6
-Süssgetränke;87319;Vitaminwater Farmer Zitrone 6×50cl;3.18;6
-Süssgetränke;68904;Lemon Soda 24 × 33 cl;15.84;24
-Süssgetränke;95909;Ice Tea Farmer Mint 6 × 50 cl;3.18;6
-Süssgetränke;87810;Holunder-Melisse Farmer 6 × 150 cl;3.65;6
-Süssgetränke;46020;Rivella rot 8 × 50 cl;11.92;8
-Süssgetränke;82126;San Pellegrino L'Aranc. 24×33cl;16.56;24
-Süssgetränke;09022;Holunder-Melisse Farmer 6×50cl;3.18;6
-Süssgetränke;40938;Rivella rot 24 × 50 cl;27.6;24
-Süssgetränke;41624;Rivella blau 24 × 50 cl;27.6;24
-Süssgetränke;16149;Energy Drink Red Bull Dose 24×25cl;27.5;24
-Süssgetränke;87800;Energy Drink Red Bull Dose 6×25cl;8.88;6
-Süssgetränke;38994;Energy Drink Red Bull S.free 6×25cl;8.88;6
-Süssgetränke;42617;Orangensaft Farmer 6 × 100 cl;7.8;6
-Süssgetränke;87543;Orangensaft Granini 6 × 100 cl;13.32;6
-Süssgetränke;87544;Fruchtcocktail Granini 6 × 100 cl;13.32;6
-Süssgetränke;41743;Traubensaft Farmer rot 4 × 100 cl;6.24;4
-Süssgetränke;41741;Cranberry Farmer 4 × 100 cl;6.96;4
-Süssgetränke;51528;Multivitamin Farmer 6 × 100 cl;9.54;6
-Süssgetränke;87743;Sauser m.A. Ramseier 6 × 100 cl;19.32;6
-Süssgetränke;38358;Capri Sun Multivitamin 15 × 33 cl;18.0;15
-Süssgetränke;96103;Direkt Orangensaft Farmer 6×100cl;14.7;6
-Süssgetränke;34965;Capri Sun Orange-Peach 15×33cl;17.95;15
-Süssgetränke;54906;Sauser m.A. Ramseier 6 × 50 cl;10.95;6
-Biere;46003;Lagerbier Feld. Original 24 × 50 cl;27.6;24
-Biere;87313;Lagerbier Feld. Original 24 × 33 cl;20.88;24
-Biere;87448;Lagerbier Farmer Dose 50 cl;0.12;1
-Biere;75884;Bier Quöllfrisch 15 × 33 cl;15.9;15
-Biere;88317;Bier Quöllfrisch Dose 24 × 50 cl;30.0;24
-Biere;18249;Bier Calanda Radler 10 × 33 cl;12.5;10
-Biere;75827;Bier Boxer old 24 × 33 cl;19.92;24
-Biere;26980;Lagerbier Farmer Dose 18 × 50 cl;10.8;18
-Biere;15492;Corona Extra Bier 6 × 33 cl;7.98;6
-Biere;87303;Lagerbier Feld. Original MW 50 cl;0.34;1
-Biere;91683;Bier Moretti Dose 12 × 50 cl;19.92;12
-Biere;38092;Bier Farmer Naturtrüb 50 cl;0.15;1
-Biere;46423;Amberbier Farmer Dose 50 cl;1.5;1
-Biere;72340;Calanda Radler Zitrone 24 × 50 cl;27.84;24
-Biere;35247;Bier Sagres 24 × 25 cl;15.84;24
-Biere;66226;Quöllfrisch naturtrüb 15 × 33cl;15.9;15
-Biere;30234;Lagerbier Feld. Original Dose 15×50cl;24.9;15
-Biere;13151;Panaché Farmer Lemon Dose 50cl;0.12;1
-Biere;87441;Spezialbier Rugenbräu MW 33 cl;0.47;1
-Biere;88308;Bier Pale Ale Farmer Dose 50 cl;1.6;1
-Biere;68896;Bier Moretti Dose 24 × 50 cl;29.52;24
-Biere;87351;Eve Litchi 4 × 27,5 cl;9.44;4
-Biere;15107;Bier Zitronen Panaché 15 × 33 cl;15.0;15
-Biere;77382;Bier Ginger Appenzeller 6 × 33 cl;15.24;6
-Biere;87428;Bier Schützengarten Edelspez MW 33cl;0.47;1
-Biere;51891;Bier Calanda Glatsch 6 × 50 cl;11.22;6
-Biere;87444;Bier Quöllfrisch MW 50 cl;0.39;1
-Biere;50898;Eve Strawberry Mojito 10 × 27,5 cl;17.3;10
-Biere;87450;Lagerbier Farmer MW 50 cl;0.12;1
-Biere;74766;Bier Feld. o.A. 15 × 33 cl;16.95;15
-Biere;66216;Bier Feld. o.A. Dose 15 × 50 cl;24.9;15
-Biere;91134;Bier Eichhof o.A. 0.0% 10 × 33 cl;10.7;10
-Biere;87457;Bier Schützengarten o.A. MW 50 cl;0.34;1
-Biere;57218;Bschorle EW 6 × 33 cl;8.4;6
-Biere;15526;Panaché Bilz Himbeere 10 × 33 cl;10.9;10
-Biere;34815;Radler Calanda Lemon 0.0 % 6 × 33 cl;7.98;6
-Biere;87602;Mountain Twister o.A. 8×33cl;10.88;8
-Biere;97498;Bier Feld. Zitrone 0.0% 8 × 50 cl;13.52;8
-Biere;95031;Radler Calanda Grape 0.0 % 6 × 33 cl;7.98;6
-Biere;67713;Bier Grapefruit o.A. 6 × 33 cl;7.74;6
-Biere;96385;Bier Schützengarten o.A. 6 × 33 cl;7.32;6
-Biere;15102;Bier Feld. Peach 0.0 6 × 50 cl;10.98;6
-Biere;05265;Eve Litchi 0.0 % 4 × 27,5 cl;9.44;4
-Biere;87315;Bier Feld. o.A. MW 50 cl;0.34;1
-Weine;52804;Moscato Mosketto 75 cl;7.93;1
-Weine;19819;Primitivo Manduria 75 cl;9.27;1
-Weine;88965;Prosecco Spumante 75 cl;10.6;1
-Weine;17729;Dimensione Rosso 75 cl;9.13;1
-Weine;34848;La Vache des Alpes blanc 75 cl;10.6;1
-Weine;34841;La Vache des Alpes rouge 75 cl;10.6;1
-Weine;34845;La Vache des Alpes rosé 75 cl;10.6;1
-Weine;88610;Rosière Syrah 75 cl;2.5;1
-Weine;88408;Salvagnin 50 cl;9.8;1
-Weine;88441;Fleurance Gamay 50 cl;8.8;1
-Weine;16869;Triasso Rosso Biologico 75 cl;11.33;1
-Weine;88456;Dôle du Valais 75 cl;9.07;1
-Weine;88235;Balance Muscat 75 cl;5.6;1
-Weine;88461;Dôle du Valais 50 cl;9.9;1
-Weine;88337;Rosière Rosé 75 cl;6.4;1
-Weine;88397;Holunderblütenwein 50 cl;10.8;1
-Weine;52887;Pinot Noir Goldbeere 75 cl;15.33;1
-Weine;52913;Ripasso Valpolicella Zeni 75 cl;2.5;1
-Weine;88044;Mont sur Rolle 75 cl;8.93;1
-Weine;88306;Oeil-de-Perdrix 75 cl;10.6;1
-Weine;52915;Amarone Valpolicella Zeni 75 cl;30.6;1
-Weine;88157;Fendant VS 75 cl;8.67;1
-Weine;88177;Rosière Chardonnay 75 cl;6.4;1
-Weine;52841;Federweiss Goldbeere 75 cl;15.33;1
-Weine;13695;Rosé Lemanic 75 cl;7.6;1
-Weine;66471;Fleurance Pinot Noir 50 cl;9.9;1
-Weine;52839;Riesling-Silvaner Goldbeere 75 cl;13.27;1
-Weine;88033;Luins blanc 50 cl;2.5;1
-Weine;88390;Blauburgunder Hallau 75cl;10.6;1
-Weine;06683;Pinot Grigio Cesario 75cl;5.87;1
-Weine;88031;Luins blanc 75 cl;9.27;1
-Weine;88113;Yvorne blanc 75 cl;16.67;1
-Weine;68163;Velarino Nero di Troia 75 cl;10.27;1
-Weine;63381;Schaumwein Volgaz 75 cl;15.93;1
-Weine;88067;St. Saphorin blanc 75 cl;13.73;1
-Weine;17730;Dimensione Bianco 75 cl;9.13;1
-Weine;88885;Glühwein 1 l;2.5;1
-Weine;88085;Villette blanc 75 cl;11.93;1
-Weine;19525;Johannisberg VS 75 cl;2.5;1
-Weine;88080;Epesses blanc 75 cl;13.27;1
-Weine;88267;Cuvée Rosé Suisse 50 cl;7.9;1
-Weine;88175;Muscat #sweet 50 cl;10.2;1
-Weine;61650;Heida 75 cl;15.93;1
-Weine;88236;Balance Che. blanc 75 cl;5.6;1
-Weine;02782;Mauler Cordon Or Dry 75cl;16.67;1
-Weine;88396;Pinot Noir Duvallon 75 cl;7.93;1
-Weine;13685;Chasselas Lemanic 75 cl;2.5;1
-Weine;06984;Pinot Noir GR AOC 75 cl;16.67;1
-Weine;65857;Borgo del Mandorlo Negro. 75 cl;10.87;1
-Weine;59511;Porta 6 Lisboa 75 cl;9.27;1
-Weine;21518;LAB Moscato 75 cl;7.93;1
-Weine;27642;Rioja El Coto Crianza 75cl;11.93;1
-Weine;16800;El Pescaito 75 cl;6.6;1
-Weine;88490;Zweigelt 75 cl;5.73;1
-Weine;88713;Cabernet Sauvignon 5 l;3.79;1
-Weine;52925;Primitivo Manduria 1488 75 cl;2.5;1
-Weine;71679;Barbera Piemonte 150+1 75cl;9.27;1
-Weine;88314;Dôle blanche VS 75 cl;8.67;1
-Weine;38306;Tempranillo Bag-in-Box 3l;3.08;1
-Weine;88264;Rosé Duvallon 75 cl;7.93;1
-Weine;88355;Balance Shiraz Rosé 75 cl;5.6;1
-Weine;88723;J.P. Chenet Cabernet-Syrah 75 cl;6.6;1
-Weine;30791;Pinot Noir Salgesch 75 cl;11.93;1
-Weine;52911;Costalago Zeni Rosso 75 cl;12.67;1
-Weine;22227;Primitivo Puglia Cesario 75 cl;6.13;1
-Weine;12507;Rimuss bianco dry 75 cl;10.33;1
-Weine;52889;Cuvée royale Goldbeere 75 cl;16.27;1
-Weine;69200;3 l bester Schweizer Wein;4.65;1
-Weine;88170;Grüner Veltliner 75 cl;5.6;1
-Weine;68894;Gran Pasas Monastrell 75 cl;11.93;1
-Weine;88792;Ripasso Salvaterra 75 cl;10.6;1
-Weine;10868;Aigle Chablais blanc 50 cl;17.1;1
-Weine;06995;Vin Grischun GR 75 cl;19.93;1
-Weine;81839;Roma Federici 75 cl;11.93;1
-Weine;88145;Fleurance Chasselas 50 cl;7.9;1
-Weine;88980;Rimuss Party o.A. 70 cl;6.64;1
-Weine;19534;Cornalin du Valais 75 cl;15.6;1
-Weine;88839;Merlot del Veneto 1 l;4.8;1
-Weine;88945;Balance Shiraz Merlot 75 cl;5.6;1
-Weine;52851;Oeil de Perdrix Goldb. AOC 75 cl;15.33;1
-Weine;78660;Stone Cruz White Zinfandel 75 cl;6.4;1
-Weine;88160;Fendant VS 50 cl;9.9;1
-Weine;52935;Ribera del Duero 75 cl;13.27;1
-Weine;82384;Feuerheerd's Douro 75 cl;12.27;1
-Weine;88010;Cuvée Blanc Suisse 50 cl;2.5;1
-Weine;69946;Cuvée d'Or Goldbeere 75 cl;2.5;1
-Weine;90430;Clairette de Die Tradition 75 cl;13.13;1
-Weine;91724;El Gringo Tempranillo 75 cl;10.6;1
-Weine;63981;Rosato di Puglia 75 cl;7.33;1
-Weine;88008;Fleurance Riesling Silv. 50 cl;2.5;1
-Weine;19542;Humagne Rouge VS 75 cl;15.33;1
-Weine;88791;Amarone Salvaterra 75 cl;22.6;1
-Weine;35797;Blauburgunder SH 75cl;10.4;1
-Weine;06993;Pinot Noir Jenins GR AOC 75 cl;19.47;1
-Weine;81844;Calivo Emilia IGT 75 cl;11.6;1
-Weine;88002;Riesling S. Duvallon 75cl;7.93;1
-Weine;36442;Bonavita Red 75 cl;8.4;1
-Weine;02128;Aigle blanc AOC 75 cl;15.87;1
-Weine;19517;Petite Arvine VS 75 cl;15.93;1
-Weine;55123;Amore Uno 75 cl;9.27;1
-Weine;04962;Johannisberg VS 50 cl;15.9;1
-Weine;52895;Pinot Noir Hallau 75 cl;19.93;1
-Weine;36832;Ripasso Salvaterra 50 cl;13.9;1
-Weine;14413;Pena Roja Jumilla 75 cl;6.6;1
-Weine;19527;Malvoisie VS 75 cl;2.5;1
-Weine;88362;Zürcher Clevner 75 cl;10.33;1
-Weine;19569;Blauburgunder CH 75 cl;7.93;1
-Weine;88142;Schafiser weiss 50 cl;2.5;1
-Weine;19815;Gewürztraminer 75 cl;11.93;1
-Weine;75700;Domaine Moulin Saint-Jean 75 cl;13.27;1
-Weine;10974;Nero d'Avola Sicilia 75cl;5.87;1
-Weine;30045;Chardonnay Genève 75 cl;10.6;1
-Weine;36830;Amarone Salvaterra 50 cl;2.5;1
-Weine;68907;Cantello Vino Tinto 75 cl;11.33;1
-Weine;73769;Chianti Terra Grande 75 cl;10.6;1
-Weine;88954;Bar Royal Litchi 75 cl;2.5;1
-Weine;88988;Rimuss Litchi Perl 75cl;7.47;1
-Weine;08029;Malbec Fabre Montmayou 75 cl;14.6;1
-Weine;83859;Gamaret VS 75 cl;12.73;1
-Weine;73752;Rosso Terre di Toscana 75 cl;9.6;1
-Weine;32556;Rioja El Coto Crianza 50 cl;14.7;1
-Weine;47616;Jaume Serra 75 cl;2.5;1
-Weine;24279;Merlot del Veneto 50 cl;5.8;1
-Weine;14415;Pinot blanc Suisse 75 cl;8.67;1
-Weine;77902;Stone Cruz Cabernet 75 cl;6.4;1
-Weine;35703;Ass. Cépages Duvallon 75cl;7.93;1
-Weine;63571;La Maison du Sud 75 cl;6.13;1
-Weine;78657;Stone Cruz Chardonnay 75 cl;6.4;1
-Weine;95394;Schaumwein Volgaz rosé 75 cl;15.93;1
-Weine;80436;Cannonau Sardegna Baiolu 75 cl;2.5;1
-Weine;61581;Appassimento Coronati 75 cl;7.93;1
-Weine;53019;Barbian Roble 75 cl;10.87;1
-Weine;80434;Esprit Côtes du Rhône 75 cl;10.6;1
-Weine;52879;St. Saphorin Petit Ver. 75 cl;24.67;1
-Weine;14417;Hauswein weiss Nr. 1 1 l;3.7;1
-Weine;61091;Hauswein rot Nr. 2 1 l;3.7;1
-Weine;77543;Stone Cruz Zinfandel 75cl;6.4;1
-Weine;72238;Merlot Rosso 75 cl;16.67;1
-Weine;64440;Schafiser weiss 75 cl;13.13;1
+﻿Art.-Nr.,Name des Produkts,Gebinde,Kategorie,Top-Angebot,Unterkategorie,Preis Einzeln(CHF),Preis Pack (CHF)
+02166,Henniez blau 6 × 50 cl,Einzeln & Pack,Mineralwasser,FALSE,,0.8,4.7
+87512,Henniez grün 6 × 50 cl,Einzeln & Pack,Mineralwasser,FALSE,,0.8,4.7
+87507,Henniez rot 6 × 50 cl,Einzeln & Pack,Mineralwasser,FALSE,,0.8,4.7
+87524,Mineralwasser Farmer blau 6×150cl,Einzeln & Pack,Mineralwasser,FALSE,,0.65,3.65
+09018,Mineralwasser Farmer blau 6×50cl,Einzeln & Pack,Mineralwasser,FALSE,,0.55,3.2
+87534,Mineralwasser Farmer grün 6×150cl,Einzeln & Pack,Mineralwasser,FALSE,,0.65,3.65
+09015,Mineralwasser Farmer grün 6×50cl,Einzeln & Pack,Mineralwasser,FALSE,,0.55,3.2
+87523,Mineralwasser Farmer rot 6×150cl,Einzeln & Pack,Mineralwasser,FALSE,,0.65,3.65
+12356,Mineralwasser Farmer rot 6×50cl,Einzeln & Pack,Mineralwasser,FALSE,,0.55,3.2
+35282,Quintus Quelle blau 6 × 150 cl,Einzeln & Pack,Mineralwasser,FALSE,,0.35,1.95
+45516,Quintus Quelle rot 6 ×150 cl,Einzeln & Pack,Mineralwasser,FALSE,,0.35,1.95
+38358,Capri Sun Multivitamin 15 × 33 cl,Einzeln & Pack,Süssgetränke,FALSE,,1.2,18.0
+34965,Capri Sun Orange-Peach 15×33cl,Einzeln & Pack,Süssgetränke,FALSE,,1.2,17.95
+95913,Citro Farmer zéro 6 × 150 cl,Einzeln & Pack,Süssgetränke,FALSE,,0.6,3.55
+95926,Citro Farmer zéro 6 × 50 cl,Einzeln & Pack,Süssgetränke,FALSE,,0.55,3.18
+13152,Coca-Cola 8 × 150 cl,Einzeln & Pack,Süssgetränke,FALSE,,2.1,16.45
+35378,Coca-Cola 8 × 50 cl,Einzeln & Pack,Süssgetränke,FALSE,,1.45,11.45
+35398,Coca-Cola Dose 24 × 33 cl,Einzeln & Pack,Süssgetränke,TRUE,,0.65,14.95
+13153,Coca-Cola Zero 8 × 150 cl,Einzeln & Pack,Süssgetränke,FALSE,,2.1,16.45
+35376,Coca-Cola Zero 8 × 50 cl,Einzeln & Pack,Süssgetränke,FALSE,,1.45,11.45
+35400,Coca-Cola Zero Dose 24 × 33 cl,Einzeln & Pack,Süssgetränke,TRUE,,0.65,14.95
+78009,Cola Farmer zéro 6 × 150 cl,Einzeln & Pack,Süssgetränke,FALSE,,0.6,3.55
+41741,Cranberry Farmer 4 × 100 cl,Einzeln & Pack,Süssgetränke,FALSE,,1.75,6.95
+96103,Direkt Orangensaft Farmer 6×100cl,Einzeln & Pack,Süssgetränke,FALSE,,2.45,14.7
+88632,Focus Water Active 12 × 50 cl,Pack,Süssgetränke,TRUE,,,14.95
+87544,Fruchtcocktail Granini 6 × 100 cl,Einzeln & Pack,Süssgetränke,TRUE,,2.25,13.3
+99712,Grapefruit Farmer zéro 6×150cl,Einzeln & Pack,Süssgetränke,FALSE,,0.6,3.55
+87810,Holunder-Melisse Farmer 6 × 150 cl,Einzeln & Pack,Süssgetränke,FALSE,,1.15,6.9
+09022,Holunder-Melisse Farmer 6×50cl,Einzeln & Pack,Süssgetränke,FALSE,,0.95,5.55
+87708,Ice Tea Farmer Lemon 6 × 150 cl,Einzeln & Pack,Süssgetränke,FALSE,,0.7,3.95
+09014,Ice Tea Farmer Lemon 6 × 50 cl,Einzeln & Pack,Süssgetränke,FALSE,,0.5,2.95
+82220,Ice Tea Farmer Mint 6 × 150 cl,Einzeln & Pack,Süssgetränke,FALSE,,0.85,4.95
+95909,Ice Tea Farmer Mint 6 × 50 cl,Einzeln & Pack,Süssgetränke,FALSE,,0.6,3.5
+87709,Ice Tea Farmer Peach 6 × 150 cl,Einzeln & Pack,Süssgetränke,FALSE,,0.7,3.95
+09017,Ice Tea Farmer Peach 6 × 50 cl,Einzeln & Pack,Süssgetränke,FALSE,,0.5,2.95
+68904,Lemon Soda 24 × 33 cl,Pack,Süssgetränke,TRUE,,,15.95
+51528,Multivitamin Farmer 6 × 100 cl,Einzeln & Pack,Süssgetränke,FALSE,,1.6,9.55
+42617,Orangensaft Farmer 6 × 100 cl,Einzeln & Pack,Süssgetränke,FALSE,,1.3,7.8
+87543,Orangensaft Granini 6 × 100 cl,Einzeln & Pack,Süssgetränke,TRUE,,2.25,13.3
+41624,Rivella blau 24 × 50 cl,Pack,Süssgetränke,TRUE,,,27.5
+40938,Rivella rot 24 × 50 cl,Pack,Süssgetränke,TRUE,,,27.5
+46020,Rivella rot 8 × 50 cl,Einzeln & Pack,Süssgetränke,FALSE,,1.5,11.95
+82128,San Pellegrino Chino 24 × 33 cl,Pack,Süssgetränke,TRUE,,,16.5
+82126,San Pellegrino L'Aranc. 24×33cl,Pack,Süssgetränke,TRUE,,,16.5
+87743,Sauser m.A. Ramseier 6 × 100 cl,Einzeln & Pack,Süssgetränke,FALSE,,3.25,19.3
+54906,Sauser m.A. Ramseier 6 × 50 cl,Einzeln & Pack,Süssgetränke,TRUE,,1.85,10.95
+78099,Schnitzwasser Farmer 6 × 150 cl,Einzeln & Pack,Süssgetränke,FALSE,,1.15,6.9
+85041,Schnitzwasser Farmer 6 × 50 cl,Einzeln & Pack,Süssgetränke,FALSE,,0.95,5.55
+41743,Traubensaft Farmer rot 4 × 100 cl,Einzeln & Pack,Süssgetränke,FALSE,,1.6,6.25
+87319,Vitaminwater Farmer Zitrone 6×50cl,Einzeln & Pack,Süssgetränke,FALSE,,0.75,4.5
+52617,Citro Elmer 8 × 150 cl,Einzeln & Pack,Süssgetränke,FALSE,,2.0,15.8
+02721,Citro Elmer 6 × 50 cl,Einzeln & Pack,Süssgetränke,FALSE,,1.35,8.1
+100062,Grapefruit Farmer zéro 6×50cl,Einzeln & Pack,Süssgetränke,FALSE,,0.55,3.2
+103082,Multi-ACE Farmer 6 × 100 cl,Einzeln & Pack,Süssgetränke,FALSE,,1.45,8.5
+68903,Oran Soda 24 × 33 cl,Pack,Süssgetränke,FALSE,,,15.95
+100060,Orange Farmer zéro 6 × 150 cl,Einzeln & Pack,Süssgetränke,FALSE,,0.6,3.55
+100064,Orange Farmer zéro 6 × 50 cl,Einzeln & Pack,Süssgetränke,FALSE,,0.55,3.2
+16149,Energy Drink Red Bull Dose 24 × 25 cl,Einzeln & Pack,Energy Drinks/Mate,TRUE,,1.25,29.95
+87800,Energy Drink Red Bull Dose 6 × 25 cl,Einzeln & Pack,Energy Drinks/Mate,FALSE,,1.5,8.9
+38994,Energy Drink Red Bull Sugarfree 6 × 25 cl,Einzeln & Pack,Energy Drinks/Mate,FALSE,,1.5,8.9
+98124,Farmer Energy Drink Dose 24 × 25 cl,Pack,Energy Drinks/Mate,FALSE,,,11.8
+98125,Farmer Energy Drink Dose 25 cl,Einzeln,Energy Drinks/Mate,FALSE,,0.5,
+101743,Energy Drink Farmer Dose 24 × 25 cl,Einzeln & Pack,Energy Drinks/Mate,FALSE,,0.4,9.4
+101794,Energy Drink Farmer s.f. 24 × 25 cl,Einzeln & Pack,Energy Drinks/Mate,FALSE,,0.4,9.4
+103976,Farmer Mate 6 × 33 cl,Einzeln & Pack,Energy Drinks/Mate,FALSE,,1.0,5.95
+114544,Farmer Mate zéro Dose 6 × 33 cl,Einzeln & Pack,Energy Drinks/Mate,FALSE,,1.0,5.95
+45949,Amberbier Farmer Dose 18x50cl,Pack,Biere,FALSE,,,13.5
+46423,Amberbier Farmer Dose 50cl,Einzeln,Biere,FALSE,,0.75,
+52950,Bier Amber Oberland Prem. 6x33cl,Pack,Biere,FALSE,,,9.2
+63459,Bier Boxer old 18x25cl,Pack,Biere,FALSE,,,16.5
+75827,Bier Boxer old 24x33cl,Pack,Biere,FALSE,,,19.95
+32224,Bier Boxer old Dose 6x50cl,Pack,Biere,FALSE,,,9.95
+10639,Bier Boxer old MW 33cl,Einzeln,Biere,FALSE,,1.65,
+87373,Bier Boxer old MW 50cl,Einzeln,Biere,FALSE,,1.8,
+32729,Bier Calanda Dose 24x50cl,Pack,Biere,FALSE,,,30.95
+51891,Bier Calanda Glatsch 6x50cl,Pack,Biere,FALSE,,,11.2
+18249,Bier Calanda Radler 10x33cl,Pack,Biere,FALSE,,,12.5
+87344,Bier Cardinal Blonde MW 33cl,Einzeln,Biere,FALSE,,1.4,
+87341,Bier Cardinal Blonde MW 50cl,Einzeln,Biere,FALSE,,1.75,
+96173,Bier Chopfab Draft 10x33cl,Pack,Biere,FALSE,,,11.95
+68192,Bier Desperados Tequilla 6x50cl,Pack,Biere,FALSE,,,13.2
+63449,Bier Draft Oberland 6x33cl,Pack,Biere,FALSE,,,9.2
+87447,Bier Farmer dunkel 6x33cl,Pack,Biere,FALSE,,,6.55
+87309,Bier Farmer Erdb.-Rhab. 10x33cl,Pack,Biere,FALSE,,,9.55
+87453,Bier Farmer Litchi 10x33cl,Pack,Biere,FALSE,,,9.55
+38092,Bier Farmer Naturtrueb 50cl,Einzeln,Biere,FALSE,,0.75,
+38093,Bier Farmer Naturtrueb Dose 18x50cl,Pack,Biere,FALSE,,,13.5
+111264,Bier Feld. Braufrisch Dose 12x50cl,Pack,Biere,FALSE,,,19.95
+12805,Bier Feld. Buegel MW 50cl,Einzeln,Biere,FALSE,,2.1,
+104236,Bier Feld. Pils Dose 6x50cl,Pack,Biere,FALSE,,,11.5
+77382,Bier Ginger Appenzeller 6x33cl,Pack,Biere,FALSE,,,15.25
+91683,Bier Moretti Dose 12x50cl,Pack,Biere,FALSE,,,19.95
+109340,Bier Moretti Dose 24x33cl,Pack,Biere,TRUE,,,20.95
+68896,Bier Moretti Dose 24x50cl,Pack,Biere,TRUE,,,29.5
+107843,Bier Moretti EW 15x33cl,Pack,Biere,FALSE,,,18.95
+109341,Bier Moretti Limone 3x33cl,Pack,Biere,FALSE,,,4.95
+113708,Bier Moretti Sale d. M. 24x33cl,Pack,Biere,TRUE,,,26.95
+107846,Bier Moretti Sale d. M. 6x33cl,Pack,Biere,FALSE,,,8.95
+102400,Bier Moretti XL 15x66cl,Pack,Biere,FALSE,,,25.95
+88309,Bier Pale Ale Farmer Dose 18x50cl,Pack,Biere,FALSE,,,14.4
+88308,Bier Pale Ale Farmer Dose 50cl,Einzeln,Biere,FALSE,,0.8,
+109408,Bier Peroni Dose 24x33cl,Pack,Biere,TRUE,,,19.95
+75884,Bier Quoellfrisch 15x33cl,Pack,Biere,FALSE,,,15.95
+105553,Bier Quoellfrisch 24x33cl,Pack,Biere,TRUE,,,19.95
+89515,Bier Quoellfrisch Dose 15x50cl,Pack,Biere,FALSE,,,23.95
+88317,Bier Quoellfrisch Dose 24x50cl,Pack,Biere,TRUE,,,29.95
+45951,Bier Quoellfrisch Dose 6x50cl,Pack,Biere,FALSE,,,10.85
+87444,Bier Quoellfrisch MW 50cl,Einzeln,Biere,FALSE,,1.95,
+87442,Bier Rugenbraeu Zwickel MW 50cl,Einzeln,Biere,FALSE,,2.0,
+35247,Bier Sagres 24x25cl,Pack,Biere,FALSE,,,15.95
+34810,Bier Schuetzengarten Edelspez 6x33cl,Pack,Biere,FALSE,,,8.3
+87428,Bier Schuetzengarten Edelspez MW 33cl,Einzeln,Biere,FALSE,,1.55,
+87425,Bier Schuetzengarten Kl.braeu MW 50cl,Einzeln,Biere,FALSE,,1.8,
+57529,Bier Superbock 24x25cl,Pack,Biere,FALSE,,,17.95
+97497,Bier Valaisanne Juicy IPA 4x33cl,Pack,Biere,FALSE,,,10.95
+34436,Bier Valaisanne Lager 12x33cl,Pack,Biere,FALSE,,,14.95
+15524,Bier Valaisanne Lager 18x33cl,Pack,Biere,FALSE,,,17.5
+77381,Bier Valaisanne Lager 6x50cl,Pack,Biere,FALSE,,,11.9
+15107,Bier Zitronen Panache 15x33cl,Pack,Biere,FALSE,,,14.95
+109412,BrewDog Wingman 4x33cl,Pack,Biere,FALSE,,,9.5
+72340,Calanda Radler Zitrone 24x50cl,Pack,Biere,FALSE,,,27.95
+40899,Cardinal Lager EW 15x33cl,Pack,Biere,FALSE,,,17.5
+15492,Corona Extra Bier 6x33cl,Pack,Biere,FALSE,,,7.95
+61762,Eve Grape Cosmop. 4x27.5cl,Pack,Biere,FALSE,,,9.45
+87351,Eve Litchi 4x27.5cl,Pack,Biere,FALSE,,,9.45
+32882,Eve Pink Mimosa 4x27.5cl,Pack,Biere,FALSE,,,9.45
+50898,Eve Strawberry Mojito 10x27.5cl,Pack,Biere,TRUE,,,17.25
+111698,Farmer Bier Lager Dose 24x33cl,Pack,Biere,TRUE,,,11.95
+26917,Lagerbier Eichhof Do. 24x50cl,Pack,Biere,FALSE,,,30.95
+87260,Lagerbier Eichhof Dose 6x50cl,Pack,Biere,FALSE,,,9.95
+66227,Lagerbier Eichhof hell 20x33cl,Pack,Biere,FALSE,,,17.95
+87391,Lagerbier Eichhof MW 50cl,Einzeln,Biere,FALSE,,1.55,
+51734,Lagerbier Farmer 18x33cl,Pack,Biere,FALSE,,,9.95
+26980,Lagerbier Farmer Dose 18x50cl,Pack,Biere,FALSE,,,10.8
+87448,Lagerbier Farmer Dose 50cl,Einzeln,Biere,FALSE,,0.6,
+87450,Lagerbier Farmer MW 50cl,Einzeln,Biere,FALSE,,0.6,
+87305,Lagerbier Feld. Original 10x33cl,Pack,Biere,FALSE,,,12.5
+111263,Lagerbier Feld. Original 12x33cl,Pack,Biere,FALSE,,,14.95
+87313,Lagerbier Feld. Original 24x33cl,Pack,Biere,FALSE,,,20.95
+46003,Lagerbier Feld. Original 24x50cl,Pack,Biere,TRUE,,,27.6
+104238,Lagerbier Feld. Original 8x56.5cl,Pack,Biere,FALSE,,,14.6
+30234,Lagerbier Feld. Original Dose 15x50cl,Pack,Biere,FALSE,,,24.95
+87307,Lagerbier Feld. Original MW 33cl,Einzeln,Biere,FALSE,,1.55,
+87303,Lagerbier Feld. Original MW 50cl,Einzeln,Biere,FALSE,,1.7,
+87302,Lagerbier Feld. Original MW 50cl,Einzeln,Biere,FALSE,,1.7,
+96005,Lagerbier Rugenbraeu 15x33cl,Pack,Biere,FALSE,,,16.5
+85477,Lagerbier Rugenbraeu 6x50cl,Pack,Biere,FALSE,,,9.95
+87440,Lagerbier Rugenbraeu MW 50cl,Einzeln,Biere,FALSE,,1.6,
+87439,Lagerbier Rugenbraeu MW 50cl,Einzeln,Biere,FALSE,,1.6,
+87424,Lagerbier Schuetzeng. MW 33cl,Einzeln,Biere,FALSE,,1.3,
+87414,Lagerbier Schuetzengarten 18x33cl,Pack,Biere,FALSE,,,17.95
+113711,Lagerbier Schuetzengarten 6x33cl,Pack,Biere,FALSE,,,6.95
+74771,Lagerbier Schuetzengarten 6x50cl,Pack,Biere,FALSE,,,9.25
+87421,Lagerbier Schuetzengarten MW 50cl,Einzeln,Biere,FALSE,,1.6,
+87420,Lagerbier Schuetzengarten MW 50cl,Einzeln,Biere,FALSE,,1.6,
+36054,Landbier Eichbaum 50cl,Einzeln,Biere,FALSE,,0.55,
+36055,Landbier Eichbaum Dose 18x50cl,Pack,Biere,FALSE,,,9.9
+15526,Panaché Bilz Himbeere 10 × 33 cl,Pack,Biere,TRUE,,,10.85
+36950,Panache Bilz,Pack,Biere,FALSE,,,17.95
+29462,Panache Farmer Lemon Dose 18x50cl,Pack,Biere,FALSE,,,10.8
+13151,Panache Farmer Lemon Dose 50cl,Einzeln,Biere,FALSE,,0.6,
+66226,Quoellfrisch naturtrueb 15x33cl,Einzeln & Pack,Biere,FALSE,,0.35,15.95
+40901,Somersby Apple 4x33cl,Pack,Biere,FALSE,,,8.95
+113710,Weissbier Paulaner 24x50cl,Pack,Biere,FALSE,,,26.95
+87252,Weizenbier Maisels 4x50cl,Pack,Biere,FALSE,,,6.6
+91134,Bier Eichhof o.A. 0.0% 10 × 33 cl,Pack,Biere,FALSE,,,10.7
+74766,Bier Feld. o.A. 15 × 33 cl,Pack,Biere,FALSE,,,16.9
+66216,Bier Feld. o.A. Dose 15 × 50 cl,Pack,Biere,FALSE,,,24.95
+87315,Bier Feld. o.A. MW 50 cl,Einzeln,Biere,FALSE,,1.7,
+15102,Bier Feld. Peach 0.0 6 × 50 cl,Pack,Biere,FALSE,,,10.95
+97498,Bier Feld. Zitrone 0.0% 8 × 50 cl,Pack,Biere,FALSE,,,13.5
+113709,Bier Moretti zero 15 × 33 cl,Pack,Biere,FALSE,,,14.95
+102410,Bier Moretti zero 6 × 50 cl,Pack,Biere,FALSE,,,12.7
+104768,Bier Quöllfrisch o.A. 15 × 33 cl,Pack,Biere,FALSE,,,15.95
+104751,Bilz Stellare Aranc. 0.0 6 × 33 cl,Pack,Biere,FALSE,,,9.3
+109337,Bilz Stellare Limone 0.0 6 × 33 cl,Pack,Biere,FALSE,,,9.3
+57218,Bschorle EW 6 × 33 cl,Pack,Biere,FALSE,,,8.4
+87602,Mountain Twister o.A. 8×33cl,Pack,Biere,FALSE,,,10.9
+69200,3 l bester Schweizer Wein,Einzeln,Weine,FALSE,,4.65,
+02128,Aigle blanc AOC 75 cl,Einzeln,Weine,FALSE,,11.9,
+10868,Aigle Chablais blanc 50 cl,Einzeln,Weine,FALSE,,8.55,
+36830,Amarone Salvaterra 50 cl,Einzeln,Weine,FALSE,,13.5,
+88791,Amarone Salvaterra 75 cl,Einzeln,Weine,FALSE,,16.95,
+52915,Amarone Valpolicella Zeni 75 cl,Einzeln,Weine,FALSE,,22.95,
+55123,Amore Uno 75 cl,Einzeln,Weine,FALSE,,6.95,
+61581,Appassimento Coronati 75 cl,Einzeln,Weine,FALSE,,5.95,
+35703,Ass. Cépages Duvallon 75cl,Einzeln,Weine,FALSE,,5.95,
+88236,Balance Che. blanc 75 cl,Einzeln,Weine,FALSE,,4.2,
+88235,Balance Muscat 75 cl,Einzeln,Weine,FALSE,,4.2,
+88945,Balance Shiraz Merlot 75 cl,Einzeln,Weine,FALSE,,4.2,
+88355,Balance Shiraz Rosé 75 cl,Einzeln,Weine,FALSE,,4.2,
+88954,Bar Royal Litchi 75 cl,Einzeln,Weine,FALSE,,4.5,
+71679,Barbera Piemonte 150+1 75cl,Einzeln,Weine,FALSE,,6.95,
+53019,Barbian Roble 75 cl,Einzeln,Weine,FALSE,,8.15,
+19569,Blauburgunder CH 75 cl,Einzeln,Weine,FALSE,,5.95,
+88390,Blauburgunder Hallau 75cl,Einzeln,Weine,FALSE,,7.95,
+35797,Blauburgunder SH 75cl,Einzeln,Weine,FALSE,,7.8,
+36442,Bonavita Red 75 cl,Einzeln,Weine,FALSE,,6.3,
+65857,Borgo del Mandorlo Negro. 75 cl,Einzeln,Weine,FALSE,,8.15,
+88713,Cabernet Sauvignon 5 l,Einzeln,Weine,FALSE,,18.95,
+81844,Calivo Emilia IGT 75 cl,Einzeln,Weine,FALSE,,8.7,
+80436,Cannonau Sardegna Baiolu 75 cl,Einzeln,Weine,FALSE,,10.5,
+68907,Cantello Vino Tinto 75 cl,Einzeln,Weine,FALSE,,8.5,
+30045,Chardonnay Genève 75 cl,Einzeln,Weine,FALSE,,7.95,
+13685,Chasselas Lemanic 75 cl,Einzeln,Weine,FALSE,,4.5,
+73769,Chianti Terra Grande 75 cl,Einzeln,Weine,FALSE,,7.95,
+90430,Clairette de Die Tradition 75 cl,Einzeln,Weine,FALSE,,9.85,
+19534,Cornalin du Valais 75 cl,Einzeln,Weine,FALSE,,11.7,
+52911,Costalago Zeni Rosso 75 cl,Einzeln,Weine,FALSE,,9.5,
+88010,Cuvée Blanc Suisse 50 cl,Einzeln,Weine,FALSE,,4.5,
+69946,Cuvée d'Or Goldbeere 75 cl,Einzeln,Weine,FALSE,,10.5,
+88267,Cuvée Rosé Suisse 50 cl,Einzeln,Weine,FALSE,,3.95,
+52889,Cuvée royale Goldbeere 75 cl,Einzeln,Weine,FALSE,,12.2,
+17730,Dimensione Bianco 75 cl,Einzeln,Weine,FALSE,,6.85,
+17729,Dimensione Rosso 75 cl,Einzeln,Weine,FALSE,,6.85,
+88314,Dôle blanche VS 75 cl,Einzeln,Weine,FALSE,,6.5,
+88461,Dôle du Valais 50 cl,Einzeln,Weine,FALSE,,4.95,
+88456,Dôle du Valais 75 cl,Einzeln,Weine,FALSE,,6.8,
+75700,Domaine Moulin Saint-Jean 75 cl,Einzeln,Weine,FALSE,,9.95,
+91724,El Gringo Tempranillo 75 cl,Einzeln,Weine,FALSE,,7.95,
+16800,El Pescaito 75 cl,Pack,Weine,TRUE,,,4.95
+88080,Epesses blanc 75 cl,Einzeln,Weine,FALSE,,9.95,
+80434,Esprit Côtes du Rhône 75 cl,Einzeln,Weine,FALSE,,7.96,
+52841,Federweiss Goldbeere 75 cl,Einzeln,Weine,FALSE,,11.5,
+88160,Fendant VS 50 cl,Einzeln,Weine,FALSE,,4.95,
+88157,Fendant VS 75 cl,Einzeln,Weine,FALSE,,6.5,
+82384,Feuerheerd's Douro 75 cl,Einzeln,Weine,FALSE,,9.2,
+88145,Fleurance Chasselas 50 cl,Einzeln,Weine,FALSE,,3.95,
+88441,Fleurance Gamay 50 cl,Einzeln,Weine,FALSE,,4.4,
+66471,Fleurance Pinot Noir 50 cl,Einzeln,Weine,FALSE,,4.96,
+88008,Fleurance Riesling Silv. 50 cl,Einzeln,Weine,FALSE,,4.5,
+83859,Gamaret VS 75 cl,Einzeln,Weine,FALSE,,9.55,
+19815,Gewürztraminer 75 cl,Einzeln,Weine,FALSE,,8.95,
+88885,Glühwein 1 l,Einzeln,Weine,FALSE,,2.5,
+68894,Gran Pasas Monastrell 75 cl,Einzeln,Weine,FALSE,,8.95,
+88170,Grüner Veltliner 75 cl,Einzeln,Weine,FALSE,,4.2,
+61091,Hauswein rot Nr. 2 1 l,Einzeln,Weine,FALSE,,3.7,
+14417,Hauswein weiss Nr. 1 1 l,Einzeln,Weine,FALSE,,3.7,
+61650,Heida 75 cl,Pack,Weine,TRUE,,11.95,
+88397,Holunderblütenwein 50 cl,Einzeln,Weine,FALSE,,5.4,
+19542,Humagne Rouge VS 75 cl,Einzeln,Weine,FALSE,,11.5,
+88723,J.P. Chenet Cabernet-Syrah 75 cl,Einzeln,Weine,FALSE,,4.95,
+47616,Jaume Serra 75 cl,Einzeln,Weine,FALSE,,7.5,
+04962,Johannisberg VS 50 cl,Einzeln,Weine,FALSE,,7.95,
+19525,Johannisberg VS 75 cl,Einzeln,Weine,FALSE,,10.5,
+63571,La Maison du Sud 75 cl,Einzeln,Weine,FALSE,,4.6,
+34848,La Vache des Alpes blanc 75 cl,Einzeln,Weine,FALSE,,7.95,
+34845,La Vache des Alpes rosé 75 cl,Einzeln,Weine,FALSE,,7.95,
+34841,La Vache des Alpes rouge 75 cl,Einzeln,Weine,FALSE,,7.95,
+21518,LAB Moscato 75 cl,Einzeln,Weine,FALSE,,5.95,
+88033,Luins blanc 50 cl,Einzeln,Weine,FALSE,,5.5,
+88031,Luins blanc 75 cl,Einzeln,Weine,FALSE,,6.95,
+08029,Malbec Fabre Montmayou 75 cl,Einzeln,Weine,FALSE,,10.95,
+19527,Malvoisie VS 75 cl,Einzeln,Weine,FALSE,,10.5,
+02782,Mauler Cordon Or Dry 75cl,Einzeln,Weine,FALSE,,12.5,
+88839,Merlot del Veneto 1 l,Einzeln,Weine,FALSE,,4.8,
+24279,Merlot del Veneto 50 cl,Einzeln,Weine,FALSE,,2.9,
+72238,Merlot Rosso 75 cl,Einzeln,Weine,FALSE,,12.5,
+88044,Mont sur Rolle 75 cl,Einzeln,Weine,FALSE,,6.7,
+52804,Moscato Mosketto 75 cl,Pack,Weine,TRUE,,5.95,
+88175,Muscat #sweet 50 cl,Einzeln,Weine,FALSE,,5.1,
+10974,Nero d'Avola Sicilia 75cl,Einzeln,Weine,FALSE,,4.4,
+52851,Oeil de Perdrix Goldb. AOC 75 cl,Einzeln,Weine,FALSE,,7.95,
+88306,Oeil-de-Perdrix 75 cl,Einzeln,Weine,FALSE,,10.6,
+14413,Pena Roja Jumilla 75 cl,Einzeln,Weine,FALSE,,4.95,
+19517,Petite Arvine VS 75 cl,Einzeln,Weine,FALSE,,11.95,
+14415,Pinot blanc Suisse 75 cl,Einzeln,Weine,FALSE,,6.5,
+06683,Pinot Grigio Cesario 75cl,Einzeln,Weine,FALSE,,4.4,
+88396,Pinot Noir Duvallon 75 cl,Einzeln,Weine,FALSE,,5.95,
+52887,Pinot Noir Goldbeere 75 cl,Einzeln,Weine,FALSE,,11.5,
+06984,Pinot Noir GR AOC 75 cl,Einzeln,Weine,FALSE,,12.5,
+52895,Pinot Noir Hallau 75 cl,Einzeln,Weine,FALSE,,14.95,
+06993,Pinot Noir Jenins GR AOC 75 cl,Einzeln,Weine,FALSE,,14.6,
+30791,Pinot Noir Salgesch 75 cl,Einzeln,Weine,FALSE,,8.95,
+59511,Porta 6 Lisboa 75 cl,Einzeln,Weine,FALSE,,6.95,
+52925,Primitivo Manduria 1488 75 cl,Einzeln,Weine,FALSE,,13.5,
+19819,Primitivo Manduria 75 cl,Pack,Weine,FALSE,,6.95,
+22227,Primitivo Puglia Cesario 75 cl,Einzeln,Weine,FALSE,,4.6,
+88965,Prosecco Spumante 75 cl,Einzeln,Weine,FALSE,,7.95,
+52935,Ribera del Duero 75 cl,Einzeln,Weine,FALSE,,9.95,
+88002,Riesling S. Duvallon 75cl,Einzeln,Weine,FALSE,,5.95,
+52839,Riesling-Silvaner Goldbeere 75 cl,Einzeln,Weine,FALSE,,9.95,
+12507,Rimuss bianco dry 75 cl,Einzeln,Weine,FALSE,,7.75,
+88988,Rimuss Litchi Perl 75cl,Einzeln,Weine,FALSE,,5.6,
+88980,Rimuss Party o.A. 70 cl,Einzeln,Weine,FALSE,,4.65,
+32556,Rioja El Coto Crianza 50 cl,Einzeln,Weine,FALSE,,7.35,
+27642,Rioja El Coto Crianza 75cl,Einzeln,Weine,FALSE,,8.95,
+36832,Ripasso Salvaterra 50 cl,Einzeln,Weine,FALSE,,6.95,
+88792,Ripasso Salvaterra 75 cl,Einzeln,Weine,FALSE,,7.95,
+52913,Ripasso Valpolicella Zeni 75 cl,Einzeln,Weine,FALSE,,13.5,
+81839,Roma Federici 75 cl,Einzeln,Weine,FALSE,,8.95,
+63981,Rosato di Puglia 75 cl,Einzeln,Weine,FALSE,,5.5,
+88264,Rosé Duvallon 75 cl,Einzeln,Weine,FALSE,,5.95,
+13695,Rosé Lemanic 75 cl,Einzeln,Weine,FALSE,,5.7,
+88177,Rosière Chardonnay 75 cl,Einzeln,Weine,FALSE,,4.8,
+88337,Rosière Rosé 75 cl,Einzeln,Weine,FALSE,,4.8,
+88610,Rosière Syrah 75 cl,Einzeln,Weine,FALSE,,4.5,
+73752,Rosso Terre di Toscana 75 cl,Einzeln,Weine,FALSE,,7.2,
+88408,Salvagnin 50 cl,Einzeln,Weine,FALSE,,4.9,
+88142,Schafiser weiss 50 cl,Einzeln,Weine,FALSE,,5.5,
+64440,Schafiser weiss 75 cl,Einzeln,Weine,FALSE,,9.85,
+63381,Schaumwein Volgaz 75 cl,Einzeln,Weine,FALSE,,11.95,
+95394,Schaumwein Volgaz rosé 75 cl,Einzeln,Weine,FALSE,,11.95,
+88067,St. Saphorin blanc 75 cl,Einzeln,Weine,FALSE,,10.3,
+52879,St. Saphorin Petit Ver. 75 cl,Einzeln,Weine,FALSE,,18.5,
+77902,Stone Cruz Cabernet 75 cl,Einzeln,Weine,FALSE,,4.8,
+78657,Stone Cruz Chardonnay 75 cl,Einzeln,Weine,FALSE,,4.8,
+78660,Stone Cruz White Zinfandel 75 cl,Einzeln,Weine,FALSE,,4.8,
+77543,Stone Cruz Zinfandel 75cl,Einzeln,Weine,FALSE,,4.8,
+38306,Tempranillo Bag-in-Box 3l,Einzeln,Weine,FALSE,,9.25,
+16869,Triasso Rosso Biologico 75 cl,Pack,Weine,TRUE,,8.5,
+68163,Velarino Nero di Troia 75 cl,Einzeln,Weine,FALSE,,7.7,
+88085,Villette blanc 75 cl,Einzeln,Weine,FALSE,,8.95,
+06995,Vin Grischun GR 75 cl,Einzeln,Weine,FALSE,,14.95,
+88113,Yvorne blanc 75 cl,Einzeln,Weine,FALSE,,12.5,
+88362,Zürcher Clevner 75 cl,Einzeln,Weine,FALSE,,7.75,
+88490,Zweigelt 75 cl,Einzeln,Weine,FALSE,,4.3,
+106875,Big Beltie Cab. Sauvignon 75 cl,Einzeln,Weine,FALSE,,9.95,
+109453,Cuvée Rouge CH 50 cl VdP Schweiz,Einzeln,Weine,FALSE,,3.95,
+111438,Fatascia Syrah 75 cl,Einzeln,Weine,FALSE,,11.5,
+110898,Féchy AOC La Côte 50 cl,Einzeln,Weine,FALSE,,5.7,
+110372,Féchy blanc 75 cl,Einzeln,Weine,FALSE,,7.95,
+114618,Lemanic Rouge 75 cl,Einzeln,Weine,FALSE,,5.7,
+101143,Moscato Aresca 75 cl,Einzeln,Weine,FALSE,,5.95,
