@@ -1,7 +1,5 @@
 /**
- * ====================================================================
- * LANDI GETRÄNKE-SORTIMENT (Stand 23.9.2026 - Weine mit Karton-Gebinde)
- * ====================================================================
+ * LANDI GETRÄNKE-SORTIMENT (Stand 23.9.2026)
  */
 
 const CATEGORIES = [
@@ -1811,15 +1809,6 @@ const CATEGORIES = [
         "unit": "dose"
       },
       {
-        "art": "87450",
-        "name": "Lagerbier Farmer MW 50cl",
-        "price": 0.6,
-        "priceSingle": 0.6,
-        "gebinde": "Einzeln",
-        "allowSingleBottle": true,
-        "unit": "flasche"
-      },
-      {
         "art": "87305",
         "name": "Lagerbier Feld. Original 10x33cl",
         "price": 12.5,
@@ -2271,6 +2260,19 @@ const CATEGORIES = [
         "caseOnly": true,
         "allowSingleBottle": false,
         "unit": "flasche"
+      },
+      {
+        "art": "87450",
+        "name": "Lagerbier Farmer MW 50cl",
+        "price": 14.4,
+        "priceSingle": 0.6,
+        "pricePack": 14.4,
+        "gebinde": "Pack",
+        "subCategory": "Bier mit Alkohol",
+        "caseSize": 24,
+        "caseOnly": true,
+        "allowSingleBottle": false,
+        "unit": "flasche"
       }
     ]
   },
@@ -2291,240 +2293,220 @@ const CATEGORIES = [
         "name": "Aigle blanc AOC 75 cl",
         "price": 71.4,
         "priceSingle": 11.9,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 71.4,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "10868",
         "name": "Aigle Chablais blanc 50 cl",
         "price": 51.3,
         "priceSingle": 8.55,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 51.3,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "36830",
         "name": "Amarone Salvaterra 50 cl",
-        "price": 81.0,
+        "price": 81,
         "priceSingle": 13.5,
+        "pricePack": 81,
         "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
         "caseSize": 6,
-        "pricePack": 81.0,
-        "caseOnly": false
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "88791",
         "name": "Amarone Salvaterra 75 cl",
         "price": 101.7,
         "priceSingle": 16.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 101.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "52915",
         "name": "Amarone Valpolicella Zeni 75 cl",
         "price": 137.7,
         "priceSingle": 22.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 137.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "55123",
         "name": "Amore Uno 75 cl",
         "price": 41.7,
         "priceSingle": 6.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 41.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "61581",
         "name": "Appassimento Coronati 75 cl",
         "price": 35.7,
         "priceSingle": 5.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 35.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "35703",
         "name": "Ass. Cépages Duvallon 75cl",
         "price": 35.7,
         "priceSingle": 5.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 35.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "88236",
         "name": "Balance Che. blanc 75 cl",
         "price": 25.2,
         "priceSingle": 4.2,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 25.2,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "88235",
         "name": "Balance Muscat 75 cl",
         "price": 25.2,
         "priceSingle": 4.2,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 25.2,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "88945",
         "name": "Balance Shiraz Merlot 75 cl",
         "price": 25.2,
         "priceSingle": 4.2,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 25.2,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "88355",
         "name": "Balance Shiraz Rosé 75 cl",
         "price": 25.2,
         "priceSingle": 4.2,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 25.2,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "88954",
         "name": "Bar Royal Litchi 75 cl",
-        "price": 27.0,
+        "price": 27,
         "priceSingle": 4.5,
+        "pricePack": 27,
         "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
         "caseSize": 6,
-        "pricePack": 27.0,
-        "caseOnly": false
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "71679",
         "name": "Barbera Piemonte 150+1 75cl",
         "price": 41.7,
         "priceSingle": 6.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 41.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "53019",
         "name": "Barbian Roble 75 cl",
         "price": 48.9,
         "priceSingle": 8.15,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 48.9,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "19569",
         "name": "Blauburgunder CH 75 cl",
         "price": 35.7,
         "priceSingle": 5.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 35.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "88390",
         "name": "Blauburgunder Hallau 75cl",
         "price": 47.7,
         "priceSingle": 7.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 47.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "35797",
         "name": "Blauburgunder SH 75cl",
         "price": 46.8,
         "priceSingle": 7.8,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 46.8,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "36442",
         "name": "Bonavita Red 75 cl",
         "price": 37.8,
         "priceSingle": 6.3,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 37.8,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "65857",
         "name": "Borgo del Mandorlo Negro. 75 cl",
         "price": 48.9,
         "priceSingle": 8.15,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 48.9,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "88713",
@@ -2540,247 +2522,229 @@ const CATEGORIES = [
         "name": "Calivo Emilia IGT 75 cl",
         "price": 52.2,
         "priceSingle": 8.7,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 52.2,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "80436",
         "name": "Cannonau Sardegna Baiolu 75 cl",
-        "price": 63.0,
+        "price": 63,
         "priceSingle": 10.5,
+        "pricePack": 63,
         "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
         "caseSize": 6,
-        "pricePack": 63.0,
-        "caseOnly": false
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "68907",
         "name": "Cantello Vino Tinto 75 cl",
-        "price": 51.0,
+        "price": 51,
         "priceSingle": 8.5,
+        "pricePack": 51,
         "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
         "caseSize": 6,
-        "pricePack": 51.0,
-        "caseOnly": false
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "30045",
         "name": "Chardonnay Genève 75 cl",
         "price": 47.7,
         "priceSingle": 7.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 47.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "13685",
         "name": "Chasselas Lemanic 75 cl",
-        "price": 27.0,
+        "price": 27,
         "priceSingle": 4.5,
+        "pricePack": 27,
         "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
         "caseSize": 6,
-        "pricePack": 27.0,
-        "caseOnly": false
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "73769",
         "name": "Chianti Terra Grande 75 cl",
         "price": 47.7,
         "priceSingle": 7.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 47.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "90430",
         "name": "Clairette de Die Tradition 75 cl",
         "price": 59.1,
         "priceSingle": 9.85,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 59.1,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "19534",
         "name": "Cornalin du Valais 75 cl",
         "price": 70.2,
         "priceSingle": 11.7,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 70.2,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "52911",
         "name": "Costalago Zeni Rosso 75 cl",
-        "price": 57.0,
+        "price": 57,
         "priceSingle": 9.5,
+        "pricePack": 57,
         "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
         "caseSize": 6,
-        "pricePack": 57.0,
-        "caseOnly": false
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "88010",
         "name": "Cuvée Blanc Suisse 50 cl",
-        "price": 27.0,
+        "price": 27,
         "priceSingle": 4.5,
+        "pricePack": 27,
         "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
         "caseSize": 6,
-        "pricePack": 27.0,
-        "caseOnly": false
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "69946",
         "name": "Cuvée d'Or Goldbeere 75 cl",
-        "price": 63.0,
+        "price": 63,
         "priceSingle": 10.5,
+        "pricePack": 63,
         "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
         "caseSize": 6,
-        "pricePack": 63.0,
-        "caseOnly": false
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "88267",
         "name": "Cuvée Rosé Suisse 50 cl",
         "price": 23.7,
         "priceSingle": 3.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 23.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "52889",
         "name": "Cuvée royale Goldbeere 75 cl",
         "price": 73.2,
         "priceSingle": 12.2,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 73.2,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "17730",
         "name": "Dimensione Bianco 75 cl",
         "price": 41.1,
         "priceSingle": 6.85,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 41.1,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "17729",
         "name": "Dimensione Rosso 75 cl",
         "price": 41.1,
         "priceSingle": 6.85,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 41.1,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "88314",
         "name": "Dôle blanche VS 75 cl",
-        "price": 39.0,
+        "price": 39,
         "priceSingle": 6.5,
+        "pricePack": 39,
         "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
         "caseSize": 6,
-        "pricePack": 39.0,
-        "caseOnly": false
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "88461",
         "name": "Dôle du Valais 50 cl",
         "price": 29.7,
         "priceSingle": 4.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 29.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "88456",
         "name": "Dôle du Valais 75 cl",
         "price": 40.8,
         "priceSingle": 6.8,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 40.8,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "75700",
         "name": "Domaine Moulin Saint-Jean 75 cl",
         "price": 59.7,
         "priceSingle": 9.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 59.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "91724",
         "name": "El Gringo Tempranillo 75 cl",
         "price": 47.7,
         "priceSingle": 7.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 47.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "16800",
         "name": "El Pescaito 75 cl",
         "price": 4.95,
+        "priceSingle": 4.95,
         "pricePack": 4.95,
         "gebinde": "Pack",
+        "caseSize": 6,
         "caseOnly": true,
         "allowSingleBottle": false,
         "topAngebot": true,
@@ -2791,211 +2755,196 @@ const CATEGORIES = [
         "name": "Epesses blanc 75 cl",
         "price": 59.7,
         "priceSingle": 9.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 59.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "80434",
         "name": "Esprit Côtes du Rhône 75 cl",
         "price": 47.76,
         "priceSingle": 7.96,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 47.76,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "52841",
         "name": "Federweiss Goldbeere 75 cl",
-        "price": 69.0,
+        "price": 69,
         "priceSingle": 11.5,
+        "pricePack": 69,
         "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
         "caseSize": 6,
-        "pricePack": 69.0,
-        "caseOnly": false
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "88160",
         "name": "Fendant VS 50 cl",
         "price": 29.7,
         "priceSingle": 4.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 29.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "88157",
         "name": "Fendant VS 75 cl",
-        "price": 39.0,
+        "price": 39,
         "priceSingle": 6.5,
+        "pricePack": 39,
         "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
         "caseSize": 6,
-        "pricePack": 39.0,
-        "caseOnly": false
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "82384",
         "name": "Feuerheerd's Douro 75 cl",
         "price": 55.2,
         "priceSingle": 9.2,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 55.2,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "88145",
         "name": "Fleurance Chasselas 50 cl",
         "price": 23.7,
         "priceSingle": 3.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 23.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "88441",
         "name": "Fleurance Gamay 50 cl",
         "price": 26.4,
         "priceSingle": 4.4,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 26.4,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "66471",
         "name": "Fleurance Pinot Noir 50 cl",
         "price": 29.76,
         "priceSingle": 4.96,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 29.76,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "88008",
         "name": "Fleurance Riesling Silv. 50 cl",
-        "price": 27.0,
+        "price": 27,
         "priceSingle": 4.5,
+        "pricePack": 27,
         "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
         "caseSize": 6,
-        "pricePack": 27.0,
-        "caseOnly": false
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "83859",
         "name": "Gamaret VS 75 cl",
         "price": 57.3,
         "priceSingle": 9.55,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 57.3,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "19815",
         "name": "Gewürztraminer 75 cl",
         "price": 53.7,
         "priceSingle": 8.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 53.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "88885",
         "name": "Glühwein 1 l",
-        "price": 15.0,
+        "price": 15,
         "priceSingle": 2.5,
+        "pricePack": 15,
         "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
         "caseSize": 6,
-        "pricePack": 15.0,
-        "caseOnly": false
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "68894",
         "name": "Gran Pasas Monastrell 75 cl",
         "price": 53.7,
         "priceSingle": 8.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 53.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "88170",
         "name": "Grüner Veltliner 75 cl",
         "price": 25.2,
         "priceSingle": 4.2,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 25.2,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "61091",
         "name": "Hauswein rot Nr. 2 1 l",
         "price": 22.2,
         "priceSingle": 3.7,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "stk",
-        "caseSize": 6,
         "pricePack": 22.2,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "stk"
       },
       {
         "art": "14417",
         "name": "Hauswein weiss Nr. 1 1 l",
         "price": 22.2,
         "priceSingle": 3.7,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "stk",
-        "caseSize": 6,
         "pricePack": 22.2,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "stk"
       },
       {
         "art": "61650",
         "name": "Heida 75 cl",
         "price": 11.95,
         "priceSingle": 11.95,
+        "pricePack": 71.7,
         "gebinde": "Pack",
+        "caseSize": 6,
         "caseOnly": true,
         "allowSingleBottle": false,
         "topAngebot": true,
@@ -3006,247 +2955,229 @@ const CATEGORIES = [
         "name": "Holunderblütenwein 50 cl",
         "price": 32.4,
         "priceSingle": 5.4,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 32.4,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "19542",
         "name": "Humagne Rouge VS 75 cl",
-        "price": 69.0,
+        "price": 69,
         "priceSingle": 11.5,
+        "pricePack": 69,
         "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
         "caseSize": 6,
-        "pricePack": 69.0,
-        "caseOnly": false
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "88723",
         "name": "J.P. Chenet Cabernet-Syrah 75 cl",
         "price": 29.7,
         "priceSingle": 4.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 29.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "47616",
         "name": "Jaume Serra 75 cl",
-        "price": 45.0,
+        "price": 45,
         "priceSingle": 7.5,
+        "pricePack": 45,
         "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
         "caseSize": 6,
-        "pricePack": 45.0,
-        "caseOnly": false
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "04962",
         "name": "Johannisberg VS 50 cl",
         "price": 47.7,
         "priceSingle": 7.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 47.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "19525",
         "name": "Johannisberg VS 75 cl",
-        "price": 63.0,
+        "price": 63,
         "priceSingle": 10.5,
+        "pricePack": 63,
         "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
         "caseSize": 6,
-        "pricePack": 63.0,
-        "caseOnly": false
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "63571",
         "name": "La Maison du Sud 75 cl",
         "price": 27.6,
         "priceSingle": 4.6,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 27.6,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "34848",
         "name": "La Vache des Alpes blanc 75 cl",
         "price": 47.7,
         "priceSingle": 7.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 47.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "34845",
         "name": "La Vache des Alpes rosé 75 cl",
         "price": 47.7,
         "priceSingle": 7.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 47.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "34841",
         "name": "La Vache des Alpes rouge 75 cl",
         "price": 47.7,
         "priceSingle": 7.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 47.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "21518",
         "name": "LAB Moscato 75 cl",
         "price": 35.7,
         "priceSingle": 5.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 35.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "88033",
         "name": "Luins blanc 50 cl",
-        "price": 33.0,
+        "price": 33,
         "priceSingle": 5.5,
+        "pricePack": 33,
         "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
         "caseSize": 6,
-        "pricePack": 33.0,
-        "caseOnly": false
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "88031",
         "name": "Luins blanc 75 cl",
         "price": 41.7,
         "priceSingle": 6.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 41.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "08029",
         "name": "Malbec Fabre Montmayou 75 cl",
         "price": 65.7,
         "priceSingle": 10.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 65.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "19527",
         "name": "Malvoisie VS 75 cl",
-        "price": 63.0,
+        "price": 63,
         "priceSingle": 10.5,
+        "pricePack": 63,
         "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
         "caseSize": 6,
-        "pricePack": 63.0,
-        "caseOnly": false
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "02782",
         "name": "Mauler Cordon Or Dry 75cl",
-        "price": 75.0,
+        "price": 75,
         "priceSingle": 12.5,
+        "pricePack": 75,
         "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
         "caseSize": 6,
-        "pricePack": 75.0,
-        "caseOnly": false
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "88839",
         "name": "Merlot del Veneto 1 l",
         "price": 28.8,
         "priceSingle": 4.8,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 28.8,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "24279",
         "name": "Merlot del Veneto 50 cl",
         "price": 17.4,
         "priceSingle": 2.9,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 17.4,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "72238",
         "name": "Merlot Rosso 75 cl",
-        "price": 75.0,
+        "price": 75,
         "priceSingle": 12.5,
+        "pricePack": 75,
         "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
         "caseSize": 6,
-        "pricePack": 75.0,
-        "caseOnly": false
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "88044",
         "name": "Mont sur Rolle 75 cl",
         "price": 40.2,
         "priceSingle": 6.7,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 40.2,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "52804",
         "name": "Moscato Mosketto 75 cl",
         "price": 5.95,
         "priceSingle": 5.95,
+        "pricePack": 35.7,
         "gebinde": "Pack",
+        "caseSize": 6,
         "caseOnly": true,
         "allowSingleBottle": false,
         "topAngebot": true,
@@ -3257,199 +3188,185 @@ const CATEGORIES = [
         "name": "Muscat #sweet 50 cl",
         "price": 30.6,
         "priceSingle": 5.1,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 30.6,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "10974",
         "name": "Nero d'Avola Sicilia 75cl",
         "price": 26.4,
         "priceSingle": 4.4,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 26.4,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "52851",
         "name": "Oeil de Perdrix Goldb. AOC 75 cl",
         "price": 47.7,
         "priceSingle": 7.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 47.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "88306",
         "name": "Oeil-de-Perdrix 75 cl",
         "price": 63.6,
         "priceSingle": 10.6,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 63.6,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "14413",
         "name": "Pena Roja Jumilla 75 cl",
         "price": 29.7,
         "priceSingle": 4.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 29.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "19517",
         "name": "Petite Arvine VS 75 cl",
         "price": 71.7,
         "priceSingle": 11.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 71.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "14415",
         "name": "Pinot blanc Suisse 75 cl",
-        "price": 39.0,
+        "price": 39,
         "priceSingle": 6.5,
+        "pricePack": 39,
         "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
         "caseSize": 6,
-        "pricePack": 39.0,
-        "caseOnly": false
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "06683",
         "name": "Pinot Grigio Cesario 75cl",
         "price": 26.4,
         "priceSingle": 4.4,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 26.4,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "88396",
         "name": "Pinot Noir Duvallon 75 cl",
         "price": 35.7,
         "priceSingle": 5.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 35.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "52887",
         "name": "Pinot Noir Goldbeere 75 cl",
-        "price": 69.0,
+        "price": 69,
         "priceSingle": 11.5,
+        "pricePack": 69,
         "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
         "caseSize": 6,
-        "pricePack": 69.0,
-        "caseOnly": false
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "06984",
         "name": "Pinot Noir GR AOC 75 cl",
-        "price": 75.0,
+        "price": 75,
         "priceSingle": 12.5,
+        "pricePack": 75,
         "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
         "caseSize": 6,
-        "pricePack": 75.0,
-        "caseOnly": false
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "52895",
         "name": "Pinot Noir Hallau 75 cl",
         "price": 89.7,
         "priceSingle": 14.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 89.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "06993",
         "name": "Pinot Noir Jenins GR AOC 75 cl",
         "price": 87.6,
         "priceSingle": 14.6,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 87.6,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "30791",
         "name": "Pinot Noir Salgesch 75 cl",
         "price": 53.7,
         "priceSingle": 8.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 53.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "59511",
         "name": "Porta 6 Lisboa 75 cl",
         "price": 41.7,
         "priceSingle": 6.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 41.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "52925",
         "name": "Primitivo Manduria 1488 75 cl",
-        "price": 81.0,
+        "price": 81,
         "priceSingle": 13.5,
+        "pricePack": 81,
         "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
         "caseSize": 6,
-        "pricePack": 81.0,
-        "caseOnly": false
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "19819",
         "name": "Primitivo Manduria 75 cl",
         "price": 6.95,
         "priceSingle": 6.95,
+        "pricePack": 41.7,
         "gebinde": "Pack",
+        "caseSize": 6,
         "caseOnly": true,
         "allowSingleBottle": false,
         "unit": "flasche"
@@ -3459,384 +3376,352 @@ const CATEGORIES = [
         "name": "Primitivo Puglia Cesario 75 cl",
         "price": 27.6,
         "priceSingle": 4.6,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 27.6,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "88965",
         "name": "Prosecco Spumante 75 cl",
         "price": 47.7,
         "priceSingle": 7.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 47.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "52935",
         "name": "Ribera del Duero 75 cl",
         "price": 59.7,
         "priceSingle": 9.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 59.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "88002",
         "name": "Riesling S. Duvallon 75cl",
         "price": 35.7,
         "priceSingle": 5.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 35.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "52839",
         "name": "Riesling-Silvaner Goldbeere 75 cl",
         "price": 59.7,
         "priceSingle": 9.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 59.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "12507",
         "name": "Rimuss bianco dry 75 cl",
         "price": 46.5,
         "priceSingle": 7.75,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 46.5,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "88988",
         "name": "Rimuss Litchi Perl 75cl",
         "price": 33.6,
         "priceSingle": 5.6,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 33.6,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "88980",
         "name": "Rimuss Party o.A. 70 cl",
         "price": 27.9,
         "priceSingle": 4.65,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 27.9,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "32556",
         "name": "Rioja El Coto Crianza 50 cl",
         "price": 44.1,
         "priceSingle": 7.35,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 44.1,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "27642",
         "name": "Rioja El Coto Crianza 75cl",
         "price": 53.7,
         "priceSingle": 8.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 53.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "36832",
         "name": "Ripasso Salvaterra 50 cl",
         "price": 41.7,
         "priceSingle": 6.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 41.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "88792",
         "name": "Ripasso Salvaterra 75 cl",
         "price": 47.7,
         "priceSingle": 7.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 47.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "52913",
         "name": "Ripasso Valpolicella Zeni 75 cl",
-        "price": 81.0,
+        "price": 81,
         "priceSingle": 13.5,
+        "pricePack": 81,
         "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
         "caseSize": 6,
-        "pricePack": 81.0,
-        "caseOnly": false
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "81839",
         "name": "Roma Federici 75 cl",
         "price": 53.7,
         "priceSingle": 8.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 53.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "63981",
         "name": "Rosato di Puglia 75 cl",
-        "price": 33.0,
+        "price": 33,
         "priceSingle": 5.5,
+        "pricePack": 33,
         "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
         "caseSize": 6,
-        "pricePack": 33.0,
-        "caseOnly": false
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "88264",
         "name": "Rosé Duvallon 75 cl",
         "price": 35.7,
         "priceSingle": 5.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 35.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "13695",
         "name": "Rosé Lemanic 75 cl",
         "price": 34.2,
         "priceSingle": 5.7,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 34.2,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "88177",
         "name": "Rosière Chardonnay 75 cl",
         "price": 28.8,
         "priceSingle": 4.8,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 28.8,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "88337",
         "name": "Rosière Rosé 75 cl",
         "price": 28.8,
         "priceSingle": 4.8,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 28.8,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "88610",
         "name": "Rosière Syrah 75 cl",
-        "price": 27.0,
+        "price": 27,
         "priceSingle": 4.5,
+        "pricePack": 27,
         "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
         "caseSize": 6,
-        "pricePack": 27.0,
-        "caseOnly": false
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "73752",
         "name": "Rosso Terre di Toscana 75 cl",
         "price": 43.2,
         "priceSingle": 7.2,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 43.2,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "88408",
         "name": "Salvagnin 50 cl",
         "price": 29.4,
         "priceSingle": 4.9,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 29.4,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "88142",
         "name": "Schafiser weiss 50 cl",
-        "price": 33.0,
+        "price": 33,
         "priceSingle": 5.5,
+        "pricePack": 33,
         "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
         "caseSize": 6,
-        "pricePack": 33.0,
-        "caseOnly": false
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "64440",
         "name": "Schafiser weiss 75 cl",
         "price": 59.1,
         "priceSingle": 9.85,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 59.1,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "63381",
         "name": "Schaumwein Volgaz 75 cl",
         "price": 71.7,
         "priceSingle": 11.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 71.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "95394",
         "name": "Schaumwein Volgaz rosé 75 cl",
         "price": 71.7,
         "priceSingle": 11.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 71.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "88067",
         "name": "St. Saphorin blanc 75 cl",
         "price": 61.8,
         "priceSingle": 10.3,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 61.8,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "52879",
         "name": "St. Saphorin Petit Ver. 75 cl",
-        "price": 111.0,
+        "price": 111,
         "priceSingle": 18.5,
+        "pricePack": 111,
         "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
         "caseSize": 6,
-        "pricePack": 111.0,
-        "caseOnly": false
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "77902",
         "name": "Stone Cruz Cabernet 75 cl",
         "price": 28.8,
         "priceSingle": 4.8,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 28.8,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "78657",
         "name": "Stone Cruz Chardonnay 75 cl",
         "price": 28.8,
         "priceSingle": 4.8,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 28.8,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "78660",
         "name": "Stone Cruz White Zinfandel 75 cl",
         "price": 28.8,
         "priceSingle": 4.8,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 28.8,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "77543",
         "name": "Stone Cruz Zinfandel 75cl",
         "price": 28.8,
         "priceSingle": 4.8,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 28.8,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "38306",
@@ -3852,7 +3737,9 @@ const CATEGORIES = [
         "name": "Triasso Rosso Biologico 75 cl",
         "price": 8.5,
         "priceSingle": 8.5,
+        "pricePack": 51,
         "gebinde": "Pack",
+        "caseSize": 6,
         "caseOnly": true,
         "allowSingleBottle": false,
         "topAngebot": true,
@@ -3863,156 +3750,143 @@ const CATEGORIES = [
         "name": "Velarino Nero di Troia 75 cl",
         "price": 46.2,
         "priceSingle": 7.7,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 46.2,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "88085",
         "name": "Villette blanc 75 cl",
         "price": 53.7,
         "priceSingle": 8.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 53.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "06995",
         "name": "Vin Grischun GR 75 cl",
         "price": 89.7,
         "priceSingle": 14.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 89.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "88113",
         "name": "Yvorne blanc 75 cl",
-        "price": 75.0,
+        "price": 75,
         "priceSingle": 12.5,
+        "pricePack": 75,
         "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
         "caseSize": 6,
-        "pricePack": 75.0,
-        "caseOnly": false
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "88362",
         "name": "Zürcher Clevner 75 cl",
         "price": 46.5,
         "priceSingle": 7.75,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 46.5,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "88490",
         "name": "Zweigelt 75 cl",
         "price": 25.8,
         "priceSingle": 4.3,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 25.8,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "106875",
         "name": "Big Beltie Cab. Sauvignon 75 cl",
         "price": 59.7,
         "priceSingle": 9.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 59.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "109453",
         "name": "Cuvée Rouge CH 50 cl VdP Schweiz",
         "price": 23.7,
         "priceSingle": 3.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 23.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "111438",
         "name": "Fatascia Syrah 75 cl",
-        "price": 69.0,
+        "price": 69,
         "priceSingle": 11.5,
+        "pricePack": 69,
         "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
         "caseSize": 6,
-        "pricePack": 69.0,
-        "caseOnly": false
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "110898",
         "name": "Féchy AOC La Côte 50 cl",
         "price": 34.2,
         "priceSingle": 5.7,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 34.2,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "110372",
         "name": "Féchy blanc 75 cl",
         "price": 47.7,
         "priceSingle": 7.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 47.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "114618",
         "name": "Lemanic Rouge 75 cl",
         "price": 34.2,
         "priceSingle": 5.7,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 34.2,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       },
       {
         "art": "101143",
         "name": "Moscato Aresca 75 cl",
         "price": 35.7,
         "priceSingle": 5.95,
-        "gebinde": "Einzeln & Pack",
-        "allowSingleBottle": true,
-        "unit": "flasche",
-        "caseSize": 6,
         "pricePack": 35.7,
-        "caseOnly": false
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       }
     ]
   }
@@ -4025,10 +3899,22 @@ const PRESETS = [
     "description": "Bier-Harass, Mineralwasser, Softdrinks & Pinot Noir",
     "icon": "🍖",
     "items": [
-      { "art": "111698", "cases": 1 },
-      { "art": "87524", "cases": 2 },
-      { "art": "13152", "cases": 1 },
-      { "art": "66471", "bottles": 2 }
+      {
+        "art": "111698",
+        "cases": 1
+      },
+      {
+        "art": "87524",
+        "cases": 2
+      },
+      {
+        "art": "13152",
+        "cases": 1
+      },
+      {
+        "art": "66471",
+        "bottles": 2
+      }
     ]
   },
   {
@@ -4037,10 +3923,22 @@ const PRESETS = [
     "description": "Fendant AOC, Pinot Noir, Mineralwasser & Süssgetränke",
     "icon": "🥂",
     "items": [
-      { "art": "88160", "bottles": 4 },
-      { "art": "66471", "bottles": 4 },
-      { "art": "87524", "cases": 3 },
-      { "art": "13152", "cases": 2 }
+      {
+        "art": "88160",
+        "bottles": 4
+      },
+      {
+        "art": "66471",
+        "bottles": 4
+      },
+      {
+        "art": "87524",
+        "cases": 3
+      },
+      {
+        "art": "13152",
+        "cases": 2
+      }
     ]
   },
   {
@@ -4049,11 +3947,22 @@ const PRESETS = [
     "description": "Bier-Harasse, Quöllfrisch, Eistee & Mineralwasser",
     "icon": "⚽",
     "items": [
-      { "art": "111698", "cases": 3 },
-      { "art": "105553", "cases": 2 },
-      { "art": "87524", "cases": 5 },
-      { "art": "13152", "cases": 4 }
+      {
+        "art": "111698",
+        "cases": 3
+      },
+      {
+        "art": "105553",
+        "cases": 2
+      },
+      {
+        "art": "87524",
+        "cases": 5
+      },
+      {
+        "art": "13152",
+        "cases": 4
+      }
     ]
   }
 ];
-
