@@ -6,6 +6,181 @@
 
 const CATEGORIES = [
   {
+    "name": "Top-Angebote",
+    "items": [
+      {
+        "art": "88632",
+        "name": "Focus Water Active 12 × 50 cl",
+        "price": 15.0,
+        "caseSize": 12,
+        "deal": true
+      },
+      {
+        "art": "35400",
+        "name": "Coca-Cola Zero Dose 24 × 33 cl",
+        "price": 14.95,
+        "caseSize": 24,
+        "deal": true
+      },
+      {
+        "art": "35398",
+        "name": "Coca-Cola Dose 24 × 33 cl",
+        "price": 14.95,
+        "caseSize": 24,
+        "deal": true
+      },
+      {
+        "art": "82128",
+        "name": "San Pellegrino Chino 24 × 33 cl",
+        "price": 16.5,
+        "caseSize": 24,
+        "deal": true
+      },
+      {
+        "art": "68904",
+        "name": "Lemon Soda 24 × 33 cl",
+        "price": 16.3,
+        "caseSize": 24,
+        "deal": true
+      },
+      {
+        "art": "82126",
+        "name": "San Pellegrino L'Aranc. 24×33cl",
+        "price": 16.5,
+        "caseSize": 24,
+        "deal": true
+      },
+      {
+        "art": "40938",
+        "name": "Rivella rot 24 × 50 cl",
+        "price": 22.5,
+        "caseSize": 24,
+        "deal": true
+      },
+      {
+        "art": "41624",
+        "name": "Rivella blau 24 × 50 cl",
+        "price": 22.5,
+        "caseSize": 24,
+        "deal": true
+      },
+      {
+        "art": "16149",
+        "name": "Energy Drink Red Bull Dose 24×25cl",
+        "price": 19.95,
+        "caseSize": 24,
+        "deal": true
+      },
+      {
+        "art": "87543",
+        "name": "Orangensaft Granini 6 × 100 cl",
+        "price": 13.5,
+        "caseSize": 6,
+        "deal": true
+      },
+      {
+        "art": "87544",
+        "name": "Fruchtcocktail Granini 6 × 100 cl",
+        "price": 13.5,
+        "caseSize": 6,
+        "deal": true
+      },
+      {
+        "art": "54906",
+        "name": "Sauser m.A. Ramseier 6 × 50 cl",
+        "price": 10.95,
+        "caseSize": 6,
+        "deal": true
+      },
+      {
+        "art": "46003",
+        "name": "Lagerbier Feld. Original 24 × 50 cl",
+        "price": 27.6,
+        "caseSize": 24,
+        "deal": true
+      },
+      {
+        "art": "87313",
+        "name": "Lagerbier Feld. Original 24 × 33 cl",
+        "price": 20.95,
+        "caseSize": 24,
+        "deal": true
+      },
+      {
+        "art": "88317",
+        "name": "Bier Quöllfrisch Dose 24 × 50 cl",
+        "price": 27.5,
+        "caseSize": 24,
+        "deal": true
+      },
+      {
+        "art": "91683",
+        "name": "Bier Moretti Dose 12 × 50 cl",
+        "price": 19.92,
+        "caseSize": 12,
+        "deal": true
+      },
+      {
+        "art": "72340",
+        "name": "Calanda Radler Zitrone 24 × 50 cl",
+        "price": 16.5,
+        "caseSize": 24,
+        "deal": true
+      },
+      {
+        "art": "68896",
+        "name": "Bier Moretti Dose 24 × 50 cl",
+        "price": 20.95,
+        "caseSize": 24,
+        "deal": true
+      },
+      {
+        "art": "50898",
+        "name": "Eve Strawberry Mojito 10 × 27,5 cl",
+        "price": 17.25,
+        "caseSize": 10,
+        "deal": true
+      },
+      {
+        "art": "15526",
+        "name": "Panaché Bilz Himbeere 10 × 33 cl",
+        "price": 10.9,
+        "caseSize": 10,
+        "deal": true
+      },
+      {
+        "art": "52804",
+        "name": "Moscato Mosketto 75 cl",
+        "price": 7.95,
+        "deal": true
+      },
+      {
+        "art": "19819",
+        "name": "Primitivo Manduria 75 cl",
+        "price": 9.35,
+        "deal": true
+      },
+      {
+        "art": "16869",
+        "name": "Triasso Rosso Biologico 75 cl",
+        "price": 8.5,
+        "deal": true
+      },
+      {
+        "art": "61650",
+        "name": "Heida 75 cl",
+        "price": 11.95,
+        "deal": true
+      },
+      {
+        "art": "16800",
+        "name": "El Pescaito 75 cl",
+        "price": 4.95,
+        "deal": true
+      }
+    ]
+  },
+  {
     "name": "Mineralwasser",
     "items": [
       {
@@ -35,13 +210,13 @@ const CATEGORIES = [
       {
         "art": "09018",
         "name": "Mineralwasser Farmer blau 6×50cl",
-        "price": 3.18,
+        "price": 3.2,
         "caseSize": 6
       },
       {
         "art": "12356",
         "name": "Mineralwasser Farmer rot 6×50cl",
-        "price": 3.18,
+        "price": 3.2,
         "caseSize": 6
       },
       {
@@ -53,25 +228,25 @@ const CATEGORIES = [
       {
         "art": "09015",
         "name": "Mineralwasser Farmer grün 6×50cl",
-        "price": 3.18,
+        "price": 3.2,
         "caseSize": 6
       },
       {
         "art": "87512",
         "name": "Henniez grün 6 × 50 cl",
-        "price": 4.68,
+        "price": 4.7,
         "caseSize": 6
       },
       {
         "art": "87507",
         "name": "Henniez rot 6 × 50 cl",
-        "price": 4.68,
+        "price": 4.7,
         "caseSize": 6
       },
       {
         "art": "02166",
         "name": "Henniez blau 6 × 50 cl",
-        "price": 4.68,
+        "price": 4.7,
         "caseSize": 6
       }
     ]
@@ -89,13 +264,15 @@ const CATEGORIES = [
         "art": "88632",
         "name": "Focus Water Active 12 × 50 cl",
         "price": 15.0,
-        "caseSize": 12
+        "caseSize": 12,
+        "deal": true
       },
       {
         "art": "35400",
         "name": "Coca-Cola Zero Dose 24 × 33 cl",
         "price": 14.95,
-        "caseSize": 24
+        "caseSize": 24,
+        "deal": true
       },
       {
         "art": "95913",
@@ -113,7 +290,8 @@ const CATEGORIES = [
         "art": "35398",
         "name": "Coca-Cola Dose 24 × 33 cl",
         "price": 14.95,
-        "caseSize": 24
+        "caseSize": 24,
+        "deal": true
       },
       {
         "art": "95926",
@@ -166,8 +344,9 @@ const CATEGORIES = [
       {
         "art": "82128",
         "name": "San Pellegrino Chino 24 × 33 cl",
-        "price": 16.56,
-        "caseSize": 24
+        "price": 16.5,
+        "caseSize": 24,
+        "deal": true
       },
       {
         "art": "78009",
@@ -202,8 +381,9 @@ const CATEGORIES = [
       {
         "art": "68904",
         "name": "Lemon Soda 24 × 33 cl",
-        "price": 15.84,
-        "caseSize": 24
+        "price": 16.3,
+        "caseSize": 24,
+        "deal": true
       },
       {
         "art": "95909",
@@ -226,8 +406,9 @@ const CATEGORIES = [
       {
         "art": "82126",
         "name": "San Pellegrino L'Aranc. 24×33cl",
-        "price": 16.56,
-        "caseSize": 24
+        "price": 16.5,
+        "caseSize": 24,
+        "deal": true
       },
       {
         "art": "09022",
@@ -238,20 +419,23 @@ const CATEGORIES = [
       {
         "art": "40938",
         "name": "Rivella rot 24 × 50 cl",
-        "price": 27.6,
-        "caseSize": 24
+        "price": 22.5,
+        "caseSize": 24,
+        "deal": true
       },
       {
         "art": "41624",
         "name": "Rivella blau 24 × 50 cl",
-        "price": 27.6,
-        "caseSize": 24
+        "price": 22.5,
+        "caseSize": 24,
+        "deal": true
       },
       {
         "art": "16149",
         "name": "Energy Drink Red Bull Dose 24×25cl",
-        "price": 27.5,
-        "caseSize": 24
+        "price": 19.95,
+        "caseSize": 24,
+        "deal": true
       },
       {
         "art": "87800",
@@ -274,14 +458,16 @@ const CATEGORIES = [
       {
         "art": "87543",
         "name": "Orangensaft Granini 6 × 100 cl",
-        "price": 13.32,
-        "caseSize": 6
+        "price": 13.5,
+        "caseSize": 6,
+        "deal": true
       },
       {
         "art": "87544",
         "name": "Fruchtcocktail Granini 6 × 100 cl",
-        "price": 13.32,
-        "caseSize": 6
+        "price": 13.5,
+        "caseSize": 6,
+        "deal": true
       },
       {
         "art": "41743",
@@ -329,7 +515,8 @@ const CATEGORIES = [
         "art": "54906",
         "name": "Sauser m.A. Ramseier 6 × 50 cl",
         "price": 10.95,
-        "caseSize": 6
+        "caseSize": 6,
+        "deal": true
       }
     ]
   },
@@ -340,13 +527,15 @@ const CATEGORIES = [
         "art": "46003",
         "name": "Lagerbier Feld. Original 24 × 50 cl",
         "price": 27.6,
-        "caseSize": 24
+        "caseSize": 24,
+        "deal": true
       },
       {
         "art": "87313",
         "name": "Lagerbier Feld. Original 24 × 33 cl",
-        "price": 20.88,
-        "caseSize": 24
+        "price": 20.95,
+        "caseSize": 24,
+        "deal": true
       },
       {
         "art": "87448",
@@ -362,8 +551,9 @@ const CATEGORIES = [
       {
         "art": "88317",
         "name": "Bier Quöllfrisch Dose 24 × 50 cl",
-        "price": 30.0,
-        "caseSize": 24
+        "price": 27.5,
+        "caseSize": 24,
+        "deal": true
       },
       {
         "art": "18249",
@@ -398,7 +588,8 @@ const CATEGORIES = [
         "art": "91683",
         "name": "Bier Moretti Dose 12 × 50 cl",
         "price": 19.92,
-        "caseSize": 12
+        "caseSize": 12,
+        "deal": true
       },
       {
         "art": "38092",
@@ -413,8 +604,9 @@ const CATEGORIES = [
       {
         "art": "72340",
         "name": "Calanda Radler Zitrone 24 × 50 cl",
-        "price": 27.84,
-        "caseSize": 24
+        "price": 16.5,
+        "caseSize": 24,
+        "deal": true
       },
       {
         "art": "35247",
@@ -452,8 +644,9 @@ const CATEGORIES = [
       {
         "art": "68896",
         "name": "Bier Moretti Dose 24 × 50 cl",
-        "price": 29.52,
-        "caseSize": 24
+        "price": 20.95,
+        "caseSize": 24,
+        "deal": true
       },
       {
         "art": "87351",
@@ -492,8 +685,9 @@ const CATEGORIES = [
       {
         "art": "50898",
         "name": "Eve Strawberry Mojito 10 × 27,5 cl",
-        "price": 17.3,
-        "caseSize": 10
+        "price": 17.25,
+        "caseSize": 10,
+        "deal": true
       },
       {
         "art": "87450",
@@ -533,7 +727,8 @@ const CATEGORIES = [
         "art": "15526",
         "name": "Panaché Bilz Himbeere 10 × 33 cl",
         "price": 10.9,
-        "caseSize": 10
+        "caseSize": 10,
+        "deal": true
       },
       {
         "art": "34815",
@@ -596,12 +791,14 @@ const CATEGORIES = [
       {
         "art": "52804",
         "name": "Moscato Mosketto 75 cl",
-        "price": 7.93
+        "price": 7.95,
+        "deal": true
       },
       {
         "art": "19819",
         "name": "Primitivo Manduria 75 cl",
-        "price": 9.27
+        "price": 9.35,
+        "deal": true
       },
       {
         "art": "88965",
@@ -646,7 +843,8 @@ const CATEGORIES = [
       {
         "art": "16869",
         "name": "Triasso Rosso Biologico 75 cl",
-        "price": 11.33
+        "price": 8.5,
+        "deal": true
       },
       {
         "art": "88456",
@@ -806,7 +1004,8 @@ const CATEGORIES = [
       {
         "art": "61650",
         "name": "Heida 75 cl",
-        "price": 15.93
+        "price": 11.95,
+        "deal": true
       },
       {
         "art": "88236",
@@ -856,7 +1055,8 @@ const CATEGORIES = [
       {
         "art": "16800",
         "name": "El Pescaito 75 cl",
-        "price": 6.6
+        "price": 4.95,
+        "deal": true
       },
       {
         "art": "88490",

@@ -7,38 +7,45 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --primary: #008A3B;          /* Authentic Landi Green */
-    --primary-dark: #00682B;     /* Deep Landi Green */
-    --primary-hover: #059669;    /* Hover accent */
-    --primary-light: #F0FDF4;    /* Light mint tint */
-    --primary-border: #BBF7D0;   /* Border green */
+    --primary: #1F3A2E;          /* Deep Forest Green */
+    --primary-dark: #13251D;     /* Darker Forest Green */
+    --primary-hover: #2B4E3E;    /* Hover Forest Green */
+    --primary-light: #F2F6F3;    /* Light Forest tint */
+    --primary-border: #D2E0D8;   /* Soft border green */
     
-    --bg: #F2F9F4;               /* Fresh Swiss alpine mint background */
-    --card: #FFFFFF;             /* Pure crisp white cards */
-    --border: #E2E8F0;           /* Soft border lines */
-    --border-light: #F1F5F9;
+    --accent: #C9A227;           /* Warm Gold / Senfton */
+    --accent-dark: #A6831B;      /* Rich Gold Dark */
+    --accent-hover: #B5901F;     /* Hover Gold */
+    --accent-light: #FDF9EC;     /* Soft warm gold tint */
+    --accent-border: #F5E9C5;    /* Soft gold border */
+
+    --bg: #F7F5EF;               /* Warm Off-White / Cream background */
+    --card: #FBFAF5;             /* Very light cream card */
+    --card-hover: #FFFFFF;
+    --border: #E8E4D8;           /* Subtle cream-grey border */
+    --border-light: #F2EFE6;
     
-    --text: #0F172A;             /* Rich dark slate text */
-    --text-muted: #64748B;       /* Muted slate text */
-    --text-subtle: #94A3B8;      /* Subtle grey */
+    --text: #1C2421;             /* Warm deep slate text */
+    --text-muted: #5C6561;       /* Muted slate-green text */
+    --text-subtle: #8C9691;      /* Subtle grey */
     
     --badge-deal-bg: #FEF3C7;
     --badge-deal-text: #92400E;
     --badge-deal-border: #FDE68A;
 
-    --radius-sm: 8px;
-    --radius: 14px;
-    --radius-lg: 20px;
+    --radius-sm: 10px;
+    --radius: 16px;
+    --radius-lg: 24px;
     --radius-full: 9999px;
     
-    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.04);
-    --shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.06);
-    --shadow-lg: 0 14px 30px -4px rgba(0, 138, 59, 0.14);
+    --shadow-sm: 0 2px 8px rgba(31, 58, 46, 0.04);
+    --shadow: 0 4px 16px rgba(31, 58, 46, 0.06);
+    --shadow-lg: 0 14px 32px -4px rgba(31, 58, 46, 0.14);
+    --shadow-accent: 0 6px 20px rgba(201, 162, 39, 0.3);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -48,23 +55,24 @@
     color: var(--text);
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     line-height: 1.5;
-    padding-bottom: 120px;
+    padding-bottom: 130px;
     -webkit-font-smoothing: antialiased;
   }
 
-  h1, h2, h3, .heading-font {
-    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+  h1, h2, h3, .heading-font, .product-name, .price-val, .cat-title {
+    font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
   }
 
-  /* KOPFZEILE (Landi Green Hero Banner) */
+  /* KOPFZEILE (Deep Forest Green Banner) */
   header.top {
-    background: linear-gradient(135deg, #008A3B 0%, #00682B 100%);
+    background: linear-gradient(135deg, #1F3A2E 0%, #15271F 100%);
     color: white;
     position: sticky;
     top: 0;
     z-index: 20;
-    padding: 18px 20px 20px;
-    box-shadow: 0 6px 20px rgba(0, 104, 43, 0.25);
+    padding: 20px 24px 22px;
+    box-shadow: 0 8px 24px rgba(21, 39, 31, 0.3);
+    border-bottom: 1px solid rgba(201, 162, 39, 0.2);
   }
   .header-content {
     max-width: 1300px;
@@ -73,17 +81,17 @@
   .brand-badge {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    background: rgba(255, 255, 255, 0.18);
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.12);
     color: #FFFFFF;
-    border: 1px solid rgba(255, 255, 255, 0.35);
-    padding: 4px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    padding: 5px 14px;
     border-radius: var(--radius-full);
     font-size: 0.78rem;
-    font-weight: 800;
-    letter-spacing: 0.06em;
+    font-weight: 700;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
   }
@@ -92,21 +100,20 @@
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background: #FACC15; /* Golden Swiss dot */
-    box-shadow: 0 0 6px #FACC15;
+    background: var(--accent);
+    box-shadow: 0 0 8px var(--accent);
   }
   header.top h1 {
-    font-size: 1.65rem;
-    font-weight: 800;
+    font-size: 1.8rem;
+    font-weight: 700;
     color: #FFFFFF;
     letter-spacing: -0.02em;
-    margin-bottom: 4px;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    margin-bottom: 6px;
   }
   header.top p.sub {
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 0.9rem;
-    margin-bottom: 16px;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.92rem;
+    margin-bottom: 18px;
     max-width: 62ch;
   }
 
@@ -121,45 +128,46 @@
     left: 16px;
     width: 20px;
     height: 20px;
-    color: var(--primary-dark);
+    color: var(--text-muted);
     pointer-events: none;
     z-index: 2;
   }
   .search-wrapper input[type="search"] {
     width: 100%;
-    padding: 13px 18px 13px 48px;
+    padding: 14px 18px 14px 48px;
     border-radius: var(--radius);
-    border: none;
+    border: 1px solid rgba(255, 255, 255, 0.2);
     font-family: inherit;
     font-size: 0.96rem;
     background: #FFFFFF;
     color: var(--text);
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
     transition: all 0.2s ease;
   }
   .search-wrapper input[type="search"]:focus {
     outline: none;
     background: #FFFFFF;
-    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.4), 0 6px 20px rgba(0, 0, 0, 0.18);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px rgba(201, 162, 39, 0.3), 0 6px 20px rgba(0, 0, 0, 0.2);
   }
 
   /* HAUPTBEREICH */
   main {
     max-width: 1300px;
     margin: 0 auto;
-    padding: 24px 16px 12px;
+    padding: 28px 20px 16px;
   }
 
   .banner {
-    background: #FFFFFF;
-    border: 1px solid #BBF7D0;
-    border-left: 5px solid var(--primary);
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 5px solid var(--accent);
     color: var(--text-muted);
     border-radius: var(--radius-sm);
-    padding: 14px 18px;
-    font-size: 0.86rem;
-    margin-bottom: 24px;
-    line-height: 1.5;
+    padding: 16px 20px;
+    font-size: 0.88rem;
+    margin-bottom: 28px;
+    line-height: 1.55;
     box-shadow: var(--shadow-sm);
   }
   .banner strong {
@@ -170,53 +178,78 @@
   #categories {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 18px;
+    gap: 22px;
     align-items: start;
   }
-  @media (max-width: 768px) {
+  @media (max-width: 860px) {
     #categories {
       grid-template-columns: 1fr;
     }
   }
   details.category {
     background: var(--card);
-    border: 1px solid #DCFCE7;
+    border: 1px solid var(--border);
     border-radius: var(--radius);
     overflow: hidden;
     box-shadow: var(--shadow);
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
   }
   details.category:hover {
-    border-color: var(--primary-border);
+    border-color: var(--accent);
     box-shadow: var(--shadow-lg);
   }
   details.category[open] {
     grid-column: 1 / -1;
     border-color: var(--primary-border);
-    box-shadow: 0 10px 30px -4px rgba(0, 138, 59, 0.12);
+    box-shadow: 0 12px 32px -4px rgba(31, 58, 46, 0.12);
   }
   summary {
     list-style: none;
     cursor: pointer;
-    padding: 18px 22px;
+    padding: 18px 24px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    font-family: 'Outfit', sans-serif;
-    font-weight: 700;
-    font-size: 1.15rem;
     user-select: none;
     background: var(--card);
     transition: background-color 0.15s ease;
+    position: relative;
   }
   summary:hover {
-    background: #F8FAFC;
+    background: #F4F1E8;
   }
   summary::-webkit-details-marker { display: none; }
   details.category[open] summary {
-    border-bottom: 1px solid #E2E8F0;
-    background: linear-gradient(135deg, #F0FDF4 0%, #FFFFFF 100%);
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(135deg, #F5F2E9 0%, #FBFAF5 100%);
   }
+
+  .cat-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .cat-icon-circle {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease;
+  }
+  details.category:hover .cat-icon-circle {
+    transform: scale(1.08);
+  }
+  .cat-title {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--text);
+  }
+
   .cat-right {
     display: flex;
     align-items: center;
@@ -225,18 +258,19 @@
   .cat-badge {
     font-size: 0.8rem;
     font-weight: 600;
-    padding: 4px 12px;
+    padding: 5px 14px;
     border-radius: var(--radius-full);
-    background: #F1F5F9;
+    background: #EDEAE1;
     color: var(--text-muted);
-    border: 1px solid #E2E8F0;
+    border: 1px solid var(--border);
+    transition: all 0.2s ease;
   }
   .cat-badge.active {
-    background: var(--primary);
+    background: var(--accent);
     color: #FFFFFF;
-    border-color: var(--primary);
+    border-color: var(--accent);
     font-weight: 700;
-    box-shadow: 0 2px 8px rgba(0, 138, 59, 0.3);
+    box-shadow: var(--shadow-accent);
   }
   summary .chev {
     width: 20px;
@@ -248,80 +282,91 @@
     transform: rotate(180deg);
   }
 
+  /* FORTSCHRITTSBALKEN IN KATEGORIE */
+  .cat-progress-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background: var(--accent);
+    transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
   /* SUB-FILTER LEISTE */
   .sub-filter-bar {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    padding: 14px 20px;
-    background: #F8FAFC;
-    border-bottom: 1px solid #E2E8F0;
+    padding: 16px 24px;
+    background: #F4F1E8;
+    border-bottom: 1px solid var(--border);
   }
   .sub-filter-btn {
     font-size: 0.84rem;
     font-weight: 600;
-    padding: 7px 16px;
+    padding: 8px 18px;
     border-radius: var(--radius-full);
-    background: #FFFFFF;
+    background: var(--card);
     color: var(--text-muted);
-    border: 1px solid #CBD5E1;
+    border: 1px solid var(--border);
     cursor: pointer;
     transition: all 0.15s ease;
     user-select: none;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.03);
   }
   .sub-filter-btn:hover {
-    border-color: var(--primary);
-    color: var(--primary);
+    border-color: var(--accent);
+    color: var(--accent-dark);
     transform: translateY(-1px);
   }
   .sub-filter-btn.active {
-    background: linear-gradient(135deg, #008A3B 0%, #059669 100%);
+    background: var(--accent);
     color: white;
-    border-color: transparent;
+    border-color: var(--accent);
     font-weight: 700;
-    box-shadow: 0 4px 12px rgba(0, 138, 59, 0.3);
+    box-shadow: var(--shadow-accent);
   }
 
   /* PRODUKTE GRID */
   .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
-    gap: 14px;
-    padding: 20px;
-    background: #F8FAFC;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr));
+    gap: 18px;
+    padding: 24px;
+    background: #F4F1E8;
   }
   .product {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 14px;
-    padding: 18px;
-    background: #FFFFFF;
-    border: 1px solid #E2E8F0;
+    gap: 16px;
+    padding: 20px;
+    background: var(--card);
+    border: 1px solid var(--border);
     border-radius: var(--radius);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: var(--shadow);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .product:hover {
-    border-color: var(--primary);
-    transform: translateY(-3px);
-    box-shadow: 0 12px 28px -4px rgba(0, 138, 59, 0.14);
+    border-color: var(--accent);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    background: var(--card-hover);
   }
 
   .product-head {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 8px;
   }
   .product-title-wrap {
     display: flex;
     flex-direction: column;
-    gap: 3px;
+    gap: 4px;
   }
   .product-name {
     font-weight: 700;
-    font-size: 0.98rem;
+    font-size: 1.02rem;
     color: var(--text);
     line-height: 1.35;
   }
@@ -333,40 +378,48 @@
   
   /* PREIS BOX */
   .product-price-box {
-    background: #F0FDF4;
-    border: 1px solid #BBF7D0;
-    border-radius: 10px;
-    padding: 8px 12px;
+    background: var(--accent-light);
+    border: 1px solid var(--accent-border);
+    border-radius: 12px;
+    padding: 10px 14px;
     margin-top: 4px;
     display: flex;
     flex-direction: column;
   }
   .product-price-box .price-val {
-    font-family: 'Outfit', sans-serif;
-    font-size: 1.18rem;
-    font-weight: 800;
-    color: var(--primary);
-    line-height: 1.25;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--accent-dark);
+    line-height: 1.2;
   }
   .product-price-box .price-sub {
     font-size: 0.76rem;
-    color: #475569;
+    color: var(--text-muted);
     font-weight: 500;
     margin-top: 2px;
   }
 
-  .tag {
+  .tag, .tag-top-angebot {
     display: inline-flex;
     align-items: center;
-    font-size: 0.7rem;
+    gap: 4px;
+    font-size: 0.72rem;
     font-weight: 700;
-    color: var(--badge-deal-text);
-    background: var(--badge-deal-bg);
-    border: 1px solid var(--badge-deal-border);
-    padding: 2px 8px;
+    color: #FFFFFF;
+    background: linear-gradient(135deg, #0284C7 0%, #0369A1 100%);
+    border: 1px solid #0284C7;
+    padding: 3px 10px;
     border-radius: var(--radius-full);
     margin-left: 6px;
     vertical-align: middle;
+    box-shadow: 0 2px 6px rgba(2, 132, 199, 0.28);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+  .tag-top-angebot::before {
+    content: "★";
+    font-size: 0.7rem;
+    color: #BAE6FD;
   }
 
   /* MENGENWAHL (STEPPER) */
@@ -379,24 +432,24 @@
   .qty-field {
     display: inline-flex;
     align-items: center;
-    background: #F8FAFC;
-    border: 1px solid #E2E8F0;
-    border-radius: 10px;
-    padding: 4px 6px;
-    gap: 4px;
+    background: #EDEAE1;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 4px 8px;
+    gap: 6px;
   }
   .qty-field label {
-    font-size: 0.76rem;
+    font-size: 0.78rem;
     font-weight: 600;
     color: var(--text-muted);
     padding: 0 4px 0 2px;
     white-space: nowrap;
   }
   .qty-btn {
-    width: 30px;
-    height: 30px;
-    border-radius: 8px;
-    border: 1px solid #CBD5E1;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid #D5D0C3;
     background: #FFFFFF;
     color: var(--text);
     font-size: 1.15rem;
@@ -406,32 +459,33 @@
     cursor: pointer;
     line-height: 1;
     font-weight: 700;
-    transition: all 0.15s ease;
+    transition: all 0.18s ease;
     user-select: none;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
   }
   .qty-btn:hover {
-    background: var(--primary);
+    background: var(--accent);
     color: #FFFFFF;
-    border-color: var(--primary);
-    transform: scale(1.06);
+    border-color: var(--accent);
+    transform: scale(1.08);
+    box-shadow: var(--shadow-accent);
   }
   .qty-btn:active {
-    transform: scale(0.94);
+    transform: scale(0.92);
   }
   .qty-field input {
-    width: 46px;
-    height: 30px;
+    width: 48px;
+    height: 32px;
     text-align: center;
-    border: 1px solid #CBD5E1;
-    border-radius: 8px;
+    border: 1px solid #D5D0C3;
+    border-radius: 10px;
     background: #FFFFFF;
-    font-family: 'Outfit', sans-serif;
-    font-size: 1.02rem;
-    font-weight: 800;
-    color: var(--primary-dark);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--primary);
     -moz-appearance: textfield;
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.06);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
     transition: all 0.15s ease;
   }
   .qty-field input::-webkit-outer-spin-button,
@@ -441,31 +495,31 @@
   }
   .qty-field input:focus {
     outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(0, 138, 59, 0.25);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.25);
     background: #FFFFFF;
   }
 
   /* DETAILS-BLOCK */
   .details-block {
-    background: #FFFFFF;
-    border: 1px solid #E2E8F0;
+    background: var(--card);
+    border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 24px;
-    margin: 28px 0 18px;
+    padding: 28px;
+    margin: 32px 0 20px;
     box-shadow: var(--shadow);
   }
   .details-block h2 {
-    font-size: 1.15rem;
+    font-size: 1.2rem;
     font-weight: 700;
-    margin-bottom: 14px;
+    margin-bottom: 16px;
     color: var(--text);
   }
   .field-pair {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 16px;
-    margin-bottom: 10px;
+    gap: 18px;
+    margin-bottom: 12px;
   }
   .field {
     display: flex;
@@ -473,16 +527,16 @@
     gap: 6px;
   }
   .field label {
-    font-size: 0.82rem;
+    font-size: 0.84rem;
     font-weight: 600;
     color: var(--text-muted);
   }
   .field input {
-    padding: 12px 16px;
+    padding: 13px 18px;
     border-radius: var(--radius-sm);
-    border: 1px solid #CBD5E1;
+    border: 1px solid var(--border);
     font-family: inherit;
-    font-size: 0.94rem;
+    font-size: 0.95rem;
     background: #FFFFFF;
     color: var(--text);
     transition: all 0.15s ease;
@@ -490,34 +544,35 @@
   .field input:focus {
     outline: none;
     background: #FFFFFF;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(0, 138, 59, 0.2);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.2);
   }
   .hint {
-    font-size: 0.8rem;
+    font-size: 0.82rem;
     color: var(--text-subtle);
-    margin-top: 12px;
-    line-height: 1.45;
+    margin-top: 14px;
+    line-height: 1.5;
   }
 
-  /* FIXE FUSSLLEISTE */
+  /* FIXE FUSSLEISTE (Frosted Glass) */
   .summary-bar {
     position: fixed;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(255, 255, 255, 0.94);
+    background: rgba(247, 245, 239, 0.88);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border-top: 1px solid #CBD5E1;
-    padding: 16px 24px;
-    padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    border-top: 1px solid var(--border);
+    border-radius: 20px 20px 0 0;
+    padding: 18px 28px;
+    padding-bottom: calc(18px + env(safe-area-inset-bottom, 0px));
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 16px;
     z-index: 30;
-    box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 -8px 32px rgba(31, 58, 46, 0.08);
   }
   .summary-bar-inner {
     max-width: 1300px;
@@ -532,35 +587,36 @@
     color: var(--text-muted);
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.06em;
   }
   .summary-bar .total {
-    font-family: 'Outfit', sans-serif;
-    font-size: 1.6rem;
-    font-weight: 800;
-    color: var(--primary);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--accent-dark);
     letter-spacing: -0.01em;
   }
   .summary-bar button {
-    background: linear-gradient(135deg, #008A3B 0%, #059669 100%);
+    background: linear-gradient(135deg, #C9A227 0%, #B58F1E 100%);
     color: #FFFFFF;
     border: none;
-    font-family: 'Outfit', sans-serif;
+    font-family: 'Space Grotesk', sans-serif;
     font-weight: 700;
-    padding: 13px 26px;
+    padding: 14px 28px;
     border-radius: var(--radius);
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 1.02rem;
     letter-spacing: 0.02em;
     transition: all 0.2s ease;
-    box-shadow: 0 6px 20px rgba(0, 138, 59, 0.35);
+    box-shadow: var(--shadow-accent);
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
   }
   .summary-bar button:hover:not(:disabled) {
     transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(0, 138, 59, 0.45);
+    box-shadow: 0 10px 25px rgba(201, 162, 39, 0.45);
+    background: linear-gradient(135deg, #D9B134 0%, #C59F27 100%);
   }
   .summary-bar button:active:not(:disabled) {
     transform: translateY(1px);
@@ -569,21 +625,21 @@
     opacity: 0.45;
     cursor: not-allowed;
     box-shadow: none;
-    background: #94A3B8;
+    background: #C4C0B5;
   }
 
   /* MODAL / OVERLAY */
   .overlay {
     position: fixed;
     inset: 0;
-    background: rgba(15, 23, 42, 0.45);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
+    background: rgba(28, 36, 33, 0.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     display: none;
     align-items: center;
     justify-content: center;
     z-index: 40;
-    padding: 16px;
+    padding: 20px;
   }
   .overlay.open {
     display: flex;
@@ -591,11 +647,11 @@
   .sheet {
     background: var(--card);
     width: 100%;
-    max-width: 580px;
+    max-width: 600px;
     max-height: 85vh;
     overflow-y: auto;
     border-radius: var(--radius-lg);
-    padding: 24px;
+    padding: 28px;
     box-shadow: var(--shadow-lg);
     border: 1px solid var(--border);
     animation: modalPop 0.2s cubic-bezier(0.16, 1, 0.3, 1);
@@ -608,21 +664,21 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 16px;
-    padding-bottom: 12px;
+    margin-bottom: 18px;
+    padding-bottom: 14px;
     border-bottom: 1px solid var(--border);
   }
   .sheet-head h2 {
-    font-size: 1.25rem;
+    font-size: 1.3rem;
     font-weight: 700;
-    color: var(--text);
+    color: var(--primary);
   }
   .sheet-close {
     background: var(--bg);
     border: 1px solid var(--border);
     border-radius: 50%;
-    width: 32px;
-    height: 32px;
+    width: 34px;
+    height: 34px;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -633,24 +689,24 @@
     transition: all 0.15s ease;
   }
   .sheet-close:hover {
-    background: #E2E8F0;
+    background: #E8E4D8;
     color: var(--text);
   }
 
   .sheet table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 0.9rem;
-    margin-bottom: 16px;
+    font-size: 0.92rem;
+    margin-bottom: 18px;
   }
   .sheet th {
     text-align: left;
     padding: 10px 8px;
     font-weight: 600;
     color: var(--text-muted);
-    font-size: 0.78rem;
+    font-size: 0.8rem;
     text-transform: uppercase;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.05em;
     border-bottom: 1px solid var(--border);
   }
   .sheet td {
@@ -665,54 +721,54 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-family: 'Space Grotesk', sans-serif;
     font-weight: 700;
-    font-size: 1.15rem;
-    padding: 12px 8px 20px;
-    color: var(--primary);
+    font-size: 1.25rem;
+    padding: 14px 8px 22px;
+    color: var(--accent-dark);
     border-top: 2px solid var(--border);
   }
   .sheet-actions {
     display: flex;
-    gap: 12px;
+    gap: 14px;
   }
   .sheet-actions button {
     flex: 1;
-    padding: 13px;
+    padding: 14px;
     border-radius: var(--radius);
     border: 1px solid var(--border);
-    font-family: inherit;
-    font-weight: 600;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
     cursor: pointer;
-    font-size: 0.92rem;
+    font-size: 0.95rem;
     transition: all 0.15s ease;
   }
   .sheet-actions .primary {
-    background: var(--primary);
+    background: linear-gradient(135deg, #C9A227 0%, #B58F1E 100%);
     color: #FFFFFF;
-    border-color: var(--primary);
-    box-shadow: 0 2px 6px rgba(21, 128, 61, 0.25);
+    border-color: var(--accent);
+    box-shadow: var(--shadow-accent);
   }
   .sheet-actions .primary:hover {
-    background: var(--primary-hover);
+    background: linear-gradient(135deg, #D9B134 0%, #C59F27 100%);
   }
   .sheet-actions .secondary {
     background: var(--bg);
     color: var(--text);
   }
   .sheet-actions .secondary:hover {
-    background: #E2E8F0;
+    background: #E8E4D8;
   }
   .empty-note {
     color: var(--text-muted);
-    font-size: 0.9rem;
-    padding: 16px 4px;
+    font-size: 0.92rem;
+    padding: 18px 4px;
     text-align: center;
   }
 
   @media (max-width: 480px) {
-    header.top h1 { font-size: 1.3rem; }
-    .product-price { font-size: 0.9rem; }
-    .sheet { padding: 18px; border-radius: var(--radius); }
+    header.top h1 { font-size: 1.4rem; }
+    .sheet { padding: 20px; border-radius: var(--radius); }
   }
 </style>
 </head>
@@ -722,7 +778,7 @@
   <div class="header-content">
     <div style="display:flex; justify-content:space-between; align-items:center;">
       <div class="brand-badge">Landi Vorbestellung</div>
-      <button id="editPricesBtn" onclick="toggleEditPricesMode()" style="background:rgba(255,255,255,0.15); color:white; border:1px solid rgba(255,255,255,0.3); border-radius:20px; padding:4px 12px; font-size:0.78rem; font-weight:600; cursor:pointer;">✏️ Preise bearbeiten</button>
+      <button id="editPricesBtn" onclick="toggleEditPricesMode()" style="background:rgba(255,255,255,0.14); color:white; border:1px solid rgba(255,255,255,0.28); border-radius:20px; padding:5px 14px; font-size:0.78rem; font-weight:600; cursor:pointer; transition:all 0.15s ease;">✏️ Preise bearbeiten</button>
     </div>
     <h1>Getränke bestellen</h1>
     <p class="sub">Wählt eure Produkte und Mengen aus und erstellt daraus ein PDF für die Abholung in eurer Filiale.</p>
@@ -737,8 +793,8 @@
 </header>
 
 <main>
-  <div id="editBanner" style="display:none; background:#FEF3C7; border:1px solid #FCD34D; color:#92400E; padding:12px 16px; border-radius:var(--radius); margin-bottom:16px; font-size:0.9rem;">
-    <strong>✏️ Preis-Bearbeitungsmodus aktiv:</strong> Ändere die Preise direkt bei den Produkten. Wenn du fertig bist, klicke auf <button onclick="exportUpdatedJs()" style="background:#B45309; color:white; border:none; padding:3px 10px; border-radius:12px; font-weight:bold; cursor:pointer;">💾 Sortiment-Code kopieren</button>, um den Code zu speichern!
+  <div id="editBanner" style="display:none; background:#FEF3C7; border:1px solid #FCD34D; color:#92400E; padding:14px 18px; border-radius:var(--radius); margin-bottom:20px; font-size:0.9rem;">
+    <strong>✏️ Preis-Bearbeitungsmodus aktiv:</strong> Ändere die Preise direkt bei den Produkten. Wenn du fertig bist, klicke auf <button onclick="exportUpdatedJs()" style="background:#B45309; color:white; border:none; padding:4px 12px; border-radius:14px; font-weight:bold; cursor:pointer;">💾 Sortiment-Code kopieren</button>, um den Code zu speichern!
   </div>
 
   <div class="banner">
@@ -772,7 +828,7 @@
     <button id="reviewBtn" onclick="openReview()" disabled>
       Bestellung ansehen
       <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 5l7 7-7 7"></path>
       </svg>
     </button>
   </div>
@@ -889,7 +945,7 @@ function toggleEditPricesMode() {
   isEditPricesMode = !isEditPricesMode;
   document.getElementById("editBanner").style.display = isEditPricesMode ? "block" : "none";
   document.getElementById("editPricesBtn").textContent = isEditPricesMode ? "✅ Bearbeiten beenden" : "✏️ Preise bearbeiten";
-  document.getElementById("editPricesBtn").style.background = isEditPricesMode ? "#B45309" : "rgba(255,255,255,0.15)";
+  document.getElementById("editPricesBtn").style.background = isEditPricesMode ? "#B45309" : "rgba(255,255,255,0.14)";
   renderProducts();
 }
 
@@ -929,25 +985,66 @@ const activeSubFilters = {};
 const SUB_FILTERS = {
   "Weine": [
     { label: "Alle", match: () => true },
-    { label: "🍷 Rotwein", match: p => /rosso|rot|primitivo|dôle|salvagnin|pinot noir|tinto|cabernet|merlot|syrah|gamay|monastrell|zweigelt|rioja|barbera|chianti|amarone|ripasso|rouge|borgo|velarino|el gringo|schweizer/i.test(p.name) },
-    { label: "🥂 Weisswein", match: p => /fendant|chasselas|mont sur rolle|luins|yvorne|st. saphorin|villette|epesses|heida|johannisberg|riesling|chardonnay|moscato|mosketto|blanc|weiss|grigio|veltliner|clairette|aigle|guyen/i.test(p.name) },
-    { label: "🍾 Rosé & Schaumwein", match: p => /rosé|rosato|oeil|œil|prosecco|spumante|schaumwein|volgaz|rimuss|mauler|federweiss/i.test(p.name) }
+    { label: "Rotwein", match: p => /rosso|rot|primitivo|dôle|salvagnin|pinot noir|tinto|cabernet|merlot|syrah|gamay|monastrell|zweigelt|rioja|barbera|chianti|amarone|ripasso|rouge|borgo|velarino|el gringo|schweizer/i.test(p.name) },
+    { label: "Weisswein", match: p => /fendant|chasselas|mont sur rolle|luins|yvorne|st. saphorin|villette|epesses|heida|johannisberg|riesling|chardonnay|moscato|mosketto|blanc|weiss|grigio|veltliner|clairette|aigle|guyen/i.test(p.name) },
+    { label: "Rosé & Schaumwein", match: p => /rosé|rosato|oeil|œil|prosecco|spumante|schaumwein|volgaz|rimuss|mauler|federweiss/i.test(p.name) }
   ],
   "Süssgetränke": [
     { label: "Alle", match: () => true },
-    { label: "🥤 Cola & Softdrinks", match: p => /coca|cola|citro|grapefruit|lemon soda|sanal|sinalco|rivella|san pellegrino/i.test(p.name) },
-    { label: "🍹 Ice Tea", match: p => /ice tea|eistee/i.test(p.name) },
-    { label: "⚡ Energy Drinks", match: p => /red bull|energy/i.test(p.name) },
-    { label: "🧃 Säfte & Most", match: p => /saft|orangensaft|traubensaft|cranberry|multivitamin|sauser|capri|most|süessmost|schnitzwasser/i.test(p.name) },
-    { label: "🍯 Sirup & Punsch", match: p => /sirup|punsch|holunder|focus water|vitaminwater/i.test(p.name) }
+    { label: "Cola & Softdrinks", match: p => /coca|cola|citro|grapefruit|lemon soda|sanal|sinalco|rivella|san pellegrino/i.test(p.name) },
+    { label: "Ice Tea", match: p => /ice tea|eistee/i.test(p.name) },
+    { label: "Energy Drinks", match: p => /red bull|energy/i.test(p.name) },
+    { label: "Säfte & Most", match: p => /saft|orangensaft|traubensaft|cranberry|multivitamin|sauser|capri|most|süessmost|schnitzwasser/i.test(p.name) },
+    { label: "Sirup & Punsch", match: p => /sirup|punsch|holunder|focus water|vitaminwater/i.test(p.name) }
   ],
   "Biere": [
     { label: "Alle", match: () => true },
-    { label: "🍺 Bier mit Alkohol", match: p => !/o\.a\.|0\.0|alkoholfrei|bilz|bschorle|radler|panaché|eve/i.test(p.name) },
-    { label: "🌿 Alkoholfrei", match: p => /o\.a\.|0\.0|alkoholfrei|bilz|bschorle/i.test(p.name) },
-    { label: "🍋 Radler & Mix", match: p => /radler|panaché|eve|ginger/i.test(p.name) }
+    { label: "Bier mit Alkohol", match: p => !/o\.a\.|0\.0|alkoholfrei|bilz|bschorle|radler|panaché|eve/i.test(p.name) },
+    { label: "Alkoholfrei", match: p => /o\.a\.|0\.0|alkoholfrei|bilz|bschorle/i.test(p.name) },
+    { label: "Radler & Mix", match: p => /radler|panaché|eve|ginger/i.test(p.name) }
   ]
 };
+
+function getCategoryIconConfig(name) {
+  const icons = {
+    "Mineralwasser": {
+      bg: "#E6F4F1", color: "#0D7A65",
+      svg: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>`
+    },
+    "Süssgetränke": {
+      bg: "#FAF0D9", color: "#B8860B",
+      svg: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 0 1 0 8h-1"></path><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="2" x2="6" y2="8"></line></svg>`
+    },
+    "Biere": {
+      bg: "#FAF2DA", color: "#C59B27",
+      svg: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 11h1a3 3 0 0 1 0 6h-1"></path><path d="M9 2v4"></path><path d="M13 2v4"></path><path d="M5 6h12v13a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6z"></path></svg>`
+    },
+    "Bier": {
+      bg: "#FAF2DA", color: "#C59B27",
+      svg: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 11h1a3 3 0 0 1 0 6h-1"></path><path d="M9 2v4"></path><path d="M13 2v4"></path><path d="M5 6h12v13a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6z"></path></svg>`
+    },
+    "Weine": {
+      bg: "#F7EBEB", color: "#9E2A2B",
+      svg: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22h8"></path><path d="M12 15v7"></path><path d="M12 15a7 7 0 0 0 7-7V3H5v5a7 7 0 0 0 7 7z"></path></svg>`
+    },
+    "Wein": {
+      bg: "#F7EBEB", color: "#9E2A2B",
+      svg: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22h8"></path><path d="M12 15v7"></path><path d="M12 15a7 7 0 0 0 7-7V3H5v5a7 7 0 0 0 7 7z"></path></svg>`
+    },
+    "Eistee": {
+      bg: "#EAF2E8", color: "#2D6A4F",
+      svg: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.1 2 7a9 9 0 0 1-10 11z"></path><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path></svg>`
+    },
+    "Top-Angebote": {
+      bg: "#FDF5DC", color: "#C9A227",
+      svg: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>`
+    }
+  };
+  return icons[name] || {
+    bg: "#EDEAE1", color: "#5C6561",
+    svg: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>`
+  };
+}
 
 function setSubFilter(catName, index) {
   activeSubFilters[catName] = index;
@@ -979,19 +1076,25 @@ function renderProducts() {
     det.open = term.length > 0 ? true : (openStates[cat.name] === true);
 
     const selectedInCat = searchFiltered.filter(p => getBottleCount(p) > 0).length;
-
-    const CAT_ICONS = { "Mineralwasser": "💧", "Süssgetränke": "🥤", "Biere": "🍺", "Weine": "🍷" };
-    const catIcon = CAT_ICONS[cat.name] || "📦";
+    const iconCfg = getCategoryIconConfig(cat.name);
+    const totalCatItems = rawItems.length;
+    const progressPct = totalCatItems > 0 && selectedInCat > 0 ? Math.round((selectedInCat / totalCatItems) * 100) : 0;
 
     det.innerHTML = `
       <summary>
-        <span>${catIcon} ${cat.name}</span>
+        <div class="cat-left">
+          <div class="cat-icon-circle" style="background:${iconCfg.bg}; color:${iconCfg.color}">
+            ${iconCfg.svg}
+          </div>
+          <span class="cat-title">${cat.name}</span>
+        </div>
         <div class="cat-right">
           <span class="cat-badge ${selectedInCat > 0 ? 'active' : ''}">${selectedInCat > 0 ? selectedInCat + ' gewählt' : searchFiltered.length + ' Artikel'}</span>
           <svg class="chev" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
           </svg>
         </div>
+        <div class="cat-progress-bar" style="width: ${progressPct}%;"></div>
       </summary>
     `;
 
@@ -1063,7 +1166,7 @@ function renderProducts() {
       const priceDisplayHtml = isEditPricesMode ? `
         <div class="product-price-box" style="text-align:right;">
           <span style="font-size:0.75rem; color:var(--text-muted); font-weight:normal; display:block;">Pack-Preis (CHF):</span>
-          <input type="number" step="0.05" min="0" value="${p.price}" onchange="updateProductPrice('${p.id}', this.value)" style="width:85px; padding:6px 8px; font-weight:bold; font-size:1rem; color:var(--primary); border:1px solid var(--primary-border); border-radius:6px; text-align:right;">
+          <input type="number" step="0.05" min="0" value="${p.price}" onchange="updateProductPrice('${p.id}', this.value)" style="width:85px; padding:6px 8px; font-weight:bold; font-size:1rem; color:var(--accent-dark); border:1px solid var(--accent-border); border-radius:8px; text-align:right;">
         </div>
       ` : `
         <div class="product-price-box">
@@ -1075,7 +1178,7 @@ function renderProducts() {
       row.innerHTML = `
         <div class="product-head">
           <div class="product-title-wrap">
-            <div><span class="product-name">${p.name}</span>${p.deal ? '<span class="tag">Solange Vorrat</span>' : ''}</div>
+            <div><span class="product-name">${p.name}</span>${(p.deal || p.topAngebot) ? '<span class="tag-top-angebot">Top Angebot</span>' : ''}</div>
             <div><span class="product-meta">Art.-Nr. ${p.art}</span></div>
           </div>
           ${priceDisplayHtml}
@@ -1110,6 +1213,7 @@ function updateCategoryBadges() {
     const catName = det.dataset.catName;
     const cat = CATEGORIES.find(c => c.name === catName);
     if (!cat) return;
+    const totalCatItems = (cat.items || []).length;
     const selectedInCat = (cat.items || []).filter(p => getBottleCount(p) > 0).length;
     const badgeEl = det.querySelector(".cat-badge");
     if (badgeEl) {
@@ -1117,9 +1221,14 @@ function updateCategoryBadges() {
         badgeEl.textContent = selectedInCat + " gewählt";
         badgeEl.classList.add("active");
       } else {
-        badgeEl.textContent = (cat.items || []).length + " Artikel";
+        badgeEl.textContent = totalCatItems + " Artikel";
         badgeEl.classList.remove("active");
       }
+    }
+    const progressBar = det.querySelector(".cat-progress-bar");
+    if (progressBar) {
+      const pct = totalCatItems > 0 && selectedInCat > 0 ? Math.round((selectedInCat / totalCatItems) * 100) : 0;
+      progressBar.style.width = pct + "%";
     }
   });
 }
@@ -1263,13 +1372,13 @@ function downloadPdf() {
     }
   }
 
-  // PDF Styling in Landi-Grün
+  // PDF Styling in Deep Forest Green
   doc.setFont("helvetica", "bold");
   doc.setFontSize(16);
-  doc.setTextColor(21, 128, 61); // Landi Grün
+  doc.setTextColor(31, 58, 46); // Deep Forest Green
   doc.text("Getränke-Vorbestellung", 14, 18);
 
-  doc.setTextColor(30, 41, 59);
+  doc.setTextColor(28, 36, 33);
   doc.setFont("helvetica", "normal");
   doc.setFontSize(10);
   doc.text("Referenz-Nr.: " + ref, 14, 26);
@@ -1288,19 +1397,19 @@ function downloadPdf() {
       "CHF " + s.total.toFixed(2)
     ]),
     styles: { fontSize: 9, font: "helvetica" },
-    headStyles: { fillColor: [21, 128, 61], textColor: [255, 255, 255], fontStyle: "bold" },
-    alternateRowStyles: { fillColor: [248, 250, 252] },
+    headStyles: { fillColor: [31, 58, 46], textColor: [255, 255, 255], fontStyle: "bold" },
+    alternateRowStyles: { fillColor: [247, 245, 239] },
   });
 
   const finalY = doc.lastAutoTable.finalY + 9;
   doc.setFont("helvetica", "bold");
   doc.setFontSize(12);
-  doc.setTextColor(21, 128, 61);
+  doc.setTextColor(31, 58, 46);
   doc.text("Gesamttotal (unverbindlich): CHF " + total.toFixed(2), 14, finalY);
 
   doc.setFont("helvetica", "normal");
   doc.setFontSize(8.5);
-  doc.setTextColor(100, 116, 139);
+  doc.setTextColor(92, 101, 97);
   doc.text(
     "Diese Zusammenstellung dient der unverbindlichen Vorbestellung. Preise und Verfügbarkeiten können abweichen.\nDie Bestellung wird erst mit Bestätigung durch das Landi-Team verbindlich.",
     14, finalY + 8
