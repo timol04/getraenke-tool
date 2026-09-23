@@ -1,4 +1,4 @@
-# Landi Getränke-PDF-lltool
+# Landi Getränke-PDF-tool
 
 Ein schlankes, eigenständiges Tool zur Vorbestellung von Getränken für die Landi-Filiale mit automatischer Harassen-Umrechnung und PDF-Erstellung via jsPDF.
 
