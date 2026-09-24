@@ -1529,8 +1529,6 @@
   </div>
 </div>
 
-<div class="overlay" id="overlay" onclick="handleOverlayClick(event)">
-
 <!-- INFO / WELCOME POPUP MODAL -->
 <div class="overlay open" id="infoModalOverlay" onclick="if(event.target.id==='infoModalOverlay') closeInfoModal()">
   <div class="sheet" style="max-width: 480px; text-align: center; padding: 32px 24px; position: relative;">
@@ -1547,6 +1545,8 @@
     </button>
   </div>
 </div>
+
+<div class="overlay" id="overlay" onclick="handleOverlayClick(event)">
   <div class="sheet">
     <div class="sheet-head">
       <h2>Zusammenstellung prüfen</h2>
@@ -1849,7 +1849,7 @@
 </div>
 
 <!-- SORTIMENT & APP-LOGIK -->
-<script src="sortiment.js?v=13"></script>
+<script src="sortiment.js?v=15"></script>
 <script>
 // Fallback-Sortiment, falls sortiment.js nicht geladen werden konnte
 if (typeof CATEGORIES === "undefined") {
@@ -2081,16 +2081,7 @@ function logoutAdmin() {
   isAdminAuthenticated = false;
   isEditPricesMode = false;
   document.getElementById("editBanner").style.display = "none";
-
-initTheme();
-
-window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
-  if (!localStorage.getItem("landi_theme")) {
-    initTheme();
-  }
-});
-
-updateAdminHeaderBtn();
+  updateAdminHeaderBtn();
   renderProducts();
 }
 
@@ -2490,16 +2481,7 @@ function toggleEditPricesMode(forceState) {
   }
 
   document.getElementById("editBanner").style.display = isEditPricesMode ? "block" : "none";
-
-initTheme();
-
-window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
-  if (!localStorage.getItem("landi_theme")) {
-    initTheme();
-  }
-});
-
-updateAdminHeaderBtn();
+  updateAdminHeaderBtn();
   renderPresets();
   renderProducts();
 }
