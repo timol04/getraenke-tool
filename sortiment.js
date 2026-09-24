@@ -958,10 +958,10 @@ const CATEGORIES = [
         "priceSingle": 1.5,
         "pricePack": 8.9,
         "gebinde": "Einzeln & Pack",
+        "subCategory": "Energy & Mate",
         "caseSize": 6,
         "allowSingleBottle": true,
-        "unit": "dose",
-        "subCategory": "Energy & Mate"
+        "unit": "dose"
       },
       {
         "art": "38994",
@@ -970,10 +970,10 @@ const CATEGORIES = [
         "priceSingle": 1.5,
         "pricePack": 8.9,
         "gebinde": "Einzeln & Pack",
+        "subCategory": "Energy & Mate",
         "caseSize": 6,
         "allowSingleBottle": true,
-        "unit": "flasche",
-        "subCategory": "Energy & Mate"
+        "unit": "flasche"
       },
       {
         "art": "98124",
@@ -981,11 +981,11 @@ const CATEGORIES = [
         "price": 11.8,
         "pricePack": 11.8,
         "gebinde": "Pack",
+        "subCategory": "Energy & Mate",
         "caseSize": 24,
         "caseOnly": true,
         "allowSingleBottle": false,
-        "unit": "dose",
-        "subCategory": "Energy & Mate"
+        "unit": "dose"
       },
       {
         "art": "98125",
@@ -993,9 +993,9 @@ const CATEGORIES = [
         "price": 0.5,
         "priceSingle": 0.5,
         "gebinde": "Einzeln",
+        "subCategory": "Energy & Mate",
         "allowSingleBottle": true,
-        "unit": "dose",
-        "subCategory": "Energy & Mate"
+        "unit": "dose"
       },
       {
         "art": "101743",
@@ -1004,10 +1004,10 @@ const CATEGORIES = [
         "priceSingle": 0.4,
         "pricePack": 9.4,
         "gebinde": "Einzeln & Pack",
+        "subCategory": "Energy & Mate",
         "caseSize": 24,
         "allowSingleBottle": true,
-        "unit": "dose",
-        "subCategory": "Energy & Mate"
+        "unit": "dose"
       },
       {
         "art": "101794",
@@ -1016,10 +1016,10 @@ const CATEGORIES = [
         "priceSingle": 0.4,
         "pricePack": 9.4,
         "gebinde": "Einzeln & Pack",
+        "subCategory": "Energy & Mate",
         "caseSize": 24,
         "allowSingleBottle": true,
-        "unit": "flasche",
-        "subCategory": "Energy & Mate"
+        "unit": "flasche"
       },
       {
         "art": "103976",
@@ -1028,10 +1028,10 @@ const CATEGORIES = [
         "priceSingle": 1,
         "pricePack": 5.95,
         "gebinde": "Einzeln & Pack",
+        "subCategory": "Energy & Mate",
         "caseSize": 6,
         "allowSingleBottle": true,
-        "unit": "flasche",
-        "subCategory": "Energy & Mate"
+        "unit": "flasche"
       },
       {
         "art": "114544",
@@ -1040,10 +1040,10 @@ const CATEGORIES = [
         "priceSingle": 1,
         "pricePack": 5.95,
         "gebinde": "Einzeln & Pack",
+        "subCategory": "Energy & Mate",
         "caseSize": 6,
         "allowSingleBottle": true,
-        "unit": "dose",
-        "subCategory": "Energy & Mate"
+        "unit": "dose"
       },
       {
         "art": "16149",
@@ -1052,10 +1052,10 @@ const CATEGORIES = [
         "priceSingle": 1.25,
         "pricePack": 29.95,
         "gebinde": "Einzeln & Pack",
+        "subCategory": "Energy & Mate",
         "caseSize": 24,
         "allowSingleBottle": true,
-        "unit": "dose",
-        "subCategory": "Energy & Mate"
+        "unit": "dose"
       }
     ]
   },
@@ -3896,7 +3896,20 @@ const CATEGORIES = [
   },
   {
     "name": "Spirituosen",
-    "items": []
+    "items": [
+      {
+        "art": "16152",
+        "name": "Aperol 11% 100 cl",
+        "price": 111,
+        "priceSingle": 18.5,
+        "pricePack": 111,
+        "gebinde": "Einzeln & Pack",
+        "subCategory": "Likör",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
+      }
+    ]
   }
 ];
 
