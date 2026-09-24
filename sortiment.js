@@ -4039,6 +4039,29 @@ const CATEGORIES = [
         "allowSingleBottle": true,
         "disabled": true,
         "unit": "flasche"
+      },
+      {
+        "art": "38067",
+        "name": "Smirnoff Ice 4% 6 × 27,5 cl",
+        "price": 14.6,
+        "pricePack": 14.6,
+        "gebinde": "Pack",
+        "subCategory": "Vodka, Gin & Rum",
+        "caseSize": 6,
+        "caseOnly": true,
+        "allowSingleBottle": false,
+        "unit": "flasche"
+      },
+      {
+        "art": "112527",
+        "name": "Sarti Rosa 14% 70 cl",
+        "price": 17.95,
+        "priceSingle": 17.95,
+        "gebinde": "Einzeln",
+        "subCategory": "Likör & Bitter",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       }
     ]
   }
