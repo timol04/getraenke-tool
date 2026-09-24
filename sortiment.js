@@ -3904,10 +3904,90 @@ const CATEGORIES = [
         "priceSingle": 18.5,
         "pricePack": 111,
         "gebinde": "Einzeln & Pack",
-        "subCategory": "Likör",
+        "subCategory": "Likör & Bitter",
         "caseSize": 6,
         "allowSingleBottle": true,
         "unit": "flasche"
+      },
+      {
+        "art": "87601",
+        "name": "Appenzeller Alpenbitter 29% 100 cl",
+        "price": 31.5,
+        "priceSingle": 31.5,
+        "gebinde": "Einzeln",
+        "allowSingleBottle": true,
+        "unit": "flasche",
+        "subCategory": "Likör & Bitter"
+      },
+      {
+        "art": "87602",
+        "name": "Kernobst / Träsch Willisau 45% 100 cl",
+        "price": 21.9,
+        "priceSingle": 21.9,
+        "gebinde": "Einzeln",
+        "allowSingleBottle": true,
+        "unit": "flasche",
+        "subCategory": "Edelbrand & Schnaps"
+      },
+      {
+        "art": "87603",
+        "name": "Pflümli Willisau 40% 100 cl",
+        "price": 26.5,
+        "priceSingle": 26.5,
+        "gebinde": "Einzeln",
+        "allowSingleBottle": true,
+        "unit": "flasche",
+        "subCategory": "Edelbrand & Schnaps"
+      },
+      {
+        "art": "87604",
+        "name": "Williams Willisau 40% 100 cl",
+        "price": 29.9,
+        "priceSingle": 29.9,
+        "gebinde": "Einzeln",
+        "allowSingleBottle": true,
+        "unit": "flasche",
+        "subCategory": "Edelbrand & Schnaps"
+      },
+      {
+        "art": "87605",
+        "name": "Kirsch Willisau 40% 100 cl",
+        "price": 27.5,
+        "priceSingle": 27.5,
+        "gebinde": "Einzeln",
+        "allowSingleBottle": true,
+        "unit": "flasche",
+        "subCategory": "Edelbrand & Schnaps"
+      },
+      {
+        "art": "87606",
+        "name": "Grappa Fior di Vite 40% 70 cl",
+        "price": 19.9,
+        "priceSingle": 19.9,
+        "gebinde": "Einzeln",
+        "allowSingleBottle": true,
+        "unit": "flasche",
+        "subCategory": "Edelbrand & Schnaps"
+      },
+      {
+        "art": "87607",
+        "name": "Trojka Vodka Red 24% 70 cl",
+        "price": 14.5,
+        "priceSingle": 14.5,
+        "gebinde": "Einzeln",
+        "allowSingleBottle": true,
+        "unit": "flasche",
+        "subCategory": "Vodka, Gin & Rum"
+      },
+      {
+        "art": "87608",
+        "name": "Gin 27 Appenzell 43% 70 cl",
+        "price": 36.0,
+        "priceSingle": 36.0,
+        "gebinde": "Einzeln",
+        "allowSingleBottle": true,
+        "unit": "flasche",
+        "subCategory": "Vodka, Gin & Rum"
       }
     ]
   }

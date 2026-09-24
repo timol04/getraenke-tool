@@ -1849,33 +1849,16 @@
 </div>
 
 <!-- SORTIMENT & APP-LOGIK -->
-<script src="sortiment.js?v=15"></script>
+<script src="sortiment.js?v=16"></script>
 <script>
 // Fallback-Sortiment, falls sortiment.js nicht geladen werden konnte
 if (typeof CATEGORIES === "undefined") {
   window.CATEGORIES = [
     {
-      name: "Bier",
+      name: "Top-Angebote",
       items: [
-        { art: "10234", name: "Feldschlösschen Lager, Flasche 33cl", price: 1.60, caseSize: 20 },
-        { art: "10235", name: "Feldschlösschen Lager, Dose 50cl", price: 1.40, caseSize: 24, unit: "dose" },
-        { art: "10240", name: "Quöllfrisch, Flasche 33cl", price: 1.95, caseSize: 20 },
-      ]
-    },
-    {
-      name: "Wein",
-      items: [
-        { art: "20110", name: "Fendant AOC, Rotwein 75cl", price: 12.90, caseSize: 6 },
-        { art: "20115", name: "Pinot Noir AOC 75cl", price: 14.50, caseSize: 6 },
-        { art: "20120", name: "Chasselas AOC 75cl", price: 11.20, caseSize: 6 },
-      ]
-    },
-    {
-      name: "Süssgetränke",
-      items: [
-        { art: "30010", name: "Coca-Cola 1.5L", price: 2.30, caseSize: 6 },
-        { art: "30011", name: "Coca-Cola Zero 1.5L", price: 2.30, caseSize: 6 },
-        { art: "30020", name: "Sinalco 1.5L", price: 1.95, caseSize: 6 },
+        { art: "60001", name: "Bier-Harass Aktion, 20x33cl", price: 17.90, caseSize: 20, caseOnly: true, deal: true },
+        { art: "60002", name: "Weinprobierpaket, 6 Flaschen", price: 59.00, unit: "stk", caseOnly: true, deal: true },
       ]
     },
     {
@@ -1887,17 +1870,35 @@ if (typeof CATEGORIES === "undefined") {
       ]
     },
     {
-      name: "Eistee",
+      name: "Süssgetränke",
       items: [
-        { art: "50001", name: "Eistee Zitrone 1.5L", price: 1.85, caseSize: 6 },
-        { art: "50002", name: "Eistee Pfirsich 1.5L", price: 1.85, caseSize: 6 },
+        { art: "30010", name: "Coca-Cola 1.5L", price: 2.30, caseSize: 6 },
+        { art: "30011", name: "Coca-Cola Zero 1.5L", price: 2.30, caseSize: 6 },
+        { art: "30020", name: "Sinalco 1.5L", price: 1.95, caseSize: 6 },
       ]
     },
     {
-      name: "Top-Angebote",
+      name: "Biere",
       items: [
-        { art: "60001", name: "Bier-Harass Aktion, 20x33cl", price: 17.90, caseSize: 20, caseOnly: true, deal: true },
-        { art: "60002", name: "Weinprobierpaket, 6 Flaschen", price: 59.00, unit: "stk", caseOnly: true, deal: true },
+        { art: "10234", name: "Feldschlösschen Lager, Flasche 33cl", price: 1.60, caseSize: 20 },
+        { art: "10235", name: "Feldschlösschen Lager, Dose 50cl", price: 1.40, caseSize: 24, unit: "dose" },
+        { art: "10240", name: "Quöllfrisch, Flasche 33cl", price: 1.95, caseSize: 20 },
+      ]
+    },
+    {
+      name: "Weine",
+      items: [
+        { art: "20110", name: "Fendant AOC, Rotwein 75cl", price: 12.90, caseSize: 6 },
+        { art: "20115", name: "Pinot Noir AOC 75cl", price: 14.50, caseSize: 6 },
+        { art: "20120", name: "Chasselas AOC 75cl", price: 11.20, caseSize: 6 },
+      ]
+    },
+    {
+      name: "Spirituosen",
+      items: [
+        { art: "87601", name: "Appenzeller Alpenbitter 29% 100 cl", price: 31.50, priceSingle: 31.50, gebinde: "Einzeln", allowSingleBottle: true, unit: "flasche", subCategory: "Likör & Bitter" },
+        { art: "87602", name: "Kernobst / Träsch Willisau 45% 100 cl", price: 21.90, priceSingle: 21.90, gebinde: "Einzeln", allowSingleBottle: true, unit: "flasche", subCategory: "Edelbrand & Schnaps" },
+        { art: "87607", name: "Trojka Vodka Red 24% 70 cl", price: 14.50, priceSingle: 14.50, gebinde: "Einzeln", allowSingleBottle: true, unit: "flasche", subCategory: "Vodka, Gin & Rum" }
       ]
     }
   ];
@@ -2193,20 +2194,21 @@ function deleteProduct(art) {
   renderProducts();
 }
 
-function openAddProductModal() {
+function openAddProductModal(defaultCat = "Weine") {
   editingProductArt = null;
   document.getElementById("modalProductTitle").textContent = "➕ Neues Produkt hinzufügen";
   document.getElementById("formArt").value = "";
   document.getElementById("formName").value = "";
-  document.getElementById("formCategory").value = "Weine";
+  document.getElementById("formCategory").value = defaultCat || "Weine";
   updateSubCategoryOptions("");
-  document.getElementById("formGebinde").value = "Einzeln & Pack";
+  document.getElementById("formGebinde").value = defaultCat === "Spirituosen" ? "Einzeln" : "Einzeln & Pack";
   document.getElementById("formPriceSingle").value = "";
   document.getElementById("formPricePack").value = "";
-  document.getElementById("formCaseSize").value = "6";
+  document.getElementById("formCaseSize").value = defaultCat === "Spirituosen" ? "" : "6";
   document.getElementById("formUnit").value = "flasche";
   document.getElementById("formTop").checked = false;
   document.getElementById("formDisabled").checked = false;
+  updateGebindeFormFields();
   
   document.getElementById("adminProductEditOverlay").classList.add("open");
 }
@@ -2240,12 +2242,11 @@ const SUBCATEGORY_OPTIONS = {
     "Aromatisches Wasser"
   ],
   "Spirituosen": [
-    "Spirituosen",
-    "Likör",
-    "Aperitif & Digestif",
-    "Whisky & Rum",
-    "Gin & Vodka",
-    "Edelbrand"
+    "Edelbrand & Schnaps",
+    "Likör & Bitter",
+    "Vodka, Gin & Rum",
+    "Whisky",
+    "Aperitif & Digestif"
   ]
 };
 
@@ -2643,7 +2644,10 @@ const SUB_FILTERS = {
     { label: "Energy & Mate", match: p => p.subCategory === "Energy & Mate" || p.subCategory === "Energy Drinks" || p.subCategory === "Mate" || /energy|red bull|mate/i.test(p.name) }
   ],
   "Spirituosen": [
-    { label: "Alle", match: () => true }
+    { label: "Alle", match: () => true },
+    { label: "Edelbrand & Schnaps", match: p => p.subCategory === "Edelbrand & Schnaps" || /willisau|pflümli|träsch|kernobst|kirsch|grappa|williams|zwetschgen|obstler/i.test(p.name) },
+    { label: "Likör & Bitter", match: p => p.subCategory === "Likör & Bitter" || /appenzeller|alpenbitter|likör|baileys|amaretto|ramazzotti|jägermeister/i.test(p.name) },
+    { label: "Vodka, Gin & Rum", match: p => p.subCategory === "Vodka, Gin & Rum" || /trojka|vodka|gin|rum|whisky|havana/i.test(p.name) }
   ],
   "Biere": [
     { label: "Alle", match: () => true },
@@ -2685,7 +2689,7 @@ function getCategoryIconConfig(name) {
     },
     "Spirituosen": {
       bg: "#F3E8FF", color: "#7C3AED",
-      svg: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22h8"></path><path d="M12 15v7"></path><path d="M12 15a7 7 0 0 0 7-7V3H5v5a7 7 0 0 0 7 7z"></path></svg>`
+      svg: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h10l1 7H6l1-7z"></path><path d="M6 10c0 4 2.5 7 6 7s6-3 6-7"></path><line x1="12" y1="17" x2="12" y2="21"></line><line x1="8" y1="21" x2="16" y2="21"></line></svg>`
     },
     "Top-Angebote": {
       bg: "#FDF5DC", color: "#C9A227",
@@ -2721,7 +2725,7 @@ function renderProducts() {
       return (p.name && p.name.toLowerCase().includes(term)) || 
              (p.art && String(p.art).toLowerCase().includes(term));
     });
-    if (searchFiltered.length === 0) return;
+    if (term.length > 0 && searchFiltered.length === 0) return;
 
     const det = document.createElement("details");
     det.className = "category";
@@ -2732,6 +2736,7 @@ function renderProducts() {
     const iconCfg = getCategoryIconConfig(cat.name);
     const totalCatItems = rawItems.length;
     const progressPct = totalCatItems > 0 && selectedInCat > 0 ? Math.round((selectedInCat / totalCatItems) * 100) : 0;
+    const badgeText = totalCatItems === 0 ? "0 Artikel" : `${selectedInCat} von ${totalCatItems} gewählt`;
 
     det.innerHTML = `
       <summary>
@@ -2742,7 +2747,7 @@ function renderProducts() {
           <span class="cat-title">${cat.name}</span>
         </div>
         <div class="cat-right">
-          <span class="cat-badge ${selectedInCat > 0 ? 'active' : ''}">${selectedInCat} von ${totalCatItems} gewählt</span>
+          <span class="cat-badge ${selectedInCat > 0 ? 'active' : ''}">${badgeText}</span>
           <svg class="chev" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
           </svg>
@@ -2778,7 +2783,13 @@ function renderProducts() {
     const grid = document.createElement("div");
     grid.className = "product-grid";
 
-    displayItems.forEach(p => {
+    if (displayItems.length === 0) {
+      const emptyDiv = document.createElement("div");
+      emptyDiv.style.cssText = "grid-column: 1 / -1; padding: 2.5rem 1rem; text-align: center; color: var(--text-muted); font-size: 0.95rem;";
+      emptyDiv.innerHTML = `Keine Artikel in dieser Auswahl vorhanden.<br><button class="btn btn-secondary btn-sm" style="margin-top: 0.75rem;" onclick="openAddProductModal('${cat.name}')">➕ Produkt hinzufügen</button>`;
+      grid.appendChild(emptyDiv);
+    } else {
+      displayItems.forEach(p => {
       const row = document.createElement("div");
       row.className = "product";
       const q = qty[p.id] || { bottles: 0, cases: 0 };
@@ -2900,6 +2911,7 @@ function renderProducts() {
       `;
       grid.appendChild(row);
     });
+  }
 
     det.appendChild(grid);
     wrap.appendChild(det);
@@ -2932,7 +2944,7 @@ function updateCategoryBadges() {
     const selectedInCat = (cat.items || []).filter(p => getBottleCount(p) > 0).length;
     const badgeEl = det.querySelector(".cat-badge");
     if (badgeEl) {
-      badgeEl.textContent = `${selectedInCat} von ${totalCatItems} gewählt`;
+      badgeEl.textContent = totalCatItems === 0 ? "0 Artikel" : `${selectedInCat} von ${totalCatItems} gewählt`;
       if (selectedInCat > 0) {
         badgeEl.classList.add("active");
       } else {
