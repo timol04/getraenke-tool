@@ -1437,6 +1437,120 @@
     }
   }
 
+  /* ADMIN ACTION TOAST NOTIFICATIONS */
+  .admin-toast-container {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 999999;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 440px;
+    width: calc(100vw - 48px);
+    pointer-events: none;
+  }
+  .admin-toast {
+    pointer-events: auto;
+    background: var(--card, #FFFFFF);
+    color: var(--text, #1E293B);
+    border: 1px solid var(--border, #E2E8F0);
+    border-left: 5px solid #16A34A;
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 16px 36px -4px rgba(0, 0, 0, 0.2), 0 4px 12px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transform: translateX(120%);
+    opacity: 0;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+  }
+  .admin-toast.show {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  .admin-toast.hide {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+  .admin-toast-body {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .admin-toast-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #DCFCE7;
+    color: #16A34A;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .admin-toast-content {
+    flex: 1;
+  }
+  .admin-toast-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text, #1E293B);
+    line-height: 1.4;
+  }
+  .admin-toast-sub {
+    font-size: 0.82rem;
+    color: var(--text-muted, #64748B);
+    margin-top: 5px;
+    line-height: 1.4;
+  }
+  .admin-toast-action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+    background: #0284C7;
+    color: #FFFFFF;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .admin-toast-action-btn:hover {
+    background: #0369A1;
+  }
+  .admin-toast-close {
+    background: transparent;
+    border: none;
+    color: var(--text-muted, #94A3B8);
+    font-size: 18px;
+    cursor: pointer;
+    padding: 0 4px;
+    line-height: 1;
+    transition: color 0.15s;
+  }
+  .admin-toast-close:hover {
+    color: var(--text, #1E293B);
+  }
+  .admin-toast-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background: #16A34A;
+    width: 100%;
+    transition: width 5s linear;
+  }
+
 </style>
 </head>
 <body>
@@ -1874,8 +1988,11 @@
   </div>
 </div>
 
+<!-- ADMIN NOTIFICATION TOAST CONTAINER -->
+<div id="adminToastContainer" class="admin-toast-container"></div>
+
 <!-- SORTIMENT & APP-LOGIK -->
-<script src="sortiment.js?v=17"></script>
+<script src="sortiment.js?v=18"></script>
 <script>
 // Fallback-Sortiment, falls sortiment.js nicht geladen werden konnte
 if (typeof CATEGORIES === "undefined") {
@@ -2204,27 +2321,82 @@ function renderAdminSortimentTable() {
   }).join("");
 }
 
+function showAdminToast(name, action) {
+  const container = document.getElementById("adminToastContainer");
+  if (!container) return;
+
+  const toast = document.createElement("div");
+  toast.className = "admin-toast";
+
+  const safeName = String(name || "Artikel").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+  toast.innerHTML = `
+    <div class="admin-toast-body">
+      <div class="admin-toast-icon">✓</div>
+      <div class="admin-toast-content">
+        <div class="admin-toast-title">Das Produkt <strong>"${safeName}"</strong> wurde erfolgreich ${action}.</div>
+        <div class="admin-toast-sub">Um die Änderungen zu übertragen, auf <strong>«Auf GitHub speichern»</strong> drücken.</div>
+        <button class="admin-toast-action-btn" onclick="savePricesToGithub()">☁️ Auf GitHub speichern</button>
+      </div>
+      <button class="admin-toast-close" title="Schliessen">✕</button>
+    </div>
+    <div class="admin-toast-progress"></div>
+  `;
+
+  const closeBtn = toast.querySelector(".admin-toast-close");
+  const dismiss = () => {
+    toast.classList.remove("show");
+    toast.classList.add("hide");
+    setTimeout(() => {
+      if (toast.parentNode) toast.remove();
+    }, 380);
+  };
+  if (closeBtn) closeBtn.onclick = dismiss;
+
+  container.appendChild(toast);
+
+  requestAnimationFrame(() => {
+    toast.classList.add("show");
+    const progress = toast.querySelector(".admin-toast-progress");
+    if (progress) {
+      setTimeout(() => {
+        progress.style.width = "0%";
+      }, 50);
+    }
+  });
+
+  setTimeout(dismiss, 5200);
+}
+
 function toggleProductStatus(art) {
+  let prodName = "";
+  let nowDisabled = false;
   for (const cat of CATEGORIES) {
     for (const p of (cat.items || [])) {
       if (p.art === art) {
         p.disabled = !p.disabled;
+        prodName = p.name;
+        nowDisabled = !!p.disabled;
       }
     }
   }
   renderAdminSortimentTable();
   renderProducts();
+  showAdminToast(prodName || `Art. ${art}`, nowDisabled ? "deaktiviert" : "aktiviert");
 }
 
 function deleteProduct(art) {
-  if (!confirm(`Möchtest du das Produkt mit Art.-Nr. ${art} wirklich dauerhaft löschen?`)) return;
+  const p = findProduct(art);
+  const prodName = p ? p.name : `Art. ${art}`;
+  if (!confirm(`Möchtest du das Produkt "${prodName}" wirklich dauerhaft löschen?`)) return;
   
   CATEGORIES.forEach(cat => {
-    cat.items = (cat.items || []).filter(p => p.art !== art);
+    cat.items = (cat.items || []).filter(x => x.art !== art);
   });
   
   renderAdminSortimentTable();
   renderProducts();
+  showAdminToast(prodName, "gelöscht");
 }
 
 function openAddProductModal(defaultCat = "Weine") {
@@ -2403,6 +2575,7 @@ function closeInfoModal() {
 }
 
 function saveProductFromModal() {
+  const isEdit = !!editingProductArt;
   const art = document.getElementById("formArt").value.trim();
   const name = document.getElementById("formName").value.trim();
   const catName = document.getElementById("formCategory").value;
@@ -2488,6 +2661,7 @@ function saveProductFromModal() {
   closeProductEditModal();
   renderAdminSortimentTable();
   renderProducts();
+  showAdminToast(name, isEdit ? "bearbeitet" : "hinzugefügt");
 }
 
 function updateAdminHeaderBtn() {
@@ -2541,6 +2715,7 @@ function updateProductPrice(id, val) {
     }
     renderProducts();
     updateSummaryBar();
+    showAdminToast(p.name, "bearbeitet");
   }
 }
 
@@ -2557,6 +2732,7 @@ function updateProductSinglePrice(id, val) {
     }
     renderProducts();
     updateSummaryBar();
+    showAdminToast(p.name, "bearbeitet");
   }
 }
 
@@ -2770,40 +2946,17 @@ function renderProducts() {
     det.dataset.catName = cat.name;
     det.open = term.length > 0 ? true : (openStates[cat.name] === true);
 
-    const selectedInCat = searchFiltered.filter(p => getBottleCount(p) > 0).length;
-    const iconCfg = getCategoryIconConfig(cat.name);
-    const totalCatItems = rawItems.length;
-    const progressPct = totalCatItems > 0 && selectedInCat > 0 ? Math.round((selectedInCat / totalCatItems) * 100) : 0;
-    const badgeText = totalCatItems === 0 ? "0 Artikel" : `${selectedInCat} von ${totalCatItems} gewählt`;
-
-    det.innerHTML = `
-      <summary>
-        <div class="cat-left">
-          <div class="cat-icon-circle" style="background:${iconCfg.bg}; color:${iconCfg.color}">
-            ${iconCfg.svg}
-          </div>
-          <span class="cat-title">${cat.name}</span>
-        </div>
-        <div class="cat-right">
-          <span class="cat-badge ${selectedInCat > 0 ? 'active' : ''}">${badgeText}</span>
-          <svg class="chev" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
-          </svg>
-        </div>
-        <div class="cat-progress-bar" style="width: ${progressPct}%;"></div>
-      </summary>
-    `;
-
-    // Sub-Filter Bar rendering
+    // Sub-Filter Bar rendering & Visible items determination
     const filters = SUB_FILTERS[cat.name];
     let displayItems = searchFiltered;
 
+    let filterBar = null;
     if (filters && term.length === 0) {
       const activeIdx = activeSubFilters[cat.name] || 0;
       const activeFilter = filters[activeIdx] || filters[0];
       displayItems = searchFiltered.filter(activeFilter.match);
 
-      const filterBar = document.createElement("div");
+      filterBar = document.createElement("div");
       filterBar.className = "sub-filter-bar";
       filters.forEach((f, idx) => {
         const btn = document.createElement("button");
@@ -2815,7 +2968,6 @@ function renderProducts() {
         };
         filterBar.appendChild(btn);
       });
-      det.appendChild(filterBar);
     }
 
     // Sortierung: Eigenmarken zuerst alphabetisch (A-Z), danach alle anderen Produkte alphabetisch (A-Z)
@@ -2827,6 +2979,34 @@ function renderProducts() {
       }
       return (a.name || "").localeCompare(b.name || "", "de-CH", { sensitivity: "base", numeric: true });
     });
+
+    const visibleCount = displayItems.length;
+    const selectedCount = displayItems.filter(p => getBottleCount(p) > 0).length;
+    const iconCfg = getCategoryIconConfig(cat.name);
+    const progressPct = visibleCount > 0 && selectedCount > 0 ? Math.round((selectedCount / visibleCount) * 100) : 0;
+    const badgeText = visibleCount === 0 ? "0 Artikel" : `${selectedCount} von ${visibleCount} ausgewählt`;
+
+    det.innerHTML = `
+      <summary>
+        <div class="cat-left">
+          <div class="cat-icon-circle" style="background:${iconCfg.bg}; color:${iconCfg.color}">
+            ${iconCfg.svg}
+          </div>
+          <span class="cat-title">${cat.name}</span>
+        </div>
+        <div class="cat-right">
+          <span class="cat-badge ${selectedCount > 0 ? 'active' : ''}">${badgeText}</span>
+          <svg class="chev" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </div>
+        <div class="cat-progress-bar" style="width: ${progressPct}%;"></div>
+      </summary>
+    `;
+
+    if (filterBar) {
+      det.appendChild(filterBar);
+    }
 
     const grid = document.createElement("div");
     grid.className = "product-grid";
@@ -2840,6 +3020,7 @@ function renderProducts() {
       displayItems.forEach(p => {
       const row = document.createElement("div");
       row.className = "product";
+      row.dataset.productId = p.id;
       const q = qty[p.id] || { bottles: 0, cases: 0 };
 
       let qtyHtml = "";
@@ -2992,15 +3173,22 @@ function updateQtyDOM(id) {
 
 function updateCategoryBadges() {
   document.querySelectorAll("details.category").forEach(det => {
-    const catName = det.dataset.catName;
-    const cat = CATEGORIES.find(c => c.name === catName);
-    if (!cat) return;
-    const totalCatItems = (cat.items || []).length;
-    const selectedInCat = (cat.items || []).filter(p => getBottleCount(p) > 0).length;
+    const productEls = det.querySelectorAll(".product");
+    const visibleCount = productEls.length;
+    let selectedCount = 0;
+    productEls.forEach(el => {
+      const pid = el.dataset.productId;
+      if (pid) {
+        const p = findProduct(pid);
+        if (p && getBottleCount(p) > 0) {
+          selectedCount++;
+        }
+      }
+    });
     const badgeEl = det.querySelector(".cat-badge");
     if (badgeEl) {
-      badgeEl.textContent = totalCatItems === 0 ? "0 Artikel" : `${selectedInCat} von ${totalCatItems} gewählt`;
-      if (selectedInCat > 0) {
+      badgeEl.textContent = visibleCount === 0 ? "0 Artikel" : `${selectedCount} von ${visibleCount} ausgewählt`;
+      if (selectedCount > 0) {
         badgeEl.classList.add("active");
       } else {
         badgeEl.classList.remove("active");
@@ -3008,7 +3196,7 @@ function updateCategoryBadges() {
     }
     const progressBar = det.querySelector(".cat-progress-bar");
     if (progressBar) {
-      const pct = totalCatItems > 0 && selectedInCat > 0 ? Math.round((selectedInCat / totalCatItems) * 100) : 0;
+      const pct = visibleCount > 0 && selectedCount > 0 ? Math.round((selectedCount / visibleCount) * 100) : 0;
       progressBar.style.width = pct + "%";
     }
   });
