@@ -137,18 +137,6 @@ const CATEGORIES = [
         "unit": "flasche"
       },
       {
-        "art": "61650",
-        "name": "Heida 75 cl",
-        "price": 11.95,
-        "priceSingle": 11.95,
-        "gebinde": "Pack",
-        "caseOnly": true,
-        "allowSingleBottle": false,
-        "deal": true,
-        "topAngebot": true,
-        "unit": "flasche"
-      },
-      {
         "art": "46003",
         "name": "Lagerbier Feld. Original 24x50cl",
         "price": 27.6,
@@ -299,6 +287,17 @@ const CATEGORIES = [
         "caseSize": 12,
         "caseOnly": true,
         "allowSingleBottle": false,
+        "deal": true,
+        "topAngebot": true,
+        "unit": "flasche"
+      },
+      {
+        "art": "61650",
+        "name": "Heida 75 cl",
+        "price": 11.95,
+        "priceSingle": 11.95,
+        "gebinde": "Einzeln",
+        "allowSingleBottle": true,
         "deal": true,
         "topAngebot": true,
         "unit": "flasche"
@@ -2996,19 +2995,6 @@ const CATEGORIES = [
         "unit": "stk"
       },
       {
-        "art": "61650",
-        "name": "Heida 75 cl",
-        "price": 11.95,
-        "priceSingle": 11.95,
-        "pricePack": 71.7,
-        "gebinde": "Pack",
-        "caseSize": 6,
-        "caseOnly": true,
-        "allowSingleBottle": false,
-        "topAngebot": true,
-        "unit": "flasche"
-      },
-      {
         "art": "88397",
         "name": "Holunderblütenwein 50 cl",
         "price": 32.4,
@@ -3945,6 +3931,18 @@ const CATEGORIES = [
         "caseSize": 6,
         "allowSingleBottle": true,
         "unit": "flasche"
+      },
+      {
+        "art": "61650",
+        "name": "Heida 75 cl",
+        "price": 11.95,
+        "priceSingle": 11.95,
+        "pricePack": 71.7,
+        "gebinde": "Einzeln & Pack",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "topAngebot": true,
+        "unit": "flasche"
       }
     ]
   },
@@ -4041,6 +4039,16 @@ const CATEGORIES = [
         "unit": "flasche"
       },
       {
+        "art": "18912",
+        "name": "Absolut Vodka 40% 70 cl",
+        "price": 19.95,
+        "priceSingle": 19.95,
+        "gebinde": "Einzeln",
+        "subCategory": "Vodka, Gin & Rum",
+        "allowSingleBottle": true,
+        "unit": "flasche"
+      },
+      {
         "art": "38067",
         "name": "Smirnoff Ice 4% 6 × 27,5 cl",
         "price": 14.6,
@@ -4050,28 +4058,6 @@ const CATEGORIES = [
         "caseSize": 6,
         "caseOnly": true,
         "allowSingleBottle": false,
-        "unit": "flasche"
-      },
-      {
-        "art": "112527",
-        "name": "Sarti Rosa 14% 70 cl",
-        "price": 17.95,
-        "priceSingle": 17.95,
-        "gebinde": "Einzeln",
-        "subCategory": "Likör & Bitter",
-        "caseSize": 6,
-        "allowSingleBottle": true,
-        "unit": "flasche"
-      },
-      {
-        "art": "18912",
-        "name": "Absolut Vodka 40% 70 cl",
-        "price": 19.95,
-        "priceSingle": 19.95,
-        "gebinde": "Einzeln",
-        "subCategory": "Vodka, Gin & Rum",
-        "caseSize": 6,
-        "allowSingleBottle": true,
         "unit": "flasche"
       },
       {
@@ -4093,6 +4079,16 @@ const CATEGORIES = [
         "gebinde": "Einzeln",
         "subCategory": "Likör & Bitter",
         "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
+      },
+      {
+        "art": "112527",
+        "name": "Sarti Rosa 14% 70 cl",
+        "price": 17.95,
+        "priceSingle": 17.95,
+        "gebinde": "Einzeln",
+        "subCategory": "Likör & Bitter",
         "allowSingleBottle": true,
         "unit": "flasche"
       }
