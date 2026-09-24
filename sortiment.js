@@ -2307,17 +2307,6 @@ const CATEGORIES = [
         "unit": "flasche"
       },
       {
-        "art": "87602",
-        "name": "Mountain Twister o.A. 8×33cl",
-        "price": 10.9,
-        "pricePack": 10.9,
-        "gebinde": "Pack",
-        "caseSize": 8,
-        "caseOnly": true,
-        "allowSingleBottle": false,
-        "unit": "flasche"
-      },
-      {
         "art": "87450",
         "name": "Lagerbier Farmer MW 50cl",
         "price": 14.4,
@@ -2329,6 +2318,18 @@ const CATEGORIES = [
         "caseOnly": true,
         "allowSingleBottle": false,
         "eigenmarke": true,
+        "unit": "flasche"
+      },
+      {
+        "art": "87602",
+        "name": "Mountain Twister o.A. 8×33cl",
+        "price": 10.9,
+        "pricePack": 10.9,
+        "gebinde": "Pack",
+        "caseSize": 8,
+        "caseOnly": true,
+        "allowSingleBottle": false,
+        "disabled": true,
         "unit": "flasche"
       }
     ]
@@ -3971,16 +3972,6 @@ const CATEGORIES = [
         "subCategory": "Likör & Bitter",
         "allowSingleBottle": true,
         "disabled": true,
-        "unit": "flasche"
-      },
-      {
-        "art": "87602",
-        "name": "Kernobst / Träsch Willisau 45% 100 cl",
-        "price": 21.9,
-        "priceSingle": 21.9,
-        "gebinde": "Einzeln",
-        "subCategory": "Edelbrand & Schnaps",
-        "allowSingleBottle": true,
         "unit": "flasche"
       },
       {
