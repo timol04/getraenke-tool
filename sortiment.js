@@ -4091,6 +4091,16 @@ const CATEGORIES = [
         "subCategory": "Likör & Bitter",
         "allowSingleBottle": true,
         "unit": "flasche"
+      },
+      {
+        "art": "64533",
+        "name": "Gin Bombay Sapphire 40% 70 cl",
+        "price": 25.5,
+        "priceSingle": 25.5,
+        "gebinde": "Einzeln",
+        "subCategory": "Vodka, Gin & Rum",
+        "allowSingleBottle": true,
+        "unit": "flasche"
       }
     ]
   }
