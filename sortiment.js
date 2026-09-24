@@ -120,8 +120,8 @@ const CATEGORIES = [
         "allowSingleBottle": false,
         "deal": true,
         "topAngebot": true,
-        "unit": "dose",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "dose"
       },
       {
         "art": "87544",
@@ -350,8 +350,8 @@ const CATEGORIES = [
         "gebinde": "Einzeln & Pack",
         "caseSize": 6,
         "allowSingleBottle": true,
-        "unit": "flasche",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "flasche"
       },
       {
         "art": "09018",
@@ -362,8 +362,8 @@ const CATEGORIES = [
         "gebinde": "Einzeln & Pack",
         "caseSize": 6,
         "allowSingleBottle": true,
-        "unit": "flasche",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "flasche"
       },
       {
         "art": "87534",
@@ -374,8 +374,8 @@ const CATEGORIES = [
         "gebinde": "Einzeln & Pack",
         "caseSize": 6,
         "allowSingleBottle": true,
-        "unit": "flasche",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "flasche"
       },
       {
         "art": "09015",
@@ -386,8 +386,8 @@ const CATEGORIES = [
         "gebinde": "Einzeln & Pack",
         "caseSize": 6,
         "allowSingleBottle": true,
-        "unit": "flasche",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "flasche"
       },
       {
         "art": "87523",
@@ -398,8 +398,8 @@ const CATEGORIES = [
         "gebinde": "Einzeln & Pack",
         "caseSize": 6,
         "allowSingleBottle": true,
-        "unit": "flasche",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "flasche"
       },
       {
         "art": "12356",
@@ -410,8 +410,8 @@ const CATEGORIES = [
         "gebinde": "Einzeln & Pack",
         "caseSize": 6,
         "allowSingleBottle": true,
-        "unit": "flasche",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "flasche"
       },
       {
         "art": "35282",
@@ -471,8 +471,8 @@ const CATEGORIES = [
         "gebinde": "Einzeln & Pack",
         "caseSize": 6,
         "allowSingleBottle": true,
-        "unit": "flasche",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "flasche"
       },
       {
         "art": "95926",
@@ -483,8 +483,8 @@ const CATEGORIES = [
         "gebinde": "Einzeln & Pack",
         "caseSize": 6,
         "allowSingleBottle": true,
-        "unit": "flasche",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "flasche"
       },
       {
         "art": "13152",
@@ -539,8 +539,8 @@ const CATEGORIES = [
         "gebinde": "Einzeln & Pack",
         "caseSize": 6,
         "allowSingleBottle": true,
-        "unit": "flasche",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "flasche"
       },
       {
         "art": "41741",
@@ -551,8 +551,8 @@ const CATEGORIES = [
         "gebinde": "Einzeln & Pack",
         "caseSize": 4,
         "allowSingleBottle": true,
-        "unit": "flasche",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "flasche"
       },
       {
         "art": "96103",
@@ -563,8 +563,8 @@ const CATEGORIES = [
         "gebinde": "Einzeln & Pack",
         "caseSize": 6,
         "allowSingleBottle": true,
-        "unit": "flasche",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "flasche"
       },
       {
         "art": "87544",
@@ -587,8 +587,8 @@ const CATEGORIES = [
         "gebinde": "Einzeln & Pack",
         "caseSize": 6,
         "allowSingleBottle": true,
-        "unit": "flasche",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "flasche"
       },
       {
         "art": "87810",
@@ -599,8 +599,8 @@ const CATEGORIES = [
         "gebinde": "Einzeln & Pack",
         "caseSize": 6,
         "allowSingleBottle": true,
-        "unit": "flasche",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "flasche"
       },
       {
         "art": "09022",
@@ -611,8 +611,8 @@ const CATEGORIES = [
         "gebinde": "Einzeln & Pack",
         "caseSize": 6,
         "allowSingleBottle": true,
-        "unit": "flasche",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "flasche"
       },
       {
         "art": "87708",
@@ -623,8 +623,8 @@ const CATEGORIES = [
         "gebinde": "Einzeln & Pack",
         "caseSize": 6,
         "allowSingleBottle": true,
-        "unit": "flasche",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "flasche"
       },
       {
         "art": "09014",
@@ -635,8 +635,8 @@ const CATEGORIES = [
         "gebinde": "Einzeln & Pack",
         "caseSize": 6,
         "allowSingleBottle": true,
-        "unit": "flasche",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "flasche"
       },
       {
         "art": "82220",
@@ -647,8 +647,8 @@ const CATEGORIES = [
         "gebinde": "Einzeln & Pack",
         "caseSize": 6,
         "allowSingleBottle": true,
-        "unit": "flasche",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "flasche"
       },
       {
         "art": "95909",
@@ -659,8 +659,8 @@ const CATEGORIES = [
         "gebinde": "Einzeln & Pack",
         "caseSize": 6,
         "allowSingleBottle": true,
-        "unit": "flasche",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "flasche"
       },
       {
         "art": "87709",
@@ -671,8 +671,8 @@ const CATEGORIES = [
         "gebinde": "Einzeln & Pack",
         "caseSize": 6,
         "allowSingleBottle": true,
-        "unit": "flasche",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "flasche"
       },
       {
         "art": "09017",
@@ -683,8 +683,8 @@ const CATEGORIES = [
         "gebinde": "Einzeln & Pack",
         "caseSize": 6,
         "allowSingleBottle": true,
-        "unit": "flasche",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "flasche"
       },
       {
         "art": "68904",
@@ -707,8 +707,8 @@ const CATEGORIES = [
         "gebinde": "Einzeln & Pack",
         "caseSize": 6,
         "allowSingleBottle": true,
-        "unit": "flasche",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "flasche"
       },
       {
         "art": "42617",
@@ -719,8 +719,8 @@ const CATEGORIES = [
         "gebinde": "Einzeln & Pack",
         "caseSize": 6,
         "allowSingleBottle": true,
-        "unit": "flasche",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "flasche"
       },
       {
         "art": "87543",
@@ -825,8 +825,8 @@ const CATEGORIES = [
         "gebinde": "Einzeln & Pack",
         "caseSize": 6,
         "allowSingleBottle": true,
-        "unit": "flasche",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "flasche"
       },
       {
         "art": "85041",
@@ -837,8 +837,8 @@ const CATEGORIES = [
         "gebinde": "Einzeln & Pack",
         "caseSize": 6,
         "allowSingleBottle": true,
-        "unit": "flasche",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "flasche"
       },
       {
         "art": "41743",
@@ -849,8 +849,8 @@ const CATEGORIES = [
         "gebinde": "Einzeln & Pack",
         "caseSize": 4,
         "allowSingleBottle": true,
-        "unit": "flasche",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "flasche"
       },
       {
         "art": "87319",
@@ -861,8 +861,8 @@ const CATEGORIES = [
         "gebinde": "Einzeln & Pack",
         "caseSize": 6,
         "allowSingleBottle": true,
-        "unit": "flasche",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "flasche"
       },
       {
         "art": "52617",
@@ -895,8 +895,8 @@ const CATEGORIES = [
         "gebinde": "Einzeln & Pack",
         "caseSize": 6,
         "allowSingleBottle": true,
-        "unit": "flasche",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "flasche"
       },
       {
         "art": "103082",
@@ -907,8 +907,8 @@ const CATEGORIES = [
         "gebinde": "Einzeln & Pack",
         "caseSize": 6,
         "allowSingleBottle": true,
-        "unit": "flasche",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "flasche"
       },
       {
         "art": "68903",
@@ -930,8 +930,8 @@ const CATEGORIES = [
         "gebinde": "Einzeln & Pack",
         "caseSize": 6,
         "allowSingleBottle": true,
-        "unit": "flasche",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "flasche"
       },
       {
         "art": "100064",
@@ -942,8 +942,8 @@ const CATEGORIES = [
         "gebinde": "Einzeln & Pack",
         "caseSize": 6,
         "allowSingleBottle": true,
-        "unit": "flasche",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "flasche"
       },
       {
         "art": "88632",
@@ -1016,8 +1016,8 @@ const CATEGORIES = [
         "caseSize": 24,
         "caseOnly": true,
         "allowSingleBottle": false,
-        "unit": "dose",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "dose"
       },
       {
         "art": "98125",
@@ -1027,8 +1027,8 @@ const CATEGORIES = [
         "gebinde": "Einzeln",
         "subCategory": "Energy & Mate",
         "allowSingleBottle": true,
-        "unit": "dose",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "dose"
       },
       {
         "art": "101743",
@@ -1040,8 +1040,8 @@ const CATEGORIES = [
         "subCategory": "Energy & Mate",
         "caseSize": 24,
         "allowSingleBottle": true,
-        "unit": "dose",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "dose"
       },
       {
         "art": "101794",
@@ -1053,8 +1053,8 @@ const CATEGORIES = [
         "subCategory": "Energy & Mate",
         "caseSize": 24,
         "allowSingleBottle": true,
-        "unit": "flasche",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "flasche"
       },
       {
         "art": "103976",
@@ -1066,8 +1066,8 @@ const CATEGORIES = [
         "subCategory": "Energy & Mate",
         "caseSize": 6,
         "allowSingleBottle": true,
-        "unit": "flasche",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "flasche"
       },
       {
         "art": "114544",
@@ -1079,8 +1079,8 @@ const CATEGORIES = [
         "subCategory": "Energy & Mate",
         "caseSize": 6,
         "allowSingleBottle": true,
-        "unit": "dose",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "dose"
       },
       {
         "art": "16149",
@@ -1108,8 +1108,8 @@ const CATEGORIES = [
         "caseSize": 18,
         "caseOnly": true,
         "allowSingleBottle": false,
-        "unit": "dose",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "dose"
       },
       {
         "art": "46423",
@@ -1118,9 +1118,9 @@ const CATEGORIES = [
         "priceSingle": 0.75,
         "gebinde": "Einzeln",
         "allowSingleBottle": true,
+        "eigenmarke": true,
         "disabled": true,
-        "unit": "dose",
-        "eigenmarke": true
+        "unit": "dose"
       },
       {
         "art": "52950",
@@ -1281,8 +1281,8 @@ const CATEGORIES = [
         "caseSize": 6,
         "caseOnly": true,
         "allowSingleBottle": false,
-        "unit": "flasche",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "flasche"
       },
       {
         "art": "87309",
@@ -1293,8 +1293,8 @@ const CATEGORIES = [
         "caseSize": 10,
         "caseOnly": true,
         "allowSingleBottle": false,
-        "unit": "flasche",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "flasche"
       },
       {
         "art": "87453",
@@ -1305,8 +1305,8 @@ const CATEGORIES = [
         "caseSize": 10,
         "caseOnly": true,
         "allowSingleBottle": false,
-        "unit": "flasche",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "flasche"
       },
       {
         "art": "38092",
@@ -1315,8 +1315,8 @@ const CATEGORIES = [
         "priceSingle": 0.75,
         "gebinde": "Einzeln",
         "allowSingleBottle": true,
-        "unit": "flasche",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "flasche"
       },
       {
         "art": "38093",
@@ -1327,8 +1327,8 @@ const CATEGORIES = [
         "caseSize": 18,
         "caseOnly": true,
         "allowSingleBottle": false,
-        "unit": "dose",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "dose"
       },
       {
         "art": "111264",
@@ -1472,8 +1472,8 @@ const CATEGORIES = [
         "caseSize": 18,
         "caseOnly": true,
         "allowSingleBottle": false,
-        "unit": "dose",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "dose"
       },
       {
         "art": "88308",
@@ -1482,9 +1482,9 @@ const CATEGORIES = [
         "priceSingle": 0.8,
         "gebinde": "Einzeln",
         "allowSingleBottle": true,
+        "eigenmarke": true,
         "disabled": true,
-        "unit": "dose",
-        "eigenmarke": true
+        "unit": "dose"
       },
       {
         "art": "109408",
@@ -1782,8 +1782,8 @@ const CATEGORIES = [
         "caseOnly": true,
         "allowSingleBottle": false,
         "topAngebot": true,
-        "unit": "dose",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "dose"
       },
       {
         "art": "26917",
@@ -1836,8 +1836,8 @@ const CATEGORIES = [
         "caseSize": 18,
         "caseOnly": true,
         "allowSingleBottle": false,
-        "unit": "flasche",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "flasche"
       },
       {
         "art": "26980",
@@ -1848,8 +1848,8 @@ const CATEGORIES = [
         "caseSize": 18,
         "caseOnly": true,
         "allowSingleBottle": false,
-        "unit": "dose",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "dose"
       },
       {
         "art": "87448",
@@ -1858,9 +1858,9 @@ const CATEGORIES = [
         "priceSingle": 0.6,
         "gebinde": "Einzeln",
         "allowSingleBottle": true,
+        "eigenmarke": true,
         "disabled": true,
-        "unit": "dose",
-        "eigenmarke": true
+        "unit": "dose"
       },
       {
         "art": "87305",
@@ -2118,8 +2118,8 @@ const CATEGORIES = [
         "caseSize": 18,
         "caseOnly": true,
         "allowSingleBottle": false,
-        "unit": "dose",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "dose"
       },
       {
         "art": "13151",
@@ -2128,9 +2128,9 @@ const CATEGORIES = [
         "priceSingle": 0.6,
         "gebinde": "Einzeln",
         "allowSingleBottle": true,
+        "eigenmarke": true,
         "disabled": true,
-        "unit": "dose",
-        "eigenmarke": true
+        "unit": "dose"
       },
       {
         "art": "66226",
@@ -2328,8 +2328,8 @@ const CATEGORIES = [
         "caseSize": 24,
         "caseOnly": true,
         "allowSingleBottle": false,
-        "unit": "flasche",
-        "eigenmarke": true
+        "eigenmarke": true,
+        "unit": "flasche"
       }
     ]
   },
@@ -3968,9 +3968,9 @@ const CATEGORIES = [
         "price": 31.5,
         "priceSingle": 31.5,
         "gebinde": "Einzeln",
+        "subCategory": "Likör & Bitter",
         "allowSingleBottle": true,
-        "unit": "flasche",
-        "subCategory": "Likör & Bitter"
+        "unit": "flasche"
       },
       {
         "art": "87602",
@@ -3978,9 +3978,9 @@ const CATEGORIES = [
         "price": 21.9,
         "priceSingle": 21.9,
         "gebinde": "Einzeln",
+        "subCategory": "Edelbrand & Schnaps",
         "allowSingleBottle": true,
-        "unit": "flasche",
-        "subCategory": "Edelbrand & Schnaps"
+        "unit": "flasche"
       },
       {
         "art": "87603",
@@ -3988,9 +3988,9 @@ const CATEGORIES = [
         "price": 26.5,
         "priceSingle": 26.5,
         "gebinde": "Einzeln",
+        "subCategory": "Edelbrand & Schnaps",
         "allowSingleBottle": true,
-        "unit": "flasche",
-        "subCategory": "Edelbrand & Schnaps"
+        "unit": "flasche"
       },
       {
         "art": "87604",
@@ -3998,9 +3998,9 @@ const CATEGORIES = [
         "price": 29.9,
         "priceSingle": 29.9,
         "gebinde": "Einzeln",
+        "subCategory": "Edelbrand & Schnaps",
         "allowSingleBottle": true,
-        "unit": "flasche",
-        "subCategory": "Edelbrand & Schnaps"
+        "unit": "flasche"
       },
       {
         "art": "87605",
@@ -4008,9 +4008,9 @@ const CATEGORIES = [
         "price": 27.5,
         "priceSingle": 27.5,
         "gebinde": "Einzeln",
+        "subCategory": "Edelbrand & Schnaps",
         "allowSingleBottle": true,
-        "unit": "flasche",
-        "subCategory": "Edelbrand & Schnaps"
+        "unit": "flasche"
       },
       {
         "art": "87606",
@@ -4018,9 +4018,9 @@ const CATEGORIES = [
         "price": 19.9,
         "priceSingle": 19.9,
         "gebinde": "Einzeln",
+        "subCategory": "Edelbrand & Schnaps",
         "allowSingleBottle": true,
-        "unit": "flasche",
-        "subCategory": "Edelbrand & Schnaps"
+        "unit": "flasche"
       },
       {
         "art": "87607",
@@ -4028,19 +4028,19 @@ const CATEGORIES = [
         "price": 14.5,
         "priceSingle": 14.5,
         "gebinde": "Einzeln",
+        "subCategory": "Vodka, Gin & Rum",
         "allowSingleBottle": true,
-        "unit": "flasche",
-        "subCategory": "Vodka, Gin & Rum"
+        "unit": "flasche"
       },
       {
         "art": "87608",
         "name": "Gin 27 Appenzell 43% 70 cl",
-        "price": 36.0,
-        "priceSingle": 36.0,
+        "price": 36,
+        "priceSingle": 36,
         "gebinde": "Einzeln",
+        "subCategory": "Vodka, Gin & Rum",
         "allowSingleBottle": true,
-        "unit": "flasche",
-        "subCategory": "Vodka, Gin & Rum"
+        "unit": "flasche"
       }
     ]
   }
