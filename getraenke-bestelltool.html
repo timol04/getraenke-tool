@@ -1544,7 +1544,7 @@
           <option value="Biere">Biere</option>
           <option value="Süssgetränke">Süssgetränke</option>
           <option value="Mineralwasser">Mineralwasser</option>
-          <option value="Energy Drinks/Mate">Energy Drinks/Mate</option>
+          <option value="Spirituosen">Spirituosen</option>
         </select>
         <select id="adminSortStatusFilter" onchange="renderAdminSortimentTable()" style="padding:8px 12px; border-radius:8px; border:1px solid var(--border); font-size:0.88rem;">
           <option value="all">Alle Status</option>
@@ -1602,7 +1602,7 @@
           <option value="Biere">Biere</option>
           <option value="Süssgetränke">Süssgetränke</option>
           <option value="Mineralwasser">Mineralwasser</option>
-          <option value="Energy Drinks/Mate">Energy Drinks/Mate</option>
+          <option value="Spirituosen">Spirituosen</option>
         </select>
       </div>
       
@@ -2175,6 +2175,7 @@ const SUBCATEGORY_OPTIONS = {
     "Ice Tea",
     "Säfte & Most",
     "Sirup & Punsch",
+    "Energy & Mate",
     "Limonade / Sonstige"
   ],
   "Weine": [
@@ -2196,9 +2197,13 @@ const SUBCATEGORY_OPTIONS = {
     "Mineralwasser ohne Kohlensäure",
     "Aromatisches Wasser"
   ],
-  "Energy Drinks/Mate": [
-    "Energy Drinks",
-    "Mate"
+  "Spirituosen": [
+    "Spirituosen",
+    "Likör",
+    "Aperitif & Digestif",
+    "Whisky & Rum",
+    "Gin & Vodka",
+    "Edelbrand"
   ]
 };
 
@@ -2521,12 +2526,11 @@ const SUB_FILTERS = {
     { label: "Cola & Softdrinks", match: p => p.subCategory === "Cola & Softdrinks" || /coca|cola|citro|grapefruit|lemon soda|sanal|sinalco|rivella|san pellegrino/i.test(p.name) },
     { label: "Ice Tea", match: p => p.subCategory === "Ice Tea" || /ice tea|eistee/i.test(p.name) },
     { label: "Säfte & Most", match: p => p.subCategory === "Säfte & Most" || /saft|orangensaft|traubensaft|cranberry|multivitamin|sauser|capri|most|süessmost|schnitzwasser/i.test(p.name) },
-    { label: "Sirup & Punsch", match: p => p.subCategory === "Sirup & Punsch" || /sirup|punsch|holunder|focus water|vitaminwater/i.test(p.name) }
+    { label: "Sirup & Punsch", match: p => p.subCategory === "Sirup & Punsch" || /sirup|punsch|holunder|focus water|vitaminwater/i.test(p.name) },
+    { label: "Energy & Mate", match: p => p.subCategory === "Energy & Mate" || p.subCategory === "Energy Drinks" || p.subCategory === "Mate" || /energy|red bull|mate/i.test(p.name) }
   ],
-  "Energy Drinks/Mate": [
-    { label: "Alle", match: () => true },
-    { label: "Energy Drinks", match: p => p.subCategory === "Energy Drinks" || /energy|red bull/i.test(p.name) },
-    { label: "Mate", match: p => p.subCategory === "Mate" || /mate/i.test(p.name) }
+  "Spirituosen": [
+    { label: "Alle", match: () => true }
   ],
   "Biere": [
     { label: "Alle", match: () => true },
@@ -2566,9 +2570,9 @@ function getCategoryIconConfig(name) {
       bg: "#EAF2E8", color: "#2D6A4F",
       svg: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 19 2c1 2 2 4.1 2 7a9 9 0 0 1-10 11z"></path><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path></svg>`
     },
-    "Energy Drinks/Mate": {
+    "Spirituosen": {
       bg: "#F3E8FF", color: "#7C3AED",
-      svg: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>`
+      svg: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22h8"></path><path d="M12 15v7"></path><path d="M12 15a7 7 0 0 0 7-7V3H5v5a7 7 0 0 0 7 7z"></path></svg>`
     },
     "Top-Angebote": {
       bg: "#FDF5DC", color: "#C9A227",

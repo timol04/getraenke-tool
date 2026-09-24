@@ -23,9 +23,10 @@ with open('landi_getränke_sortiment23.9.26.xlsx - Sortiment.csv', 'r', encodin
 cat_name_map = {
     'Mineralwasser': 'Mineralwasser',
     'Süssgetränke': 'Süssgetränke',
-    'Mate/Energy': 'Energy Drinks/Mate',
+    'Mate/Energy': 'Süssgetränke',
     'Bier': 'Biere',
-    'Wein': 'Weine'
+    'Wein': 'Weine',
+    'Spirituosen': 'Spirituosen'
 }
 
 top_items = []
@@ -33,9 +34,9 @@ categories_map = {
     'Top-Angebote': [],
     'Mineralwasser': [],
     'Süssgetränke': [],
-    'Energy Drinks/Mate': [],
     'Biere': [],
-    'Weine': []
+    'Weine': [],
+    'Spirituosen': []
 }
 
 for r in rows:

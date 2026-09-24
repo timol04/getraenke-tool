@@ -1,5 +1,5 @@
 /**
- * LANDI GETRÄNKE-SORTIMENT (Stand 23.9.2026)
+ * LANDI GETRÄNKE-SORTIMENT (Stand 24.9.2026)
  */
 
 const CATEGORIES = [
@@ -950,12 +950,7 @@ const CATEGORIES = [
         "caseSize": 24,
         "allowSingleBottle": true,
         "unit": "dose"
-      }
-    ]
-  },
-  {
-    "name": "Energy Drinks/Mate",
-    "items": [
+      },
       {
         "art": "87800",
         "name": "Energy Drink Red Bull Dose 6 × 25 cl",
@@ -965,7 +960,8 @@ const CATEGORIES = [
         "gebinde": "Einzeln & Pack",
         "caseSize": 6,
         "allowSingleBottle": true,
-        "unit": "dose"
+        "unit": "dose",
+        "subCategory": "Energy & Mate"
       },
       {
         "art": "38994",
@@ -976,7 +972,8 @@ const CATEGORIES = [
         "gebinde": "Einzeln & Pack",
         "caseSize": 6,
         "allowSingleBottle": true,
-        "unit": "flasche"
+        "unit": "flasche",
+        "subCategory": "Energy & Mate"
       },
       {
         "art": "98124",
@@ -987,7 +984,8 @@ const CATEGORIES = [
         "caseSize": 24,
         "caseOnly": true,
         "allowSingleBottle": false,
-        "unit": "dose"
+        "unit": "dose",
+        "subCategory": "Energy & Mate"
       },
       {
         "art": "98125",
@@ -996,7 +994,8 @@ const CATEGORIES = [
         "priceSingle": 0.5,
         "gebinde": "Einzeln",
         "allowSingleBottle": true,
-        "unit": "dose"
+        "unit": "dose",
+        "subCategory": "Energy & Mate"
       },
       {
         "art": "101743",
@@ -1007,7 +1006,8 @@ const CATEGORIES = [
         "gebinde": "Einzeln & Pack",
         "caseSize": 24,
         "allowSingleBottle": true,
-        "unit": "dose"
+        "unit": "dose",
+        "subCategory": "Energy & Mate"
       },
       {
         "art": "101794",
@@ -1018,7 +1018,8 @@ const CATEGORIES = [
         "gebinde": "Einzeln & Pack",
         "caseSize": 24,
         "allowSingleBottle": true,
-        "unit": "flasche"
+        "unit": "flasche",
+        "subCategory": "Energy & Mate"
       },
       {
         "art": "103976",
@@ -1029,7 +1030,8 @@ const CATEGORIES = [
         "gebinde": "Einzeln & Pack",
         "caseSize": 6,
         "allowSingleBottle": true,
-        "unit": "flasche"
+        "unit": "flasche",
+        "subCategory": "Energy & Mate"
       },
       {
         "art": "114544",
@@ -1040,7 +1042,8 @@ const CATEGORIES = [
         "gebinde": "Einzeln & Pack",
         "caseSize": 6,
         "allowSingleBottle": true,
-        "unit": "dose"
+        "unit": "dose",
+        "subCategory": "Energy & Mate"
       },
       {
         "art": "16149",
@@ -1051,7 +1054,8 @@ const CATEGORIES = [
         "gebinde": "Einzeln & Pack",
         "caseSize": 24,
         "allowSingleBottle": true,
-        "unit": "dose"
+        "unit": "dose",
+        "subCategory": "Energy & Mate"
       }
     ]
   },
@@ -3889,6 +3893,10 @@ const CATEGORIES = [
         "unit": "flasche"
       }
     ]
+  },
+  {
+    "name": "Spirituosen",
+    "items": []
   }
 ];
 
