@@ -1666,17 +1666,17 @@
 
       <div style="grid-column: span 1;">
         <label style="font-size:0.8rem; font-weight:600; color:var(--text-muted); display:block; margin-bottom:4px;">Preis Einzeln (CHF)</label>
-        <input type="number" step="0.05" min="0" id="formPriceSingle" placeholder="z.B. 1.20" style="width:100%; padding:8px 10px; border-radius:6px; border:1px solid var(--border);">
+        <input type="number" step="0.05" min="0" id="formPriceSingle" oninput="onModalPriceSingleChange()" placeholder="z.B. 1.20" style="width:100%; padding:8px 10px; border-radius:6px; border:1px solid var(--border);">
       </div>
 
       <div style="grid-column: span 1;">
         <label style="font-size:0.8rem; font-weight:600; color:var(--text-muted); display:block; margin-bottom:4px;">Preis Pack / Harass (CHF)</label>
-        <input type="number" step="0.05" min="0" id="formPricePack" placeholder="z.B. 18.00" style="width:100%; padding:8px 10px; border-radius:6px; border:1px solid var(--border);">
+        <input type="number" step="0.05" min="0" id="formPricePack" oninput="onModalPricePackChange()" placeholder="z.B. 18.00" style="width:100%; padding:8px 10px; border-radius:6px; border:1px solid var(--border);">
       </div>
 
       <div style="grid-column: span 1;">
         <label style="font-size:0.8rem; font-weight:600; color:var(--text-muted); display:block; margin-bottom:4px;">Packungsgrösse (à Stk/Fl)</label>
-        <input type="number" min="1" id="formCaseSize" placeholder="z.B. 6 oder 24" style="width:100%; padding:8px 10px; border-radius:6px; border:1px solid var(--border);">
+        <input type="number" min="1" id="formCaseSize" oninput="onModalCaseSizeChange()" placeholder="z.B. 6 oder 24" style="width:100%; padding:8px 10px; border-radius:6px; border:1px solid var(--border);">
       </div>
 
       <div style="grid-column: span 1;">
@@ -1921,8 +1921,22 @@ function normalizeAssortment() {
       if (isWine) {
         if (!p.caseSize) p.caseSize = 6;
         if (!p.gebinde || p.gebinde === "Einzeln") p.gebinde = "Einzeln & Pack";
-        if (p.priceSingle === undefined && p.price) p.priceSingle = p.price;
-        if (p.pricePack === undefined && p.priceSingle) p.pricePack = Math.round(p.priceSingle * p.caseSize * 100) / 100;
+      }
+      if (p.gebinde === "Einzeln & Pack") {
+        if (!p.caseSize || p.caseSize <= 1) p.caseSize = 6;
+        if (p.priceSingle !== undefined && p.priceSingle !== null && (p.pricePack === undefined || p.pricePack === null)) {
+          p.pricePack = Math.round(p.priceSingle * p.caseSize * 100) / 100;
+        } else if (p.pricePack !== undefined && p.pricePack !== null && (p.priceSingle === undefined || p.priceSingle === null)) {
+          p.priceSingle = Math.round((p.pricePack / p.caseSize) * 100) / 100;
+        } else if ((p.priceSingle === undefined || p.priceSingle === null) && p.price) {
+          if (p.price > 25 && p.caseSize >= 6) {
+            p.pricePack = p.price;
+            p.priceSingle = Math.round((p.price / p.caseSize) * 100) / 100;
+          } else {
+            p.priceSingle = p.price;
+            p.pricePack = Math.round(p.price * p.caseSize * 100) / 100;
+          }
+        }
       }
       if (p.gebinde === "Pack" || p.caseOnly) {
         p.caseOnly = true;
@@ -2277,6 +2291,43 @@ function updateGebindeFormFields() {
   } else {
     if (peBox) peBox.placeholder = "z.B. 1.20 (Einzelpreis)";
     if (ppBox) ppBox.placeholder = "z.B. 18.00 (Packpreis)";
+    if (peBox && ppBox && peBox.value && !ppBox.value) {
+      const cs = parseInt(document.getElementById("formCaseSize").value, 10) || 0;
+      if (cs > 0) ppBox.value = (Math.round(parseFloat(peBox.value) * cs * 100) / 100).toFixed(2);
+    }
+  }
+}
+
+function onModalPriceSingleChange() {
+  const g = document.getElementById("formGebinde").value;
+  if (g === "Einzeln & Pack") {
+    const pe = parseFloat(document.getElementById("formPriceSingle").value) || 0;
+    const cs = parseInt(document.getElementById("formCaseSize").value, 10) || 0;
+    if (pe > 0 && cs > 0) {
+      document.getElementById("formPricePack").value = (Math.round(pe * cs * 100) / 100).toFixed(2);
+    }
+  }
+}
+
+function onModalPricePackChange() {
+  const g = document.getElementById("formGebinde").value;
+  if (g === "Einzeln & Pack") {
+    const pp = parseFloat(document.getElementById("formPricePack").value) || 0;
+    const cs = parseInt(document.getElementById("formCaseSize").value, 10) || 0;
+    if (pp > 0 && cs > 0) {
+      document.getElementById("formPriceSingle").value = (Math.round((pp / cs) * 100) / 100).toFixed(2);
+    }
+  }
+}
+
+function onModalCaseSizeChange() {
+  const g = document.getElementById("formGebinde").value;
+  if (g === "Einzeln & Pack") {
+    const pe = parseFloat(document.getElementById("formPriceSingle").value) || 0;
+    const cs = parseInt(document.getElementById("formCaseSize").value, 10) || 0;
+    if (pe > 0 && cs > 0) {
+      document.getElementById("formPricePack").value = (Math.round(pe * cs * 100) / 100).toFixed(2);
+    }
   }
 }
 
@@ -2332,8 +2383,8 @@ function saveProductFromModal() {
   const gebinde = document.getElementById("formGebinde").value;
   const peStr = document.getElementById("formPriceSingle").value.trim();
   const ppStr = document.getElementById("formPricePack").value.trim();
-  const pe = peStr !== "" ? parseFloat(peStr) : null;
-  const pp = ppStr !== "" ? parseFloat(ppStr) : null;
+  let pe = peStr !== "" ? parseFloat(peStr) : null;
+  let pp = ppStr !== "" ? parseFloat(ppStr) : null;
   const cs = parseInt(document.getElementById("formCaseSize").value, 10) || null;
   const unit = document.getElementById("formUnit").value;
   const top = document.getElementById("formTop").checked;
@@ -2342,6 +2393,14 @@ function saveProductFromModal() {
   if (!art || !name) {
     alert("Bitte Artikel-Nr. und Produktnamen ausfüllen!");
     return;
+  }
+
+  if (gebinde === "Einzeln & Pack") {
+    if (pe !== null && pp === null && cs) {
+      pp = Math.round(pe * cs * 100) / 100;
+    } else if (pp !== null && pe === null && cs) {
+      pe = Math.round((pp / cs) * 100) / 100;
+    }
   }
 
   const mainPrice = pp !== null ? pp : (pe !== null ? pe : 0);
@@ -2450,6 +2509,33 @@ function updateProductPrice(id, val) {
   const p = findProduct(id);
   if (p) {
     p.price = num;
+    if (p.gebinde === "Einzeln & Pack") {
+      p.pricePack = num;
+      if (p.caseSize && p.caseSize > 0) {
+        p.priceSingle = Math.round((num / p.caseSize) * 100) / 100;
+      }
+    } else if (p.gebinde === "Pack" || p.caseOnly) {
+      p.pricePack = num;
+    } else if (p.gebinde === "Einzeln") {
+      p.priceSingle = num;
+    }
+    renderProducts();
+    updateSummaryBar();
+  }
+}
+
+function updateProductSinglePrice(id, val) {
+  const num = Math.max(0, parseFloat(val) || 0);
+  const p = findProduct(id);
+  if (p) {
+    p.priceSingle = num;
+    if (p.caseSize && p.caseSize > 0) {
+      p.pricePack = Math.round(num * p.caseSize * 100) / 100;
+      p.price = p.pricePack;
+    } else {
+      p.price = num;
+    }
+    renderProducts();
     updateSummaryBar();
   }
 }
@@ -2748,26 +2834,77 @@ function renderProducts() {
           </div>`;
       }
 
-      let priceSubText = "";
-      if (p.gebinde === "Einzeln & Pack" && p.priceSingle && p.pricePack) {
-        priceSubText = `/ Pack (${money(p.priceSingle)} / ${getUnitLabel(p, true)} Einzeln)`;
-      } else if (p.caseSize) {
-        priceSubText = `/ Pack (${money(getUnitPrice(p))} / ${getUnitLabel(p, true)})`;
-      } else {
-        priceSubText = `/ ${getUnitLabel(p, true)}`;
-      }
+      const isBoth = (p.gebinde === "Einzeln & Pack" || (p.allowSingleBottle && p.caseSize && p.caseSize > 1 && !p.caseOnly));
 
-      const priceDisplayHtml = isEditPricesMode ? `
-        <div class="product-price-box" style="text-align:right;">
-          <span style="font-size:0.75rem; color:var(--text-muted); font-weight:normal; display:block;">Preis (CHF):</span>
-          <input type="number" step="0.05" min="0" value="${p.price}" onchange="updateProductPrice('${p.id}', this.value)" style="width:85px; padding:6px 8px; font-weight:bold; font-size:1rem; color:var(--accent-dark); border:1px solid var(--accent-border); border-radius:8px; text-align:right;">
-        </div>
-      ` : `
-        <div class="product-price-box">
-          <span class="price-val">${money(p.price)}</span>
-          <span class="price-sub">${priceSubText}</span>
-        </div>
-      `;
+      let priceDisplayHtml = "";
+
+      if (isBoth) {
+        const sPrice = (p.priceSingle !== undefined && p.priceSingle !== null)
+          ? p.priceSingle
+          : (p.caseSize ? Math.round((p.price / p.caseSize) * 100) / 100 : p.price);
+        const pPrice = (p.pricePack !== undefined && p.pricePack !== null)
+          ? p.pricePack
+          : (p.caseSize ? Math.round(sPrice * p.caseSize * 100) / 100 : p.price);
+        const caseLabel = getCaseLabel(p);
+        const unitLabel = getUnitLabel(p, true);
+        const sub = `/ ${unitLabel} (${money(pPrice)} / ${caseLabel})`;
+
+        if (isEditPricesMode) {
+          priceDisplayHtml = `
+            <div class="product-price-box" style="text-align:right;">
+              <span style="font-size:0.75rem; color:var(--text-muted); font-weight:normal; display:block;">Einzelflasche (CHF):</span>
+              <input type="number" step="0.05" min="0" value="${sPrice}" onchange="updateProductSinglePrice('${p.id}', this.value)" style="width:85px; padding:6px 8px; font-weight:bold; font-size:1rem; color:var(--accent-dark); border:1px solid var(--accent-border); border-radius:8px; text-align:right;">
+              <span style="font-size:0.72rem; color:var(--text-muted); display:block; margin-top:2px;">${getCaseLabel(p, true)}: ${money(pPrice)}</span>
+            </div>
+          `;
+        } else {
+          priceDisplayHtml = `
+            <div class="product-price-box">
+              <span class="price-val">${money(sPrice)}</span>
+              <span class="price-sub">${sub}</span>
+            </div>
+          `;
+        }
+      } else if (p.caseOnly || p.gebinde === "Pack") {
+        const pPrice = (p.pricePack !== undefined && p.pricePack !== null) ? p.pricePack : p.price;
+        const uPrice = (p.caseSize && p.caseSize > 0) ? (pPrice / p.caseSize) : pPrice;
+        const sub = `/ ${getCaseLabel(p)} (${money(uPrice)} / ${getUnitLabel(p, true)})`;
+
+        if (isEditPricesMode) {
+          priceDisplayHtml = `
+            <div class="product-price-box" style="text-align:right;">
+              <span style="font-size:0.75rem; color:var(--text-muted); font-weight:normal; display:block;">Packpreis (CHF):</span>
+              <input type="number" step="0.05" min="0" value="${pPrice}" onchange="updateProductPrice('${p.id}', this.value)" style="width:85px; padding:6px 8px; font-weight:bold; font-size:1rem; color:var(--accent-dark); border:1px solid var(--accent-border); border-radius:8px; text-align:right;">
+            </div>
+          `;
+        } else {
+          priceDisplayHtml = `
+            <div class="product-price-box">
+              <span class="price-val">${money(pPrice)}</span>
+              <span class="price-sub">${sub}</span>
+            </div>
+          `;
+        }
+      } else {
+        const sPrice = (p.priceSingle !== undefined && p.priceSingle !== null) ? p.priceSingle : p.price;
+        const sub = `/ ${getUnitLabel(p, true)}`;
+
+        if (isEditPricesMode) {
+          priceDisplayHtml = `
+            <div class="product-price-box" style="text-align:right;">
+              <span style="font-size:0.75rem; color:var(--text-muted); font-weight:normal; display:block;">Preis (CHF):</span>
+              <input type="number" step="0.05" min="0" value="${sPrice}" onchange="updateProductPrice('${p.id}', this.value)" style="width:85px; padding:6px 8px; font-weight:bold; font-size:1rem; color:var(--accent-dark); border:1px solid var(--accent-border); border-radius:8px; text-align:right;">
+            </div>
+          `;
+        } else {
+          priceDisplayHtml = `
+            <div class="product-price-box">
+              <span class="price-val">${money(sPrice)}</span>
+              <span class="price-sub">${sub}</span>
+            </div>
+          `;
+        }
+      }
 
       row.innerHTML = `
         <div class="product-head">
