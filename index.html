@@ -129,6 +129,26 @@
     background: var(--accent);
     box-shadow: 0 0 8px var(--accent);
   }
+  .info-icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.14);
+    color: #FFFFFF;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 0;
+  }
+  .info-icon-btn:hover {
+    background: rgba(255, 255, 255, 0.28);
+    transform: scale(1.08);
+  }
   header.top h1 {
     font-size: 1.8rem;
     font-weight: 700;
@@ -1402,8 +1422,13 @@
 
 <header class="top">
   <div class="header-content">
-    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
-      <div class="brand-badge">LANDI GETRÄNKE-ZUSAMMENSTELLUNG</div>
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:10px;">
+      <div style="display:flex; align-items:center; gap:8px;">
+        <div class="brand-badge" style="margin-bottom:0;">LANDI GETRÄNKE-ZUSAMMENSTELLUNG</div>
+        <button onclick="openInfoModal()" class="info-icon-btn" title="Hinweise & Anleitungen anzeigen" aria-label="Informationen anzeigen" style="margin-bottom:0;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+        </button>
+      </div>
       <div style="display:flex; align-items:center; gap:8px;">
         <button id="themeToggleBtn" onclick="toggleTheme()" class="theme-toggle-btn" title="Design-Modus umschalten" aria-label="Design-Modus umschalten">
           <svg class="sun-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
@@ -1412,11 +1437,6 @@
         </button>
         <button id="editPricesBtn" onclick="toggleEditPricesMode()" style="background:rgba(255,255,255,0.14); color:white; border:1px solid rgba(255,255,255,0.28); border-radius:20px; padding:5px 14px; font-size:0.78rem; font-weight:600; cursor:pointer; transition:all 0.15s ease;">🔐 Admin Login</button>
       </div>
-    </div>
-    
-    <div class="header-collapsible">
-      <h1>Getränke zusammenstellen</h1>
-      <p class="sub">Wählen Sie Ihre Produkte und Mengen aus und erstellen Sie daraus ein PDF, das Sie ausgedruckt direkt in der Filiale abgeben oder uns per E-Mail zusenden können.</p>
     </div>
     
     <div class="search-wrapper">
@@ -1510,6 +1530,23 @@
 </div>
 
 <div class="overlay" id="overlay" onclick="handleOverlayClick(event)">
+
+<!-- INFO / WELCOME POPUP MODAL -->
+<div class="overlay open" id="infoModalOverlay" onclick="if(event.target.id==='infoModalOverlay') closeInfoModal()">
+  <div class="sheet" style="max-width: 480px; text-align: center; padding: 32px 24px; position: relative;">
+    <button class="sheet-close" onclick="closeInfoModal()" style="position: absolute; top: 16px; right: 16px; font-size: 1.2rem; background: none; border: none; cursor: pointer; color: var(--text-muted);">✕</button>
+    <div style="width: 56px; height: 56px; background: rgba(16, 185, 129, 0.12); color: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+    </div>
+    <h2 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 12px; color: var(--text);">Getränke zusammenstellen</h2>
+    <p style="font-size: 0.94rem; color: var(--text-muted); line-height: 1.55; margin-bottom: 24px;">
+      Wählen Sie Ihre Produkte und Mengen aus und erstellen Sie daraus ein PDF, das Sie ausgedruckt direkt in der Filiale abgeben oder uns per E-Mail zusenden können.
+    </p>
+    <button class="primary" onclick="closeInfoModal()" style="width: 100%; padding: 12px 20px; border-radius: 12px; font-weight: 700; font-size: 0.95rem; cursor: pointer;">
+      Verstanden, los geht's! 🛒
+    </button>
+  </div>
+</div>
   <div class="sheet">
     <div class="sheet-head">
       <h2>Zusammenstellung prüfen</h2>
@@ -2277,6 +2314,14 @@ function openEditProductModal(art) {
 
 function closeProductEditModal() {
   document.getElementById("adminProductEditOverlay").classList.remove("open");
+}
+
+function openInfoModal() {
+  document.getElementById("infoModalOverlay")?.classList.add("open");
+}
+
+function closeInfoModal() {
+  document.getElementById("infoModalOverlay")?.classList.remove("open");
 }
 
 function saveProductFromModal() {
