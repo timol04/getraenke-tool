@@ -3970,6 +3970,7 @@ const CATEGORIES = [
         "gebinde": "Einzeln",
         "subCategory": "Likör & Bitter",
         "allowSingleBottle": true,
+        "disabled": true,
         "unit": "flasche"
       },
       {
@@ -3990,6 +3991,7 @@ const CATEGORIES = [
         "gebinde": "Einzeln",
         "subCategory": "Edelbrand & Schnaps",
         "allowSingleBottle": true,
+        "disabled": true,
         "unit": "flasche"
       },
       {
@@ -4000,6 +4002,7 @@ const CATEGORIES = [
         "gebinde": "Einzeln",
         "subCategory": "Edelbrand & Schnaps",
         "allowSingleBottle": true,
+        "disabled": true,
         "unit": "flasche"
       },
       {
@@ -4010,6 +4013,7 @@ const CATEGORIES = [
         "gebinde": "Einzeln",
         "subCategory": "Edelbrand & Schnaps",
         "allowSingleBottle": true,
+        "disabled": true,
         "unit": "flasche"
       },
       {
@@ -4020,6 +4024,7 @@ const CATEGORIES = [
         "gebinde": "Einzeln",
         "subCategory": "Edelbrand & Schnaps",
         "allowSingleBottle": true,
+        "disabled": true,
         "unit": "flasche"
       },
       {
@@ -4030,6 +4035,7 @@ const CATEGORIES = [
         "gebinde": "Einzeln",
         "subCategory": "Vodka, Gin & Rum",
         "allowSingleBottle": true,
+        "disabled": true,
         "unit": "flasche"
       },
       {
@@ -4040,6 +4046,7 @@ const CATEGORIES = [
         "gebinde": "Einzeln",
         "subCategory": "Vodka, Gin & Rum",
         "allowSingleBottle": true,
+        "disabled": true,
         "unit": "flasche"
       }
     ]
