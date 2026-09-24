@@ -4062,6 +4062,39 @@ const CATEGORIES = [
         "caseSize": 6,
         "allowSingleBottle": true,
         "unit": "flasche"
+      },
+      {
+        "art": "18912",
+        "name": "Absolut Vodka 40% 70 cl",
+        "price": 19.95,
+        "priceSingle": 19.95,
+        "gebinde": "Einzeln",
+        "subCategory": "Vodka, Gin & Rum",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
+      },
+      {
+        "art": "80249",
+        "name": "Lillet blanc 17% 75 cl",
+        "price": 16.5,
+        "priceSingle": 16.5,
+        "gebinde": "Einzeln",
+        "subCategory": "Likör & Bitter",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
+      },
+      {
+        "art": "89039",
+        "name": "Jägermeister 35% 70 cl",
+        "price": 18.5,
+        "priceSingle": 18.5,
+        "gebinde": "Einzeln",
+        "subCategory": "Likör & Bitter",
+        "caseSize": 6,
+        "allowSingleBottle": true,
+        "unit": "flasche"
       }
     ]
   }
