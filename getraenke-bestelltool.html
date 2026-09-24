@@ -467,6 +467,27 @@
     font-size: 0.7rem;
     color: #BAE6FD;
   }
+  .tag-eigenmarke {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    background: linear-gradient(135deg, #16A34A 0%, #15803D 100%);
+    border: 1px solid #16A34A;
+    padding: 3px 10px;
+    border-radius: var(--radius-full);
+    margin-left: 6px;
+    vertical-align: middle;
+    box-shadow: 0 2px 6px rgba(22, 163, 74, 0.28);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+  .tag-eigenmarke::before {
+    content: "🏷️";
+    font-size: 0.7rem;
+  }
 
   /* MENGENWAHL (STEPPER) */
   .qty-row {
@@ -1587,6 +1608,8 @@
           <option value="all">Alle Status</option>
           <option value="active">Nur Aktive (Sichtbar)</option>
           <option value="disabled">Nur Deaktivierte (Versteckt)</option>
+          <option value="eigenmarke">Nur Eigenmarken 🏷️</option>
+          <option value="top">Nur Top-Angebote ⭐</option>
         </select>
       </div>
 
@@ -1688,11 +1711,14 @@
         </select>
       </div>
 
-      <div style="grid-column: span 2; display:flex; gap:16px; margin-top:6px;">
-        <label style="font-size:0.85rem; font-weight:600; color:var(--text); cursor:pointer;">
+      <div style="grid-column: span 2; display:flex; flex-wrap:wrap; gap:16px; margin-top:6px;">
+        <label style="font-size:0.85rem; font-weight:600; color:var(--text); cursor:pointer; display:flex; align-items:center; gap:6px;">
           <input type="checkbox" id="formTop"> ⭐ Top-Angebot / Aktion
         </label>
-        <label style="font-size:0.85rem; font-weight:600; color:#9B1C1C; cursor:pointer;">
+        <label style="font-size:0.85rem; font-weight:600; color:#166534; cursor:pointer; display:flex; align-items:center; gap:6px;">
+          <input type="checkbox" id="formEigenmarke"> 🏷️ Eigenmarke
+        </label>
+        <label style="font-size:0.85rem; font-weight:600; color:#9B1C1C; cursor:pointer; display:flex; align-items:center; gap:6px;">
           <input type="checkbox" id="formDisabled"> ⚠️ Deaktiviert (für Kunden ausblenden)
         </label>
       </div>
@@ -1849,7 +1875,7 @@
 </div>
 
 <!-- SORTIMENT & APP-LOGIK -->
-<script src="sortiment.js?v=16"></script>
+<script src="sortiment.js?v=17"></script>
 <script>
 // Fallback-Sortiment, falls sortiment.js nicht geladen werden konnte
 if (typeof CATEGORIES === "undefined") {
@@ -1917,6 +1943,11 @@ function normalizeAssortment() {
       }
       if (typeof p.price !== "number") {
         p.price = parseFloat(p.price) || 0;
+      }
+      if (p.eigenmarke === undefined) {
+        p.eigenmarke = /farmer/i.test(p.name);
+      } else {
+        p.eigenmarke = !!p.eigenmarke;
       }
       const isWine = (cat.name === "Weine" || cat.name === "Schaumweine & Champagner") && !/Bag-in-Box|3\s*l|5\s*l/i.test(p.name);
       if (isWine) {
@@ -2126,6 +2157,8 @@ function renderAdminSortimentTable() {
     }
     if (statusFilter === "active" && p.disabled) return false;
     if (statusFilter === "disabled" && !p.disabled) return false;
+    if (statusFilter === "eigenmarke" && !p.eigenmarke) return false;
+    if (statusFilter === "top" && !(p.topAngebot || p.deal)) return false;
     if (catFilter !== "all" && p.catName !== catFilter) return false;
     return true;
   });
@@ -2145,7 +2178,7 @@ function renderAdminSortimentTable() {
       <tr style="${isDeact ? 'background:#FDF2F2; opacity:0.85;' : ''}">
         <td><strong>${p.art}</strong></td>
         <td>
-          <div style="font-weight:600; color:var(--text);">${p.name}</div>
+          <div style="font-weight:600; color:var(--text);">${p.name} ${p.eigenmarke ? '<span style="font-size:0.7rem; background:#E8F5E9; color:#1B5E20; padding:2px 6px; border-radius:4px; margin-left:4px; font-weight:700;">🏷️ Eigenmarke</span>' : ''} ${(p.topAngebot || p.deal) ? '<span style="font-size:0.7rem; background:#FEF3C7; color:#92400E; padding:2px 6px; border-radius:4px; margin-left:4px; font-weight:700;">⭐ Top</span>' : ''}</div>
           <div style="font-size:0.75rem; color:var(--text-muted);">${p.catName} ${p.subCategory ? '• ' + p.subCategory : ''}</div>
         </td>
         <td><span style="font-size:0.8rem; background:var(--primary-light); padding:2px 6px; border-radius:6px;">${p.gebinde || 'Standard'}</span></td>
@@ -2207,6 +2240,7 @@ function openAddProductModal(defaultCat = "Weine") {
   document.getElementById("formCaseSize").value = defaultCat === "Spirituosen" ? "" : "6";
   document.getElementById("formUnit").value = "flasche";
   document.getElementById("formTop").checked = false;
+  document.getElementById("formEigenmarke").checked = false;
   document.getElementById("formDisabled").checked = false;
   updateGebindeFormFields();
   
@@ -2349,6 +2383,7 @@ function openEditProductModal(art) {
   document.getElementById("formCaseSize").value = p.caseSize || "";
   document.getElementById("formUnit").value = p.unit || "flasche";
   document.getElementById("formTop").checked = !!(p.topAngebot || p.deal);
+  document.getElementById("formEigenmarke").checked = !!p.eigenmarke;
   document.getElementById("formDisabled").checked = !!p.disabled;
   
   updateGebindeFormFields();
@@ -2380,6 +2415,7 @@ function saveProductFromModal() {
   const cs = parseInt(document.getElementById("formCaseSize").value, 10) || null;
   const unit = document.getElementById("formUnit").value;
   const top = document.getElementById("formTop").checked;
+  const eigenmarke = document.getElementById("formEigenmarke").checked;
   const dis = document.getElementById("formDisabled").checked;
 
   if (!art || !name) {
@@ -2406,6 +2442,7 @@ function saveProductFromModal() {
     subCategory: subCat,
     unit: unit,
     topAngebot: top,
+    eigenmarke: eigenmarke,
     disabled: dis
   };
   if (pe !== null) productObj.priceSingle = pe;
@@ -2537,6 +2574,7 @@ function cleanCategoriesForExport() {
       if (i.allowSingleBottle !== undefined) item.allowSingleBottle = i.allowSingleBottle;
       if (i.deal) item.deal = i.deal;
       if (i.topAngebot) item.topAngebot = i.topAngebot;
+      if (i.eigenmarke) item.eigenmarke = i.eigenmarke;
       if (i.disabled) item.disabled = i.disabled;
       if (i.unit) item.unit = i.unit;
       return item;
@@ -2780,6 +2818,16 @@ function renderProducts() {
       det.appendChild(filterBar);
     }
 
+    // Sortierung: Eigenmarken zuerst alphabetisch (A-Z), danach alle anderen Produkte alphabetisch (A-Z)
+    displayItems = [...displayItems].sort((a, b) => {
+      const aEigen = a.eigenmarke ? 1 : 0;
+      const bEigen = b.eigenmarke ? 1 : 0;
+      if (aEigen !== bEigen) {
+        return bEigen - aEigen;
+      }
+      return (a.name || "").localeCompare(b.name || "", "de-CH", { sensitivity: "base", numeric: true });
+    });
+
     const grid = document.createElement("div");
     grid.className = "product-grid";
 
@@ -2902,8 +2950,15 @@ function renderProducts() {
       row.innerHTML = `
         <div class="product-head">
           <div class="product-title-wrap">
-            <div><span class="product-name">${p.name}</span>${(p.deal || p.topAngebot) ? '<span class="tag-top-angebot">Top Angebot</span>' : ''}</div>
-            <div><span class="product-meta">Art.-Nr. ${p.art}</span></div>
+            <div>
+              <span class="product-name">${p.name}</span>
+              ${(p.deal || p.topAngebot) ? '<span class="tag-top-angebot">Top Angebot</span>' : ''}
+              ${p.eigenmarke ? '<span class="tag-eigenmarke">Eigenmarke</span>' : ''}
+            </div>
+            <div>
+              <span class="product-meta">Art.-Nr. ${p.art}</span>
+              ${isEditPricesMode ? `<button onclick="openEditProductModal('${p.art}')" style="background:#2563EB; color:white; border:none; padding:2px 8px; border-radius:4px; font-size:0.75rem; font-weight:600; cursor:pointer; margin-left:8px;">✏️ Bearbeiten</button>` : ''}
+            </div>
           </div>
           ${priceDisplayHtml}
         </div>
