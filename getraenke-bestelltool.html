@@ -2483,10 +2483,10 @@
 </header>
 
 <main>
-  <div id="editBanner" style="display:none; background:#FEF3C7; border:1px solid #FCD34D; color:#92400E; padding:16px 20px; border-radius:var(--radius); margin-bottom:20px; font-size:0.9rem; box-shadow:var(--shadow-sm);">
+  <div id="editBanner" hidden style="background:#FEF3C7; border:1px solid #FCD34D; color:#92400E; padding:16px 20px; border-radius:var(--radius); margin-bottom:20px; font-size:0.9rem; box-shadow:var(--shadow-sm);">
     <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
       <div>
-        <span style="display:inline-block; background:#B45309; color:white; font-size:0.75rem; font-weight:bold; padding:2px 8px; border-radius:10px; margin-right:8px; text-transform:uppercase;">nur für Timo</span>
+        <span style="display:inline-block; background:#B45309; color:white; font-size:0.75rem; font-weight:bold; padding:2px 8px; border-radius:10px; margin-right:8px; text-transform:uppercase;">ADMIN</span>
         <strong>✏️ Preis-Bearbeitungsmodus aktiv:</strong> Ändere die Preise direkt bei den Produkten.
       </div>
       <div style="display:flex; gap:8px; flex-wrap:wrap;">
@@ -3434,7 +3434,7 @@ if (supabaseClient) {
       currentAdminEmail = "";
       isEditPricesMode = false;
       const b = document.getElementById("editBanner");
-      if (b) b.style.display = "none";
+      if (b) { b.style.display = ""; b.setAttribute("hidden", ""); }
       setNormalUrl();
     }
     updateAdminHeaderBtn();
@@ -4032,7 +4032,7 @@ async function exitEditPricesMode() {
   isEditPricesMode = false;
 
   const b = document.getElementById("editBanner");
-  if (b) b.style.display = "none";
+  if (b) { b.style.display = ""; b.setAttribute("hidden", ""); }
 
   const adminCalcBtn = document.getElementById("adminCalcSettingsBtnContainer");
   if (adminCalcBtn) adminCalcBtn.style.display = "none";
@@ -4061,7 +4061,7 @@ function toggleEditPricesMode(forceState) {
 
   isEditPricesMode = true;
   const b = document.getElementById("editBanner");
-  if (b) b.style.display = "block";
+  if (b) { b.style.display = ""; b.removeAttribute("hidden"); }
   const adminCalcBtn = document.getElementById("adminCalcSettingsBtnContainer");
   if (adminCalcBtn) adminCalcBtn.style.display = "block";
   updateAdminHeaderBtn();
