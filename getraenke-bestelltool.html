@@ -1999,7 +1999,7 @@
 <div id="adminToastContainer" class="admin-toast-container"></div>
 
 <!-- SORTIMENT & APP-LOGIK -->
-<script src="sortiment.js?v=18"></script>
+<script src="sortiment.js?v=21"></script>
 <script>
 // Fallback-Sortiment, falls sortiment.js nicht geladen werden konnte
 if (typeof CATEGORIES === "undefined") {
@@ -3051,16 +3051,21 @@ async function loadCatalogFromSupabase() {
       });
     });
 
-    window.CATEGORIES = mappedCategories;
+    if (typeof CATEGORIES !== "undefined" && Array.isArray(CATEGORIES)) {
+      CATEGORIES.length = 0;
+      mappedCategories.forEach(c => CATEGORIES.push(c));
+    }
+    window.CATEGORIES = CATEGORIES;
 
     if (dbPresets && dbPresets.length > 0) {
-      window.presetsList = dbPresets.map(p => ({
+      presetsList = dbPresets.map(p => ({
         id: p.id,
         title: p.title,
         description: p.description || '',
         icon: p.icon || '⚡',
         items: p.items || []
       }));
+      window.presetsList = presetsList;
     }
 
     normalizeAssortment();

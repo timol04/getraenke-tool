@@ -2,7 +2,7 @@
  * LANDI GETRÄNKE-SORTIMENT (Stand 24.9.2026)
  */
 
-const CATEGORIES = [
+var CATEGORIES = [
   {
     "name": "Top-Angebote",
     "items": [
@@ -4106,7 +4106,7 @@ const CATEGORIES = [
   }
 ];
 
-const PRESETS = [
+var PRESETS = [
   {
     "id": "grillfest",
     "title": "Grillfest (ca. 10 Pers.)",
@@ -4180,3 +4180,6 @@ const PRESETS = [
     ]
   }
 ];
+
+window.CATEGORIES = CATEGORIES;
+window.PRESETS = PRESETS;
