@@ -2859,7 +2859,7 @@ function isAdminUrlRequested() {
 
 function initWelcomeModal() {
   // Wenn /admin oder #admin aufgerufen wird oder Admin eingeloggt ist: NIEMALS das Welcome-Popup öffnen!
-  if (isAdminUrlRequested() || isAdminAuthenticated) {
+  if (isAdminUrlRequested() || isEditPricesMode) {
     closeInfoModal();
     return;
   }
@@ -2878,10 +2878,18 @@ function checkAdminUrlTrigger() {
       toggleEditPricesMode(true);
       setAdminUrl();
     }
-  } else if (isAdminAuthenticated) {
-    // Wenn als Admin eingeloggt: immer auf die /admin Seite wechseln!
-    toggleEditPricesMode(true);
-    setAdminUrl();
+  } else {
+    // Standard-Besucher: Niemals automatisch im Bearbeitungsmodus sein
+    if (isEditPricesMode) {
+      isEditPricesMode = false;
+      const b = document.getElementById("editBanner");
+      if (b) { b.style.display = ""; b.setAttribute("hidden", ""); }
+      const adminCalcBtn = document.getElementById("adminCalcSettingsBtnContainer");
+      if (adminCalcBtn) adminCalcBtn.style.display = "none";
+      updateAdminHeaderBtn();
+      renderPresets();
+      renderProducts();
+    }
   }
 }
 
@@ -2892,8 +2900,15 @@ if (supabaseClient) {
       isAdminAuthenticated = true;
       currentAdminEmail = session.user.email || "Admin";
       console.log("Supabase Auth aktiv:", currentAdminEmail);
-      toggleEditPricesMode(true);
-      setAdminUrl();
+      // Nur wenn die URL explizit /admin oder #admin verlangt, den Bearbeitungsmodus aktivieren
+      if (isAdminUrlRequested()) {
+        toggleEditPricesMode(true);
+        setAdminUrl();
+      } else {
+        isEditPricesMode = false;
+        const b = document.getElementById("editBanner");
+        if (b) { b.style.display = ""; b.setAttribute("hidden", ""); }
+      }
     } else {
       isAdminAuthenticated = false;
       currentAdminEmail = "";
@@ -2910,8 +2925,15 @@ if (supabaseClient) {
     if (session && session.user) {
       isAdminAuthenticated = true;
       currentAdminEmail = session.user.email || "Admin";
-      toggleEditPricesMode(true);
-      setAdminUrl();
+      // Nur bei explizitem Login-Vorgang oder auf /admin-URL den Bearbeitungsmodus aktivieren
+      if (event === "SIGNED_IN" || isAdminUrlRequested()) {
+        toggleEditPricesMode(true);
+        setAdminUrl();
+      } else {
+        isEditPricesMode = false;
+        const b = document.getElementById("editBanner");
+        if (b) { b.style.display = ""; b.setAttribute("hidden", ""); }
+      }
     } else {
       isAdminAuthenticated = false;
       currentAdminEmail = "";
