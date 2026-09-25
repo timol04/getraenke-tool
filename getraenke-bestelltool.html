@@ -1847,6 +1847,13 @@
     height: 1em;
   }
 </style>
+<script>
+// Wenn URL /admin aufgerufen wird, auf /#admin leiten, damit relative Assets fehlerfrei laden
+if (window.location.pathname.endsWith("/admin") || window.location.pathname.endsWith("/admin/")) {
+  var cleanBase = window.location.pathname.replace(/\/admin\/?$/i, "/");
+  window.location.replace(cleanBase + window.location.search + "#admin");
+}
+</script>
 </head>
 <body>
 
@@ -2847,20 +2854,9 @@ function setNormalUrl(isPush = false) {
 function isAdminUrlRequested() {
   const hash = (window.location.hash || "").toLowerCase();
   const search = (window.location.search || "").toLowerCase();
-  // Nur wenn explizit #admin oder ?admin in der URL steht (keine automatischen Pfad-Locks)
-  return hash.includes("admin") || search.includes("admin");
+  const path = (window.location.pathname || "").toLowerCase();
+  return hash.includes("admin") || search.includes("admin") || path.endsWith("/admin") || path.endsWith("/admin/");
 }
-
-// Bereinige etwaige alte /admin-Pfade in der Adresszeile sofort beim Laden
-(function cleanStaleAdminPath() {
-  const p = window.location.pathname || "";
-  if (p.endsWith("/admin") || p.endsWith("/admin/")) {
-    const clean = p.replace(/\/admin\/?$/i, "/");
-    try {
-      history.replaceState(null, "", clean + window.location.search);
-    } catch (e) {}
-  }
-})();
 
 function initWelcomeModal() {
   // Wenn /admin oder #admin aufgerufen wird oder Admin eingeloggt ist: NIEMALS das Welcome-Popup öffnen!
@@ -2881,7 +2877,6 @@ function checkAdminUrlTrigger() {
       }, 100);
     } else {
       toggleEditPricesMode(true);
-      setAdminUrl();
     }
   } else {
     // Standard-Besucher: Niemals automatisch im Bearbeitungsmodus sein
@@ -4201,9 +4196,10 @@ function renderProducts() {
     } else {
       displayItems.forEach(p => {
       const row = document.createElement("div");
-      const isSel = ((q.bottles || 0) > 0 || (q.cases || 0) > 0); row.className = "product" + (isSel ? " active" : "");
       row.dataset.productId = p.id;
       const q = qty[p.id] || { bottles: 0, cases: 0 };
+      const isSel = ((q.bottles || 0) > 0 || (q.cases || 0) > 0);
+      row.className = "product" + (isSel ? " active" : "");
 
       let qtyHtml = "";
       if (p.caseOnly || p.gebinde === "Pack") {
