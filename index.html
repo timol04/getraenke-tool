@@ -3064,9 +3064,11 @@ async function loadCatalogFromSupabase() {
     }
 
     normalizeAssortment();
-    renderPresetCards();
-    renderCategories();
+    renderPresets();
     renderProducts();
+    if (document.getElementById("adminSortimentOverlay")?.classList.contains("open")) {
+      renderAdminSortimentTable();
+    }
 
     const seedBtn = document.getElementById("seedSupabaseBtn");
     if (seedBtn) seedBtn.style.display = "none";
