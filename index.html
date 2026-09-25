@@ -3143,29 +3143,6 @@
   </div>
 </div>
 
-<div class="overlay" id="tokenOverlay" onclick="handleTokenOverlayClick(event)">
-  <div class="sheet" style="max-width: 480px;">
-    <div class="sheet-head">
-      <h2>⚙️ GitHub Token erneuern / verwalten</h2>
-      <button class="sheet-close" onclick="closeTokenModal()">✕</button>
-    </div>
-    <div style="margin-bottom: 16px; font-size: 0.9rem; color: var(--text-muted); line-height: 1.5;">
-      Der Personal Access Token erlaubt das automatische Speichern neuer Preise auf GitHub. Falls er abgelaufen ist, kannst du hier jederzeit einen neuen hinterlegen.
-    </div>
-    <div style="margin-bottom: 16px;">
-      <label style="display:block; font-size:0.82rem; font-weight:600; color:var(--text-muted); margin-bottom:6px;" for="githubTokenInput">GitHub Access Token (PAT):</label>
-      <input type="password" id="githubTokenInput" placeholder="github_pat_... oder ghp_..." style="width:100%; padding:12px 14px; border-radius:var(--radius-sm); border:1px solid var(--border); font-family:monospace; font-size:0.9rem;">
-    </div>
-    <div style="font-size:0.8rem; color:var(--text-subtle); margin-bottom:20px; line-height:1.45;">
-      💡 Tipp: Wähle beim Erstellen auf GitHub <em>"No expiration"</em> (Nie ablaufen).<br>
-      <a href="https://github.com/settings/tokens/new?description=Getraenke-Tool-Admin&scopes=repo" target="_blank" style="color:var(--accent-dark); font-weight:600; text-decoration:underline;">Neuen Token auf GitHub erstellen ↗</a>
-    </div>
-    <div class="sheet-actions">
-      <button type="button" class="secondary" onclick="closeTokenModal()">Abbrechen</button>
-      <button type="button" class="primary" onclick="saveTokenSettings()">Token Speichern</button>
-    </div>
-  </div>
-</div>
 
 <!-- ADMIN NOTIFICATION TOAST CONTAINER -->
 <div id="adminToastContainer" class="admin-toast-container"></div>
@@ -3329,12 +3306,19 @@ try {
   console.warn("Supabase init error:", e);
 }
 
-const REPO_OWNER = "timol04";
-const REPO_NAME = "getraenke-tool";
-const FILE_PATH = "sortiment.js";
-const TOKEN_KEY = "landi_admin_gh_token";
-const ADMIN_PASSWORD = "Landiwasserschlossadmin26";
-const DEFAULT_GH_TOKEN = "github_pat_11CPKB6ZI0kzVsiCTCemTd" + "_" + "HhMpLD0ZB7YRVln2t7PAJoDEXpNRRX3QqRGRXeYyJxB5VLGQQHDuhXJB9d0";
+// Bereinigung etwaiger alter GitHub-Tokens aus localStorage
+try { localStorage.removeItem("landi_admin_gh_token"); } catch (e) {}
+
+// Globale XSS-Schutzfunktion
+function escapeHtml(str) {
+  if (str === null || str === undefined) return "";
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
 
 let isEditPricesMode = false;
 let isAdminAuthenticated = false;
@@ -3426,10 +3410,6 @@ window.addEventListener("keydown", (e) => {
   }
 });
 
-function getAdminToken() {
-  return localStorage.getItem(TOKEN_KEY) || DEFAULT_GH_TOKEN || "";
-}
-
 function openAdminModal() {
   if (isAdminAuthenticated) {
     toggleEditPricesMode(true);
@@ -3453,110 +3433,58 @@ function handleAdminOverlayClick(e) {
   if (e.target.id === "adminOverlay") closeAdminModal();
 }
 
-function openTokenModal() {
-  if (!isAdminAuthenticated) {
-    alert("🔒 Token verwalten erfordert Admin-Rechte. Bitte melde dich zuerst mit deinem Admin-Account an.");
-    openAdminModal();
-    return;
-  }
-  closeAdminModal();
-  const input = document.getElementById("githubTokenInput");
-  if (input) input.value = getAdminToken();
-  document.getElementById("tokenOverlay").classList.add("open");
-  setTimeout(() => {
-    if (input) input.focus();
-  }, 100);
-}
-
-function closeTokenModal() {
-  document.getElementById("tokenOverlay").classList.remove("open");
-}
-
-function handleTokenOverlayClick(e) {
-  if (e.target.id === "tokenOverlay") closeTokenModal();
-}
-
-function saveTokenSettings() {
-  if (!isAdminAuthenticated) {
-    alert("🔒 Nur angemeldete Admins dürfen den GitHub Token ändern.");
-    closeTokenModal();
-    return;
-  }
-  const token = document.getElementById("githubTokenInput").value.trim();
-  if (token) {
-    localStorage.setItem(TOKEN_KEY, token);
-    alert("✅ GitHub Access Token wurde erfolgreich gespeichert!");
-  } else {
-    localStorage.removeItem(TOKEN_KEY);
-    alert("GitHub Token wurde entfernt.");
-  }
-  closeTokenModal();
-  toggleEditPricesMode(true);
-}
-
 async function loginAdmin() {
   const emailInput = document.getElementById("adminEmailInput");
   const pwdInput = document.getElementById("adminPasswordInput");
   const email = emailInput ? emailInput.value.trim() : "";
   const pwd = pwdInput ? pwdInput.value : "";
 
-  if (!pwd) {
-    alert("Bitte gib ein Passwort ein.");
+  if (!email || !pwd) {
+    alert("Bitte gib deine Admin E-Mail-Adresse und dein Passwort ein.");
+    return;
+  }
+
+  if (!supabaseClient) {
+    alert("❌ Supabase ist nicht konfiguriert oder nicht erreichbar.");
     return;
   }
 
   const submitBtn = document.getElementById("adminLoginSubmitBtn");
   const origBtnText = submitBtn ? submitBtn.textContent : "Anmelden";
 
-  // 1. Supabase Auth Versuch mit E-Mail & Passwort
-  if (supabaseClient && email) {
-    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "⏳ Anmelden..."; }
-    try {
-      const { data, error } = await supabaseClient.auth.signInWithPassword({
-        email: email,
-        password: pwd
-      });
-      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = origBtnText; }
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.textContent = "⏳ Anmelden...";
+  }
 
-      if (error) {
-        // Fallback: Notfall-Passwort
-        if (pwd === ADMIN_PASSWORD) {
-          console.warn("Supabase Auth fehlerhaft, Notfallpasswort greift:", error.message);
-          isAdminAuthenticated = true;
-          closeAdminModal();
-          toggleEditPricesMode(true);
-          showAdminToast("warn", `Notfall-Login aktiv (${error.message})`);
-          return;
-        }
-        alert("❌ Supabase-Anmeldung fehlgeschlagen:\n" + error.message);
-        return;
-      }
+  try {
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
+      email: email,
+      password: pwd
+    });
 
-      if (data && data.session) {
-        isAdminAuthenticated = true;
-        currentAdminEmail = email;
-        closeAdminModal();
-        toggleEditPricesMode(true);
-        showAdminToast("info", `Angemeldet als ${email}`);
-        return;
-      }
-    } catch (e) {
-      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = origBtnText; }
-      console.error("Supabase Login Error:", e);
+    if (error) {
+      alert("❌ Supabase-Anmeldung fehlgeschlagen:\n" + (error.message || "Ungültige Anmeldedaten."));
+      return;
+    }
+
+    if (data && data.session) {
+      isAdminAuthenticated = true;
+      currentAdminEmail = email;
+      if (pwdInput) pwdInput.value = "";
+      closeAdminModal();
+      toggleEditPricesMode(true);
+      showAdminToast("info", `Angemeldet als ${email}`);
+    }
+  } catch (e) {
+    console.error("Supabase Login Error:", e);
+    alert("❌ Ein unerwarteter Fehler ist aufgetreten: " + (e.message || e));
+  } finally {
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = origBtnText;
     }
   }
-
-  // 2. Fallback Admin-Passwort
-  if (pwd === ADMIN_PASSWORD) {
-    isAdminAuthenticated = true;
-    currentAdminEmail = "Admin (Lokal)";
-    closeAdminModal();
-    toggleEditPricesMode(true);
-    showAdminToast("info", "Angemeldet via Admin-Passwort");
-    return;
-  }
-
-  alert("❌ Falsches Passwort oder ungültige E-Mail-Adresse!");
 }
 
 async function logoutAdmin() {
@@ -3638,15 +3566,16 @@ function renderAdminSortimentTable() {
     const priceText = p.gebinde === "Einzeln & Pack"
       ? `Fl: CHF ${(p.priceSingle||0).toFixed(2)} / Pck: CHF ${(p.pricePack||p.price||0).toFixed(2)}`
       : `CHF ${(p.price||0).toFixed(2)}`;
+    const encArt = encodeURIComponent(p.art);
 
     return `
       <tr style="${isDeact ? 'background:#FDF2F2; opacity:0.85;' : ''}">
-        <td><strong>${p.art}</strong></td>
+        <td><strong>${escapeHtml(p.art)}</strong></td>
         <td>
-          <div style="font-weight:600; color:var(--text);">${p.name} ${p.eigenmarke ? '<span style="font-size:0.7rem; background:#E8F5E9; color:#1B5E20; padding:2px 6px; border-radius:4px; margin-left:4px; font-weight:700;">🏷️ Eigenmarke</span>' : ''} ${(p.topAngebot || p.deal) ? '<span style="font-size:0.7rem; background:#FEF3C7; color:#92400E; padding:2px 6px; border-radius:4px; margin-left:4px; font-weight:700;">⭐ Top</span>' : ''}</div>
-          <div style="font-size:0.75rem; color:var(--text-muted);">${p.catName} ${p.subCategory ? '• ' + p.subCategory : ''}</div>
+          <div style="font-weight:600; color:var(--text);">${escapeHtml(p.name)} ${p.eigenmarke ? '<span style="font-size:0.7rem; background:#E8F5E9; color:#1B5E20; padding:2px 6px; border-radius:4px; margin-left:4px; font-weight:700;">🏷️ Eigenmarke</span>' : ''} ${(p.topAngebot || p.deal) ? '<span style="font-size:0.7rem; background:#FEF3C7; color:#92400E; padding:2px 6px; border-radius:4px; margin-left:4px; font-weight:700;">⭐ Top</span>' : ''}</div>
+          <div style="font-size:0.75rem; color:var(--text-muted);">${escapeHtml(p.catName)} ${p.subCategory ? '• ' + escapeHtml(p.subCategory) : ''}</div>
         </td>
-        <td><span style="font-size:0.8rem; background:var(--primary-light); padding:2px 6px; border-radius:6px;">${p.gebinde || 'Standard'}</span></td>
+        <td><span style="font-size:0.8rem; background:var(--primary-light); padding:2px 6px; border-radius:6px;">${escapeHtml(p.gebinde || 'Standard')}</span></td>
         <td><span style="font-weight:700; color:var(--accent-dark);">${priceText}</span></td>
         <td>
           ${isDeact 
@@ -3654,13 +3583,13 @@ function renderAdminSortimentTable() {
             : '<span class="status-badge-active">✓ Aktiv</span>'}
         </td>
         <td style="text-align:right; white-space:nowrap;">
-          <button onclick="toggleProductStatus('${p.art}')" style="background:${isDeact ? '#059669' : '#D97706'}; color:white; border:none; padding:5px 9px; border-radius:6px; font-size:0.78rem; font-weight:600; cursor:pointer; margin-right:4px;">
+          <button onclick="toggleProductStatus(decodeURIComponent('${encArt}'))" style="background:${isDeact ? '#059669' : '#D97706'}; color:white; border:none; padding:5px 9px; border-radius:6px; font-size:0.78rem; font-weight:600; cursor:pointer; margin-right:4px;">
             ${isDeact ? '👁️ Aktivieren' : '👁️ Deaktivieren'}
           </button>
-          <button onclick="openEditProductModal('${p.art}')" style="background:#2563EB; color:white; border:none; padding:5px 9px; border-radius:6px; font-size:0.78rem; font-weight:600; cursor:pointer; margin-right:4px;">
+          <button onclick="openEditProductModal(decodeURIComponent('${encArt}'))" style="background:#2563EB; color:white; border:none; padding:5px 9px; border-radius:6px; font-size:0.78rem; font-weight:600; cursor:pointer; margin-right:4px;">
             ✏️ Bearbeiten
           </button>
-          <button onclick="deleteProduct('${p.art}')" style="background:#DC2626; color:white; border:none; padding:5px 9px; border-radius:6px; font-size:0.78rem; font-weight:600; cursor:pointer;">
+          <button onclick="deleteProduct(decodeURIComponent('${encArt}'))" style="background:#DC2626; color:white; border:none; padding:5px 9px; border-radius:6px; font-size:0.78rem; font-weight:600; cursor:pointer;">
             🗑️
           </button>
         </td>
@@ -3676,14 +3605,15 @@ function showAdminToast(name, action) {
   const toast = document.createElement("div");
   toast.className = "admin-toast";
 
-  const safeName = String(name || "Artikel").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const safeName = escapeHtml(name || "Artikel");
+  const safeAction = escapeHtml(action || "");
   const isMessageOnly = !action;
 
   toast.innerHTML = `
     <div class="admin-toast-body">
       <div class="admin-toast-icon">✓</div>
       <div class="admin-toast-content">
-        <div class="admin-toast-title">${isMessageOnly ? safeName : `Das Produkt <strong>"${safeName}"</strong> wurde erfolgreich ${action}.`}</div>
+        <div class="admin-toast-title">${isMessageOnly ? safeName : `Das Produkt <strong>"${safeName}"</strong> wurde erfolgreich ${safeAction}.`}</div>
         <div class="admin-toast-sub">Um alle Änderungen festzuhalten, auf <strong>«In Supabase speichern»</strong> drücken.</div>
         <button class="admin-toast-action-btn" onclick="savePricesToSupabase()">☁️ In Supabase speichern</button>
       </div>
@@ -4336,7 +4266,7 @@ async function savePricesToSupabase() {
     return;
   }
 
-  const saveBtn = document.getElementById("saveSupabaseBtn") || document.getElementById("saveGithubBtn");
+  const saveBtn = document.getElementById("saveSupabaseBtn");
   const origText = saveBtn ? saveBtn.textContent : "";
   if (saveBtn) {
     saveBtn.disabled = true;
@@ -4488,76 +4418,6 @@ async function seedSupabaseFromBrowser() {
       btn.disabled = false;
       btn.textContent = "🚀 Sortiment in Supabase übertragen";
     }
-  }
-}
-
-async function savePricesToGithub() {
-  const token = getAdminToken();
-  if (!token) {
-    alert("Bitte melde dich zuerst als Admin an.");
-    openAdminModal();
-    return;
-  }
-
-  const saveBtn = document.getElementById("saveGithubBtn");
-  const originalText = saveBtn.textContent;
-  saveBtn.disabled = true;
-  saveBtn.textContent = "⏳ Speichere auf GitHub...";
-
-  try {
-    const cleaned = cleanCategoriesForExport();
-
-    const newJsCode = "/**\n * LANDI GETRÄNKE-SORTIMENT (Stand " + new Date().toLocaleDateString("de-CH") + ")\n */\n\nconst CATEGORIES = " + JSON.stringify(cleaned, null, 2) + ";\n\nconst PRESETS = " + JSON.stringify(presetsList, null, 2) + ";\n";
-
-    const getUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`;
-    const getResp = await fetch(getUrl, {
-      headers: {
-        "Authorization": `token ${token}`,
-        "Accept": "application/vnd.github.v3+json"
-      }
-    });
-
-    if (!getResp.ok) {
-      if (getResp.status === 401 || getResp.status === 403) {
-        throw new Error("Dein GitHub Token ist abgelaufen oder hat keine Schreibrechte. Bitte klicke im Admin-Banner auf '⚙️ Token erneuern' und füge deinen neuen GitHub Token (ghp_...) ein.");
-      }
-      throw new Error(`Fehler beim Abrufen von GitHub (Status ${getResp.status}).`);
-    }
-
-    const fileData = await getResp.json();
-    const currentSha = fileData.sha;
-
-    const b64Content = btoa(unescape(encodeURIComponent(newJsCode)));
-
-    const putResp = await fetch(getUrl, {
-      method: "PUT",
-      headers: {
-        "Authorization": `token ${token}`,
-        "Accept": "application/vnd.github.v3+json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        message: "Update catalog prices via Admin UI",
-        content: b64Content,
-        sha: currentSha
-      })
-    });
-
-    if (!putResp.ok) {
-      const errJson = await putResp.json().catch(() => ({}));
-      if (putResp.status === 403 || (errJson.message && errJson.message.includes("Resource not accessible"))) {
-        throw new Error("Der aktuelle GitHub-Token hat keine Schreibrechte ('repo'-Scope fehlt). Bitte klicke im Admin-Banner auf '⚙️ Token erneuern' und füge einen neuen Token ein.");
-      }
-      throw new Error(errJson.message || `Fehler beim Speichern auf GitHub (Status ${putResp.status}).`);
-    }
-
-    alert("✅ Die Preise wurden erfolgreich live auf GitHub gespeichert!\nIn wenigen Sekunden sind die neuen Preise für alle Kunden live.");
-
-  } catch (err) {
-    alert("❌ Fehler beim Speichern: " + err.message);
-  } finally {
-    saveBtn.disabled = false;
-    saveBtn.textContent = originalText;
   }
 }
 
@@ -4735,7 +4595,7 @@ function renderProducts() {
     if (displayItems.length === 0) {
       const emptyDiv = document.createElement("div");
       emptyDiv.style.cssText = "grid-column: 1 / -1; padding: 2.5rem 1rem; text-align: center; color: var(--text-muted); font-size: 0.95rem;";
-      emptyDiv.innerHTML = `Keine Artikel in dieser Auswahl vorhanden.<br><button class="btn btn-secondary btn-sm" style="margin-top: 0.75rem;" onclick="openAddProductModal('${cat.name}')">➕ Produkt hinzufügen</button>`;
+      emptyDiv.innerHTML = `Keine Artikel in dieser Auswahl vorhanden.<br><button class="btn btn-secondary btn-sm" style="margin-top: 0.75rem;" onclick="openAddProductModal(decodeURIComponent('${encodeURIComponent(cat.name)}'))">➕ Produkt hinzufügen</button>`;
       grid.appendChild(emptyDiv);
     } else {
       displayItems.forEach(p => {
@@ -4849,17 +4709,18 @@ function renderProducts() {
         }
       }
 
+      const encArt = encodeURIComponent(p.art);
       row.innerHTML = `
         <div class="product-head">
           <div class="product-title-wrap">
             <div>
-              <span class="product-name">${p.name}</span>
+              <span class="product-name">${escapeHtml(p.name)}</span>
               ${(p.deal || p.topAngebot) ? '<span class="tag-top-angebot">Top Angebot</span>' : ''}
               ${p.eigenmarke ? '<span class="tag-eigenmarke">Eigenmarke</span>' : ''}
             </div>
             <div>
-              <span class="product-meta">Art.-Nr. ${p.art}</span>
-              ${isEditPricesMode ? `<button onclick="openEditProductModal('${p.art}')" style="background:#2563EB; color:white; border:none; padding:2px 8px; border-radius:4px; font-size:0.75rem; font-weight:600; cursor:pointer; margin-left:8px;">✏️ Bearbeiten</button>` : ''}
+              <span class="product-meta">Art.-Nr. ${escapeHtml(p.art)}</span>
+              ${isEditPricesMode ? `<button onclick="openEditProductModal(decodeURIComponent('${encArt}'))" style="background:#2563EB; color:white; border:none; padding:2px 8px; border-radius:4px; font-size:0.75rem; font-weight:600; cursor:pointer; margin-left:8px;">✏️ Bearbeiten</button>` : ''}
             </div>
           </div>
           ${priceDisplayHtml}
@@ -5041,46 +4902,47 @@ function openReview() {
   let rows = selected.map(s => {
     const p = s.product;
     const q = qty[p.id] || { bottles: 0, cases: 0 };
+    const encId = encodeURIComponent(p.id);
     
     let controlsHtml = "";
 
     if (p.caseOnly || p.gebinde === "Pack" || p.allowSingleBottle === false) {
       controlsHtml = `
         <div class="review-qty-control">
-          <button class="review-qty-btn" onclick="changeReviewQty('${p.id}', 'cases', -1)">−</button>
-          <span style="font-weight:600; padding:0 4px; font-size:0.85rem;">${q.cases} ${getCaseLabel(p, true)}</span>
-          <button class="review-qty-btn" onclick="changeReviewQty('${p.id}', 'cases', 1)">+</button>
+          <button class="review-qty-btn" onclick="changeReviewQty(decodeURIComponent('${encId}'), 'cases', -1)">−</button>
+          <span style="font-weight:600; padding:0 4px; font-size:0.85rem;">${q.cases} ${escapeHtml(getCaseLabel(p, true))}</span>
+          <button class="review-qty-btn" onclick="changeReviewQty(decodeURIComponent('${encId}'), 'cases', 1)">+</button>
         </div>
       `;
     } else if (q.cases > 0 && q.bottles > 0 && p.caseSize) {
       controlsHtml = `
         <div style="display:flex; flex-direction:column; gap:4px;">
           <div class="review-qty-control">
-            <button class="review-qty-btn" onclick="changeReviewQty('${p.id}', 'cases', -1)">−</button>
-            <span style="font-weight:600; padding:0 4px; font-size:0.82rem;">${q.cases} ${getCaseLabel(p, true)}</span>
-            <button class="review-qty-btn" onclick="changeReviewQty('${p.id}', 'cases', 1)">+</button>
+            <button class="review-qty-btn" onclick="changeReviewQty(decodeURIComponent('${encId}'), 'cases', -1)">−</button>
+            <span style="font-weight:600; padding:0 4px; font-size:0.82rem;">${q.cases} ${escapeHtml(getCaseLabel(p, true))}</span>
+            <button class="review-qty-btn" onclick="changeReviewQty(decodeURIComponent('${encId}'), 'cases', 1)">+</button>
           </div>
           <div class="review-qty-control">
-            <button class="review-qty-btn" onclick="changeReviewQty('${p.id}', 'bottles', -1)">−</button>
-            <span style="font-weight:600; padding:0 4px; font-size:0.82rem;">${q.bottles} ${getUnitLabel(p, true)} einz.</span>
-            <button class="review-qty-btn" onclick="changeReviewQty('${p.id}', 'bottles', 1)">+</button>
+            <button class="review-qty-btn" onclick="changeReviewQty(decodeURIComponent('${encId}'), 'bottles', -1)">−</button>
+            <span style="font-weight:600; padding:0 4px; font-size:0.82rem;">${q.bottles} ${escapeHtml(getUnitLabel(p, true))} einz.</span>
+            <button class="review-qty-btn" onclick="changeReviewQty(decodeURIComponent('${encId}'), 'bottles', 1)">+</button>
           </div>
         </div>
       `;
     } else if (q.cases > 0 && p.caseSize) {
       controlsHtml = `
         <div class="review-qty-control">
-          <button class="review-qty-btn" onclick="changeReviewQty('${p.id}', 'cases', -1)">−</button>
-          <span style="font-weight:600; padding:0 4px; font-size:0.85rem;">${q.cases} ${getCaseLabel(p, true)}</span>
-          <button class="review-qty-btn" onclick="changeReviewQty('${p.id}', 'cases', 1)">+</button>
+          <button class="review-qty-btn" onclick="changeReviewQty(decodeURIComponent('${encId}'), 'cases', -1)">−</button>
+          <span style="font-weight:600; padding:0 4px; font-size:0.85rem;">${q.cases} ${escapeHtml(getCaseLabel(p, true))}</span>
+          <button class="review-qty-btn" onclick="changeReviewQty(decodeURIComponent('${encId}'), 'cases', 1)">+</button>
         </div>
       `;
     } else {
       controlsHtml = `
         <div class="review-qty-control">
-          <button class="review-qty-btn" onclick="changeReviewQty('${p.id}', 'bottles', -1)">−</button>
-          <span style="font-weight:600; padding:0 4px; font-size:0.85rem;">${q.bottles || s.count} ${getUnitLabel(p, true)}</span>
-          <button class="review-qty-btn" onclick="changeReviewQty('${p.id}', 'bottles', 1)">+</button>
+          <button class="review-qty-btn" onclick="changeReviewQty(decodeURIComponent('${encId}'), 'bottles', -1)">−</button>
+          <span style="font-weight:600; padding:0 4px; font-size:0.85rem;">${q.bottles || s.count} ${escapeHtml(getUnitLabel(p, true))}</span>
+          <button class="review-qty-btn" onclick="changeReviewQty(decodeURIComponent('${encId}'), 'bottles', 1)">+</button>
         </div>
       `;
     }
@@ -5088,8 +4950,8 @@ function openReview() {
     return `
     <tr>
       <td>
-        <strong>${p.name}</strong><br>
-        <span style="color:var(--text-muted);font-size:0.78rem">Art.-Nr. ${p.art}</span>
+        <strong>${escapeHtml(p.name)}</strong><br>
+        <span style="color:var(--text-muted);font-size:0.78rem">Art.-Nr. ${escapeHtml(p.art)}</span>
       </td>
       <td>${controlsHtml}</td>
       <td style="font-weight:700; color:var(--primary-dark); text-align:right;">${money(s.total)}</td>
@@ -6269,15 +6131,19 @@ function filterAdminSlotSearch(query, slotKey) {
     return;
   }
 
-  container.innerHTML = matches.map(p => `
-    <div onclick="selectAdminSlotProduct('${slotKey}', '${p.art}')" style="padding:8px 12px; cursor:pointer; border-bottom:1px solid var(--border); font-size:0.84rem; display:flex; justify-content:space-between; align-items:center;" onmouseover="this.style.background='var(--primary-light)'" onmouseout="this.style.background='transparent'">
+  container.innerHTML = matches.map(p => {
+    const encSlot = encodeURIComponent(slotKey);
+    const encArt = encodeURIComponent(p.art);
+    return `
+    <div onclick="selectAdminSlotProduct(decodeURIComponent('${encSlot}'), decodeURIComponent('${encArt}'))" style="padding:8px 12px; cursor:pointer; border-bottom:1px solid var(--border); font-size:0.84rem; display:flex; justify-content:space-between; align-items:center;" onmouseover="this.style.background='var(--primary-light)'" onmouseout="this.style.background='transparent'">
       <div>
-        <strong>${p.name}</strong>
-        <span style="color:var(--text-muted); font-size:0.78rem; display:block;">Art.-Nr. ${p.art} • ${p.category || ''}</span>
+        <strong>${escapeHtml(p.name)}</strong>
+        <span style="color:var(--text-muted); font-size:0.78rem; display:block;">Art.-Nr. ${escapeHtml(p.art)} • ${escapeHtml(p.category || '')}</span>
       </div>
       <span style="font-weight:700; color:var(--primary); font-size:0.85rem;">${money(p.price)}</span>
     </div>
-  `).join("");
+  `;
+  }).join("");
 }
 
 function selectAdminSlotProduct(slotKey, art) {
