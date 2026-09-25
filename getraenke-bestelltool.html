@@ -1753,18 +1753,24 @@
   }
 
   /* ADMIN BANNER & TABELLE */
+  [hidden], #editBanner[hidden], #editBanner[style*="display: none"] {
+    display: none !important;
+  }
   #editBanner {
+    display: none;
     background: var(--bg-card);
     border: 1.5px solid var(--border);
     border-left: 4px solid var(--green);
     border-radius: var(--r);
     padding: 12px 18px;
     margin-bottom: 20px;
-    display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
     gap: 12px;
+  }
+  #editBanner.active, #editBanner:not([hidden]):not([style*="display: none"]) {
+    display: flex !important;
   }
   .admin-table-wrap {
     overflow-x: auto;
@@ -1966,7 +1972,7 @@
 </header>
 
 <main>
-  <div id="editBanner" hidden style="background:#FEF3C7; border:1px solid #FCD34D; color:#92400E; padding:16px 20px; border-radius:var(--radius); margin-bottom:20px; font-size:0.9rem; box-shadow:var(--shadow-sm);">
+  <div id="editBanner" hidden style="display:none !important; background:#FEF3C7; border:1px solid #FCD34D; color:#92400E; padding:16px 20px; border-radius:var(--radius); margin-bottom:20px; font-size:0.9rem; box-shadow:var(--shadow-sm);">
     <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
       <div>
         <span style="display:inline-block; background:#B45309; color:white; font-size:0.75rem; font-weight:bold; padding:2px 8px; border-radius:10px; margin-right:8px; text-transform:uppercase;">ADMIN</span>
@@ -2820,13 +2826,9 @@ function getBaseUrl() {
 }
 
 function setAdminUrl(isPush = false) {
-  const base = getBaseUrl();
-  const adminPath = (base === "/" ? "/admin" : base + "admin");
   try {
-    if (isPush) {
-      history.pushState({ admin: true }, "", adminPath);
-    } else {
-      history.replaceState({ admin: true }, "", adminPath);
+    if (window.location.hash !== "#admin") {
+      history.replaceState({ admin: true }, "", window.location.pathname + "#admin");
     }
   } catch (e) {
     window.location.hash = "admin";
@@ -2836,11 +2838,7 @@ function setAdminUrl(isPush = false) {
 function setNormalUrl(isPush = false) {
   const base = getBaseUrl();
   try {
-    if (isPush) {
-      history.pushState({ admin: false }, "", base);
-    } else {
-      history.replaceState({ admin: false }, "", base);
-    }
+    history.replaceState({ admin: false }, "", base);
   } catch (e) {
     if (window.location.hash) window.location.hash = "";
   }
@@ -2849,13 +2847,20 @@ function setNormalUrl(isPush = false) {
 function isAdminUrlRequested() {
   const hash = (window.location.hash || "").toLowerCase();
   const search = (window.location.search || "").toLowerCase();
-  const path = (window.location.pathname || "").toLowerCase();
-
-  return hash.includes("admin") || 
-         search.includes("admin") || 
-         path.endsWith("/admin") || 
-         path.endsWith("/admin/");
+  // Nur wenn explizit #admin oder ?admin in der URL steht (keine automatischen Pfad-Locks)
+  return hash.includes("admin") || search.includes("admin");
 }
+
+// Bereinige etwaige alte /admin-Pfade in der Adresszeile sofort beim Laden
+(function cleanStaleAdminPath() {
+  const p = window.location.pathname || "";
+  if (p.endsWith("/admin") || p.endsWith("/admin/")) {
+    const clean = p.replace(/\/admin\/?$/i, "/");
+    try {
+      history.replaceState(null, "", clean + window.location.search);
+    } catch (e) {}
+  }
+})();
 
 function initWelcomeModal() {
   // Wenn /admin oder #admin aufgerufen wird oder Admin eingeloggt ist: NIEMALS das Welcome-Popup öffnen!
@@ -2883,7 +2888,7 @@ function checkAdminUrlTrigger() {
     if (isEditPricesMode) {
       isEditPricesMode = false;
       const b = document.getElementById("editBanner");
-      if (b) { b.style.display = ""; b.setAttribute("hidden", ""); }
+      if (b) { b.setAttribute("hidden", ""); b.classList.remove("active"); b.style.setProperty("display", "none", "important"); }
       const adminCalcBtn = document.getElementById("adminCalcSettingsBtnContainer");
       if (adminCalcBtn) adminCalcBtn.style.display = "none";
       updateAdminHeaderBtn();
@@ -2907,7 +2912,7 @@ if (supabaseClient) {
       } else {
         isEditPricesMode = false;
         const b = document.getElementById("editBanner");
-        if (b) { b.style.display = ""; b.setAttribute("hidden", ""); }
+        if (b) { b.setAttribute("hidden", ""); b.classList.remove("active"); b.style.setProperty("display", "none", "important"); }
       }
     } else {
       isAdminAuthenticated = false;
@@ -2932,14 +2937,14 @@ if (supabaseClient) {
       } else {
         isEditPricesMode = false;
         const b = document.getElementById("editBanner");
-        if (b) { b.style.display = ""; b.setAttribute("hidden", ""); }
+        if (b) { b.setAttribute("hidden", ""); b.classList.remove("active"); b.style.setProperty("display", "none", "important"); }
       }
     } else {
       isAdminAuthenticated = false;
       currentAdminEmail = "";
       isEditPricesMode = false;
       const b = document.getElementById("editBanner");
-      if (b) { b.style.display = ""; b.setAttribute("hidden", ""); }
+      if (b) { b.setAttribute("hidden", ""); b.classList.remove("active"); b.style.setProperty("display", "none", "important"); }
       setNormalUrl();
     }
     updateAdminHeaderBtn();
@@ -3538,7 +3543,7 @@ async function exitEditPricesMode() {
   isEditPricesMode = false;
 
   const b = document.getElementById("editBanner");
-  if (b) { b.style.display = ""; b.setAttribute("hidden", ""); }
+  if (b) { b.setAttribute("hidden", ""); b.classList.remove("active"); b.style.setProperty("display", "none", "important"); }
 
   const adminCalcBtn = document.getElementById("adminCalcSettingsBtnContainer");
   if (adminCalcBtn) adminCalcBtn.style.display = "none";
@@ -3567,7 +3572,7 @@ function toggleEditPricesMode(forceState) {
 
   isEditPricesMode = true;
   const b = document.getElementById("editBanner");
-  if (b) { b.style.display = ""; b.removeAttribute("hidden"); }
+  if (b) { b.removeAttribute("hidden"); b.classList.add("active"); b.style.setProperty("display", "flex", "important"); }
   const adminCalcBtn = document.getElementById("adminCalcSettingsBtnContainer");
   if (adminCalcBtn) adminCalcBtn.style.display = "block";
   updateAdminHeaderBtn();
