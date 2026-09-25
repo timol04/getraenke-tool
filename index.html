@@ -3325,6 +3325,83 @@ let isEditPricesMode = false;
 let isAdminAuthenticated = false;
 let currentAdminEmail = "";
 
+function getBaseUrl() {
+  let p = window.location.pathname || "/";
+  if (p.endsWith("/admin") || p.endsWith("/admin/")) {
+    p = p.replace(/\/admin\/?$/i, "/");
+  } else if (p.endsWith("/index.html")) {
+    p = p.replace(/index\.html$/i, "");
+  }
+  if (!p.endsWith("/")) p += "/";
+  return p;
+}
+
+function setAdminUrl(isPush = false) {
+  const base = getBaseUrl();
+  const adminPath = (base === "/" ? "/admin" : base + "admin");
+  try {
+    if (isPush) {
+      history.pushState({ admin: true }, "", adminPath);
+    } else {
+      history.replaceState({ admin: true }, "", adminPath);
+    }
+  } catch (e) {
+    window.location.hash = "admin";
+  }
+}
+
+function setNormalUrl(isPush = false) {
+  const base = getBaseUrl();
+  try {
+    if (isPush) {
+      history.pushState({ admin: false }, "", base);
+    } else {
+      history.replaceState({ admin: false }, "", base);
+    }
+  } catch (e) {
+    if (window.location.hash) window.location.hash = "";
+  }
+}
+
+function isAdminUrlRequested() {
+  const hash = (window.location.hash || "").toLowerCase();
+  const search = (window.location.search || "").toLowerCase();
+  const path = (window.location.pathname || "").toLowerCase();
+
+  return hash.includes("admin") || 
+         search.includes("admin") || 
+         path.endsWith("/admin") || 
+         path.endsWith("/admin/");
+}
+
+function initWelcomeModal() {
+  // Wenn /admin oder #admin aufgerufen wird oder Admin eingeloggt ist: NIEMALS das Welcome-Popup öffnen!
+  if (isAdminUrlRequested() || isAdminAuthenticated) {
+    closeInfoModal();
+    return;
+  }
+  // Für reguläre Kunden das Welcome-Popup beim Laden öffnen
+  openInfoModal();
+}
+
+function checkAdminUrlTrigger() {
+  if (isAdminUrlRequested()) {
+    closeInfoModal();
+    if (!isAdminAuthenticated) {
+      setTimeout(() => {
+        openAdminModal();
+      }, 100);
+    } else {
+      toggleEditPricesMode(true);
+      setAdminUrl();
+    }
+  } else if (isAdminAuthenticated) {
+    // Wenn als Admin eingeloggt: immer auf die /admin Seite wechseln!
+    toggleEditPricesMode(true);
+    setAdminUrl();
+  }
+}
+
 // Auto-Login Status über Supabase Auth prüfen
 if (supabaseClient) {
   supabaseClient.auth.getSession().then(({ data: { session } }) => {
@@ -3332,20 +3409,33 @@ if (supabaseClient) {
       isAdminAuthenticated = true;
       currentAdminEmail = session.user.email || "Admin";
       console.log("Supabase Auth aktiv:", currentAdminEmail);
-      updateAdminHeaderBtn();
+      toggleEditPricesMode(true);
+      setAdminUrl();
+    } else {
+      isAdminAuthenticated = false;
+      currentAdminEmail = "";
+      if (isAdminUrlRequested()) {
+        openAdminModal();
+      } else {
+        setNormalUrl();
+      }
     }
+    updateAdminHeaderBtn();
   });
 
   supabaseClient.auth.onAuthStateChange((event, session) => {
     if (session && session.user) {
       isAdminAuthenticated = true;
       currentAdminEmail = session.user.email || "Admin";
+      toggleEditPricesMode(true);
+      setAdminUrl();
     } else {
       isAdminAuthenticated = false;
       currentAdminEmail = "";
       isEditPricesMode = false;
       const b = document.getElementById("editBanner");
       if (b) b.style.display = "none";
+      setNormalUrl();
     }
     updateAdminHeaderBtn();
     renderProducts();
@@ -3364,6 +3454,7 @@ function handleBrandBadgeClick() {
   if (brandClickCount >= 3) {
     brandClickCount = 0;
     if (!isAdminAuthenticated) {
+      setAdminUrl();
       openAdminModal();
     } else {
       toggleEditPricesMode();
@@ -3371,41 +3462,8 @@ function handleBrandBadgeClick() {
   }
 }
 
-function isAdminUrlRequested() {
-  const hash = (window.location.hash || "").toLowerCase();
-  const search = (window.location.search || "").toLowerCase();
-  const path = (window.location.pathname || "").toLowerCase();
-
-  return hash.includes("admin") || 
-         search.includes("admin") || 
-         path.endsWith("/admin") || 
-         path.endsWith("/admin/");
-}
-
-function initWelcomeModal() {
-  // Wenn /admin oder #admin aufgerufen wird: NIEMALS das Welcome-Popup öffnen!
-  if (isAdminUrlRequested()) {
-    closeInfoModal();
-    return;
-  }
-  // Für reguläre Kunden das Welcome-Popup beim Laden öffnen
-  openInfoModal();
-}
-
-function checkAdminUrlTrigger() {
-  if (isAdminUrlRequested()) {
-    closeInfoModal();
-    if (!isAdminAuthenticated) {
-      setTimeout(() => {
-        openAdminModal();
-      }, 100);
-    } else {
-      toggleEditPricesMode(true);
-    }
-  }
-}
-
 window.addEventListener("hashchange", checkAdminUrlTrigger);
+window.addEventListener("popstate", checkAdminUrlTrigger);
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", checkAdminUrlTrigger);
 } else {
@@ -3417,6 +3475,7 @@ window.addEventListener("keydown", (e) => {
       (e.ctrlKey && e.shiftKey && (e.key === "a" || e.key === "A"))) {
     e.preventDefault();
     if (!isAdminAuthenticated) {
+      setAdminUrl();
       openAdminModal();
     } else {
       toggleEditPricesMode();
@@ -3427,6 +3486,7 @@ window.addEventListener("keydown", (e) => {
 function openAdminModal() {
   if (isAdminAuthenticated) {
     toggleEditPricesMode(true);
+    setAdminUrl();
     return;
   }
   const emailInput = document.getElementById("adminEmailInput");
@@ -3440,7 +3500,11 @@ function openAdminModal() {
 }
 
 function closeAdminModal() {
-  document.getElementById("adminOverlay").classList.remove("open");
+  const m = document.getElementById("adminOverlay");
+  if (m) m.classList.remove("open");
+  if (!isAdminAuthenticated) {
+    setNormalUrl();
+  }
 }
 
 function handleAdminOverlayClick(e) {
@@ -3488,6 +3552,7 @@ async function loginAdmin() {
       if (pwdInput) pwdInput.value = "";
       closeAdminModal();
       toggleEditPricesMode(true);
+      setAdminUrl();
       showAdminToast("info", `Angemeldet als ${email}`);
     }
   } catch (e) {
@@ -3502,26 +3567,7 @@ async function loginAdmin() {
 }
 
 async function logoutAdmin() {
-  if (supabaseClient) {
-    try {
-      await supabaseClient.auth.signOut();
-    } catch (e) {
-      console.warn("Signout warning:", e);
-    }
-  }
-  isAdminAuthenticated = false;
-  currentAdminEmail = "";
-  isEditPricesMode = false;
-  const b = document.getElementById("editBanner");
-  if (b) b.style.display = "none";
-  updateAdminHeaderBtn();
-  renderProducts();
-  showAdminToast("info", "Erfolgreich abgemeldet");
-  if (window.location.hash.toLowerCase().includes("admin")) {
-    try {
-      history.replaceState(null, "", window.location.pathname + window.location.search);
-    } catch (e) {}
-  }
+  await exitEditPricesMode();
 }
 
 let editingProductArt = null;
@@ -3970,7 +4016,16 @@ function updateAdminHeaderBtn() {
   }
 }
 
-function exitEditPricesMode() {
+async function exitEditPricesMode() {
+  if (supabaseClient) {
+    try {
+      await supabaseClient.auth.signOut();
+    } catch (e) {
+      console.warn("Signout warning:", e);
+    }
+  }
+  isAdminAuthenticated = false;
+  currentAdminEmail = "";
   isEditPricesMode = false;
 
   const b = document.getElementById("editBanner");
@@ -3983,16 +4038,8 @@ function exitEditPricesMode() {
   renderPresets();
   renderProducts();
 
-  // Auf Standardseite leiten: URL von Admin-Parametern bereinigen
-  if (window.location.hash.toLowerCase().includes("admin") || window.location.search.toLowerCase().includes("admin")) {
-    try {
-      history.replaceState(null, "", window.location.pathname);
-    } catch (e) {
-      window.location.hash = "";
-    }
-  } else if (window.location.pathname.toLowerCase().endsWith("/admin") || window.location.pathname.toLowerCase().endsWith("/admin/")) {
-    window.location.replace("../");
-  }
+  // Auf Standardseite leiten: URL auf normale Seite setzen
+  setNormalUrl();
 
   showAdminToast("info", "Bearbeitungsmodus beendet – Standardansicht aktiv");
 }
@@ -4015,6 +4062,7 @@ function toggleEditPricesMode(forceState) {
   const adminCalcBtn = document.getElementById("adminCalcSettingsBtnContainer");
   if (adminCalcBtn) adminCalcBtn.style.display = "block";
   updateAdminHeaderBtn();
+  setAdminUrl();
   renderPresets();
   renderProducts();
 }
