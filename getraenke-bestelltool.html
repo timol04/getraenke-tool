@@ -2365,7 +2365,7 @@
   <div class="header-content">
     <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:10px;">
       <div style="display:flex; align-items:center; gap:8px;">
-        <div class="brand-badge" id="brandBadge" onclick="handleBrandBadgeClick()" title="LANDI Getränke (3x tippen für Admin)" style="margin-bottom:0; cursor:pointer; user-select:none;">LANDI GETRÄNKE-ZUSAMMENSTELLUNG</div>
+        <div class="brand-badge" id="brandBadge" onclick="handleBrandBadgeClick()" style="margin-bottom:0; cursor:pointer; user-select:none;">LANDI GETRÄNKE-ZUSAMMENSTELLUNG</div>
         <button onclick="openInfoModal()" class="info-icon-btn" title="Hinweise & Anleitungen anzeigen" aria-label="Informationen anzeigen" style="margin-bottom:0;">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
         </button>
@@ -3553,7 +3553,7 @@ async function loginAdmin() {
       closeAdminModal();
       toggleEditPricesMode(true);
       setAdminUrl();
-      showAdminToast("info", `Angemeldet als ${email}`);
+      showAdminToast("info", `Angemeldet als ${email}`, false);
     }
   } catch (e) {
     console.error("Supabase Login Error:", e);
@@ -3658,7 +3658,7 @@ function renderAdminSortimentTable() {
   }).join("");
 }
 
-function showAdminToast(name, action) {
+function showAdminToast(name, action, showSaveBtn = true) {
   const container = document.getElementById("adminToastContainer");
   if (!container) return;
 
@@ -3669,13 +3669,16 @@ function showAdminToast(name, action) {
   const safeAction = escapeHtml(action || "");
   const isMessageOnly = !action;
 
+  const saveHtml = showSaveBtn ? `
+        <div class="admin-toast-sub">Um alle Änderungen festzuhalten, auf <strong>«In Supabase speichern»</strong> drücken.</div>
+        <button class="admin-toast-action-btn" onclick="savePricesToSupabase()">☁️ In Supabase speichern</button>` : "";
+
   toast.innerHTML = `
     <div class="admin-toast-body">
       <div class="admin-toast-icon">✓</div>
       <div class="admin-toast-content">
         <div class="admin-toast-title">${isMessageOnly ? safeName : `Das Produkt <strong>"${safeName}"</strong> wurde erfolgreich ${safeAction}.`}</div>
-        <div class="admin-toast-sub">Um alle Änderungen festzuhalten, auf <strong>«In Supabase speichern»</strong> drücken.</div>
-        <button class="admin-toast-action-btn" onclick="savePricesToSupabase()">☁️ In Supabase speichern</button>
+        ${saveHtml}
       </div>
       <button class="admin-toast-close" title="Schliessen">✕</button>
     </div>
@@ -4041,7 +4044,7 @@ async function exitEditPricesMode() {
   // Auf Standardseite leiten: URL auf normale Seite setzen
   setNormalUrl();
 
-  showAdminToast("info", "Bearbeitungsmodus beendet – Standardansicht aktiv");
+  showAdminToast("info", "Bearbeitungsmodus beendet – Standardansicht aktiv", false);
 }
 
 function toggleEditPricesMode(forceState) {
