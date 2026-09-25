@@ -3553,7 +3553,7 @@ async function loginAdmin() {
       closeAdminModal();
       toggleEditPricesMode(true);
       setAdminUrl();
-      showAdminToast("info", `Angemeldet als ${email}`, false);
+      showAdminToast(`${email} wurde angemeldet`, "", false);
     }
   } catch (e) {
     console.error("Supabase Login Error:", e);
@@ -4027,6 +4027,7 @@ async function exitEditPricesMode() {
       console.warn("Signout warning:", e);
     }
   }
+  const loggedOutEmail = currentAdminEmail;
   isAdminAuthenticated = false;
   currentAdminEmail = "";
   isEditPricesMode = false;
@@ -4044,7 +4045,7 @@ async function exitEditPricesMode() {
   // Auf Standardseite leiten: URL auf normale Seite setzen
   setNormalUrl();
 
-  showAdminToast("info", "Bearbeitungsmodus beendet – Standardansicht aktiv", false);
+  showAdminToast(loggedOutEmail ? `${loggedOutEmail} wurde abgemeldet` : "Abgemeldet", "", false);
 }
 
 function toggleEditPricesMode(forceState) {
