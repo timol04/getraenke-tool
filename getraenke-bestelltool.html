@@ -1386,7 +1386,7 @@
     gap: 14px;
   }
   .tracker-item {
-    background: var(--bg);
+    background: #FFFFFF;
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
     padding: 12px 14px;
@@ -1411,9 +1411,10 @@
     color: var(--primary);
   }
   .tracker-bar-bg {
-    background: #E5E7EB;
+    background: transparent !important;
+    border: 1px solid rgba(0, 0, 0, 0.12);
     height: 10px;
-    border-radius: 5px;
+    border-radius: 6px;
     overflow: hidden;
     margin-bottom: 6px;
     position: relative;
@@ -1508,6 +1509,23 @@
     letter-spacing: 0.2px;
     line-height: 1.4;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .calc-sum-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(31, 58, 46, 0.08);
+    padding: 1px 7px;
+    border-radius: 6px;
+    font-size: 0.76rem;
+    font-weight: 700;
+  }
+  .icon-svg {
+    display: inline-block;
+    vertical-align: -0.15em;
+    flex-shrink: 0;
   }
   .calc-collapsible-body {
     transition: all 0.3s ease;
@@ -1654,7 +1672,7 @@
     gap: 10px;
   }
   .sfb-card {
-    background: #FAF7F0;
+    background: #FFFFFF;
     border: 1.5px solid var(--border);
     border-radius: 10px;
     padding: 8px 12px;
@@ -1684,6 +1702,9 @@
     font-size: 0.84rem;
     font-weight: 700;
     color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 5px;
   }
   .sfb-card-val {
     font-size: 0.86rem;
@@ -1695,11 +1716,13 @@
     color: #059669;
   }
   .sfb-bar-bg {
-    background: rgba(0, 0, 0, 0.08);
-    height: 7px;
-    border-radius: 4px;
+    background: transparent !important;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    height: 8px;
+    border-radius: 5px;
     overflow: hidden;
-    margin: 2px 0;
+    margin: 3px 0 2px;
+    position: relative;
   }
   .sfb-bar-fill {
     height: 100%;
@@ -2052,8 +2075,14 @@
     }
   }
   body.dark-mode .tracker-bar-bg,
+  body.dark-mode .sfb-bar-bg,
   @media (prefers-color-scheme: dark) {
-    body:not(.light-mode) .tracker-bar-bg {
+    body:not(.light-mode) .tracker-bar-bg,
+    body:not(.light-mode) .sfb-bar-bg {
+      background: transparent !important;
+      border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    }
+    body:not(.light-mode) .calc-sum-pill {
       background: rgba(255, 255, 255, 0.1) !important;
     }
   }
@@ -2115,7 +2144,8 @@
     color: #34D399 !important;
   }
   body.dark-mode .sfb-bar-bg {
-    background: rgba(255, 255, 255, 0.15) !important;
+    background: transparent !important;
+    border: 1px solid rgba(255, 255, 255, 0.22) !important;
   }
   body.dark-mode .sfb-card-sub {
     color: var(--text-muted) !important;
@@ -2161,7 +2191,8 @@
       color: #34D399 !important;
     }
     body:not(.light-mode) .sfb-bar-bg {
-      background: rgba(255, 255, 255, 0.15) !important;
+      background: transparent !important;
+      border: 1px solid rgba(255, 255, 255, 0.22) !important;
     }
     body:not(.light-mode) .sfb-card-sub {
       color: var(--text-muted) !important;
@@ -2438,7 +2469,9 @@
     <!-- Oberzeile: Titel, Ziel und Status -->
     <div class="sfb-header-row">
       <div class="sfb-title-wrap">
-        <span class="sfb-icon">🎯</span>
+        <span class="sfb-icon">
+          <svg class="icon-svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+        </span>
         <div>
           <div class="sfb-title-group">
             <span class="sfb-title">Festbedarf-Tracker</span>
@@ -2448,7 +2481,11 @@
         </div>
       </div>
       <button type="button" class="sfb-rechner-btn" onclick="scrollToAndOpenCalculator()" title="Zum Rechner springen und anpassen">
-        <span>🧮 Rechner anpassen</span> <span>▲</span>
+        <span style="display:inline-flex; align-items:center; gap:6px;">
+          <svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="16" y1="14" x2="16" y2="14.01"/><line x1="12" y1="14" x2="12" y2="14.01"/><line x1="8" y1="14" x2="8" y2="14.01"/><line x1="16" y1="18" x2="16" y2="18.01"/><line x1="12" y1="18" x2="12" y2="18.01"/><line x1="8" y1="18" x2="8" y2="18.01"/></svg>
+          Rechner anpassen
+        </span>
+        <svg class="icon-svg sfb-chevron-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
       </button>
     </div>
 
@@ -2457,7 +2494,10 @@
       <!-- 1. Mineral -->
       <div class="sfb-card" id="sfbColMineral" onclick="scrollToCategorySection('mineral')" title="Zu Mineralwasser springen">
         <div class="sfb-card-top">
-          <span class="sfb-card-label">💧 Mineralwasser</span>
+          <span class="sfb-card-label">
+            <svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#0284C7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+            Mineralwasser
+          </span>
           <strong class="sfb-card-val" id="sfbValMineral">0 / 18 L</strong>
         </div>
         <div class="sfb-bar-bg">
@@ -2469,7 +2509,10 @@
       <!-- 2. Softdrinks -->
       <div class="sfb-card" id="sfbColSoft" onclick="scrollToCategorySection('soft')" title="Zu Süssgetränken springen">
         <div class="sfb-card-top">
-          <span class="sfb-card-label">🥤 Süssgetränke</span>
+          <span class="sfb-card-label">
+            <svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#D97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 21h10l1.5-12H5.5L7 21z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="14" y1="3" x2="11" y2="9"/></svg>
+            Süssgetränke
+          </span>
           <strong class="sfb-card-val" id="sfbValSoft">0 / 16 L</strong>
         </div>
         <div class="sfb-bar-bg">
@@ -2481,7 +2524,10 @@
       <!-- 3. Bier -->
       <div class="sfb-card" id="sfbColBeer" onclick="scrollToCategorySection('beer')" title="Zu Bier springen">
         <div class="sfb-card-top">
-          <span class="sfb-card-label">🍺 Bier & Panaché</span>
+          <span class="sfb-card-label">
+            <svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#B45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h10v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8z"/><path d="M15 10h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-3"/><path d="M5 8a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2"/></svg>
+            Bier & Panaché
+          </span>
           <strong class="sfb-card-val" id="sfbValBeer">0 / 16 L</strong>
         </div>
         <div class="sfb-bar-bg">
@@ -2493,7 +2539,10 @@
       <!-- 4. Wein -->
       <div class="sfb-card" id="sfbColWine" onclick="scrollToCategorySection('wine')" title="Zu Wein & Schaumwein springen">
         <div class="sfb-card-top">
-          <span class="sfb-card-label">🍷 Wein & Schaumwein</span>
+          <span class="sfb-card-label">
+            <svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#991B1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22h8"/><path d="M12 15v7"/><path d="M7 3h10c0 4.5-2.5 8-5 8s-5-3.5-5-8z"/></svg>
+            Wein & Schaumwein
+          </span>
           <strong class="sfb-card-val" id="sfbValWine">0 / 6 Fl.</strong>
         </div>
         <div class="sfb-bar-bg">
@@ -2528,61 +2577,82 @@
     <strong>Hinweis zur Zusammenstellung:</strong> Preise und Verfügbarkeiten (insbesondere bei Top-Angeboten) können abweichen. Ihre Zusammenstellung wird erst nach unserer Bestätigung bearbeitet.
   </div>
 
-  <!-- GETRÄNKE- & EVENT-RECHNER (Aufklappbar) -->
-  <div class="calc-section" id="drinkCalculatorSection">
+  <!-- GETRÄNKE- & EVENT-RECHNER (Aufklappbar - initial zugeklappt) -->
+  <div class="calc-section is-collapsed" id="drinkCalculatorSection">
     <div class="calc-header calc-toggle-header" onclick="toggleDrinkCalculator()" role="button" tabindex="0" title="Rechner auf- oder zuklappen">
       <div class="calc-header-left">
         <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px;">
-          <span class="calc-badge">⚡ Schnellplanung</span>
-          <div id="calcCollapsedSummary" class="calc-collapsed-summary" style="display:none;"></div>
+          <span class="calc-badge">
+            <svg class="icon-svg" viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            Schnellplanung
+          </span>
+          <div id="calcCollapsedSummary" class="calc-collapsed-summary" style="display:inline-flex;"></div>
         </div>
         <h2 class="calc-title">
-          <span>🧮 Getränke- & Event-Rechner</span>
-          <span class="calc-toggle-icon" id="calcToggleIcon">▲</span>
+          <span style="display:inline-flex; align-items:center; gap:8px;">
+            <svg class="icon-svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="16" y1="14" x2="16" y2="14.01"/><line x1="12" y1="14" x2="12" y2="14.01"/><line x1="8" y1="14" x2="8" y2="14.01"/><line x1="16" y1="18" x2="16" y2="18.01"/><line x1="12" y1="18" x2="12" y2="18.01"/><line x1="8" y1="18" x2="8" y2="18.01"/></svg>
+            Getränke- & Event-Rechner
+          </span>
+          <span class="calc-toggle-icon" id="calcToggleIcon">
+            <svg class="icon-svg sfb-chevron-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </span>
         </h2>
-        <p class="calc-sub" id="calcSubText">Wähle deinen Anlass und deine Gästezahl – berechne deinen Getränkebedarf und übernimm die Mengen direkt oder bestimme deine Lieblingsmarken mit Live-Fortschrittsbalken.</p>
+        <p class="calc-sub" id="calcSubText" style="display:none;">Wähle deinen Anlass und deine Gästezahl – berechne deinen Getränkebedarf und übernimm die Mengen direkt oder bestimme deine Lieblingsmarken mit Live-Fortschrittsbalken.</p>
       </div>
       <div class="calc-header-right" onclick="event.stopPropagation()">
         <div id="adminCalcSettingsBtnContainer" style="display:none;">
-          <button onclick="openCalcStandardsModal()" class="admin-calc-btn">⚙️ Standard-Produkte anpassen</button>
+          <button onclick="openCalcStandardsModal()" class="admin-calc-btn">
+            <svg class="icon-svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            Standard-Produkte anpassen
+          </button>
         </div>
         <button type="button" class="calc-toggle-btn" id="calcToggleBtn" onclick="toggleDrinkCalculator()">
-          <span id="calcToggleBtnText">Zuklappen</span>
-          <span id="calcToggleBtnIcon">▲</span>
+          <span id="calcToggleBtnText">Rechner aufklappen</span>
+          <span id="calcToggleBtnIcon">
+            <svg class="icon-svg sfb-chevron-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </span>
         </button>
       </div>
     </div>
 
-    <!-- Einklappbarer Inhalt -->
-    <div class="calc-collapsible-body" id="calcCollapsibleBody">
+    <!-- Einklappbarer Inhalt (initial zugeklappt) -->
+    <div class="calc-collapsible-body" id="calcCollapsibleBody" style="display:none;">
 
     <!-- Step 1: Anlass -->
     <div class="calc-step-row">
       <label class="calc-step-label">1. Art des Anlasses:</label>
       <div class="calc-event-grid" id="calcEventGrid">
         <button type="button" class="calc-event-card active" id="calcEventBtn_grillfest" onclick="setCalcEvent('grillfest')">
-          <span class="calc-event-icon">🍖</span>
+          <span class="calc-event-icon">
+            <svg class="icon-svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#DC2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+          </span>
           <div class="calc-event-info">
             <strong>Grillfest / Gemütlich</strong>
             <span>Bier, Wein, Softdrinks & viel Wasser</span>
           </div>
         </button>
         <button type="button" class="calc-event-card" id="calcEventBtn_apero" onclick="setCalcEvent('apero')">
-          <span class="calc-event-icon">🥂</span>
+          <span class="calc-event-icon">
+            <svg class="icon-svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#D97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22h8"/><path d="M12 15v7"/><path d="M7 4h10l-1 5a4 4 0 0 1-8 0L7 4z"/><line x1="5" y1="2" x2="19" y2="2"/></svg>
+          </span>
           <div class="calc-event-info">
             <strong>Apéro / Stehempfang</strong>
             <span>Fokus auf Schaumwein, Weisswein & Mineral</span>
           </div>
         </button>
         <button type="button" class="calc-event-card" id="calcEventBtn_party" onclick="setCalcEvent('party')">
-          <span class="calc-event-icon">🎉</span>
+          <span class="calc-event-icon">
+            <svg class="icon-svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#9333EA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </span>
           <div class="calc-event-info">
             <strong>Party / Vereinsfest</strong>
             <span>Mehr Bier & Drinks für lange Feiern</span>
           </div>
         </button>
         <button type="button" class="calc-event-card" id="calcEventBtn_family" onclick="setCalcEvent('family')">
-          <span class="calc-event-icon">👨‍👩‍👧</span>
+          <span class="calc-event-icon">
+            <svg class="icon-svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#16A34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </span>
           <div class="calc-event-info">
             <strong>Familie / Alkoholfrei</strong>
             <span>Mineralwasser, Most, Eistee & Säfte</span>
@@ -2595,7 +2665,10 @@
     <div class="calc-controls-grid">
       <div class="calc-control-card">
         <div class="calc-control-head">
-          <label for="calcGuestsRange"><span>👥</span> Anzahl Gäste</label>
+          <label for="calcGuestsRange" style="display:inline-flex; align-items:center; gap:6px;">
+            <svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Anzahl Gäste
+          </label>
           <div class="calc-val-pill">
             <input type="number" id="calcGuestsInput" min="5" max="250" value="25" oninput="onCalcGuestsInputChange(this.value)">
             <span>Personen</span>
@@ -2613,7 +2686,10 @@
 
       <div class="calc-control-card">
         <div class="calc-control-head">
-          <label for="calcHoursRange"><span>⏱️</span> Dauer des Anlasses</label>
+          <label for="calcHoursRange" style="display:inline-flex; align-items:center; gap:6px;">
+            <svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Dauer des Anlasses
+          </label>
           <div class="calc-val-pill">
             <span id="calcHoursDisplay">4</span>
             <span>Stunden</span>
@@ -2633,7 +2709,10 @@
     <div class="calc-weather-row">
       <label class="calc-weather-toggle">
         <input type="checkbox" id="calcHotWeather" onchange="recalculateCalcNeeds()">
-        <span>☀️ <strong>Heisser Sommertag:</strong> +20% mehr Durstlöscher (Mineral & Erfrischung einplanen)</span>
+        <span style="display:inline-flex; align-items:center; gap:6px;">
+          <svg class="icon-svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#EAB308" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <strong>Heisser Sommertag:</strong> +20% mehr Durstlöscher (Mineral & Erfrischung einplanen)
+        </span>
       </label>
     </div>
 
@@ -2646,7 +2725,9 @@
 
       <div class="calc-cards-grid">
         <div class="calc-result-card">
-          <div class="calc-res-icon">💧</div>
+          <div class="calc-res-icon">
+            <svg class="icon-svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#0284C7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+          </div>
           <div class="calc-res-details">
             <div class="calc-res-category">Mineralwasser</div>
             <div class="calc-res-main" id="resMineralCases">2 Harassen</div>
@@ -2655,7 +2736,9 @@
         </div>
 
         <div class="calc-result-card">
-          <div class="calc-res-icon">🥤</div>
+          <div class="calc-res-icon">
+            <svg class="icon-svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#D97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 21h10l1.5-12H5.5L7 21z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="14" y1="3" x2="11" y2="9"/></svg>
+          </div>
           <div class="calc-res-details">
             <div class="calc-res-category">Süssgetränke / Eistee</div>
             <div class="calc-res-main" id="resSoftCases">2 Harassen</div>
@@ -2664,7 +2747,9 @@
         </div>
 
         <div class="calc-result-card">
-          <div class="calc-res-icon">🍺</div>
+          <div class="calc-res-icon">
+            <svg class="icon-svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#B45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h10v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8z"/><path d="M15 10h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-3"/><path d="M5 8a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2"/></svg>
+          </div>
           <div class="calc-res-details">
             <div class="calc-res-category">Bier & Panaché</div>
             <div class="calc-res-main" id="resBeerCases">2 Packs</div>
@@ -2673,7 +2758,9 @@
         </div>
 
         <div class="calc-result-card">
-          <div class="calc-res-icon">🍷</div>
+          <div class="calc-res-icon">
+            <svg class="icon-svg" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#991B1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22h8"/><path d="M12 15v7"/><path d="M7 3h10c0 4.5-2.5 8-5 8s-5-3.5-5-8z"/></svg>
+          </div>
           <div class="calc-res-details">
             <div class="calc-res-category">Wein & Schaumwein</div>
             <div class="calc-res-main" id="resWineBottles">6 Flaschen</div>
@@ -2691,8 +2778,14 @@
         <!-- Option 1: Standard-Produkte -->
         <div class="calc-action-card primary" onclick="applyCalculatorStandardProducts()">
           <div class="calc-action-card-header">
-            <span class="calc-action-badge">⚡ Schnellster Weg</span>
-            <h4>🛒 Mit Standard-Produkten übernehmen</h4>
+            <span class="calc-action-badge">
+              <svg class="icon-svg" viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              Schnellster Weg
+            </span>
+            <h4>
+              <svg class="icon-svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+              Mit Standard-Produkten übernehmen
+            </h4>
           </div>
           <p>Legt automatisch die berechneten Mengen beliebter Landi-Bestseller (Farmer Bier, Mineral, Rivella, Wein) direkt in deine Zusammenstellung.</p>
           <button type="button" class="calc-apply-btn">Mengen direkt übernehmen →</button>
@@ -2701,8 +2794,14 @@
         <!-- Option 2: Fortschrittsbalken-Modus -->
         <div class="calc-action-card secondary" onclick="activateTrackerMode(true)">
           <div class="calc-action-card-header">
-            <span class="calc-action-badge secondary">🎯 Freie Markenwahl</span>
-            <h4>📊 Selbst zusammenstellen mit Fortschrittsbalken</h4>
+            <span class="calc-action-badge secondary">
+              <svg class="icon-svg" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+              Freie Markenwahl
+            </span>
+            <h4>
+              <svg class="icon-svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+              Selbst zusammenstellen mit Fortschrittsbalken
+            </h4>
           </div>
           <p>Wähle deine Lieblingsmarken unten selbst – der Live-Fortschrittsbalken zeigt dir auf einen Blick, ob dein Festbedarf gedeckt ist.</p>
           <button type="button" class="calc-tracker-btn" id="activateTrackerBtn">Bedarfs-Tracker aktivieren ↓</button>
@@ -2715,7 +2814,9 @@
     <div class="calc-tracker-panel" id="calcTrackerPanel" style="display:none;">
       <div class="calc-tracker-header">
         <div style="display:flex; align-items:center; gap:10px;">
-          <span style="font-size:1.4rem;">🎯</span>
+          <span style="display:inline-flex; align-items:center;">
+            <svg class="icon-svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+          </span>
           <div>
             <h3 style="font-size:1.05rem; font-weight:700; color:var(--primary); margin:0;">Bedarfs-Tracker für dein Fest</h3>
             <span style="font-size:0.8rem; color:var(--text-muted);" id="trackerSummaryText">Ziel: 25 Personen • 4 Std.</span>
@@ -2730,7 +2831,10 @@
       <div class="calc-tracker-grid">
         <div class="tracker-item" id="trackerItemMineral">
           <div class="tracker-item-head">
-            <span>💧 Mineralwasser</span>
+            <span style="display:inline-flex; align-items:center; gap:6px;">
+              <svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#0284C7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+              Mineralwasser
+            </span>
             <span class="tracker-val" id="trackerValMineral">0 / 18 L</span>
           </div>
           <div class="tracker-bar-bg">
@@ -2741,7 +2845,10 @@
 
         <div class="tracker-item" id="trackerItemSoft">
           <div class="tracker-item-head">
-            <span>🥤 Süssgetränke</span>
+            <span style="display:inline-flex; align-items:center; gap:6px;">
+              <svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#D97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 21h10l1.5-12H5.5L7 21z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="14" y1="3" x2="11" y2="9"/></svg>
+              Süssgetränke
+            </span>
             <span class="tracker-val" id="trackerValSoft">0 / 16 L</span>
           </div>
           <div class="tracker-bar-bg">
@@ -2752,7 +2859,10 @@
 
         <div class="tracker-item" id="trackerItemBeer">
           <div class="tracker-item-head">
-            <span>🍺 Bier</span>
+            <span style="display:inline-flex; align-items:center; gap:6px;">
+              <svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#B45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h10v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8z"/><path d="M15 10h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-3"/><path d="M5 8a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2"/></svg>
+              Bier
+            </span>
             <span class="tracker-val" id="trackerValBeer">0 / 16 L</span>
           </div>
           <div class="tracker-bar-bg">
@@ -2763,7 +2873,10 @@
 
         <div class="tracker-item" id="trackerItemWine">
           <div class="tracker-item-head">
-            <span>🍷 Wein / Schaumwein</span>
+            <span style="display:inline-flex; align-items:center; gap:6px;">
+              <svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#991B1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22h8"/><path d="M12 15v7"/><path d="M7 3h10c0 4.5-2.5 8-5 8s-5-3.5-5-8z"/></svg>
+              Wein / Schaumwein
+            </span>
             <span class="tracker-val" id="trackerValWine">0 / 6 Fl.</span>
           </div>
           <div class="tracker-bar-bg">
@@ -2777,7 +2890,7 @@
     <!-- Schnell-Zuklapp-Leiste unten -->
     <div class="calc-collapse-footer">
       <button type="button" class="calc-collapse-footer-btn" onclick="toggleDrinkCalculator(false)">
-        ▲ Rechner einklappen (Auswahl unten fortsetzen)
+        <svg class="icon-svg sfb-chevron-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg> Rechner einklappen (Auswahl unten fortsetzen)
       </button>
     </div>
   </div>
@@ -3012,7 +3125,10 @@
 <div class="overlay" id="adminCalcStandardsOverlay" onclick="if(event.target.id==='adminCalcStandardsOverlay') closeCalcStandardsModal()">
   <div class="sheet" style="max-width: 680px; max-height: 90vh; overflow-y: auto;">
     <div class="sheet-head">
-      <h2>⚙️ Standard-Produkte für Getränkerechner festlegen</h2>
+      <h2 style="display:inline-flex; align-items:center; gap:8px;">
+        <svg class="icon-svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        Standard-Produkte für Getränkerechner festlegen
+      </h2>
       <button class="sheet-close" onclick="closeCalcStandardsModal()">✕</button>
     </div>
     
@@ -3023,10 +3139,18 @@
 
       <!-- Event Tabs -->
       <div style="display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap; border-bottom:1px solid var(--border); padding-bottom:12px;">
-        <button type="button" class="admin-tab-btn active" id="tabBtn_grillfest" onclick="switchAdminStandardsTab('grillfest')">🍖 Grillfest</button>
-        <button type="button" class="admin-tab-btn" id="tabBtn_apero" onclick="switchAdminStandardsTab('apero')">🥂 Apéro</button>
-        <button type="button" class="admin-tab-btn" id="tabBtn_party" onclick="switchAdminStandardsTab('party')">🎉 Party</button>
-        <button type="button" class="admin-tab-btn" id="tabBtn_family" onclick="switchAdminStandardsTab('family')">👨‍👩‍👧 Familie</button>
+        <button type="button" class="admin-tab-btn active" id="tabBtn_grillfest" onclick="switchAdminStandardsTab('grillfest')">
+          <svg class="icon-svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg> Grillfest
+        </button>
+        <button type="button" class="admin-tab-btn" id="tabBtn_apero" onclick="switchAdminStandardsTab('apero')">
+          <svg class="icon-svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22h8"/><path d="M12 15v7"/><path d="M7 4h10l-1 5a4 4 0 0 1-8 0L7 4z"/><line x1="5" y1="2" x2="19" y2="2"/></svg> Apéro
+        </button>
+        <button type="button" class="admin-tab-btn" id="tabBtn_party" onclick="switchAdminStandardsTab('party')">
+          <svg class="icon-svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Party
+        </button>
+        <button type="button" class="admin-tab-btn" id="tabBtn_family" onclick="switchAdminStandardsTab('family')">
+          <svg class="icon-svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Familie
+        </button>
       </div>
 
       <!-- Slots Container for 4 Categories (rendered dynamically) -->
@@ -3034,10 +3158,14 @@
       </div>
 
       <div style="display:flex; justify-content:space-between; align-items:center; margin-top:20px; padding-top:14px; border-top:1px solid var(--border); flex-wrap:wrap; gap:10px;">
-        <button type="button" onclick="resetCalcStandardsToDefault()" style="background:#FEE2E2; color:#991B1B; border:1px solid #FCA5A5; padding:8px 14px; border-radius:6px; font-size:0.82rem; font-weight:600; cursor:pointer;">↩️ Auf Landi-Standard zurücksetzen</button>
+        <button type="button" onclick="resetCalcStandardsToDefault()" style="background:#FEE2E2; color:#991B1B; border:1px solid #FCA5A5; padding:8px 14px; border-radius:6px; font-size:0.82rem; font-weight:600; cursor:pointer; display:inline-flex; align-items:center; gap:6px;">
+          <svg class="icon-svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg> Auf Landi-Standard zurücksetzen
+        </button>
         <div style="display:flex; gap:8px;">
           <button type="button" class="secondary" onclick="closeCalcStandardsModal()" style="padding:8px 14px; font-size:0.85rem;">Abbrechen</button>
-          <button type="button" class="primary" onclick="saveCalcStandardsFromModal()" style="padding:8px 18px; font-size:0.85rem; font-weight:700;">💾 Einstellungen speichern</button>
+          <button type="button" class="primary" onclick="saveCalcStandardsFromModal()" style="padding:8px 18px; font-size:0.85rem; font-weight:700; display:inline-flex; align-items:center; gap:6px;">
+            <svg class="icon-svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> Einstellungen speichern
+          </button>
         </div>
       </div>
     </div>
@@ -5203,13 +5331,32 @@ try {
   calcStandards = JSON.parse(JSON.stringify(DEFAULT_CALCULATOR_STANDARDS));
 }
 
+// Reusable SVG Icons für Rechner und Tracker (Keine Emojis)
+const CALC_SVGS = {
+  target: `<svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>`,
+  calculator: `<svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="16" y1="14" x2="16" y2="14.01"/><line x1="12" y1="14" x2="12" y2="14.01"/><line x1="8" y1="14" x2="8" y2="14.01"/><line x1="16" y1="18" x2="16" y2="18.01"/><line x1="12" y1="18" x2="12" y2="18.01"/><line x1="8" y1="18" x2="8" y2="18.01"/></svg>`,
+  chevronDown: `<svg class="icon-svg sfb-chevron-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>`,
+  chevronUp: `<svg class="icon-svg sfb-chevron-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>`,
+  mineral: `<svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#0284C7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>`,
+  soft: `<svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#D97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 21h10l1.5-12H5.5L7 21z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="14" y1="3" x2="11" y2="9"/></svg>`,
+  beer: `<svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#B45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h10v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8z"/><path d="M15 10h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-3"/><path d="M5 8a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2"/></svg>`,
+  wine: `<svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#991B1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22h8"/><path d="M12 15v7"/><path d="M7 3h10c0 4.5-2.5 8-5 8s-5-3.5-5-8z"/></svg>`,
+  grillfest: `<svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#DC2626" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>`,
+  apero: `<svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#D97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22h8"/><path d="M12 15v7"/><path d="M7 4h10l-1 5a4 4 0 0 1-8 0L7 4z"/><line x1="5" y1="2" x2="19" y2="2"/></svg>`,
+  party: `<svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#9333EA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`,
+  family: `<svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#16A34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+  check: `<svg class="icon-svg check-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#10B981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`,
+  checkDone: `<svg class="icon-svg" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="#166534" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="8 12 11 15 16 9"/></svg>`,
+  refresh: `<svg class="icon-svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>`
+};
+
 // Rechner-Zustand
 let calcEventType = "grillfest";
 let calcGuests = 25;
 let calcHours = 4;
 let calcHotWeather = false;
 let calcTrackerActive = false;
-let isDrinkCalcCollapsed = false;
+let isDrinkCalcCollapsed = true;
 
 // Berechnete Soll-Ziele
 let calcTargets = {
@@ -5464,7 +5611,7 @@ function updateCalculatorTracker() {
   const itemMin = document.getElementById("trackerItemMineral");
   if (statMin) {
     if (minPct >= 100) {
-      statMin.innerHTML = "<span>✓ Gedeckt</span>";
+      statMin.innerHTML = `<span style="display:inline-flex; align-items:center; gap:4px; color:#059669;">${CALC_SVGS.check} Gedeckt</span>`;
       if (itemMin) itemMin.classList.add("completed");
     } else {
       const diff = Math.round(minTgt - cart.mineralLiters);
@@ -5481,7 +5628,7 @@ function updateCalculatorTracker() {
   const itemSoft = document.getElementById("trackerItemSoft");
   if (statSoft) {
     if (softPct >= 100) {
-      statSoft.innerHTML = "<span>✓ Gedeckt</span>";
+      statSoft.innerHTML = `<span style="display:inline-flex; align-items:center; gap:4px; color:#059669;">${CALC_SVGS.check} Gedeckt</span>`;
       if (itemSoft) itemSoft.classList.add("completed");
     } else {
       const diff = Math.round(softTgt - cart.softLiters);
@@ -5498,7 +5645,7 @@ function updateCalculatorTracker() {
   const itemBeer = document.getElementById("trackerItemBeer");
   if (statBeer) {
     if (beerPct >= 100) {
-      statBeer.innerHTML = "<span>✓ Gedeckt</span>";
+      statBeer.innerHTML = `<span style="display:inline-flex; align-items:center; gap:4px; color:#059669;">${CALC_SVGS.check} Gedeckt</span>`;
       if (itemBeer) itemBeer.classList.add("completed");
     } else {
       const diff = Math.round(beerTgt - cart.beerLiters);
@@ -5515,7 +5662,7 @@ function updateCalculatorTracker() {
   const itemWine = document.getElementById("trackerItemWine");
   if (statWine) {
     if (winePct >= 100) {
-      statWine.innerHTML = "<span>✓ Gedeckt</span>";
+      statWine.innerHTML = `<span style="display:inline-flex; align-items:center; gap:4px; color:#059669;">${CALC_SVGS.check} Gedeckt</span>`;
       if (itemWine) itemWine.classList.add("completed");
     } else {
       const diff = wineTgt - cart.wineBottles;
@@ -5541,7 +5688,7 @@ function updateCalculatorTracker() {
   const overallEl = document.getElementById("trackerOverallStatus");
   if (overallEl) {
     if (coveredCount === totalTracked) {
-      overallEl.textContent = `🎉 Perfekt! Alle ${totalTracked} Bereiche gedeckt`;
+      overallEl.innerHTML = `<span style="display:inline-flex; align-items:center; gap:5px;">${CALC_SVGS.checkDone} Alle ${totalTracked} Bereiche gedeckt</span>`;
       overallEl.style.background = "#DCFCE7";
       overallEl.style.color = "#166534";
       overallEl.style.borderColor = "#86EFAC";
@@ -5562,7 +5709,7 @@ function updateCalculatorTracker() {
   const sfbColMin = document.getElementById("sfbColMineral");
   if (sfbSubMin) {
     if (minPct >= 100) {
-      sfbSubMin.textContent = "✓ 100% Gedeckt";
+      sfbSubMin.innerHTML = `<span style="display:inline-flex; align-items:center; gap:4px; color:#059669;">${CALC_SVGS.check} 100% Gedeckt</span>`;
       if (sfbColMin) sfbColMin.classList.add("completed");
     } else {
       const diff = Math.round(minTgt - cart.mineralLiters);
@@ -5579,7 +5726,7 @@ function updateCalculatorTracker() {
   const sfbColSoft = document.getElementById("sfbColSoft");
   if (sfbSubSoft) {
     if (softPct >= 100) {
-      sfbSubSoft.textContent = "✓ 100% Gedeckt";
+      sfbSubSoft.innerHTML = `<span style="display:inline-flex; align-items:center; gap:4px; color:#059669;">${CALC_SVGS.check} 100% Gedeckt</span>`;
       if (sfbColSoft) sfbColSoft.classList.add("completed");
     } else {
       const diff = Math.round(softTgt - cart.softLiters);
@@ -5596,7 +5743,7 @@ function updateCalculatorTracker() {
   const sfbColBeer = document.getElementById("sfbColBeer");
   if (sfbSubBeer) {
     if (beerTgt === 0 || beerPct >= 100) {
-      sfbSubBeer.textContent = beerTgt === 0 ? "Alkoholfrei" : "✓ 100% Gedeckt";
+      sfbSubBeer.innerHTML = beerTgt === 0 ? "Alkoholfrei" : `<span style="display:inline-flex; align-items:center; gap:4px; color:#059669;">${CALC_SVGS.check} 100% Gedeckt</span>`;
       if (sfbColBeer) sfbColBeer.classList.add("completed");
     } else {
       const diff = Math.round(beerTgt - cart.beerLiters);
@@ -5613,7 +5760,7 @@ function updateCalculatorTracker() {
   const sfbColWine = document.getElementById("sfbColWine");
   if (sfbSubWine) {
     if (wineTgt === 0 || winePct >= 100) {
-      sfbSubWine.textContent = wineTgt === 0 ? "Alkoholfrei" : "✓ 100% Gedeckt";
+      sfbSubWine.innerHTML = wineTgt === 0 ? "Alkoholfrei" : `<span style="display:inline-flex; align-items:center; gap:4px; color:#059669;">${CALC_SVGS.check} 100% Gedeckt</span>`;
       if (sfbColWine) sfbColWine.classList.add("completed");
     } else {
       const diff = wineTgt - cart.wineBottles;
@@ -5625,7 +5772,7 @@ function updateCalculatorTracker() {
   const sfbBadge = document.getElementById("sfbStatusBadge");
   if (sfbBadge) {
     if (coveredCount === totalTracked) {
-      sfbBadge.textContent = `🎉 Alle ${totalTracked} Bereiche gedeckt`;
+      sfbBadge.innerHTML = `<span style="display:inline-flex; align-items:center; gap:5px;">${CALC_SVGS.checkDone} Alle ${totalTracked} Bereiche gedeckt</span>`;
       sfbBadge.classList.add("all-done");
     } else {
       sfbBadge.textContent = `${coveredCount} von ${totalTracked} Bereichen gedeckt`;
@@ -5698,7 +5845,7 @@ function applyCalculatorStandardProducts() {
   updateSummaryBar();
   activateTrackerMode(false);
 
-  showCalculatorToast(`🎉 Mengen für ${calcGuests} Personen (${calcHours} Std.) übernommen!`);
+  showCalculatorToast(`Mengen für ${calcGuests} Personen (${calcHours} Std.) übernommen!`);
 
   const catEl = document.getElementById("categories");
   if (catEl) {
@@ -5716,7 +5863,7 @@ function activateTrackerMode(shouldScroll) {
   updateCalculatorTracker();
 
   if (shouldScroll) {
-    showCalculatorToast("🎯 Bedarfs-Tracker aktiv: Wähle jetzt unten deine Produkte!");
+    showCalculatorToast("Bedarfs-Tracker aktiv: Wähle jetzt unten deine Produkte!");
     const catEl = document.getElementById("categories");
     if (catEl) {
       setTimeout(() => {
@@ -5751,9 +5898,9 @@ function toggleDrinkCalculator(forceState) {
   if (isDrinkCalcCollapsed) {
     calcSec.classList.add("is-collapsed");
     body.style.display = "none";
-    if (icon) icon.textContent = "▼";
+    if (icon) icon.innerHTML = CALC_SVGS.chevronDown;
     if (btnText) btnText.textContent = "Rechner aufklappen";
-    if (btnIcon) btnIcon.textContent = "▼";
+    if (btnIcon) btnIcon.innerHTML = CALC_SVGS.chevronDown;
     if (summaryBadge) {
       updateCollapsedSummary();
       summaryBadge.style.display = "inline-flex";
@@ -5762,9 +5909,9 @@ function toggleDrinkCalculator(forceState) {
   } else {
     calcSec.classList.remove("is-collapsed");
     body.style.display = "block";
-    if (icon) icon.textContent = "▲";
+    if (icon) icon.innerHTML = CALC_SVGS.chevronUp;
     if (btnText) btnText.textContent = "Zuklappen";
-    if (btnIcon) btnIcon.textContent = "▲";
+    if (btnIcon) btnIcon.innerHTML = CALC_SVGS.chevronUp;
     if (summaryBadge) summaryBadge.style.display = "none";
     if (subText) subText.style.display = "block";
   }
@@ -5775,14 +5922,14 @@ function toggleDrinkCalculator(forceState) {
 function updateCollapsedSummary() {
   const badge = document.getElementById("calcCollapsedSummary");
   if (!badge) return;
-  const eventIcons = {
-    grillfest: "🍖 Grillfest",
-    apero: "🥂 Apéro",
-    party: "🎉 Party",
-    family: "👨‍👩‍👧 Familie"
+  const eventLabels = {
+    grillfest: `${CALC_SVGS.grillfest} <span>Grillfest</span>`,
+    apero: `${CALC_SVGS.apero} <span>Apéro</span>`,
+    party: `${CALC_SVGS.party} <span>Party</span>`,
+    family: `${CALC_SVGS.family} <span>Familie</span>`
   };
-  const evName = eventIcons[calcEventType] || "Anlass";
-  badge.innerHTML = `<strong>${evName}</strong> • ${calcGuests} Pers. • ${calcHours} Std. <span style="opacity:0.4; margin:0 4px;">|</span> Bedarf: 💧 ${calcTargets.mineralLiters}L • 🥤 ${calcTargets.softLiters}L • 🍺 ${calcTargets.beerLiters}L • 🍷 ${calcTargets.wineBottles} Fl.`;
+  const evHtml = eventLabels[calcEventType] || "<span>Anlass</span>";
+  badge.innerHTML = `<strong style="display:inline-flex; align-items:center; gap:5px;">${evHtml}</strong> • ${calcGuests} Pers. • ${calcHours} Std. <span style="opacity:0.35; margin:0 5px;">|</span> <span class="calc-sum-pill">${CALC_SVGS.mineral} ${calcTargets.mineralLiters} L</span> <span class="calc-sum-pill">${CALC_SVGS.soft} ${calcTargets.softLiters} L</span> <span class="calc-sum-pill">${CALC_SVGS.beer} ${calcTargets.beerLiters} L</span> <span class="calc-sum-pill">${CALC_SVGS.wine} ${calcTargets.wineBottles} Fl.</span>`;
 }
 
 function checkStickyTrackerVisibility() {
@@ -5912,10 +6059,10 @@ function renderAdminStandardsSlots() {
 
   const std = calcStandards[activeAdminStandardsTab] || DEFAULT_CALCULATOR_STANDARDS[activeAdminStandardsTab];
   const categoriesDef = [
-    { key: "mineral", name: "Mineralwasser", icon: "💧" },
-    { key: "soft", name: "Süssgetränke / Eistee", icon: "🥤" },
-    { key: "beer", name: "Bier", icon: "🍺" },
-    { key: "wine", name: "Wein / Schaumwein", icon: "🍷" }
+    { key: "mineral", name: "Mineralwasser", icon: CALC_SVGS.mineral },
+    { key: "soft", name: "Süssgetränke / Eistee", icon: CALC_SVGS.soft },
+    { key: "beer", name: "Bier", icon: CALC_SVGS.beer },
+    { key: "wine", name: "Wein / Schaumwein", icon: CALC_SVGS.wine }
   ];
 
   container.innerHTML = categoriesDef.map(cat => {
@@ -5930,22 +6077,22 @@ function renderAdminStandardsSlots() {
       <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-sm); padding:14px; display:flex; flex-direction:column; gap:10px;">
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
           <div style="display:flex; align-items:center; gap:12px;">
-            <span style="font-size:1.8rem; line-height:1;">${cat.icon}</span>
+            <span style="font-size:1.8rem; line-height:1; display:inline-flex; align-items:center;">${cat.icon}</span>
             <div>
               <div style="font-size:0.75rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px;">Standard für ${cat.name}</div>
               <strong style="font-size:0.95rem; color:var(--text); display:block;">${prodName}</strong>
               ${p ? `<span style="font-size:0.8rem; color:var(--text-muted);">${prodArt} • ${prodPrice}</span>` : ''}
             </div>
           </div>
-          <button type="button" onclick="startChangeAdminSlot('${cat.key}')" style="background:#0284C7; color:white; border:none; padding:7px 14px; border-radius:6px; font-size:0.82rem; font-weight:600; cursor:pointer;">
-            ${isChanging ? 'Abbrechen' : '🔄 Produkt ändern'}
+          <button type="button" onclick="startChangeAdminSlot('${cat.key}')" style="background:#0284C7; color:white; border:none; padding:7px 14px; border-radius:6px; font-size:0.82rem; font-weight:600; cursor:pointer; display:inline-flex; align-items:center; gap:6px;">
+            ${isChanging ? 'Abbrechen' : `${CALC_SVGS.refresh} Produkt ändern`}
           </button>
         </div>
 
         ${isChanging ? `
           <div style="margin-top:6px; padding-top:10px; border-top:1px dashed var(--border); position:relative;">
             <label style="font-size:0.78rem; font-weight:700; color:var(--text-muted); display:block; margin-bottom:4px;">Landi-Produkt suchen:</label>
-            <input type="text" id="adminSlotSearchInput_${cat.key}" placeholder="🔍 Name oder Art.-Nr. tippen…" oninput="filterAdminSlotSearch(this.value, '${cat.key}')" style="width:100%; padding:8px 12px; border-radius:6px; border:1px solid var(--border); font-size:0.86rem; background:var(--card); color:var(--text);" autocomplete="off">
+            <input type="text" id="adminSlotSearchInput_${cat.key}" placeholder="Name oder Art.-Nr. tippen…" oninput="filterAdminSlotSearch(this.value, '${cat.key}')" style="width:100%; padding:8px 12px; border-radius:6px; border:1px solid var(--border); font-size:0.86rem; background:var(--card); color:var(--text);" autocomplete="off">
             <div id="adminSlotSearchResults_${cat.key}" style="margin-top:4px; max-height:190px; overflow-y:auto; background:var(--card); border:1px solid var(--border); border-radius:6px; box-shadow:0 8px 24px rgba(0,0,0,0.15);"></div>
           </div>
         ` : ''}
@@ -6031,7 +6178,7 @@ function saveCalcStandardsFromModal() {
   localStorage.setItem("landi_calc_standards", JSON.stringify(calcStandards));
   closeCalcStandardsModal();
   recalculateCalcNeeds();
-  showCalculatorToast("💾 Standard-Produkte für den Rechner gespeichert!");
+  showCalculatorToast("Standard-Produkte für den Rechner gespeichert!");
 }
 
 function resetCalcStandardsToDefault() {
@@ -6040,7 +6187,7 @@ function resetCalcStandardsToDefault() {
     localStorage.removeItem("landi_calc_standards");
     renderAdminStandardsSlots();
     recalculateCalcNeeds();
-    showCalculatorToast("↩️ Standards erfolgreich zurückgesetzt.");
+    showCalculatorToast("Standards erfolgreich zurückgesetzt.");
   }
 }
 
