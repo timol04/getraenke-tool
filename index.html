@@ -1259,9 +1259,6 @@
     gap: 4px;
     font-size: 11px;
     font-weight: 600;
-    color: var(--green);
-    background: var(--green-light);
-    border: 1px solid #d4e7cb;
     padding: 2px 8px;
     border-radius: var(--radius-full);
     margin-left: 6px;
@@ -1269,11 +1266,17 @@
     letter-spacing: 0.03em;
     text-transform: uppercase;
   }
-  .tag-top-angebot::before {
-    content: "★";
-    font-size: 10px;
+  .tag, .tag-eigenmarke {
     color: var(--green);
+    background: var(--green-light);
+    border: 1px solid #d4e7cb;
   }
+  .tag-top-angebot {
+    color: #1d4ed8;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+  }
+  .tag-top-angebot::before,
   .tag-eigenmarke::before {
     content: "";
   }
@@ -3137,7 +3140,7 @@ function renderAdminSortimentTable() {
       <tr style="${isDeact ? 'background:#FDF2F2; opacity:0.85;' : ''}">
         <td><strong>${escapeHtml(p.art)}</strong></td>
         <td>
-          <div style="font-weight:600; color:var(--text);">${escapeHtml(p.name)} ${p.eigenmarke ? '<span style="font-size:0.7rem; background:#E8F5E9; color:#1B5E20; padding:2px 6px; border-radius:4px; margin-left:4px; font-weight:700;">🏷️ Eigenmarke</span>' : ''} ${(p.topAngebot || p.deal) ? '<span style="font-size:0.7rem; background:#FEF3C7; color:#92400E; padding:2px 6px; border-radius:4px; margin-left:4px; font-weight:700;">⭐ Top</span>' : ''}</div>
+          <div style="font-weight:600; color:var(--text);">${escapeHtml(p.name)} ${p.eigenmarke ? '<span style="font-size:0.7rem; background:#E8F5E9; color:#1B5E20; padding:2px 6px; border-radius:4px; margin-left:4px; font-weight:700;">🏷️ Eigenmarke</span>' : ''} ${(p.topAngebot || p.deal) ? '<span style="font-size:0.7rem; background:#EFF6FF; color:#1D4ED8; border:1px solid #BFDBFE; padding:2px 6px; border-radius:4px; margin-left:4px; font-weight:700;">Top</span>' : ''}</div>
           <div style="font-size:0.75rem; color:var(--text-muted);">${escapeHtml(p.catName)} ${p.subCategory ? '• ' + escapeHtml(p.subCategory) : ''}</div>
         </td>
         <td><span style="font-size:0.8rem; background:var(--primary-light); padding:2px 6px; border-radius:6px;">${escapeHtml(p.gebinde || 'Standard')}</span></td>
