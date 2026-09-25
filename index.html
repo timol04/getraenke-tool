@@ -2365,7 +2365,7 @@
   <div class="header-content">
     <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:10px;">
       <div style="display:flex; align-items:center; gap:8px;">
-        <div class="brand-badge" style="margin-bottom:0;">LANDI GETRÄNKE-ZUSAMMENSTELLUNG</div>
+        <div class="brand-badge" id="brandBadge" onclick="handleBrandBadgeClick()" title="LANDI Getränke (3x tippen für Admin)" style="margin-bottom:0; cursor:pointer; user-select:none;">LANDI GETRÄNKE-ZUSAMMENSTELLUNG</div>
         <button onclick="openInfoModal()" class="info-icon-btn" title="Hinweise & Anleitungen anzeigen" aria-label="Informationen anzeigen" style="margin-bottom:0;">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
         </button>
@@ -2376,7 +2376,7 @@
           <svg class="moon-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
           <span id="themeToggleLabel">Design</span>
         </button>
-        <button id="editPricesBtn" onclick="toggleEditPricesMode()" style="background:rgba(255,255,255,0.14); color:white; border:1px solid rgba(255,255,255,0.28); border-radius:20px; padding:5px 14px; font-size:0.78rem; font-weight:600; cursor:pointer; transition:all 0.15s ease;">🔐 Admin Login</button>
+        <button id="editPricesBtn" onclick="toggleEditPricesMode()" style="display:none; background:rgba(255,255,255,0.14); color:white; border:1px solid rgba(255,255,255,0.28); border-radius:20px; padding:5px 14px; font-size:0.78rem; font-weight:600; cursor:pointer; transition:all 0.15s ease;">🔐 Admin</button>
       </div>
     </div>
     
@@ -3365,7 +3365,64 @@ if (supabaseClient) {
     updateAdminHeaderBtn();
     renderProducts();
   });
+// Geheime Admin-Zugänge: URL (#admin, ?admin, /admin), 3x Klick aufs Logo, Shortcut Alt+A
+let brandClickCount = 0;
+let brandClickTimer = null;
+function handleBrandBadgeClick() {
+  brandClickCount++;
+  clearTimeout(brandClickTimer);
+  brandClickTimer = setTimeout(() => {
+    brandClickCount = 0;
+  }, 750);
+  if (brandClickCount >= 3) {
+    brandClickCount = 0;
+    if (!isAdminAuthenticated) {
+      openAdminModal();
+    } else {
+      toggleEditPricesMode();
+    }
+  }
 }
+
+function checkAdminUrlTrigger() {
+  const hash = (window.location.hash || "").toLowerCase();
+  const search = (window.location.search || "").toLowerCase();
+  const path = (window.location.pathname || "").toLowerCase();
+
+  const isAdminRequested = hash.includes("admin") || 
+                           search.includes("admin") || 
+                           path.endsWith("/admin") || 
+                           path.endsWith("/admin/");
+
+  if (isAdminRequested) {
+    if (!isAdminAuthenticated) {
+      setTimeout(() => {
+        openAdminModal();
+      }, 350);
+    } else {
+      toggleEditPricesMode(true);
+    }
+  }
+}
+
+window.addEventListener("hashchange", checkAdminUrlTrigger);
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", checkAdminUrlTrigger);
+} else {
+  setTimeout(checkAdminUrlTrigger, 150);
+}
+
+window.addEventListener("keydown", (e) => {
+  if ((e.altKey && (e.key === "a" || e.key === "A")) || 
+      (e.ctrlKey && e.shiftKey && (e.key === "a" || e.key === "A"))) {
+    e.preventDefault();
+    if (!isAdminAuthenticated) {
+      openAdminModal();
+    } else {
+      toggleEditPricesMode();
+    }
+  }
+});
 
 function getAdminToken() {
   return localStorage.getItem(TOKEN_KEY) || DEFAULT_GH_TOKEN || "";
@@ -3516,6 +3573,11 @@ async function logoutAdmin() {
   updateAdminHeaderBtn();
   renderProducts();
   showAdminToast("info", "Erfolgreich abgemeldet");
+  if (window.location.hash.toLowerCase().includes("admin")) {
+    try {
+      history.replaceState(null, "", window.location.pathname + window.location.search);
+    } catch (e) {}
+  }
 }
 
 let editingProductArt = null;
@@ -3953,14 +4015,15 @@ function updateAdminHeaderBtn() {
   const btn = document.getElementById("editPricesBtn");
   if (!btn) return;
   if (isEditPricesMode && isAdminAuthenticated) {
+    btn.style.display = "inline-flex";
     btn.textContent = "✅ Bearbeiten beenden";
     btn.style.background = "#B45309";
   } else if (isAdminAuthenticated) {
+    btn.style.display = "inline-flex";
     btn.textContent = "✏️ Preise bearbeiten";
     btn.style.background = "rgba(255,255,255,0.14)";
   } else {
-    btn.textContent = "🔐 Admin Login";
-    btn.style.background = "rgba(255,255,255,0.14)";
+    btn.style.display = "none";
   }
 }
 
