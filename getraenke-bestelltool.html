@@ -1439,40 +1439,255 @@
     color: #059669;
   }
 
-  /* Floating Mini-Tracker Bar */
-  .floating-tracker-bar {
-    position: fixed;
-    top: 16px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1000;
-    background: rgba(31, 58, 46, 0.94);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    color: #FFFFFF;
-    border-radius: 40px;
-    padding: 8px 18px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  /* =========================================================================
+     COLLAPSIBLE GETRÄNKE-RECHNER
+     ========================================================================= */
+  .calc-toggle-header {
+    cursor: pointer;
+    user-select: none;
+    padding: 6px 8px;
+    margin: -6px -8px 18px -8px;
+    border-radius: var(--radius);
+    transition: background 0.18s ease;
+  }
+  .calc-toggle-header:hover {
+    background: rgba(31, 58, 46, 0.04);
+  }
+  .calc-section.is-collapsed {
+    padding: 14px 20px;
+    margin-bottom: 22px;
+  }
+  .calc-section.is-collapsed .calc-toggle-header {
+    margin-bottom: 0;
+  }
+  .calc-header-right {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .calc-toggle-btn {
+    background: rgba(31, 58, 46, 0.08);
+    color: var(--primary);
+    border: 1px solid var(--border);
+    padding: 7px 16px;
+    border-radius: 20px;
+    font-size: 0.84rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.18s ease;
+    font-family: inherit;
+  }
+  .calc-toggle-btn:hover {
+    background: var(--primary);
+    color: #ffffff;
+    border-color: var(--primary);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(31, 58, 46, 0.2);
+  }
+  .calc-toggle-icon {
+    display: inline-block;
+    font-size: 0.85rem;
+    transition: transform 0.25s ease;
+    color: var(--accent);
+    margin-left: 6px;
+  }
+  .calc-collapsed-summary {
+    display: inline-flex;
+    align-items: center;
+    background: var(--accent-light);
+    border: 1px solid var(--accent-border);
+    color: var(--accent-dark);
     font-size: 0.82rem;
     font-weight: 600;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    max-width: 95vw;
-    cursor: pointer;
+    padding: 4px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.2px;
+    line-height: 1.4;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
   }
-  .floating-tracker-pill {
+  .calc-collapsible-body {
+    transition: all 0.3s ease;
+  }
+  .calc-collapse-footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px dashed var(--border);
+  }
+  .calc-collapse-footer-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 7px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    font-family: inherit;
+  }
+  .calc-collapse-footer-btn:hover {
+    background: var(--card);
+    color: var(--primary);
+    border-color: var(--primary);
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* =========================================================================
+     STICKY HEADER BEDARFS-TRACKER (oben fest verankert beim Scrollen)
+     ========================================================================= */
+  .header-sticky-tracker {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    margin-top: 0;
+    pointer-events: none;
+    transition: max-height 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), 
+                opacity 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), 
+                margin-top 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .header-sticky-tracker.visible {
+    max-height: 120px;
+    opacity: 1;
+    margin-top: 10px;
+    pointer-events: auto;
+  }
+  .header-tracker-inner {
+    background: rgba(15, 30, 24, 0.85);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 12px;
+    padding: 8px 14px 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  }
+  .header-tracker-lead {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+    gap: 8px;
+  }
+  .header-tracker-title-row {
     display: flex;
     align-items: center;
-    gap: 4px;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 3px 8px;
-    border-radius: 12px;
+    gap: 8px;
   }
-  .floating-tracker-pill.done {
-    background: rgba(16, 185, 129, 0.25);
-    color: #34D399;
+  .header-tracker-icon {
+    font-size: 1rem;
+    line-height: 1;
+  }
+  .header-tracker-title {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    letter-spacing: 0.2px;
+  }
+  .header-tracker-badge {
+    background: rgba(201, 162, 39, 0.25);
+    border: 1px solid rgba(201, 162, 39, 0.5);
+    color: #FCD34D;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+  }
+  .header-tracker-badge.all-done {
+    background: rgba(52, 211, 153, 0.28);
+    border-color: rgba(52, 211, 153, 0.7);
+    color: #6EE7B7;
+  }
+  .header-tracker-rechner-btn {
+    background: rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: #FFFFFF;
+    font-size: 0.74rem;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 12px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.15s ease;
+    font-family: inherit;
+  }
+  .header-tracker-rechner-btn:hover {
+    background: rgba(255, 255, 255, 0.28);
+    transform: translateY(-1px);
+  }
+  .header-tracker-items {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+  .header-tracker-col {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 4px 8px;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    text-align: left;
+  }
+  .header-tracker-col:hover {
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+  .header-tracker-col.completed {
+    background: rgba(16, 185, 129, 0.18);
+    border-color: rgba(52, 211, 153, 0.5);
+  }
+  .header-tracker-col-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.92);
+    margin-bottom: 3px;
+  }
+  .header-tracker-col-head strong {
+    font-size: 0.74rem;
+    font-weight: 700;
+    color: #FCD34D;
+  }
+  .header-tracker-col.completed .header-tracker-col-head strong {
+    color: #6EE7B7;
+  }
+  .header-tracker-col-bar {
+    background: rgba(255, 255, 255, 0.2);
+    height: 4px;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .header-tracker-col-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #F59E0B, #10B981);
+    border-radius: 2px;
+    transition: width 0.25s ease;
+  }
+  .header-tracker-col.completed .header-tracker-col-fill {
+    background: #10B981;
+  }
+
+  @media (max-width: 640px) {
+    .header-tracker-items {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+    }
+    .header-sticky-tracker.visible {
+      max-height: 160px;
+    }
+    .calc-collapsed-summary {
+      font-size: 0.74rem;
+      padding: 3px 8px;
+    }
   }
 
   /* Admin Modal Tab Buttons */
@@ -1794,6 +2009,27 @@
       border-color: #10B981 !important;
     }
   }
+  body.dark-mode .calc-collapsed-summary,
+  @media (prefers-color-scheme: dark) {
+    body:not(.light-mode) .calc-collapsed-summary {
+      background: var(--bg-subtle) !important;
+      color: var(--accent) !important;
+      border-color: var(--border) !important;
+    }
+  }
+  body.dark-mode .calc-toggle-btn,
+  body.dark-mode .calc-collapse-footer-btn,
+  @media (prefers-color-scheme: dark) {
+    body:not(.light-mode) .calc-toggle-btn,
+    body:not(.light-mode) .calc-collapse-footer-btn {
+      background: var(--card) !important;
+      color: var(--text) !important;
+      border-color: var(--border) !important;
+    }
+    body:not(.light-mode) .calc-toggle-header:hover {
+      background: rgba(255, 255, 255, 0.04) !important;
+    }
+  }
   body.dark-mode .reset-top-btn,
   @media (prefers-color-scheme: dark) {
     body:not(.light-mode) .reset-top-btn {
@@ -2048,6 +2284,60 @@
       </svg>
       <input type="search" id="search" placeholder="Produkt oder Art.-Nr. suchen…" oninput="renderProducts()">
     </div>
+
+    <!-- STICKY BEDARFS-TRACKER (oben fest verankert beim Runterscrollen) -->
+    <div id="headerStickyTracker" class="header-sticky-tracker" aria-label="Bedarfs-Tracker oben">
+      <div class="header-tracker-inner">
+        <div class="header-tracker-lead">
+          <div class="header-tracker-title-row">
+            <span class="header-tracker-icon">🎯</span>
+            <span class="header-tracker-title">Bedarfs-Tracker</span>
+            <span id="headerTrackerStatusBadge" class="header-tracker-badge">0/4 gedeckt</span>
+          </div>
+          <button type="button" class="header-tracker-rechner-btn" onclick="scrollToAndOpenCalculator()" title="Zum Rechner springen und anpassen">
+            <span>Rechner</span> <span>▲</span>
+          </button>
+        </div>
+        <div class="header-tracker-items">
+          <div class="header-tracker-col" id="hdrTrackColMineral" onclick="scrollToCategorySection('mineral')" title="Zu Mineralwasser springen">
+            <div class="header-tracker-col-head">
+              <span>💧 Mineral</span>
+              <strong id="hdrTrackValMineral">0/18L</strong>
+            </div>
+            <div class="header-tracker-col-bar">
+              <div class="header-tracker-col-fill" id="hdrTrackFillMineral" style="width:0%;"></div>
+            </div>
+          </div>
+          <div class="header-tracker-col" id="hdrTrackColSoft" onclick="scrollToCategorySection('soft')" title="Zu Süssgetränken springen">
+            <div class="header-tracker-col-head">
+              <span>🥤 Softdrinks</span>
+              <strong id="hdrTrackValSoft">0/16L</strong>
+            </div>
+            <div class="header-tracker-col-bar">
+              <div class="header-tracker-col-fill" id="hdrTrackFillSoft" style="width:0%;"></div>
+            </div>
+          </div>
+          <div class="header-tracker-col" id="hdrTrackColBeer" onclick="scrollToCategorySection('beer')" title="Zu Bier springen">
+            <div class="header-tracker-col-head">
+              <span>🍺 Bier</span>
+              <strong id="hdrTrackValBeer">0/16L</strong>
+            </div>
+            <div class="header-tracker-col-bar">
+              <div class="header-tracker-col-fill" id="hdrTrackFillBeer" style="width:0%;"></div>
+            </div>
+          </div>
+          <div class="header-tracker-col" id="hdrTrackColWine" onclick="scrollToCategorySection('wine')" title="Zu Wein springen">
+            <div class="header-tracker-col-head">
+              <span>🍷 Wein</span>
+              <strong id="hdrTrackValWine">0/6Fl.</strong>
+            </div>
+            <div class="header-tracker-col-bar">
+              <div class="header-tracker-col-fill" id="hdrTrackFillWine" style="width:0%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </header>
 
@@ -2073,18 +2363,33 @@
     <strong>Hinweis zur Zusammenstellung:</strong> Preise und Verfügbarkeiten (insbesondere bei Top-Angeboten) können abweichen. Ihre Zusammenstellung wird erst nach unserer Bestätigung bearbeitet.
   </div>
 
-  <!-- GETRÄNKE- & EVENT-RECHNER -->
+  <!-- GETRÄNKE- & EVENT-RECHNER (Aufklappbar) -->
   <div class="calc-section" id="drinkCalculatorSection">
-    <div class="calc-header">
+    <div class="calc-header calc-toggle-header" onclick="toggleDrinkCalculator()" role="button" tabindex="0" title="Rechner auf- oder zuklappen">
       <div class="calc-header-left">
-        <span class="calc-badge">⚡ Schnellplanung</span>
-        <h2 class="calc-title">🧮 Getränke- & Event-Rechner</h2>
-        <p class="calc-sub">Wähle deinen Anlass und deine Gästezahl – berechne deinen Getränkebedarf und übernimm die Mengen direkt oder bestimme deine Lieblingsmarken mit Live-Fortschrittsbalken.</p>
+        <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:4px;">
+          <span class="calc-badge">⚡ Schnellplanung</span>
+          <div id="calcCollapsedSummary" class="calc-collapsed-summary" style="display:none;"></div>
+        </div>
+        <h2 class="calc-title">
+          <span>🧮 Getränke- & Event-Rechner</span>
+          <span class="calc-toggle-icon" id="calcToggleIcon">▲</span>
+        </h2>
+        <p class="calc-sub" id="calcSubText">Wähle deinen Anlass und deine Gästezahl – berechne deinen Getränkebedarf und übernimm die Mengen direkt oder bestimme deine Lieblingsmarken mit Live-Fortschrittsbalken.</p>
       </div>
-      <div id="adminCalcSettingsBtnContainer" style="display:none;">
-        <button onclick="openCalcStandardsModal()" class="admin-calc-btn">⚙️ Standard-Produkte anpassen</button>
+      <div class="calc-header-right" onclick="event.stopPropagation()">
+        <div id="adminCalcSettingsBtnContainer" style="display:none;">
+          <button onclick="openCalcStandardsModal()" class="admin-calc-btn">⚙️ Standard-Produkte anpassen</button>
+        </div>
+        <button type="button" class="calc-toggle-btn" id="calcToggleBtn" onclick="toggleDrinkCalculator()">
+          <span id="calcToggleBtnText">Zuklappen</span>
+          <span id="calcToggleBtnIcon">▲</span>
+        </button>
       </div>
     </div>
+
+    <!-- Einklappbarer Inhalt -->
+    <div class="calc-collapsible-body" id="calcCollapsibleBody">
 
     <!-- Step 1: Anlass -->
     <div class="calc-step-row">
@@ -2303,20 +2608,17 @@
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- FLOATING MINI-TRACKER (wenn man durch Sortiment scrollt) -->
-  <div id="floatingTrackerBar" class="floating-tracker-bar" style="display:none;" onclick="scrollToCalculator()">
-    <span style="font-size:1.1rem;">🎯</span>
-    <span style="font-weight:700; color:#FCD34D;">Festbedarf:</span>
-    <div class="floating-tracker-pill" id="floatPillMineral"><span>💧</span> <span id="floatTxtMineral">0%</span></div>
-    <div class="floating-tracker-pill" id="floatPillSoft"><span>🥤</span> <span id="floatTxtSoft">0%</span></div>
-    <div class="floating-tracker-pill" id="floatPillBeer"><span>🍺</span> <span id="floatTxtBeer">0%</span></div>
-    <div class="floating-tracker-pill" id="floatPillWine"><span>🍷</span> <span id="floatTxtWine">0%</span></div>
-    <span style="font-size:0.75rem; opacity:0.8; margin-left:4px; text-decoration:underline;">↑ Rechner</span>
+    <!-- Schnell-Zuklapp-Leiste unten -->
+    <div class="calc-collapse-footer">
+      <button type="button" class="calc-collapse-footer-btn" onclick="toggleDrinkCalculator(false)">
+        ▲ Rechner einklappen (Auswahl unten fortsetzen)
+      </button>
+    </div>
   </div>
+</div>
 
-  <div id="categories"></div>
+<div id="categories"></div>
 
   <div class="details-block">
     <h2>Angaben zur Abholung / Person (optional)</h2>
@@ -4742,6 +5044,7 @@ let calcGuests = 25;
 let calcHours = 4;
 let calcHotWeather = false;
 let calcTrackerActive = false;
+let isDrinkCalcCollapsed = false;
 
 // Berechnete Soll-Ziele
 let calcTargets = {
@@ -4930,6 +5233,7 @@ function recalculateCalcNeeds() {
   }
 
   updateCalculatorTracker();
+  updateCollapsedSummary();
 }
 
 // Aktuelle Mengen im Warenkorb nach den 4 Getränkegruppen auswerten
@@ -5080,26 +5384,47 @@ function updateCalculatorTracker() {
     }
   }
 
-  // Floating Mini-Tracker Bar aktualisieren
-  const floatMin = document.getElementById("floatTxtMineral");
-  const floatPillMin = document.getElementById("floatPillMineral");
-  if (floatMin) floatMin.textContent = minPct >= 100 ? "✓ 100%" : `${minPct}%`;
-  if (floatPillMin) floatPillMin.classList.toggle("done", minPct >= 100);
+  // Header Sticky Tracker aktualisieren
+  const hdrFillMin = document.getElementById("hdrTrackFillMineral");
+  if (hdrFillMin) hdrFillMin.style.width = Math.min(100, minPct) + "%";
+  const hdrValMin = document.getElementById("hdrTrackValMineral");
+  if (hdrValMin) hdrValMin.textContent = `${cart.mineralLiters}/${minTgt}L`;
+  const hdrColMin = document.getElementById("hdrTrackColMineral");
+  if (hdrColMin) hdrColMin.classList.toggle("completed", minPct >= 100);
 
-  const floatSoft = document.getElementById("floatTxtSoft");
-  const floatPillSoft = document.getElementById("floatPillSoft");
-  if (floatSoft) floatSoft.textContent = softPct >= 100 ? "✓ 100%" : `${softPct}%`;
-  if (floatPillSoft) floatPillSoft.classList.toggle("done", softPct >= 100);
+  const hdrFillSoft = document.getElementById("hdrTrackFillSoft");
+  if (hdrFillSoft) hdrFillSoft.style.width = Math.min(100, softPct) + "%";
+  const hdrValSoft = document.getElementById("hdrTrackValSoft");
+  if (hdrValSoft) hdrValSoft.textContent = `${cart.softLiters}/${softTgt}L`;
+  const hdrColSoft = document.getElementById("hdrTrackColSoft");
+  if (hdrColSoft) hdrColSoft.classList.toggle("completed", softPct >= 100);
 
-  const floatBeer = document.getElementById("floatTxtBeer");
-  const floatPillBeer = document.getElementById("floatPillBeer");
-  if (floatBeer) floatBeer.textContent = beerTgt === 0 || beerPct >= 100 ? "✓" : `${beerPct}%`;
-  if (floatPillBeer) floatPillBeer.classList.toggle("done", beerTgt === 0 || beerPct >= 100);
+  const hdrFillBeer = document.getElementById("hdrTrackFillBeer");
+  if (hdrFillBeer) hdrFillBeer.style.width = Math.min(100, beerPct) + "%";
+  const hdrValBeer = document.getElementById("hdrTrackValBeer");
+  if (hdrValBeer) hdrValBeer.textContent = beerTgt > 0 ? `${cart.beerLiters}/${beerTgt}L` : "Alkoholfrei";
+  const hdrColBeer = document.getElementById("hdrTrackColBeer");
+  if (hdrColBeer) hdrColBeer.classList.toggle("completed", beerTgt === 0 || beerPct >= 100);
 
-  const floatWine = document.getElementById("floatTxtWine");
-  const floatPillWine = document.getElementById("floatPillWine");
-  if (floatWine) floatWine.textContent = wineTgt === 0 || winePct >= 100 ? "✓" : `${winePct}%`;
-  if (floatPillWine) floatPillWine.classList.toggle("done", wineTgt === 0 || winePct >= 100);
+  const hdrFillWine = document.getElementById("hdrTrackFillWine");
+  if (hdrFillWine) hdrFillWine.style.width = Math.min(100, winePct) + "%";
+  const hdrValWine = document.getElementById("hdrTrackValWine");
+  if (hdrValWine) hdrValWine.textContent = wineTgt > 0 ? `${cart.wineBottles}/${wineTgt}Fl.` : "Alkoholfrei";
+  const hdrColWine = document.getElementById("hdrTrackColWine");
+  if (hdrColWine) hdrColWine.classList.toggle("completed", wineTgt === 0 || winePct >= 100);
+
+  const hdrBadge = document.getElementById("headerTrackerStatusBadge");
+  if (hdrBadge) {
+    if (coveredCount === totalTracked) {
+      hdrBadge.textContent = `✓ ${coveredCount}/${totalTracked} voll`;
+      hdrBadge.classList.add("all-done");
+    } else {
+      hdrBadge.textContent = `${coveredCount}/${totalTracked} gedeckt`;
+      hdrBadge.classList.remove("all-done");
+    }
+  }
+
+  updateCollapsedSummary();
 }
 
 // Option 1: Standard-Produkte mit 1 Klick übernehmen
@@ -5196,13 +5521,107 @@ function deactivateTrackerMode() {
   calcTrackerActive = false;
   const panel = document.getElementById("calcTrackerPanel");
   if (panel) panel.style.display = "none";
-  const floatBar = document.getElementById("floatingTrackerBar");
-  if (floatBar) floatBar.style.display = "none";
+}
+
+function toggleDrinkCalculator(forceState) {
+  const calcSec = document.getElementById("drinkCalculatorSection");
+  const body = document.getElementById("calcCollapsibleBody");
+  const icon = document.getElementById("calcToggleIcon");
+  const btnText = document.getElementById("calcToggleBtnText");
+  const btnIcon = document.getElementById("calcToggleBtnIcon");
+  const summaryBadge = document.getElementById("calcCollapsedSummary");
+  const subText = document.getElementById("calcSubText");
+  if (!calcSec || !body) return;
+
+  if (typeof forceState === "boolean") {
+    isDrinkCalcCollapsed = !forceState;
+  } else {
+    isDrinkCalcCollapsed = !isDrinkCalcCollapsed;
+  }
+
+  if (isDrinkCalcCollapsed) {
+    calcSec.classList.add("is-collapsed");
+    body.style.display = "none";
+    if (icon) icon.textContent = "▼";
+    if (btnText) btnText.textContent = "Rechner aufklappen";
+    if (btnIcon) btnIcon.textContent = "▼";
+    if (summaryBadge) {
+      updateCollapsedSummary();
+      summaryBadge.style.display = "inline-flex";
+    }
+    if (subText) subText.style.display = "none";
+  } else {
+    calcSec.classList.remove("is-collapsed");
+    body.style.display = "block";
+    if (icon) icon.textContent = "▲";
+    if (btnText) btnText.textContent = "Zuklappen";
+    if (btnIcon) btnIcon.textContent = "▲";
+    if (summaryBadge) summaryBadge.style.display = "none";
+    if (subText) subText.style.display = "block";
+  }
+
+  checkStickyTrackerVisibility();
+}
+
+function updateCollapsedSummary() {
+  const badge = document.getElementById("calcCollapsedSummary");
+  if (!badge) return;
+  const eventIcons = {
+    grillfest: "🍖 Grillfest",
+    apero: "🥂 Apéro",
+    party: "🎉 Party",
+    family: "👨‍👩‍👧 Familie"
+  };
+  const evName = eventIcons[calcEventType] || "Anlass";
+  badge.innerHTML = `<strong>${evName}</strong> • ${calcGuests} Pers. • ${calcHours} Std. <span style="opacity:0.4; margin:0 4px;">|</span> Bedarf: 💧 ${calcTargets.mineralLiters}L • 🥤 ${calcTargets.softLiters}L • 🍺 ${calcTargets.beerLiters}L • 🍷 ${calcTargets.wineBottles} Fl.`;
+}
+
+function checkStickyTrackerVisibility() {
+  const stickyTracker = document.getElementById("headerStickyTracker");
+  const calcSec = document.getElementById("drinkCalculatorSection");
+  if (!stickyTracker || !calcSec) return;
+
+  const rect = calcSec.getBoundingClientRect();
+  if (rect.bottom < 60) {
+    stickyTracker.classList.add("visible");
+  } else {
+    stickyTracker.classList.remove("visible");
+  }
+}
+
+function scrollToAndOpenCalculator() {
+  toggleDrinkCalculator(true); // Sicherstellen, dass Rechner offen ist
+  const el = document.getElementById("drinkCalculatorSection");
+  if (el) {
+    const yOffset = -70;
+    const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+    window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
+  }
+}
+
+function scrollToCategorySection(type) {
+  const catKeywords = {
+    mineral: "mineral",
+    soft: "süssgetränke",
+    beer: "bier",
+    wine: "wein"
+  };
+  const kw = catKeywords[type] || type;
+  const allDetails = document.querySelectorAll("details.category");
+  for (const det of allDetails) {
+    const name = (det.dataset.catName || "").toLowerCase();
+    if (name.includes(kw)) {
+      det.open = true;
+      const yOffset = -120;
+      const y = det.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
+      break;
+    }
+  }
 }
 
 function scrollToCalculator() {
-  const el = document.getElementById("drinkCalculatorSection");
-  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  scrollToAndOpenCalculator();
 }
 
 // Toast-Benachrichtigung
@@ -5409,6 +5828,8 @@ function initDrinkCalculator() {
   const adminCalcBtn = document.getElementById("adminCalcSettingsBtnContainer");
   if (adminCalcBtn) adminCalcBtn.style.display = isEditPricesMode ? "block" : "none";
   recalculateCalcNeeds();
+  updateCollapsedSummary();
+  checkStickyTrackerVisibility();
 }
 
 // Kompatibilitäts-Alias für frühere Aufrufe
@@ -5452,20 +5873,7 @@ window.addEventListener("scroll", () => {
         }
       }
 
-      const floatBar = document.getElementById("floatingTrackerBar");
-      const calcSec = document.getElementById("drinkCalculatorSection");
-      if (floatBar && calcSec) {
-        if (calcTrackerActive) {
-          const rect = calcSec.getBoundingClientRect();
-          if (rect.bottom < 50) {
-            floatBar.style.display = "flex";
-          } else {
-            floatBar.style.display = "none";
-          }
-        } else {
-          floatBar.style.display = "none";
-        }
-      }
+      checkStickyTrackerVisibility();
 
       scrollTicking = false;
     });
