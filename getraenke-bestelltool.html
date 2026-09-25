@@ -6,6 +6,7 @@
 <title>Landi Getränke-PDF-Tool</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
@@ -1592,8 +1593,8 @@
       </div>
       <div style="display:flex; gap:8px; flex-wrap:wrap;">
         <button onclick="openAdminSortimentModal()" style="background:#10B981; color:white; border:none; padding:8px 16px; border-radius:14px; font-weight:bold; font-size:0.86rem; cursor:pointer; box-shadow:0 2px 8px rgba(16,185,129,0.3);">📦 Sortiment verwalten (Neu / Löschen / Verbergen)</button>
-        <button id="saveGithubBtn" onclick="savePricesToGithub()" style="background:#0284C7; color:white; border:none; padding:8px 16px; border-radius:14px; font-weight:bold; font-size:0.86rem; cursor:pointer; box-shadow:0 2px 8px rgba(2,132,199,0.3); transition:all 0.15s ease;">☁️ Live auf GitHub speichern</button>
-        <button onclick="openTokenModal()" style="background:transparent; color:#92400E; border:1px solid #FCD34D; padding:8px 12px; border-radius:14px; font-weight:600; font-size:0.82rem; cursor:pointer;">⚙️ Token erneuern</button>
+        <button id="saveSupabaseBtn" onclick="savePricesToSupabase()" style="background:#0284C7; color:white; border:none; padding:8px 16px; border-radius:14px; font-weight:bold; font-size:0.86rem; cursor:pointer; box-shadow:0 2px 8px rgba(2,132,199,0.3); transition:all 0.15s ease;">☁️ In Supabase speichern</button>
+        <button id="seedSupabaseBtn" onclick="seedSupabaseFromBrowser()" style="background:#8B5CF6; color:white; border:none; padding:8px 16px; border-radius:14px; font-weight:bold; font-size:0.86rem; cursor:pointer; box-shadow:0 2px 8px rgba(139,92,246,0.3); transition:all 0.15s ease;">🚀 Sortiment in Supabase übertragen</button>
         <button onclick="downloadSortimentCsv()" style="background:#059669; color:white; border:none; padding:8px 16px; border-radius:14px; font-weight:bold; font-size:0.86rem; cursor:pointer; box-shadow:0 2px 8px rgba(5,150,105,0.3);">📥 CSV herunterladen</button>
         <button onclick="exportUpdatedJs()" style="background:#B45309; color:white; border:none; padding:8px 16px; border-radius:14px; font-weight:bold; font-size:0.86rem; cursor:pointer;">📋 Code kopieren</button>
         <button onclick="logoutAdmin()" style="background:transparent; color:#92400E; border:1px solid #FCD34D; padding:8px 12px; border-radius:14px; font-weight:600; font-size:0.82rem; cursor:pointer;">Abmelden</button>
@@ -1731,7 +1732,7 @@
       <div style="display:flex; gap:8px;">
         <button onclick="downloadSortimentCsv()" style="background:#059669; color:white; border:none; padding:8px 14px; border-radius:8px; font-weight:bold; font-size:0.86rem; cursor:pointer;">📥 CSV herunterladen</button>
         <button onclick="openAddProductModal()" style="background:#10B981; color:white; border:none; padding:8px 14px; border-radius:8px; font-weight:bold; font-size:0.86rem; cursor:pointer;">➕ Neues Produkt</button>
-        <button onclick="savePricesToGithub()" style="background:#0284C7; color:white; border:none; padding:8px 14px; border-radius:8px; font-weight:bold; font-size:0.86rem; cursor:pointer;">☁️ Auf GitHub speichern</button>
+        <button onclick="savePricesToSupabase()" style="background:#0284C7; color:white; border:none; padding:8px 14px; border-radius:8px; font-weight:bold; font-size:0.86rem; cursor:pointer;">☁️ In Supabase speichern</button>
       </div>
     </div>
 
@@ -1944,23 +1945,27 @@
 <div class="overlay" id="adminOverlay" onclick="handleAdminOverlayClick(event)">
   <div class="sheet" style="max-width: 440px;">
     <div class="sheet-head">
-      <h2>🔐 Admin Login (nur für Timo)</h2>
+      <h2>🔐 Admin Login (Supabase)</h2>
       <button class="sheet-close" onclick="closeAdminModal()">✕</button>
     </div>
     <form onsubmit="event.preventDefault(); loginAdmin();">
       <div style="margin-bottom: 16px; font-size: 0.9rem; color: var(--text-muted); line-height: 1.5;">
-        Gib das Admin-Passwort ein, um den Preis-Bearbeitungsmodus freizuschalten.
+        Melde dich mit deinem Supabase Admin-Account an, um Preise und Sortiment direkt in der Datenbank zu verwalten.
+      </div>
+      <div style="margin-bottom: 14px;">
+        <label style="display:block; font-size:0.82rem; font-weight:600; color:var(--text-muted); margin-bottom:6px;" for="adminEmailInput">Admin E-Mail:</label>
+        <input type="email" id="adminEmailInput" placeholder="admin@domain.ch" style="width:100%; padding:12px 14px; border-radius:var(--radius-sm); border:1px solid var(--border); font-size:0.95rem;">
       </div>
       <div style="margin-bottom: 18px;">
-        <label style="display:block; font-size:0.82rem; font-weight:600; color:var(--text-muted); margin-bottom:6px;" for="adminPasswordInput">Admin-Passwort:</label>
+        <label style="display:block; font-size:0.82rem; font-weight:600; color:var(--text-muted); margin-bottom:6px;" for="adminPasswordInput">Passwort:</label>
         <input type="password" id="adminPasswordInput" placeholder="Passwort eingeben…" style="width:100%; padding:12px 14px; border-radius:var(--radius-sm); border:1px solid var(--border); font-size:0.95rem;">
       </div>
-      <div style="font-size:0.8rem; color:var(--text-subtle); margin-bottom:20px;">
-        <span>🔑 Passwort geschützt</span>
+      <div style="font-size:0.8rem; color:var(--text-subtle); margin-bottom:20px; display:flex; justify-content:space-between; align-items:center;">
+        <span>⚡ Direkt mit Supabase verbunden</span>
       </div>
       <div class="sheet-actions">
         <button type="button" class="secondary" onclick="closeAdminModal()">Abbrechen</button>
-        <button type="submit" class="primary">Anmelden</button>
+        <button type="submit" id="adminLoginSubmitBtn" class="primary">Anmelden</button>
       </div>
     </form>
   </div>
@@ -2140,6 +2145,18 @@ function getBottleCount(p) {
   return (q.bottles || 0) + ((q.cases || 0) * (p.caseSize || 1));
 }
 
+const SUPABASE_URL = "https://jjcbuhwkaghsrsoibmdy.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_jtSBM7NOu7O1vKO-huNUOg_Ju-Ewncr";
+
+let supabaseClient = null;
+try {
+  if (window.supabase) {
+    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  }
+} catch (e) {
+  console.warn("Supabase init error:", e);
+}
+
 const REPO_OWNER = "timol04";
 const REPO_NAME = "getraenke-tool";
 const FILE_PATH = "sortiment.js";
@@ -2149,6 +2166,34 @@ const DEFAULT_GH_TOKEN = "github_pat_11CPKB6ZI0kzVsiCTCemTd" + "_" + "HhMpLD0ZB7
 
 let isEditPricesMode = false;
 let isAdminAuthenticated = false;
+let currentAdminEmail = "";
+
+// Auto-Login Status über Supabase Auth prüfen
+if (supabaseClient) {
+  supabaseClient.auth.getSession().then(({ data: { session } }) => {
+    if (session && session.user) {
+      isAdminAuthenticated = true;
+      currentAdminEmail = session.user.email || "Admin";
+      console.log("Supabase Auth aktiv:", currentAdminEmail);
+      updateAdminHeaderBtn();
+    }
+  });
+
+  supabaseClient.auth.onAuthStateChange((event, session) => {
+    if (session && session.user) {
+      isAdminAuthenticated = true;
+      currentAdminEmail = session.user.email || "Admin";
+    } else {
+      isAdminAuthenticated = false;
+      currentAdminEmail = "";
+      isEditPricesMode = false;
+      const b = document.getElementById("editBanner");
+      if (b) b.style.display = "none";
+    }
+    updateAdminHeaderBtn();
+    renderProducts();
+  });
+}
 
 function getAdminToken() {
   return localStorage.getItem(TOKEN_KEY) || DEFAULT_GH_TOKEN || "";
@@ -2159,11 +2204,13 @@ function openAdminModal() {
     toggleEditPricesMode(true);
     return;
   }
-  const input = document.getElementById("adminPasswordInput");
-  if (input) input.value = "";
+  const emailInput = document.getElementById("adminEmailInput");
+  const pwdInput = document.getElementById("adminPasswordInput");
+  if (pwdInput) pwdInput.value = "";
   document.getElementById("adminOverlay").classList.add("open");
   setTimeout(() => {
-    if (input) input.focus();
+    if (emailInput && !emailInput.value) emailInput.focus();
+    else if (pwdInput) pwdInput.focus();
   }, 100);
 }
 
@@ -2177,7 +2224,7 @@ function handleAdminOverlayClick(e) {
 
 function openTokenModal() {
   if (!isAdminAuthenticated) {
-    alert("🔒 Token verwalten erfordert Admin-Rechte. Bitte melde dich zuerst mit dem Admin-Passwort an.");
+    alert("🔒 Token verwalten erfordert Admin-Rechte. Bitte melde dich zuerst mit deinem Admin-Account an.");
     openAdminModal();
     return;
   }
@@ -2216,24 +2263,87 @@ function saveTokenSettings() {
   toggleEditPricesMode(true);
 }
 
-function loginAdmin() {
+async function loginAdmin() {
+  const emailInput = document.getElementById("adminEmailInput");
   const pwdInput = document.getElementById("adminPasswordInput");
+  const email = emailInput ? emailInput.value.trim() : "";
   const pwd = pwdInput ? pwdInput.value : "";
-  if (pwd !== ADMIN_PASSWORD) {
-    alert("❌ Falsches Admin-Passwort!");
+
+  if (!pwd) {
+    alert("Bitte gib ein Passwort ein.");
     return;
   }
-  isAdminAuthenticated = true;
-  closeAdminModal();
-  toggleEditPricesMode(true);
+
+  const submitBtn = document.getElementById("adminLoginSubmitBtn");
+  const origBtnText = submitBtn ? submitBtn.textContent : "Anmelden";
+
+  // 1. Supabase Auth Versuch mit E-Mail & Passwort
+  if (supabaseClient && email) {
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "⏳ Anmelden..."; }
+    try {
+      const { data, error } = await supabaseClient.auth.signInWithPassword({
+        email: email,
+        password: pwd
+      });
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = origBtnText; }
+
+      if (error) {
+        // Fallback: Notfall-Passwort
+        if (pwd === ADMIN_PASSWORD) {
+          console.warn("Supabase Auth fehlerhaft, Notfallpasswort greift:", error.message);
+          isAdminAuthenticated = true;
+          closeAdminModal();
+          toggleEditPricesMode(true);
+          showAdminToast("warn", `Notfall-Login aktiv (${error.message})`);
+          return;
+        }
+        alert("❌ Supabase-Anmeldung fehlgeschlagen:\n" + error.message);
+        return;
+      }
+
+      if (data && data.session) {
+        isAdminAuthenticated = true;
+        currentAdminEmail = email;
+        closeAdminModal();
+        toggleEditPricesMode(true);
+        showAdminToast("info", `Angemeldet als ${email}`);
+        return;
+      }
+    } catch (e) {
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = origBtnText; }
+      console.error("Supabase Login Error:", e);
+    }
+  }
+
+  // 2. Fallback Admin-Passwort
+  if (pwd === ADMIN_PASSWORD) {
+    isAdminAuthenticated = true;
+    currentAdminEmail = "Admin (Lokal)";
+    closeAdminModal();
+    toggleEditPricesMode(true);
+    showAdminToast("info", "Angemeldet via Admin-Passwort");
+    return;
+  }
+
+  alert("❌ Falsches Passwort oder ungültige E-Mail-Adresse!");
 }
 
-function logoutAdmin() {
+async function logoutAdmin() {
+  if (supabaseClient) {
+    try {
+      await supabaseClient.auth.signOut();
+    } catch (e) {
+      console.warn("Signout warning:", e);
+    }
+  }
   isAdminAuthenticated = false;
+  currentAdminEmail = "";
   isEditPricesMode = false;
-  document.getElementById("editBanner").style.display = "none";
+  const b = document.getElementById("editBanner");
+  if (b) b.style.display = "none";
   updateAdminHeaderBtn();
   renderProducts();
+  showAdminToast("info", "Erfolgreich abgemeldet");
 }
 
 let editingProductArt = null;
@@ -2331,14 +2441,15 @@ function showAdminToast(name, action) {
   toast.className = "admin-toast";
 
   const safeName = String(name || "Artikel").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const isMessageOnly = !action;
 
   toast.innerHTML = `
     <div class="admin-toast-body">
       <div class="admin-toast-icon">✓</div>
       <div class="admin-toast-content">
-        <div class="admin-toast-title">Das Produkt <strong>"${safeName}"</strong> wurde erfolgreich ${action}.</div>
-        <div class="admin-toast-sub">Um die Änderungen zu übertragen, auf <strong>«Auf GitHub speichern»</strong> drücken.</div>
-        <button class="admin-toast-action-btn" onclick="savePricesToGithub()">☁️ Auf GitHub speichern</button>
+        <div class="admin-toast-title">${isMessageOnly ? safeName : `Das Produkt <strong>"${safeName}"</strong> wurde erfolgreich ${action}.`}</div>
+        <div class="admin-toast-sub">Um alle Änderungen festzuhalten, auf <strong>«In Supabase speichern»</strong> drücken.</div>
+        <button class="admin-toast-action-btn" onclick="savePricesToSupabase()">☁️ In Supabase speichern</button>
       </div>
       <button class="admin-toast-close" title="Schliessen">✕</button>
     </div>
@@ -2788,30 +2899,27 @@ function generateSortimentCsvString() {
   const rows = [headers.map(escapeCsv).join(',')];
   const seenIds = new Set();
 
-  categoriesData.forEach(cat => {
-    if (cat.id === 'top') return;
+  CATEGORIES.forEach(cat => {
+    if (cat.name === 'Top-Angebote') return;
     (cat.items || []).forEach(item => {
-      const artNr = item.artNr || item.id;
+      const artNr = item.art || item.id;
       if (seenIds.has(artNr)) return;
       seenIds.add(artNr);
 
-      let gebinde = 'Einzeln';
-      if (item.einzeln && item.pack) gebinde = 'Einzeln & Pack';
-      else if (item.pack) gebinde = 'Pack';
-
-      const isTop = item.topAngebot ? 'TRUE' : 'FALSE';
+      const gebinde = item.gebinde || 'Einzeln';
+      const isTop = (item.topAngebot || item.deal) ? 'TRUE' : 'FALSE';
       const isEigenmarke = item.eigenmarke ? 'TRUE' : 'FALSE';
       const status = item.disabled ? 'Deaktiviert' : 'Aktiv';
-      const pEinzeln = (item.einzeln && item.preisEinzeln != null) ? Number(item.preisEinzeln).toFixed(2) : '';
-      const pPack = (item.pack && item.preisPack != null) ? Number(item.preisPack).toFixed(2) : '';
-      const packGroesse = item.packGroesse ? String(item.packGroesse) : '';
-      const einheit = item.einheit || 'flasche';
+      const pEinzeln = (item.priceSingle != null) ? Number(item.priceSingle).toFixed(2) : '';
+      const pPack = (item.pricePack != null) ? Number(item.pricePack).toFixed(2) : '';
+      const packGroesse = item.caseSize ? String(item.caseSize) : '';
+      const einheit = item.unit || 'flasche';
 
       const row = [
         artNr,
         item.name || '',
         gebinde,
-        cat.title || '',
+        cat.name || '',
         isTop,
         item.subCategory || '',
         pEinzeln,
@@ -2852,6 +2960,289 @@ function exportUpdatedJs() {
   }).catch(() => {
     prompt("Hier ist der neue Code für sortiment.js (Strg+C / Cmd+C zum Kopieren):", code);
   });
+}
+
+function mapDbToProduct(p) {
+  return {
+    id: p.id || `art-${String(p.art).replace(/[^a-zA-Z0-9_-]/g, '_')}`,
+    art: String(p.art || ''),
+    name: p.name || '',
+    category: p.category || '',
+    subCategory: p.sub_category || '',
+    price: Number(p.price) || 0,
+    priceSingle: p.price_single != null ? Number(p.price_single) : undefined,
+    pricePack: p.price_pack != null ? Number(p.price_pack) : undefined,
+    caseSize: Number(p.case_size) || 1,
+    gebinde: p.gebinde || 'Einzeln',
+    unit: p.unit || 'flasche',
+    topAngebot: !!p.top_angebot,
+    deal: !!p.deal,
+    caseOnly: !!p.case_only,
+    allowSingleBottle: p.allow_single_bottle !== false,
+    eigenmarke: !!p.eigenmarke,
+    disabled: !!p.disabled
+  };
+}
+
+function mapProductToDb(p, catName) {
+  return {
+    id: p.id || `art-${String(p.art).replace(/[^a-zA-Z0-9_-]/g, '_')}`,
+    art: String(p.art || ''),
+    name: p.name || '',
+    category: catName || p.category || '',
+    sub_category: p.subCategory || '',
+    price: Number(p.price) || 0,
+    price_single: p.priceSingle != null ? Number(p.priceSingle) : null,
+    price_pack: p.pricePack != null ? Number(p.pricePack) : null,
+    case_size: Number(p.caseSize) || 1,
+    gebinde: p.gebinde || 'Einzeln',
+    unit: p.unit || 'flasche',
+    top_angebot: !!(p.topAngebot || p.deal),
+    deal: !!p.deal,
+    case_only: !!p.caseOnly,
+    allow_single_bottle: p.allowSingleBottle !== false,
+    eigenmarke: !!p.eigenmarke,
+    disabled: !!p.disabled
+  };
+}
+
+async function loadCatalogFromSupabase() {
+  if (!supabaseClient) return false;
+  try {
+    const { data: cats, error: catErr } = await supabaseClient
+      .from('categories')
+      .select('*')
+      .order('sort_order', { ascending: true });
+
+    if (catErr || !cats || cats.length === 0) {
+      console.log("Supabase: Noch keine Kategorien vorhanden.");
+      return false;
+    }
+
+    const { data: prods, error: prodErr } = await supabaseClient
+      .from('products')
+      .select('*')
+      .order('sort_order', { ascending: true });
+
+    if (prodErr || !prods || prods.length === 0) {
+      console.log("Supabase: Noch keine Produkte vorhanden.");
+      return false;
+    }
+
+    const { data: dbPresets } = await supabaseClient
+      .from('presets')
+      .select('*')
+      .order('sort_order', { ascending: true });
+
+    const mappedCategories = [];
+    const topItems = prods.filter(p => !p.disabled && (p.top_angebot || p.deal)).map(mapDbToProduct);
+    if (topItems.length > 0) {
+      mappedCategories.push({
+        name: "Top-Angebote",
+        items: topItems
+      });
+    }
+
+    cats.forEach(c => {
+      const catProds = prods.filter(p => p.category === c.name).map(mapDbToProduct);
+      mappedCategories.push({
+        name: c.name,
+        items: catProds
+      });
+    });
+
+    window.CATEGORIES = mappedCategories;
+
+    if (dbPresets && dbPresets.length > 0) {
+      window.presetsList = dbPresets.map(p => ({
+        id: p.id,
+        title: p.title,
+        description: p.description || '',
+        icon: p.icon || '⚡',
+        items: p.items || []
+      }));
+    }
+
+    normalizeAssortment();
+    renderPresetCards();
+    renderCategories();
+    renderProducts();
+
+    const seedBtn = document.getElementById("seedSupabaseBtn");
+    if (seedBtn) seedBtn.style.display = "none";
+
+    console.log(`✅ ${prods.length} Produkte und ${cats.length} Kategorien live aus Supabase geladen!`);
+    return true;
+  } catch (err) {
+    console.warn("Konnte Sortiment nicht aus Supabase laden:", err);
+    return false;
+  }
+}
+
+async function savePricesToSupabase() {
+  if (!supabaseClient) {
+    alert("❌ Supabase ist nicht verbunden.");
+    return;
+  }
+  if (!isAdminAuthenticated) {
+    alert("🔒 Bitte melde dich zuerst als Admin mit deinem Supabase-Account an.");
+    openAdminModal();
+    return;
+  }
+
+  const saveBtn = document.getElementById("saveSupabaseBtn") || document.getElementById("saveGithubBtn");
+  const origText = saveBtn ? saveBtn.textContent : "";
+  if (saveBtn) {
+    saveBtn.disabled = true;
+    saveBtn.textContent = "⏳ Speichere in Supabase...";
+  }
+
+  try {
+    // 1. Kategorien speichern
+    const catRows = [];
+    let cIdx = 0;
+    CATEGORIES.forEach(c => {
+      if (c.name === 'Top-Angebote') return;
+      catRows.push({
+        id: c.name.toLowerCase().replace(/[^a-z0-9]/g, '_'),
+        name: c.name,
+        sort_order: cIdx++
+      });
+    });
+    const { error: catErr } = await supabaseClient.from('categories').upsert(catRows);
+    if (catErr) throw catErr;
+
+    // 2. Produkte speichern
+    const prodRows = [];
+    const seen = new Set();
+    let pIdx = 0;
+    CATEGORIES.forEach(c => {
+      if (c.name === 'Top-Angebote') return;
+      (c.items || []).forEach(item => {
+        if (seen.has(item.art)) return;
+        seen.add(item.art);
+        const r = mapProductToDb(item, c.name);
+        r.sort_order = pIdx++;
+        prodRows.push(r);
+      });
+    });
+
+    for (let i = 0; i < prodRows.length; i += 50) {
+      const chunk = prodRows.slice(i, i + 50);
+      const { error: prodErr } = await supabaseClient.from('products').upsert(chunk);
+      if (prodErr) throw prodErr;
+    }
+
+    // 3. Presets speichern
+    if (window.presetsList && window.presetsList.length > 0) {
+      const pRows = presetsList.map((p, idx) => ({
+        id: p.id,
+        title: p.title,
+        description: p.description || '',
+        icon: p.icon || '⚡',
+        items: p.items || [],
+        sort_order: idx
+      }));
+      const { error: presetErr } = await supabaseClient.from('presets').upsert(pRows);
+      if (presetErr) throw presetErr;
+    }
+
+    if (saveBtn) {
+      saveBtn.disabled = false;
+      saveBtn.textContent = "✅ In Supabase gespeichert!";
+      setTimeout(() => { saveBtn.textContent = origText; }, 2500);
+    }
+    showAdminToast("Alle Änderungen erfolgreich in Supabase gespeichert!", "");
+    alert("✅ Alle Änderungen wurden erfolgreich in Supabase gespeichert und sind sofort live!");
+
+  } catch (err) {
+    console.error("Supabase Save Error:", err);
+    alert("❌ Fehler beim Speichern in Supabase:\n" + (err.message || JSON.stringify(err)));
+    if (saveBtn) {
+      saveBtn.disabled = false;
+      saveBtn.textContent = origText;
+    }
+  }
+}
+
+async function seedSupabaseFromBrowser() {
+  if (!supabaseClient) {
+    alert("❌ Supabase ist nicht verbunden.");
+    return;
+  }
+  if (!isAdminAuthenticated) {
+    alert("🔒 Bitte melde dich zuerst als Admin mit deinem Supabase-Account an.");
+    openAdminModal();
+    return;
+  }
+
+  const ok = confirm("Möchtest du das gesamte aktuelle Sortiment (alle Kategorien, 338 Produkte und Pakete) jetzt nach Supabase übertragen?");
+  if (!ok) return;
+
+  const btn = document.getElementById("seedSupabaseBtn");
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = "⏳ Übertrage Daten...";
+  }
+
+  try {
+    const catRows = [];
+    let cIdx = 0;
+    CATEGORIES.forEach(c => {
+      if (c.name === 'Top-Angebote') return;
+      catRows.push({
+        id: c.name.toLowerCase().replace(/[^a-z0-9]/g, '_'),
+        name: c.name,
+        sort_order: cIdx++
+      });
+    });
+    const { error: catErr } = await supabaseClient.from('categories').upsert(catRows);
+    if (catErr) throw catErr;
+
+    const prodRows = [];
+    const seen = new Set();
+    let pIdx = 0;
+    CATEGORIES.forEach(c => {
+      if (c.name === 'Top-Angebote') return;
+      (c.items || []).forEach(item => {
+        if (seen.has(item.art)) return;
+        seen.add(item.art);
+        const r = mapProductToDb(item, c.name);
+        r.sort_order = pIdx++;
+        prodRows.push(r);
+      });
+    });
+
+    for (let i = 0; i < prodRows.length; i += 50) {
+      const chunk = prodRows.slice(i, i + 50);
+      const { error: prodErr } = await supabaseClient.from('products').upsert(chunk);
+      if (prodErr) throw prodErr;
+    }
+
+    if (window.presetsList && window.presetsList.length > 0) {
+      const pRows = presetsList.map((p, idx) => ({
+        id: p.id,
+        title: p.title,
+        description: p.description || '',
+        icon: p.icon || '⚡',
+        items: p.items || [],
+        sort_order: idx
+      }));
+      const { error: presetErr } = await supabaseClient.from('presets').upsert(pRows);
+      if (presetErr) throw presetErr;
+    }
+
+    alert(`🎉 Großartig! ${prodRows.length} Produkte und ${catRows.length} Kategorien wurden erfolgreich in Supabase übertragen!`);
+    if (btn) btn.style.display = "none";
+  } catch (err) {
+    console.error("Supabase Seed Error:", err);
+    alert("❌ Fehler beim Übertragen nach Supabase:\n" + (err.message || JSON.stringify(err)));
+  } finally {
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = "🚀 Sortiment in Supabase übertragen";
+    }
+  }
 }
 
 async function savePricesToGithub() {
@@ -4146,6 +4537,11 @@ window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e =
 updateAdminHeaderBtn();
 renderPresets();
 renderProducts();
+
+// Sortiment live aus Supabase nachladen (falls Tabellen vorhanden)
+if (typeof loadCatalogFromSupabase === "function") {
+  loadCatalogFromSupabase();
+}
 </script>
 </body>
 </html>
