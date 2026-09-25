@@ -847,7 +847,7 @@
     .summary-bar button { font-size: 0.88rem; padding: 12px 16px; gap: 6px; }
     .summary-bar .total { font-size: 1.4rem; }
     .floating-cart-btn { bottom: 84px; right: 16px; padding: 10px 16px; font-size: 0.9rem; }
-    .preset-section { padding: 18px; }
+    .calc-section { padding: 16px; }
   }
 
   /* SCHWEBENDER WARENKORB-BUTTON (Deaktiviert) */
@@ -926,16 +926,17 @@
     border-color: var(--primary);
   }
 
-  /* BELIEBTE ZUSAMMENSTELLUNGEN (PRESETS) */
-  .preset-section {
+  /* GETRÄNKE- & EVENT-RECHNER */
+  .calc-section {
     background: #FAF7F0;
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     padding: 24px;
     margin-bottom: 28px;
     box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
   }
-  .preset-header {
+  .calc-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -943,16 +944,558 @@
     gap: 16px;
     margin-bottom: 20px;
   }
-  .preset-title {
+  .calc-badge {
+    display: inline-block;
+    background: var(--accent-light);
+    color: var(--accent-dark);
+    font-size: 0.76rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--accent-border);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .calc-title {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.25rem;
+    font-size: 1.35rem;
     font-weight: 700;
     color: var(--primary);
     margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
-  .preset-sub {
-    font-size: 0.88rem;
+  .calc-sub {
+    font-size: 0.9rem;
     color: var(--text-muted);
+    max-width: 680px;
+    line-height: 1.45;
+  }
+  .admin-calc-btn {
+    background: #0284C7;
+    color: #ffffff;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 8px 14px;
+    font-size: 0.84rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 2px 6px rgba(2, 132, 199, 0.25);
+    transition: all 0.15s ease;
+  }
+  .admin-calc-btn:hover {
+    background: #0369A1;
+    transform: translateY(-1px);
+  }
+
+  .calc-step-row {
+    margin-bottom: 18px;
+  }
+  .calc-step-label {
+    display: block;
+    font-size: 0.84rem;
+    font-weight: 700;
+    color: var(--text);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  .calc-event-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 12px;
+  }
+  .calc-event-card {
+    background: #FFFFFF;
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px 14px;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    color: var(--text);
+    font-family: inherit;
+  }
+  .calc-event-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+  }
+  .calc-event-card.active {
+    border-color: var(--primary);
+    background: var(--primary-light);
+    box-shadow: 0 0 0 1px var(--primary);
+  }
+  .calc-event-icon {
+    font-size: 1.8rem;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .calc-event-info strong {
+    display: block;
+    font-size: 0.92rem;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+  .calc-event-info span {
+    display: block;
+    font-size: 0.76rem;
+    color: var(--text-muted);
+    line-height: 1.25;
+  }
+
+  .calc-controls-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 14px;
+  }
+  @media (max-width: 640px) {
+    .calc-controls-grid { grid-template-columns: 1fr; }
+  }
+  .calc-control-card {
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    box-shadow: var(--shadow-sm);
+  }
+  .calc-control-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .calc-control-head label {
+    font-weight: 700;
+    font-size: 0.92rem;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .calc-val-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--primary-light);
+    border: 1px solid var(--primary-border);
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--primary);
+  }
+  .calc-val-pill input[type="number"] {
+    width: 50px;
+    border: none;
+    background: transparent;
+    font-weight: 800;
+    font-size: 1rem;
+    color: var(--primary);
+    text-align: right;
+    outline: none;
+    font-family: inherit;
+  }
+  .calc-slider {
+    width: 100%;
+    accent-color: var(--primary);
+    cursor: pointer;
+    height: 8px;
+    border-radius: 4px;
+    margin: 8px 0 6px 0;
+  }
+  .calc-slider-ticks {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.72rem;
+    color: var(--text-subtle);
+  }
+
+  .calc-weather-row {
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 10px 16px;
+  }
+  .calc-weather-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 0.86rem;
+    color: var(--text);
+    user-select: none;
+    width: 100%;
+  }
+  .calc-weather-toggle input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--accent);
+    cursor: pointer;
+  }
+
+  .calc-results-section {
+    background: #FFFFFF;
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px;
+    margin-bottom: 18px;
+  }
+  .calc-results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .calc-results-header h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--primary);
+  }
+  .calc-results-total-liters {
+    background: var(--accent-light);
+    color: var(--accent-dark);
+    font-size: 0.82rem;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--accent-border);
+  }
+  .calc-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+  }
+  .calc-result-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    transition: transform 0.15s ease;
+  }
+  .calc-result-card:hover {
+    transform: translateY(-2px);
+  }
+  .calc-res-icon {
+    font-size: 1.8rem;
+    line-height: 1;
+    background: #FFFFFF;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: var(--shadow-sm);
+  }
+  .calc-res-details {
+    flex: 1;
+  }
+  .calc-res-category {
+    font-size: 0.76rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+  }
+  .calc-res-main {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--primary);
+    line-height: 1.2;
+    margin-bottom: 2px;
+  }
+  .calc-res-sub {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+  }
+
+  .calc-actions-box {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px dashed var(--border);
+  }
+  .calc-actions-intro {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+    text-align: center;
+  }
+  .calc-action-buttons-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  @media (max-width: 680px) {
+    .calc-action-buttons-grid { grid-template-columns: 1fr; }
+  }
+  .calc-action-card {
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+  }
+  .calc-action-card.primary {
+    background: linear-gradient(135deg, #1F3A2E 0%, #152A21 100%);
+    color: #FFFFFF;
+    box-shadow: 0 4px 16px rgba(31, 58, 46, 0.15);
+    border: 2px solid transparent;
+  }
+  .calc-action-card.primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(31, 58, 46, 0.25);
+  }
+  .calc-action-card.secondary {
+    background: #FFFFFF;
+    border: 2px solid var(--accent);
+    color: var(--text);
+    box-shadow: var(--shadow-sm);
+  }
+  .calc-action-card.secondary:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    background: #FFFDF7;
+  }
+  .calc-action-card-header {
+    margin-bottom: 8px;
+  }
+  .calc-action-badge {
+    display: inline-block;
+    background: rgba(201, 162, 39, 0.25);
+    color: #FCD34D;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+  .calc-action-badge.secondary {
+    background: var(--accent-light);
+    color: var(--accent-dark);
+    border: 1px solid var(--accent-border);
+  }
+  .calc-action-card h4 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .calc-action-card.primary h4 { color: #FFFFFF; }
+  .calc-action-card.secondary h4 { color: var(--primary); }
+  .calc-action-card p {
+    font-size: 0.82rem;
+    line-height: 1.4;
+    margin-bottom: 14px;
+  }
+  .calc-action-card.primary p { color: rgba(255, 255, 255, 0.85); }
+  .calc-action-card.secondary p { color: var(--text-muted); }
+  .calc-apply-btn {
+    background: var(--accent);
+    color: #1F3A2E;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 10px 16px;
+    font-weight: 800;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-align: center;
+    width: 100%;
+    font-family: inherit;
+  }
+  .calc-apply-btn:hover {
+    background: #DFB738;
+  }
+  .calc-tracker-btn {
+    background: var(--primary);
+    color: #FFFFFF;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 10px 16px;
+    font-weight: 700;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-align: center;
+    width: 100%;
+    font-family: inherit;
+  }
+  .calc-tracker-btn:hover {
+    background: var(--primary-hover);
+  }
+
+  /* Bedarfs-Tracker Panel */
+  .calc-tracker-panel {
+    margin-top: 20px;
+    background: #FFFFFF;
+    border: 2px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 18px;
+    box-shadow: 0 6px 20px rgba(201, 162, 39, 0.12);
+    animation: fadeInSlide 0.3s ease-out;
+  }
+  @keyframes fadeInSlide {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .calc-tracker-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .calc-tracker-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 14px;
+  }
+  .tracker-item {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    transition: all 0.2s ease;
+  }
+  .tracker-item.completed {
+    border-color: #10B981;
+    background: #F0FDF4;
+  }
+  .tracker-item-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.86rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .tracker-val {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--primary);
+  }
+  .tracker-bar-bg {
+    background: #E5E7EB;
+    height: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 6px;
+    position: relative;
+  }
+  .tracker-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #C9A227, #10B981);
+    border-radius: 5px;
+    transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease;
+  }
+  .tracker-item.completed .tracker-bar-fill {
+    background: #10B981;
+  }
+  .tracker-item-status {
+    font-size: 0.76rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .tracker-item.completed .tracker-item-status {
+    color: #059669;
+  }
+
+  /* Floating Mini-Tracker Bar */
+  .floating-tracker-bar {
+    position: fixed;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    background: rgba(31, 58, 46, 0.94);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: #FFFFFF;
+    border-radius: 40px;
+    padding: 8px 18px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    max-width: 95vw;
+    cursor: pointer;
+  }
+  .floating-tracker-pill {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 3px 8px;
+    border-radius: 12px;
+  }
+  .floating-tracker-pill.done {
+    background: rgba(16, 185, 129, 0.25);
+    color: #34D399;
+  }
+
+  /* Admin Modal Tab Buttons */
+  .admin-tab-btn {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 6px 14px;
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: all 0.15s ease;
+    font-family: inherit;
+  }
+  .admin-tab-btn:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+  }
+  .admin-tab-btn.active {
+    background: var(--primary);
+    color: #FFFFFF;
+    border-color: var(--primary);
   }
   .reset-top-btn {
     background: #FEE2E2;
@@ -971,62 +1514,6 @@
   .reset-top-btn:hover {
     background: #FCA5A5;
     color: #7F1D1D;
-  }
-  .preset-cards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 16px;
-  }
-  .preset-card {
-    background: #FFFFFF;
-    border: 2px solid var(--border);
-    border-radius: var(--radius);
-    padding: 18px;
-    display: flex;
-    gap: 14px;
-    cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    position: relative;
-  }
-  .preset-card:hover {
-    border-color: var(--accent);
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-md);
-    background: #FFFDF7;
-  }
-  .preset-card-icon {
-    font-size: 2.2rem;
-    line-height: 1;
-    background: var(--bg);
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-  .preset-card-body h3 {
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: var(--primary);
-    margin-bottom: 4px;
-  }
-  .preset-card-body p {
-    font-size: 0.82rem;
-    color: var(--text-muted);
-    line-height: 1.4;
-    margin-bottom: 10px;
-  }
-  .preset-card-tag {
-    display: inline-block;
-    background: var(--accent-light);
-    color: var(--accent-dark);
-    font-size: 0.78rem;
-    font-weight: 700;
-    padding: 4px 10px;
-    border-radius: 10px;
-    border: 1px solid var(--accent-border);
   }
 
   /* ADMIN SORTIMENT TABLE & BADGES */
@@ -1227,44 +1714,84 @@
     body:not(.light-mode) .theme-toggle-btn .moon-icon { display: none !important; }
   }
 
-  /* PRESET SECTION & SUMMARY BAR DARK MODE FIXES */
-  body.dark-mode .preset-section,
+  /* GETRÄNKE-RECHNER & TRACKER DARK MODE FIXES */
+  body.dark-mode .calc-section,
   @media (prefers-color-scheme: dark) {
-    body:not(.light-mode) .preset-section {
+    body:not(.light-mode) .calc-section {
       background: var(--card) !important;
       border-color: var(--border) !important;
     }
   }
-  body.dark-mode .preset-title,
+  body.dark-mode .calc-title,
   @media (prefers-color-scheme: dark) {
-    body:not(.light-mode) .preset-title {
+    body:not(.light-mode) .calc-title {
       color: var(--text) !important;
     }
   }
-  body.dark-mode .preset-card,
+  body.dark-mode .calc-event-card,
+  body.dark-mode .calc-control-card,
+  body.dark-mode .calc-weather-row,
+  body.dark-mode .calc-results-section,
+  body.dark-mode .calc-action-card.secondary,
+  body.dark-mode .calc-tracker-panel,
   @media (prefers-color-scheme: dark) {
-    body:not(.light-mode) .preset-card {
+    body:not(.light-mode) .calc-event-card,
+    body:not(.light-mode) .calc-control-card,
+    body:not(.light-mode) .calc-weather-row,
+    body:not(.light-mode) .calc-results-section,
+    body:not(.light-mode) .calc-action-card.secondary,
+    body:not(.light-mode) .calc-tracker-panel {
       background: var(--bg-subtle) !important;
       border-color: var(--border) !important;
-    }
-  }
-  body.dark-mode .preset-card:hover,
-  @media (prefers-color-scheme: dark) {
-    body:not(.light-mode) .preset-card:hover {
-      background: var(--card-hover) !important;
-      border-color: var(--accent) !important;
-    }
-  }
-  body.dark-mode .preset-card-icon,
-  @media (prefers-color-scheme: dark) {
-    body:not(.light-mode) .preset-card-icon {
-      background: var(--bg-inset) !important;
-    }
-  }
-  body.dark-mode .preset-card-body h3,
-  @media (prefers-color-scheme: dark) {
-    body:not(.light-mode) .preset-card-body h3 {
       color: var(--text) !important;
+    }
+  }
+  body.dark-mode .calc-event-card.active,
+  @media (prefers-color-scheme: dark) {
+    body:not(.light-mode) .calc-event-card.active {
+      border-color: var(--accent) !important;
+      background: var(--card-hover) !important;
+    }
+  }
+  body.dark-mode .calc-result-card,
+  body.dark-mode .tracker-item,
+  @media (prefers-color-scheme: dark) {
+    body:not(.light-mode) .calc-result-card,
+    body:not(.light-mode) .tracker-item {
+      background: var(--bg-inset) !important;
+      border-color: var(--border) !important;
+      color: var(--text) !important;
+    }
+  }
+  body.dark-mode .calc-res-icon,
+  @media (prefers-color-scheme: dark) {
+    body:not(.light-mode) .calc-res-icon {
+      background: var(--card) !important;
+      color: var(--text) !important;
+    }
+  }
+  body.dark-mode .calc-val-pill,
+  @media (prefers-color-scheme: dark) {
+    body:not(.light-mode) .calc-val-pill {
+      background: var(--card) !important;
+      color: var(--accent) !important;
+      border-color: var(--border) !important;
+    }
+    body:not(.light-mode) .calc-val-pill input[type="number"] {
+      color: var(--accent) !important;
+    }
+  }
+  body.dark-mode .tracker-bar-bg,
+  @media (prefers-color-scheme: dark) {
+    body:not(.light-mode) .tracker-bar-bg {
+      background: rgba(255, 255, 255, 0.1) !important;
+    }
+  }
+  body.dark-mode .tracker-item.completed,
+  @media (prefers-color-scheme: dark) {
+    body:not(.light-mode) .tracker-item.completed {
+      background: rgba(16, 185, 129, 0.15) !important;
+      border-color: #10B981 !important;
     }
   }
   body.dark-mode .reset-top-btn,
@@ -1338,66 +1865,6 @@
     }
   }
 
-  /* COMPLETE PRESET SECTION DARK MODE STYLING */
-  body.dark-mode .preset-section,
-  @media (prefers-color-scheme: dark) {
-    body:not(.light-mode) .preset-section {
-      background: var(--card) !important;
-      border-color: var(--border) !important;
-    }
-  }
-  body.dark-mode .preset-title,
-  @media (prefers-color-scheme: dark) {
-    body:not(.light-mode) .preset-title {
-      color: var(--text) !important;
-    }
-  }
-  body.dark-mode .preset-sub,
-  @media (prefers-color-scheme: dark) {
-    body:not(.light-mode) .preset-sub {
-      color: var(--text-muted) !important;
-    }
-  }
-  body.dark-mode .preset-card,
-  @media (prefers-color-scheme: dark) {
-    body:not(.light-mode) .preset-card {
-      background: var(--bg-subtle) !important;
-      border-color: var(--border) !important;
-    }
-  }
-  body.dark-mode .preset-card:hover,
-  @media (prefers-color-scheme: dark) {
-    body:not(.light-mode) .preset-card:hover {
-      background: var(--card-hover) !important;
-      border-color: var(--accent) !important;
-    }
-  }
-  body.dark-mode .preset-card-icon,
-  @media (prefers-color-scheme: dark) {
-    body:not(.light-mode) .preset-card-icon {
-      background: var(--bg-inset) !important;
-    }
-  }
-  body.dark-mode .preset-card-body h3,
-  @media (prefers-color-scheme: dark) {
-    body:not(.light-mode) .preset-card-body h3 {
-      color: var(--text) !important;
-    }
-  }
-  body.dark-mode .preset-card-body p,
-  @media (prefers-color-scheme: dark) {
-    body:not(.light-mode) .preset-card-body p {
-      color: var(--text-muted) !important;
-    }
-  }
-  body.dark-mode .preset-card-tag,
-  @media (prefers-color-scheme: dark) {
-    body:not(.light-mode) .preset-card-tag {
-      background: var(--accent-light) !important;
-      color: var(--accent-dark) !important;
-      border-color: var(--accent-border) !important;
-    }
-  }
 
   /* SUMMARY BAR DARK MODE FIXES */
   body.dark-mode .summary-bar,
@@ -1606,21 +2073,247 @@
     <strong>Hinweis zur Zusammenstellung:</strong> Preise und Verfügbarkeiten (insbesondere bei Top-Angeboten) können abweichen. Ihre Zusammenstellung wird erst nach unserer Bestätigung bearbeitet.
   </div>
 
-  <!-- BELIEBTE ZUSAMMENSTELLUNGEN (SCHNELLSTART) -->
-  <div class="preset-section">
-    <div class="preset-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
-      <div>
-        <h2 class="preset-title">⚡ Beliebte Zusammenstellungen (Pakete)</h2>
-        <p class="preset-sub">Klicken Sie auf ein Vorlagen-Paket für vorgefertigte Mengen (alle Angaben danach beliebig anpassbar).</p>
+  <!-- GETRÄNKE- & EVENT-RECHNER -->
+  <div class="calc-section" id="drinkCalculatorSection">
+    <div class="calc-header">
+      <div class="calc-header-left">
+        <span class="calc-badge">⚡ Schnellplanung</span>
+        <h2 class="calc-title">🧮 Getränke- & Event-Rechner</h2>
+        <p class="calc-sub">Wähle deinen Anlass und deine Gästezahl – berechne deinen Getränkebedarf und übernimm die Mengen direkt oder bestimme deine Lieblingsmarken mit Live-Fortschrittsbalken.</p>
       </div>
-      <div id="adminAddPresetBtnContainer" style="display:none;">
-        <button onclick="openEditPresetModal(null)" style="background:#10B981; color:white; border:none; padding:8px 14px; border-radius:8px; font-weight:bold; font-size:0.86rem; cursor:pointer; display:flex; align-items:center; gap:6px;">➕ Neues Paket erstellen</button>
+      <div id="adminCalcSettingsBtnContainer" style="display:none;">
+        <button onclick="openCalcStandardsModal()" class="admin-calc-btn">⚙️ Standard-Produkte anpassen</button>
       </div>
     </div>
 
-    <div class="preset-cards-grid" id="presetCardsGrid">
-      <!-- Dynamisch gerenderte Paket-Karten -->
+    <!-- Step 1: Anlass -->
+    <div class="calc-step-row">
+      <label class="calc-step-label">1. Art des Anlasses:</label>
+      <div class="calc-event-grid" id="calcEventGrid">
+        <button type="button" class="calc-event-card active" id="calcEventBtn_grillfest" onclick="setCalcEvent('grillfest')">
+          <span class="calc-event-icon">🍖</span>
+          <div class="calc-event-info">
+            <strong>Grillfest / Gemütlich</strong>
+            <span>Bier, Wein, Softdrinks & viel Wasser</span>
+          </div>
+        </button>
+        <button type="button" class="calc-event-card" id="calcEventBtn_apero" onclick="setCalcEvent('apero')">
+          <span class="calc-event-icon">🥂</span>
+          <div class="calc-event-info">
+            <strong>Apéro / Stehempfang</strong>
+            <span>Fokus auf Schaumwein, Weisswein & Mineral</span>
+          </div>
+        </button>
+        <button type="button" class="calc-event-card" id="calcEventBtn_party" onclick="setCalcEvent('party')">
+          <span class="calc-event-icon">🎉</span>
+          <div class="calc-event-info">
+            <strong>Party / Vereinsfest</strong>
+            <span>Mehr Bier & Drinks für lange Feiern</span>
+          </div>
+        </button>
+        <button type="button" class="calc-event-card" id="calcEventBtn_family" onclick="setCalcEvent('family')">
+          <span class="calc-event-icon">👨‍👩‍👧</span>
+          <div class="calc-event-info">
+            <strong>Familie / Alkoholfrei</strong>
+            <span>Mineralwasser, Most, Eistee & Säfte</span>
+          </div>
+        </button>
+      </div>
     </div>
+
+    <!-- Step 2: Regler Gäste & Dauer -->
+    <div class="calc-controls-grid">
+      <div class="calc-control-card">
+        <div class="calc-control-head">
+          <label for="calcGuestsRange"><span>👥</span> Anzahl Gäste</label>
+          <div class="calc-val-pill">
+            <input type="number" id="calcGuestsInput" min="5" max="250" value="25" oninput="onCalcGuestsInputChange(this.value)">
+            <span>Personen</span>
+          </div>
+        </div>
+        <input type="range" id="calcGuestsRange" min="5" max="150" step="5" value="25" oninput="onCalcGuestsRangeChange(this.value)" class="calc-slider">
+        <div class="calc-slider-ticks">
+          <span>10 Pers.</span>
+          <span>25 Pers.</span>
+          <span>50 Pers.</span>
+          <span>75 Pers.</span>
+          <span>100+</span>
+        </div>
+      </div>
+
+      <div class="calc-control-card">
+        <div class="calc-control-head">
+          <label for="calcHoursRange"><span>⏱️</span> Dauer des Anlasses</label>
+          <div class="calc-val-pill">
+            <span id="calcHoursDisplay">4</span>
+            <span>Stunden</span>
+          </div>
+        </div>
+        <input type="range" id="calcHoursRange" min="2" max="10" step="1" value="4" oninput="onCalcHoursChange(this.value)" class="calc-slider">
+        <div class="calc-slider-ticks">
+          <span>2 Std. (Apéro)</span>
+          <span>4 Std. (Abend)</span>
+          <span>6 Std. (Party)</span>
+          <span>8+ Std.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wetter Option -->
+    <div class="calc-weather-row">
+      <label class="calc-weather-toggle">
+        <input type="checkbox" id="calcHotWeather" onchange="recalculateCalcNeeds()">
+        <span>☀️ <strong>Heisser Sommertag:</strong> +20% mehr Durstlöscher (Mineral & Erfrischung einplanen)</span>
+      </label>
+    </div>
+
+    <!-- Empfehlungs-Karten -->
+    <div class="calc-results-section">
+      <div class="calc-results-header">
+        <h3 id="calcResultsSummaryTitle">Bedarfsempfehlung für 25 Personen (ca. 4 Std.):</h3>
+        <span class="calc-results-total-liters" id="calcTotalLitersTag">ca. 40 L gesamt</span>
+      </div>
+
+      <div class="calc-cards-grid">
+        <div class="calc-result-card">
+          <div class="calc-res-icon">💧</div>
+          <div class="calc-res-details">
+            <div class="calc-res-category">Mineralwasser</div>
+            <div class="calc-res-main" id="resMineralCases">2 Harassen</div>
+            <div class="calc-res-sub" id="resMineralLiters">ca. 18 Liter</div>
+          </div>
+        </div>
+
+        <div class="calc-result-card">
+          <div class="calc-res-icon">🥤</div>
+          <div class="calc-res-details">
+            <div class="calc-res-category">Süssgetränke / Eistee</div>
+            <div class="calc-res-main" id="resSoftCases">2 Harassen</div>
+            <div class="calc-res-sub" id="resSoftLiters">ca. 16 Liter</div>
+          </div>
+        </div>
+
+        <div class="calc-result-card">
+          <div class="calc-res-icon">🍺</div>
+          <div class="calc-res-details">
+            <div class="calc-res-category">Bier & Panaché</div>
+            <div class="calc-res-main" id="resBeerCases">2 Packs</div>
+            <div class="calc-res-sub" id="resBeerLiters">ca. 16 Liter</div>
+          </div>
+        </div>
+
+        <div class="calc-result-card">
+          <div class="calc-res-icon">🍷</div>
+          <div class="calc-res-details">
+            <div class="calc-res-category">Wein & Schaumwein</div>
+            <div class="calc-res-main" id="resWineBottles">6 Flaschen</div>
+            <div class="calc-res-sub" id="resWineLiters">ca. 4.5 Liter</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Entscheidungs-Box: Standard vs Selbst zusammenstellen -->
+    <div class="calc-actions-box">
+      <div class="calc-actions-intro">Wie möchtest du die Mengen übernehmen?</div>
+      <div class="calc-action-buttons-grid">
+        
+        <!-- Option 1: Standard-Produkte -->
+        <div class="calc-action-card primary" onclick="applyCalculatorStandardProducts()">
+          <div class="calc-action-card-header">
+            <span class="calc-action-badge">⚡ Schnellster Weg</span>
+            <h4>🛒 Mit Standard-Produkten übernehmen</h4>
+          </div>
+          <p>Legt automatisch die berechneten Mengen beliebter Landi-Bestseller (Farmer Bier, Mineral, Rivella, Wein) direkt in deine Zusammenstellung.</p>
+          <button type="button" class="calc-apply-btn">Mengen direkt übernehmen →</button>
+        </div>
+
+        <!-- Option 2: Fortschrittsbalken-Modus -->
+        <div class="calc-action-card secondary" onclick="activateTrackerMode(true)">
+          <div class="calc-action-card-header">
+            <span class="calc-action-badge secondary">🎯 Freie Markenwahl</span>
+            <h4>📊 Selbst zusammenstellen mit Fortschrittsbalken</h4>
+          </div>
+          <p>Wähle deine Lieblingsmarken unten selbst – der Live-Fortschrittsbalken zeigt dir auf einen Blick, ob dein Festbedarf gedeckt ist.</p>
+          <button type="button" class="calc-tracker-btn" id="activateTrackerBtn">Bedarfs-Tracker aktivieren ↓</button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Live Fortschrittsbalken-Panel -->
+    <div class="calc-tracker-panel" id="calcTrackerPanel" style="display:none;">
+      <div class="calc-tracker-header">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span style="font-size:1.4rem;">🎯</span>
+          <div>
+            <h3 style="font-size:1.05rem; font-weight:700; color:var(--primary); margin:0;">Bedarfs-Tracker für dein Fest</h3>
+            <span style="font-size:0.8rem; color:var(--text-muted);" id="trackerSummaryText">Ziel: 25 Personen • 4 Std.</span>
+          </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <span id="trackerOverallStatus" style="font-size:0.82rem; font-weight:700; color:var(--accent-dark); background:var(--accent-light); padding:3px 10px; border-radius:12px; border:1px solid var(--accent-border);">0 / 4 Bereiche gedeckt</span>
+          <button type="button" onclick="deactivateTrackerMode()" style="background:transparent; border:none; color:var(--text-muted); cursor:pointer; font-size:0.82rem; text-decoration:underline;">Schliessen</button>
+        </div>
+      </div>
+
+      <div class="calc-tracker-grid">
+        <div class="tracker-item" id="trackerItemMineral">
+          <div class="tracker-item-head">
+            <span>💧 Mineralwasser</span>
+            <span class="tracker-val" id="trackerValMineral">0 / 18 L</span>
+          </div>
+          <div class="tracker-bar-bg">
+            <div class="tracker-bar-fill" id="trackerFillMineral" style="width:0%;"></div>
+          </div>
+          <div class="tracker-item-status" id="trackerStatusMineral">Noch 18 L</div>
+        </div>
+
+        <div class="tracker-item" id="trackerItemSoft">
+          <div class="tracker-item-head">
+            <span>🥤 Süssgetränke</span>
+            <span class="tracker-val" id="trackerValSoft">0 / 16 L</span>
+          </div>
+          <div class="tracker-bar-bg">
+            <div class="tracker-bar-fill" id="trackerFillSoft" style="width:0%;"></div>
+          </div>
+          <div class="tracker-item-status" id="trackerStatusSoft">Noch 16 L</div>
+        </div>
+
+        <div class="tracker-item" id="trackerItemBeer">
+          <div class="tracker-item-head">
+            <span>🍺 Bier</span>
+            <span class="tracker-val" id="trackerValBeer">0 / 16 L</span>
+          </div>
+          <div class="tracker-bar-bg">
+            <div class="tracker-bar-fill" id="trackerFillBeer" style="width:0%;"></div>
+          </div>
+          <div class="tracker-item-status" id="trackerStatusBeer">Noch 16 L</div>
+        </div>
+
+        <div class="tracker-item" id="trackerItemWine">
+          <div class="tracker-item-head">
+            <span>🍷 Wein / Schaumwein</span>
+            <span class="tracker-val" id="trackerValWine">0 / 6 Fl.</span>
+          </div>
+          <div class="tracker-bar-bg">
+            <div class="tracker-bar-fill" id="trackerFillWine" style="width:0%;"></div>
+          </div>
+          <div class="tracker-item-status" id="trackerStatusWine">Noch 6 Flaschen</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLOATING MINI-TRACKER (wenn man durch Sortiment scrollt) -->
+  <div id="floatingTrackerBar" class="floating-tracker-bar" style="display:none;" onclick="scrollToCalculator()">
+    <span style="font-size:1.1rem;">🎯</span>
+    <span style="font-weight:700; color:#FCD34D;">Festbedarf:</span>
+    <div class="floating-tracker-pill" id="floatPillMineral"><span>💧</span> <span id="floatTxtMineral">0%</span></div>
+    <div class="floating-tracker-pill" id="floatPillSoft"><span>🥤</span> <span id="floatTxtSoft">0%</span></div>
+    <div class="floating-tracker-pill" id="floatPillBeer"><span>🍺</span> <span id="floatTxtBeer">0%</span></div>
+    <div class="floating-tracker-pill" id="floatPillWine"><span>🍷</span> <span id="floatTxtWine">0%</span></div>
+    <span style="font-size:0.75rem; opacity:0.8; margin-left:4px; text-decoration:underline;">↑ Rechner</span>
   </div>
 
   <div id="categories"></div>
@@ -1848,80 +2541,37 @@
   </div>
 </div>
 
-<!-- ADD / EDIT PRESET (PAKET) MODAL -->
-<div class="overlay" id="adminPresetEditOverlay" onclick="if(event.target.id==='adminPresetEditOverlay') closePresetEditModal()">
-  <div class="sheet" style="max-width: 650px; max-height: 90vh; overflow-y: auto;">
+<!-- ADMIN CALCULATOR STANDARDS MODAL -->
+<div class="overlay" id="adminCalcStandardsOverlay" onclick="if(event.target.id==='adminCalcStandardsOverlay') closeCalcStandardsModal()">
+  <div class="sheet" style="max-width: 680px; max-height: 90vh; overflow-y: auto;">
     <div class="sheet-head">
-      <h2 id="presetModalTitle">📦 Paket bearbeiten</h2>
-      <button class="sheet-close" onclick="closePresetEditModal()">✕</button>
+      <h2>⚙️ Standard-Produkte für Getränkerechner festlegen</h2>
+      <button class="sheet-close" onclick="closeCalcStandardsModal()">✕</button>
     </div>
     
     <div style="padding: 12px 0;">
-      <!-- Title & Icon -->
-      <div style="display:flex; gap:12px; margin-bottom:12px;">
-        <div style="flex:0 0 70px;">
-          <label style="font-weight:600; font-size:0.8rem; color:var(--text-muted); display:block; margin-bottom:4px;">Icon</label>
-          <input type="text" id="presetIconInput" placeholder="🍖" style="width:100%; padding:8px; border-radius:6px; border:1px solid var(--border); text-align:center; font-size:1.2rem; background:var(--bg-card); color:var(--text);">
-        </div>
-        <div style="flex:1;">
-          <label style="font-weight:600; font-size:0.8rem; color:var(--text-muted); display:block; margin-bottom:4px;">Paket Name / Titel *</label>
-          <input type="text" id="presetTitleInput" placeholder="z.B. Grillfest (ca. 10 Pers.)" style="width:100%; padding:8px 10px; border-radius:6px; border:1px solid var(--border); background:var(--bg-card); color:var(--text);">
-        </div>
-      </div>
-      
-      <!-- Description -->
-      <div style="margin-bottom:16px;">
-        <label style="font-weight:600; font-size:0.8rem; color:var(--text-muted); display:block; margin-bottom:4px;">Beschreibung / Untertitel</label>
-        <input type="text" id="presetDescInput" placeholder="z.B. Bier-Harass, Mineralwasser, Softdrinks & Pinot Noir" style="width:100%; padding:8px 10px; border-radius:6px; border:1px solid var(--border); background:var(--bg-card); color:var(--text);">
+      <p style="font-size:0.86rem; color:var(--text-muted); margin-bottom:14px; line-height:1.45;">
+        Lege fest, welche Landi-Bestseller automatisch in den Warenkorb gelegt werden, wenn ein Kunde auf <strong>«Mit Standard-Produkten übernehmen»</strong> klickt. Du kannst für jeden Anlass-Typ individuelle Standardprodukte bestimmen.
+      </p>
+
+      <!-- Event Tabs -->
+      <div style="display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap; border-bottom:1px solid var(--border); padding-bottom:12px;">
+        <button type="button" class="admin-tab-btn active" id="tabBtn_grillfest" onclick="switchAdminStandardsTab('grillfest')">🍖 Grillfest</button>
+        <button type="button" class="admin-tab-btn" id="tabBtn_apero" onclick="switchAdminStandardsTab('apero')">🥂 Apéro</button>
+        <button type="button" class="admin-tab-btn" id="tabBtn_party" onclick="switchAdminStandardsTab('party')">🎉 Party</button>
+        <button type="button" class="admin-tab-btn" id="tabBtn_family" onclick="switchAdminStandardsTab('family')">👨‍👩‍👧 Familie</button>
       </div>
 
-      <!-- Article List Header -->
-      <div style="border-top:1px solid var(--border); margin-top:16px; padding-top:12px;">
-        <h3 style="font-size:0.95rem; font-weight:700; margin-bottom:10px; color:var(--text);">Enthaltene Artikel</h3>
-        
-        <div id="presetItemsList" style="display:flex; flex-direction:column; gap:8px; max-height:240px; overflow-y:auto; padding-right:4px;">
-          <!-- Item rows inserted dynamically -->
-        </div>
+      <!-- Slots Container for 4 Categories (rendered dynamically) -->
+      <div id="adminStandardsSlotsContainer" style="display:flex; flex-direction:column; gap:12px;">
       </div>
 
-      <!-- Add New Article Section with Search Input -->
-      <div style="background:var(--bg-muted, rgba(0,0,0,0.03)); border:1px solid var(--border); border-radius:8px; padding:12px; margin-top:14px; position:relative;">
-        <h4 style="font-size:0.85rem; font-weight:700; margin-bottom:8px; color:var(--text);">➕ Artikel zum Paket hinzufügen</h4>
-        <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:flex-end;">
-          <div style="flex:1; min-width:210px; position:relative;">
-            <label style="font-size:0.78rem; font-weight:600; color:var(--text-muted); display:block; margin-bottom:3px;">Produkt suchen</label>
-            <input type="text" id="presetSearchInput" placeholder="🔍 Name oder Art.-Nr. suchen…" oninput="filterPresetSearchProducts(this.value)" onfocus="filterPresetSearchProducts(this.value)" autocomplete="off" style="width:100%; padding:8px 10px; border-radius:6px; border:1px solid var(--border); font-size:0.85rem; background:var(--bg-card); color:var(--text);">
-            
-            <!-- Dropdown search results list -->
-            <div id="presetSearchResults" style="display:none; position:absolute; top:100%; left:0; right:0; max-height:220px; overflow-y:auto; background:var(--bg-card); border:1px solid var(--border); border-radius:6px; box-shadow:0 8px 24px rgba(0,0,0,0.18); z-index:1000; margin-top:2px;">
-            </div>
-          </div>
-
-          <div style="width:75px;">
-            <label style="font-size:0.78rem; font-weight:600; color:var(--text-muted); display:block; margin-bottom:3px;">Menge</label>
-            <input type="number" id="presetProductQty" min="1" value="1" style="width:100%; padding:8px; border-radius:6px; border:1px solid var(--border); font-size:0.85rem; text-align:center; background:var(--bg-card); color:var(--text);">
-          </div>
-          
-          <div style="width:125px;">
-            <label style="font-size:0.78rem; font-weight:600; color:var(--text-muted); display:block; margin-bottom:3px;">Gebinde</label>
-            <select id="presetProductType" style="width:100%; padding:8px; border-radius:6px; border:1px solid var(--border); font-size:0.85rem; background:var(--bg-card); color:var(--text);">
-              <option value="bottles">Flaschen/Stk</option>
-              <option value="cases">Kartons/Har.</option>
-            </select>
-          </div>
-          
-          <div>
-            <button onclick="addArticleToEditingPreset()" style="background:#10B981; color:white; border:none; padding:8px 14px; border-radius:6px; font-weight:bold; font-size:0.85rem; cursor:pointer; height:36px;">+ Hinzufügen</button>
-          </div>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:20px; padding-top:14px; border-top:1px solid var(--border); flex-wrap:wrap; gap:10px;">
+        <button type="button" onclick="resetCalcStandardsToDefault()" style="background:#FEE2E2; color:#991B1B; border:1px solid #FCA5A5; padding:8px 14px; border-radius:6px; font-size:0.82rem; font-weight:600; cursor:pointer;">↩️ Auf Landi-Standard zurücksetzen</button>
+        <div style="display:flex; gap:8px;">
+          <button type="button" class="secondary" onclick="closeCalcStandardsModal()" style="padding:8px 14px; font-size:0.85rem;">Abbrechen</button>
+          <button type="button" class="primary" onclick="saveCalcStandardsFromModal()" style="padding:8px 18px; font-size:0.85rem; font-weight:700;">💾 Einstellungen speichern</button>
         </div>
-      </div>
-    </div>
-
-    <div class="sheet-actions" style="margin-top:16px; display:flex; justify-content:space-between; align-items:center;">
-      <button id="deletePresetBtn" onclick="deleteEditingPreset()" style="background:#EF4444; color:white; border:none; padding:9px 14px; border-radius:8px; font-weight:bold; font-size:0.85rem; cursor:pointer;">🗑️ Paket löschen</button>
-      <div style="display:flex; gap:8px;">
-        <button class="secondary" onclick="closePresetEditModal()">Abbrechen</button>
-        <button class="primary" onclick="savePresetFromModal()">💾 Paket speichern</button>
       </div>
     </div>
   </div>
@@ -2806,6 +3456,8 @@ function toggleEditPricesMode(forceState) {
   }
 
   document.getElementById("editBanner").style.display = isEditPricesMode ? "block" : "none";
+  const adminCalcBtn = document.getElementById("adminCalcSettingsBtnContainer");
+  if (adminCalcBtn) adminCalcBtn.style.display = isEditPricesMode ? "block" : "none";
   updateAdminHeaderBtn();
   renderPresets();
   renderProducts();
@@ -3774,6 +4426,9 @@ function updateSummaryBar() {
   document.getElementById("totalPrice").textContent = money(total);
   document.getElementById("reviewBtn").disabled = selected.length === 0;
   updateFloatingCartBtn();
+  if (typeof updateCalculatorTracker === "function") {
+    updateCalculatorTracker();
+  }
 }
 
 function changeReviewQty(id, field, delta) {
@@ -4039,123 +4694,519 @@ function triggerQtyFeedback(id) {
   });
 }
 
-const DEFAULT_PRESETS = [
-  {
-    id: "grillfest",
-    title: "Grillfest (ca. 10 Pers.)",
-    description: "Bier-Harass, Mineralwasser, Softdrinks & Pinot Noir",
-    icon: "🍖",
-    items: [
-      { art: "111698", cases: 1 },
-      { art: "87524", cases: 2 },
-      { art: "13152", cases: 1 },
-      { art: "66471", bottles: 2 }
-    ]
-  },
-  {
-    id: "apero",
-    title: "Apéro (ca. 20 Pers.)",
-    description: "Fendant AOC, Pinot Noir, Mineralwasser & Süssgetränke",
-    icon: "🥂",
-    items: [
-      { art: "88160", bottles: 4 },
-      { art: "66471", bottles: 4 },
-      { art: "87524", cases: 3 },
-      { art: "13152", cases: 2 }
-    ]
-  },
-  {
-    id: "party",
-    title: "Vereinsfest (ca. 50 Pers.)",
-    description: "Bier-Harasse, Quöllfrisch, Eistee & Mineralwasser",
-    icon: "⚽",
-    items: [
-      { art: "111698", cases: 3 },
-      { art: "105553", cases: 2 },
-      { art: "87524", cases: 5 },
-      { art: "13152", cases: 4 }
-    ]
-  }
-];
+/* =========================================================================
+   GETRÄNKE- & EVENT-RECHNER MIT BEDARFS-TRACKER & STANDARD-PRODUKTEN
+   ========================================================================= */
 
-let presetsList = [];
+// Factory Standard-Produkte je Anlass
+const DEFAULT_CALCULATOR_STANDARDS = {
+  grillfest: {
+    mineral: "87524",  // Mineralwasser Farmer blau 6×150cl (9 L)
+    soft: "13152",     // Coca-Cola 8 × 150 cl (12 L)
+    beer: "111698",    // Farmer Bier Lager Dose 24x33cl (7.92 L)
+    wine: "66471"      // Fleurance Pinot Noir 50 cl
+  },
+  apero: {
+    mineral: "87524",  // Mineralwasser Farmer blau 6×150cl
+    soft: "13152",     // Coca-Cola 8 × 150 cl
+    beer: "105553",    // Bier Quoellfrisch 24x33cl
+    wine: "88160"      // Fendant VS 50 cl
+  },
+  party: {
+    mineral: "87524",  // Mineralwasser Farmer blau 6×150cl
+    soft: "13152",     // Coca-Cola 8 × 150 cl
+    beer: "111698",    // Farmer Bier Lager Dose 24x33cl
+    wine: "66471"      // Pinot Noir
+  },
+  family: {
+    mineral: "87524",  // Mineralwasser Farmer blau 6×150cl
+    soft: "13152",     // Coca-Cola 8 × 150 cl
+    beer: "111698",    // Farmer Bier Lager
+    wine: "88160"      // Fendant
+  }
+};
+
+let calcStandards = JSON.parse(JSON.stringify(DEFAULT_CALCULATOR_STANDARDS));
 try {
-  const saved = localStorage.getItem("landi_custom_presets");
-  if (saved) {
-    presetsList = JSON.parse(saved);
-    const hasValidItems = presetsList.some(p => (p.items || []).some(item => !!findProduct(item.art)));
-    if (!hasValidItems) {
-      presetsList = typeof PRESETS !== "undefined" && Array.isArray(PRESETS) ? JSON.parse(JSON.stringify(PRESETS)) : JSON.parse(JSON.stringify(DEFAULT_PRESETS));
-    }
-  } else if (typeof PRESETS !== "undefined" && Array.isArray(PRESETS)) {
-    presetsList = JSON.parse(JSON.stringify(PRESETS));
-  } else {
-    presetsList = JSON.parse(JSON.stringify(DEFAULT_PRESETS));
+  const savedCalc = localStorage.getItem("landi_calc_standards");
+  if (savedCalc) {
+    calcStandards = Object.assign(JSON.parse(JSON.stringify(DEFAULT_CALCULATOR_STANDARDS)), JSON.parse(savedCalc));
   }
 } catch(e) {
-  presetsList = JSON.parse(JSON.stringify(DEFAULT_PRESETS));
+  calcStandards = JSON.parse(JSON.stringify(DEFAULT_CALCULATOR_STANDARDS));
 }
 
-function renderPresets() {
-  const grid = document.getElementById("presetCardsGrid");
-  const addBtnContainer = document.getElementById("adminAddPresetBtnContainer");
-  if (addBtnContainer) {
-    addBtnContainer.style.display = isEditPricesMode ? "block" : "none";
-  }
-  if (!grid) return;
+// Rechner-Zustand
+let calcEventType = "grillfest";
+let calcGuests = 25;
+let calcHours = 4;
+let calcHotWeather = false;
+let calcTrackerActive = false;
 
-  if (!presetsList || presetsList.length === 0) {
-    grid.innerHTML = '<p style="color:var(--text-muted); font-size:0.9rem;">Keine Pakete vorhanden.</p>';
-    return;
-  }
+// Berechnete Soll-Ziele
+let calcTargets = {
+  mineralLiters: 18,
+  mineralCases: 2,
+  softLiters: 16,
+  softCases: 2,
+  beerLiters: 16,
+  beerCases: 2,
+  wineBottles: 6,
+  wineLiters: 4.5,
+  totalLiters: 40
+};
 
-  grid.innerHTML = presetsList.map(preset => `
-    <div class="preset-card" style="display:flex; flex-direction:column; justify-content:space-between;">
-      <div onclick="applyPreset('${preset.id}')" style="cursor:pointer; display:flex; gap:14px; flex:1;">
-        <div class="preset-card-icon">${preset.icon || '📦'}</div>
-        <div class="preset-card-body">
-          <h3>${preset.title}</h3>
-          <p>${preset.description || ''}</p>
-          <div class="preset-card-tag">Paket wählen +</div>
-        </div>
-      </div>
-      ${isEditPricesMode ? `
-        <div class="preset-card-actions" style="margin-top:10px; padding-top:10px; border-top:1px dashed var(--border); display:flex; gap:6px; justify-content:flex-end; width:100%;">
-          <button onclick="openEditPresetModal('${preset.id}')" style="background:#2563EB; color:white; border:none; padding:5px 10px; border-radius:6px; font-size:0.78rem; font-weight:600; cursor:pointer;">✏️ Paket bearbeiten</button>
-          <button onclick="deletePreset('${preset.id}')" style="background:#EF4444; color:white; border:none; padding:5px 10px; border-radius:6px; font-size:0.78rem; font-weight:600; cursor:pointer;">🗑️</button>
-        </div>
-      ` : ''}
-    </div>
-  `).join("");
+// Hilfsfunktionen für Gebinde- und Volumen-Erkennung
+function getProductVolumeLiters(p) {
+  if (!p) return 0.75;
+  const name = (p.name || "").toLowerCase();
+  const mCl = name.match(/(\d+(?:\.\d+)?)\s*cl/i);
+  if (mCl) return parseFloat(mCl[1]) / 100;
+  const mL = name.match(/(\d+(?:\.\d+)?)\s*(?:l|liter)\b/i);
+  if (mL) return parseFloat(mL[1]);
+  if (name.includes("75 cl") || (p.category && p.category.toLowerCase().includes("wein"))) return 0.75;
+  if (name.includes("33 cl") || (p.category && p.category.toLowerCase().includes("bier"))) return 0.33;
+  return 1.0;
 }
 
-function applyPreset(presetId) {
-  const preset = presetsList.find(p => p.id === presetId);
-  if (!preset || !preset.items) return;
+function getProductCaseVolumeLiters(p) {
+  if (!p) return 1.0;
+  const size = p.caseSize || 1;
+  return getProductVolumeLiters(p) * size;
+}
 
-  preset.items.forEach(spec => {
-    const p = findProduct(spec.art);
-    if (p) {
-      if (!qty[p.id]) qty[p.id] = { bottles: 0, cases: 0 };
-      if (spec.cases !== undefined) {
-        qty[p.id].cases = (qty[p.id].cases || 0) + spec.cases;
-      }
-      if (spec.bottles !== undefined) {
-        qty[p.id].bottles = (qty[p.id].bottles || 0) + spec.bottles;
-      }
+function getProductCategoryGroup(p) {
+  if (!p) return "other";
+  const cat = (p.category || "").toLowerCase();
+  const name = (p.name || "").toLowerCase();
+
+  if (cat.includes("mineral") || name.includes("mineral") || name.includes("wasser") || name.includes("quelle") || name.includes("henniez") || name.includes("valser") || name.includes("rhäzünser")) {
+    return "mineral";
+  }
+  if (cat.includes("süss") || cat.includes("suess") || cat.includes("soft") || name.includes("cola") || name.includes("rivella") || name.includes("soda") || name.includes("citro") || name.includes("eistee") || name.includes("schorle") || name.includes("sinalco") || name.includes("granini") || name.includes("saft") || name.includes("gazosa") || name.includes("chino") || name.includes("aranc")) {
+    return "soft";
+  }
+  if (cat.includes("bier") || name.includes("bier") || name.includes("panach") || name.includes("lager") || name.includes("quöllfrisch") || name.includes("quoellfrisch") || name.includes("moretti") || name.includes("peroni") || name.includes("feldschlösschen") || name.includes("chopfab") || name.includes("calanda")) {
+    return "beer";
+  }
+  if (cat.includes("wein") || name.includes("wein") || name.includes("fendant") || name.includes("dôle") || name.includes("dole") || name.includes("pinot") || name.includes("merlot") || name.includes("prosecco") || name.includes("champagn") || name.includes("cava") || name.includes("heida") || name.includes("pescaito") || name.includes("moscato") || name.includes("aigle") || name.includes("chasselas") || name.includes("rosé") || name.includes("rose") || name.includes("75 cl")) {
+    return "wine";
+  }
+  if (cat.includes("spirituosen")) {
+    return "spirits";
+  }
+  return "other";
+}
+
+// Rechner Event-Typ setzen
+function setCalcEvent(type) {
+  calcEventType = type;
+  const btnIds = ["grillfest", "apero", "party", "family"];
+  btnIds.forEach(id => {
+    const el = document.getElementById(`calcEventBtn_${id}`);
+    if (el) {
+      if (id === type) el.classList.add("active");
+      else el.classList.remove("active");
     }
   });
+  recalculateCalcNeeds();
+}
+
+function onCalcGuestsRangeChange(val) {
+  calcGuests = Math.max(5, parseInt(val, 10) || 25);
+  const input = document.getElementById("calcGuestsInput");
+  if (input) input.value = calcGuests;
+  recalculateCalcNeeds();
+}
+
+function onCalcGuestsInputChange(val) {
+  calcGuests = Math.max(5, parseInt(val, 10) || 5);
+  const range = document.getElementById("calcGuestsRange");
+  if (range) range.value = Math.min(150, calcGuests);
+  recalculateCalcNeeds();
+}
+
+function onCalcHoursChange(val) {
+  calcHours = Math.max(2, parseInt(val, 10) || 2);
+  const display = document.getElementById("calcHoursDisplay");
+  if (display) display.textContent = calcHours;
+  recalculateCalcNeeds();
+}
+
+// Kern-Berechnung der empfohlenen Mengen
+function recalculateCalcNeeds() {
+  const hotWeatherEl = document.getElementById("calcHotWeather");
+  calcHotWeather = hotWeatherEl ? hotWeatherEl.checked : false;
+
+  // Flüssigkeitsbedarf pro Person:
+  // 1.0L für die ersten 2 Stunden, danach +0.3L pro weiterer Stunde
+  let perPersonLiters = 1.0 + Math.max(0, calcHours - 2) * 0.3;
+  if (calcHotWeather) {
+    perPersonLiters *= 1.2; // +20% bei Hitze
+  }
+
+  const totalEventLiters = Math.round(calcGuests * perPersonLiters);
+
+  // Verteilung je nach Event-Typ
+  let minPct = 0.32, softPct = 0.23, beerPct = 0.35, winePct = 0.10;
+
+  if (calcEventType === "apero") {
+    minPct = 0.35;
+    softPct = 0.15;
+    beerPct = 0.15;
+    winePct = 0.35; // Weine & Schaumwein im Fokus
+  } else if (calcEventType === "party") {
+    minPct = 0.25;
+    softPct = 0.18;
+    beerPct = 0.45; // Hoher Bierkonsum
+    winePct = 0.12;
+  } else if (calcEventType === "family") {
+    minPct = 0.52;
+    softPct = 0.48;
+    beerPct = 0.00;
+    winePct = 0.00;
+  }
+
+  let minLiters = Math.round(totalEventLiters * minPct);
+  let softLiters = Math.round(totalEventLiters * softPct);
+  let beerLiters = Math.round(totalEventLiters * beerPct);
+  let wineLiters = Math.round(totalEventLiters * winePct * 10) / 10;
+
+  // Harassen-Abschätzungen:
+  // Mineral: Farmer blau 6x1.5L = 9L pro Pack -> Harassen = aufrunden(L / 9)
+  const minCases = Math.max(1, Math.ceil(minLiters / 9));
+  // Soft: Cola 8x1.5L = 12L pro Pack -> Harassen = aufrunden(L / 12)
+  const softCases = Math.max(1, Math.ceil(softLiters / 12));
+  // Bier: 24x33cl = 7.92L pro Pack -> Packs = aufrunden(L / 8)
+  const beerCases = beerPct > 0 ? Math.max(1, Math.ceil(beerLiters / 8)) : 0;
+  // Wein: 0.75L pro Flasche
+  const wineBottles = winePct > 0 ? Math.max(1, Math.ceil(wineLiters / 0.75)) : 0;
+
+  calcTargets = {
+    mineralLiters: minLiters,
+    mineralCases: minCases,
+    softLiters: softLiters,
+    softCases: softCases,
+    beerLiters: beerLiters,
+    beerCases: beerCases,
+    wineBottles: wineBottles,
+    wineLiters: wineLiters,
+    totalLiters: totalEventLiters
+  };
+
+  // DOM aktualisieren
+  const summaryTitle = document.getElementById("calcResultsSummaryTitle");
+  if (summaryTitle) {
+    summaryTitle.textContent = `Bedarfsempfehlung für ${calcGuests} Personen (ca. ${calcHours} Std.):`;
+  }
+  const totalTag = document.getElementById("calcTotalLitersTag");
+  if (totalTag) {
+    totalTag.textContent = `ca. ${totalEventLiters} L gesamt`;
+  }
+
+  const elMinC = document.getElementById("resMineralCases");
+  if (elMinC) elMinC.textContent = `${minCases} ${minCases === 1 ? 'Harass/Pack' : 'Harassen/Packs'}`;
+  const elMinL = document.getElementById("resMineralLiters");
+  if (elMinL) elMinL.textContent = `ca. ${minLiters} Liter (mit & ohne Kohlensäure)`;
+
+  const elSoftC = document.getElementById("resSoftCases");
+  if (elSoftC) elSoftC.textContent = `${softCases} ${softCases === 1 ? 'Harass/Pack' : 'Harassen/Packs'}`;
+  const elSoftL = document.getElementById("resSoftLiters");
+  if (elSoftL) elSoftL.textContent = `ca. ${softLiters} Liter (Cola, Rivella, Most)`;
+
+  const elBeerC = document.getElementById("resBeerCases");
+  if (elBeerC) elBeerC.textContent = beerCases > 0 ? `${beerCases} ${beerCases === 1 ? 'Pack / Harass' : 'Packs / Harassen'}` : `0 Packs (Alkoholfrei)`;
+  const elBeerL = document.getElementById("resBeerLiters");
+  if (elBeerL) elBeerL.textContent = beerLiters > 0 ? `ca. ${beerLiters} Liter (ca. ${Math.round(beerLiters / 0.33)} Dosen/Fl.)` : `Rein alkoholfreies Fest`;
+
+  const elWineB = document.getElementById("resWineBottles");
+  if (elWineB) elWineB.textContent = wineBottles > 0 ? `${wineBottles} ${wineBottles === 1 ? 'Flasche' : 'Flaschen'}` : `0 Flaschen`;
+  const elWineL = document.getElementById("resWineLiters");
+  if (elWineL) elWineL.textContent = wineBottles > 0 ? `ca. ${wineLiters} Liter (Weiss / Rot / Schaumwein)` : `Kein Alkohol eingeplant`;
+
+  const trackerSummary = document.getElementById("trackerSummaryText");
+  if (trackerSummary) {
+    trackerSummary.textContent = `Ziel: ${calcGuests} Personen • ${calcHours} Std. (${calcEventType.toUpperCase()})`;
+  }
+
+  updateCalculatorTracker();
+}
+
+// Aktuelle Mengen im Warenkorb nach den 4 Getränkegruppen auswerten
+function getCurrentCartQuantitiesByCategory() {
+  let mineralLiters = 0;
+  let softLiters = 0;
+  let beerLiters = 0;
+  let wineBottles = 0;
+  let wineLiters = 0;
+
+  const selected = getSelectedProducts();
+  selected.forEach(s => {
+    const p = s.product;
+    const grp = getProductCategoryGroup(p);
+    const vol = getProductVolumeLiters(p);
+    const count = s.count || getBottleCount(p);
+
+    if (grp === "mineral") {
+      mineralLiters += count * vol;
+    } else if (grp === "soft") {
+      softLiters += count * vol;
+    } else if (grp === "beer") {
+      beerLiters += count * vol;
+    } else if (grp === "wine") {
+      wineBottles += count;
+      wineLiters += count * vol;
+    }
+  });
+
+  return {
+    mineralLiters: Math.round(mineralLiters * 10) / 10,
+    softLiters: Math.round(softLiters * 10) / 10,
+    beerLiters: Math.round(beerLiters * 10) / 10,
+    wineBottles: Math.round(wineBottles),
+    wineLiters: Math.round(wineLiters * 10) / 10
+  };
+}
+
+// Fortschrittsbalken & Tracker aktualisieren
+function updateCalculatorTracker() {
+  const cart = getCurrentCartQuantitiesByCategory();
+
+  const minTgt = Math.max(1, calcTargets.mineralLiters);
+  const softTgt = Math.max(1, calcTargets.softLiters);
+  const beerTgt = Math.max(0, calcTargets.beerLiters);
+  const wineTgt = Math.max(0, calcTargets.wineBottles);
+
+  const minPct = Math.round((cart.mineralLiters / minTgt) * 100);
+  const softPct = Math.round((cart.softLiters / softTgt) * 100);
+  const beerPct = beerTgt > 0 ? Math.round((cart.beerLiters / beerTgt) * 100) : 100;
+  const winePct = wineTgt > 0 ? Math.round((cart.wineBottles / wineTgt) * 100) : 100;
+
+  // DOM Elemente aktualisieren
+  const fillMin = document.getElementById("trackerFillMineral");
+  if (fillMin) fillMin.style.width = Math.min(100, minPct) + "%";
+  const valMin = document.getElementById("trackerValMineral");
+  if (valMin) valMin.textContent = `${cart.mineralLiters} / ${minTgt} L (${minPct}%)`;
+  const statMin = document.getElementById("trackerStatusMineral");
+  const itemMin = document.getElementById("trackerItemMineral");
+  if (statMin) {
+    if (minPct >= 100) {
+      statMin.innerHTML = "<span>✓ Gedeckt</span>";
+      if (itemMin) itemMin.classList.add("completed");
+    } else {
+      const diff = Math.round(minTgt - cart.mineralLiters);
+      statMin.innerHTML = `<span>Noch ca. ${diff} L</span> <span>(~${Math.ceil(diff / 9)} Har.)</span>`;
+      if (itemMin) itemMin.classList.remove("completed");
+    }
+  }
+
+  const fillSoft = document.getElementById("trackerFillSoft");
+  if (fillSoft) fillSoft.style.width = Math.min(100, softPct) + "%";
+  const valSoft = document.getElementById("trackerValSoft");
+  if (valSoft) valSoft.textContent = `${cart.softLiters} / ${softTgt} L (${softPct}%)`;
+  const statSoft = document.getElementById("trackerStatusSoft");
+  const itemSoft = document.getElementById("trackerItemSoft");
+  if (statSoft) {
+    if (softPct >= 100) {
+      statSoft.innerHTML = "<span>✓ Gedeckt</span>";
+      if (itemSoft) itemSoft.classList.add("completed");
+    } else {
+      const diff = Math.round(softTgt - cart.softLiters);
+      statSoft.innerHTML = `<span>Noch ca. ${diff} L</span> <span>(~${Math.ceil(diff / 12)} Har.)</span>`;
+      if (itemSoft) itemSoft.classList.remove("completed");
+    }
+  }
+
+  const fillBeer = document.getElementById("trackerFillBeer");
+  if (fillBeer) fillBeer.style.width = Math.min(100, beerPct) + "%";
+  const valBeer = document.getElementById("trackerValBeer");
+  if (valBeer) valBeer.textContent = beerTgt > 0 ? `${cart.beerLiters} / ${beerTgt} L (${beerPct}%)` : `Alkoholfrei (100%)`;
+  const statBeer = document.getElementById("trackerStatusBeer");
+  const itemBeer = document.getElementById("trackerItemBeer");
+  if (statBeer) {
+    if (beerPct >= 100) {
+      statBeer.innerHTML = "<span>✓ Gedeckt</span>";
+      if (itemBeer) itemBeer.classList.add("completed");
+    } else {
+      const diff = Math.round(beerTgt - cart.beerLiters);
+      statBeer.innerHTML = `<span>Noch ca. ${diff} L</span> <span>(~${Math.ceil(diff / 8)} Packs)</span>`;
+      if (itemBeer) itemBeer.classList.remove("completed");
+    }
+  }
+
+  const fillWine = document.getElementById("trackerFillWine");
+  if (fillWine) fillWine.style.width = Math.min(100, winePct) + "%";
+  const valWine = document.getElementById("trackerValWine");
+  if (valWine) valWine.textContent = wineTgt > 0 ? `${cart.wineBottles} / ${wineTgt} Fl. (${winePct}%)` : `Alkoholfrei (100%)`;
+  const statWine = document.getElementById("trackerStatusWine");
+  const itemWine = document.getElementById("trackerItemWine");
+  if (statWine) {
+    if (winePct >= 100) {
+      statWine.innerHTML = "<span>✓ Gedeckt</span>";
+      if (itemWine) itemWine.classList.add("completed");
+    } else {
+      const diff = wineTgt - cart.wineBottles;
+      statWine.innerHTML = `<span>Noch ${diff} ${diff === 1 ? 'Flasche' : 'Flaschen'}</span>`;
+      if (itemWine) itemWine.classList.remove("completed");
+    }
+  }
+
+  // Gesamt-Status Badge
+  let coveredCount = 0;
+  let totalTracked = 2; // Mineral + Soft immer
+  if (minPct >= 100) coveredCount++;
+  if (softPct >= 100) coveredCount++;
+  if (beerTgt > 0) {
+    totalTracked++;
+    if (beerPct >= 100) coveredCount++;
+  }
+  if (wineTgt > 0) {
+    totalTracked++;
+    if (winePct >= 100) coveredCount++;
+  }
+
+  const overallEl = document.getElementById("trackerOverallStatus");
+  if (overallEl) {
+    if (coveredCount === totalTracked) {
+      overallEl.textContent = `🎉 Perfekt! Alle ${totalTracked} Bereiche gedeckt`;
+      overallEl.style.background = "#DCFCE7";
+      overallEl.style.color = "#166534";
+      overallEl.style.borderColor = "#86EFAC";
+    } else {
+      overallEl.textContent = `${coveredCount} von ${totalTracked} Bereichen gedeckt`;
+      overallEl.style.background = "var(--accent-light)";
+      overallEl.style.color = "var(--accent-dark)";
+      overallEl.style.borderColor = "var(--accent-border)";
+    }
+  }
+
+  // Floating Mini-Tracker Bar aktualisieren
+  const floatMin = document.getElementById("floatTxtMineral");
+  const floatPillMin = document.getElementById("floatPillMineral");
+  if (floatMin) floatMin.textContent = minPct >= 100 ? "✓ 100%" : `${minPct}%`;
+  if (floatPillMin) floatPillMin.classList.toggle("done", minPct >= 100);
+
+  const floatSoft = document.getElementById("floatTxtSoft");
+  const floatPillSoft = document.getElementById("floatPillSoft");
+  if (floatSoft) floatSoft.textContent = softPct >= 100 ? "✓ 100%" : `${softPct}%`;
+  if (floatPillSoft) floatPillSoft.classList.toggle("done", softPct >= 100);
+
+  const floatBeer = document.getElementById("floatTxtBeer");
+  const floatPillBeer = document.getElementById("floatPillBeer");
+  if (floatBeer) floatBeer.textContent = beerTgt === 0 || beerPct >= 100 ? "✓" : `${beerPct}%`;
+  if (floatPillBeer) floatPillBeer.classList.toggle("done", beerTgt === 0 || beerPct >= 100);
+
+  const floatWine = document.getElementById("floatTxtWine");
+  const floatPillWine = document.getElementById("floatPillWine");
+  if (floatWine) floatWine.textContent = wineTgt === 0 || winePct >= 100 ? "✓" : `${winePct}%`;
+  if (floatPillWine) floatPillWine.classList.toggle("done", wineTgt === 0 || winePct >= 100);
+}
+
+// Option 1: Standard-Produkte mit 1 Klick übernehmen
+function applyCalculatorStandardProducts() {
+  const std = calcStandards[calcEventType] || DEFAULT_CALCULATOR_STANDARDS[calcEventType];
+  if (!std) return;
+
+  // Mineral
+  if (std.mineral) {
+    const p = findProduct(std.mineral);
+    if (p) {
+      const caseVol = getProductCaseVolumeLiters(p);
+      const casesNeeded = Math.max(1, Math.ceil(calcTargets.mineralLiters / caseVol));
+      if (!qty[p.id]) qty[p.id] = { bottles: 0, cases: 0 };
+      qty[p.id].cases = (qty[p.id].cases || 0) + casesNeeded;
+      updateQtyDOM(p.id);
+    }
+  }
+
+  // Softdrinks
+  if (std.soft) {
+    const p = findProduct(std.soft);
+    if (p) {
+      const caseVol = getProductCaseVolumeLiters(p);
+      const casesNeeded = Math.max(1, Math.ceil(calcTargets.softLiters / caseVol));
+      if (!qty[p.id]) qty[p.id] = { bottles: 0, cases: 0 };
+      qty[p.id].cases = (qty[p.id].cases || 0) + casesNeeded;
+      updateQtyDOM(p.id);
+    }
+  }
+
+  // Bier
+  if (std.beer && calcTargets.beerLiters > 0) {
+    const p = findProduct(std.beer);
+    if (p) {
+      const caseVol = getProductCaseVolumeLiters(p);
+      const casesNeeded = Math.max(1, Math.ceil(calcTargets.beerLiters / caseVol));
+      if (!qty[p.id]) qty[p.id] = { bottles: 0, cases: 0 };
+      qty[p.id].cases = (qty[p.id].cases || 0) + casesNeeded;
+      updateQtyDOM(p.id);
+    }
+  }
+
+  // Wein
+  if (std.wine && calcTargets.wineBottles > 0) {
+    const p = findProduct(std.wine);
+    if (p) {
+      if (!qty[p.id]) qty[p.id] = { bottles: 0, cases: 0 };
+      if (!p.caseOnly && p.allowSingleBottle !== false) {
+        qty[p.id].bottles = (qty[p.id].bottles || 0) + calcTargets.wineBottles;
+      } else {
+        const cSize = p.caseSize || 6;
+        const casesNeeded = Math.max(1, Math.ceil(calcTargets.wineBottles / cSize));
+        qty[p.id].cases = (qty[p.id].cases || 0) + casesNeeded;
+      }
+      updateQtyDOM(p.id);
+    }
+  }
 
   renderProducts();
   updateCategoryBadges();
   updateSummaryBar();
-  showPresetAddedToast(preset.title);
+  activateTrackerMode(false);
+
+  showCalculatorToast(`🎉 Mengen für ${calcGuests} Personen (${calcHours} Std.) übernommen!`);
 
   const catEl = document.getElementById("categories");
-  if (catEl) catEl.scrollIntoView({ behavior: "smooth" });
+  if (catEl) {
+    setTimeout(() => {
+      catEl.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 250);
+  }
 }
 
-function showPresetAddedToast(title) {
+// Option 2: Bedarfs-Tracker aktivieren
+function activateTrackerMode(shouldScroll) {
+  calcTrackerActive = true;
+  const panel = document.getElementById("calcTrackerPanel");
+  if (panel) panel.style.display = "block";
+  updateCalculatorTracker();
+
+  if (shouldScroll) {
+    showCalculatorToast("🎯 Bedarfs-Tracker aktiv: Wähle jetzt unten deine Produkte!");
+    const catEl = document.getElementById("categories");
+    if (catEl) {
+      setTimeout(() => {
+        catEl.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 200);
+    }
+  }
+}
+
+function deactivateTrackerMode() {
+  calcTrackerActive = false;
+  const panel = document.getElementById("calcTrackerPanel");
+  if (panel) panel.style.display = "none";
+  const floatBar = document.getElementById("floatingTrackerBar");
+  if (floatBar) floatBar.style.display = "none";
+}
+
+function scrollToCalculator() {
+  const el = document.getElementById("drinkCalculatorSection");
+  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+// Toast-Benachrichtigung
+function showCalculatorToast(msg) {
   let container = document.getElementById("presetToastContainer");
   if (!container) {
     container = document.createElement("div");
@@ -4165,74 +5216,125 @@ function showPresetAddedToast(title) {
   }
 
   const toast = document.createElement("div");
-  toast.style.cssText = "background:#1F3A2E; color:#ffffff; padding:10px 18px; border-radius:30px; font-weight:700; font-size:0.9rem; box-shadow:0 10px 25px rgba(0,0,0,0.25); display:flex; align-items:center; gap:8px; animation: slideUpToast 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;";
-  toast.innerHTML = `<span>📦</span> <span>Paket "${title}" zur Zusammenstellung hinzugefügt!</span>`;
+  toast.style.cssText = "background:#1F3A2E; color:#ffffff; padding:12px 22px; border-radius:30px; font-weight:700; font-size:0.92rem; box-shadow:0 10px 25px rgba(0,0,0,0.25); display:flex; align-items:center; gap:8px; animation: slideUpToast 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; border:1px solid #C9A227;";
+  toast.innerHTML = `<span>${msg}</span>`;
 
   container.appendChild(toast);
   setTimeout(() => {
     toast.style.opacity = "0";
     toast.style.transition = "opacity 0.3s ease";
     setTimeout(() => toast.remove(), 300);
-  }, 2400);
+  }, 2600);
 }
 
-function deletePreset(presetId) {
-  const preset = presetsList.find(p => p.id === presetId);
-  if (!preset) return;
-  if (confirm(`Möchtest du das Paket "${preset.title}" wirklich löschen?`)) {
-    presetsList = presetsList.filter(p => p.id !== presetId);
-    localStorage.setItem("landi_custom_presets", JSON.stringify(presetsList));
-    renderPresets();
+// =========================================================================
+// ADMIN: STANDARD-PRODUKTE KONFIGURIEREN & BEARBEITEN
+// =========================================================================
+
+let activeAdminStandardsTab = "grillfest";
+let adminChangingSlot = null;
+
+function openCalcStandardsModal() {
+  activeAdminStandardsTab = "grillfest";
+  adminChangingSlot = null;
+  renderAdminStandardsTabs();
+  renderAdminStandardsSlots();
+  const overlay = document.getElementById("adminCalcStandardsOverlay");
+  if (overlay) overlay.classList.add("open");
+}
+
+function closeCalcStandardsModal() {
+  const overlay = document.getElementById("adminCalcStandardsOverlay");
+  if (overlay) overlay.classList.remove("open");
+}
+
+function switchAdminStandardsTab(tab) {
+  activeAdminStandardsTab = tab;
+  adminChangingSlot = null;
+  renderAdminStandardsTabs();
+  renderAdminStandardsSlots();
+}
+
+function renderAdminStandardsTabs() {
+  const tabs = ["grillfest", "apero", "party", "family"];
+  tabs.forEach(t => {
+    const btn = document.getElementById(`tabBtn_${t}`);
+    if (btn) {
+      if (t === activeAdminStandardsTab) btn.classList.add("active");
+      else btn.classList.remove("active");
+    }
+  });
+}
+
+function renderAdminStandardsSlots() {
+  const container = document.getElementById("adminStandardsSlotsContainer");
+  if (!container) return;
+
+  const std = calcStandards[activeAdminStandardsTab] || DEFAULT_CALCULATOR_STANDARDS[activeAdminStandardsTab];
+  const categoriesDef = [
+    { key: "mineral", name: "Mineralwasser", icon: "💧" },
+    { key: "soft", name: "Süssgetränke / Eistee", icon: "🥤" },
+    { key: "beer", name: "Bier", icon: "🍺" },
+    { key: "wine", name: "Wein / Schaumwein", icon: "🍷" }
+  ];
+
+  container.innerHTML = categoriesDef.map(cat => {
+    const art = std[cat.key];
+    const p = findProduct(art);
+    const prodName = p ? p.name : (art ? `Artikel ${art}` : "Kein Produkt zugewiesen");
+    const prodPrice = p ? money(p.price) : "";
+    const prodArt = p ? `Art.-Nr. ${p.art}` : "";
+    const isChanging = adminChangingSlot === cat.key;
+
+    return `
+      <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius-sm); padding:14px; display:flex; flex-direction:column; gap:10px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+          <div style="display:flex; align-items:center; gap:12px;">
+            <span style="font-size:1.8rem; line-height:1;">${cat.icon}</span>
+            <div>
+              <div style="font-size:0.75rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px;">Standard für ${cat.name}</div>
+              <strong style="font-size:0.95rem; color:var(--text); display:block;">${prodName}</strong>
+              ${p ? `<span style="font-size:0.8rem; color:var(--text-muted);">${prodArt} • ${prodPrice}</span>` : ''}
+            </div>
+          </div>
+          <button type="button" onclick="startChangeAdminSlot('${cat.key}')" style="background:#0284C7; color:white; border:none; padding:7px 14px; border-radius:6px; font-size:0.82rem; font-weight:600; cursor:pointer;">
+            ${isChanging ? 'Abbrechen' : '🔄 Produkt ändern'}
+          </button>
+        </div>
+
+        ${isChanging ? `
+          <div style="margin-top:6px; padding-top:10px; border-top:1px dashed var(--border); position:relative;">
+            <label style="font-size:0.78rem; font-weight:700; color:var(--text-muted); display:block; margin-bottom:4px;">Landi-Produkt suchen:</label>
+            <input type="text" id="adminSlotSearchInput_${cat.key}" placeholder="🔍 Name oder Art.-Nr. tippen…" oninput="filterAdminSlotSearch(this.value, '${cat.key}')" style="width:100%; padding:8px 12px; border-radius:6px; border:1px solid var(--border); font-size:0.86rem; background:var(--card); color:var(--text);" autocomplete="off">
+            <div id="adminSlotSearchResults_${cat.key}" style="margin-top:4px; max-height:190px; overflow-y:auto; background:var(--card); border:1px solid var(--border); border-radius:6px; box-shadow:0 8px 24px rgba(0,0,0,0.15);"></div>
+          </div>
+        ` : ''}
+      </div>
+    `;
+  }).join("");
+
+  if (adminChangingSlot) {
+    setTimeout(() => {
+      const inp = document.getElementById(`adminSlotSearchInput_${adminChangingSlot}`);
+      if (inp) {
+        inp.focus();
+        filterAdminSlotSearch("", adminChangingSlot);
+      }
+    }, 50);
   }
 }
 
-let editingPresetId = null;
-let editingPresetItems = [];
-let selectedPresetAddProduct = null;
-
-function openEditPresetModal(presetId) {
-  editingPresetId = presetId;
-  selectedPresetAddProduct = null;
-
-  const titleEl = document.getElementById("presetModalTitle");
-  const iconInput = document.getElementById("presetIconInput");
-  const titleInput = document.getElementById("presetTitleInput");
-  const descInput = document.getElementById("presetDescInput");
-  const searchInput = document.getElementById("presetSearchInput");
-  const searchResults = document.getElementById("presetSearchResults");
-  const deleteBtn = document.getElementById("deletePresetBtn");
-
-  if (searchInput) searchInput.value = "";
-  if (searchResults) searchResults.style.display = "none";
-
-  if (presetId) {
-    const preset = presetsList.find(p => p.id === presetId);
-    if (!preset) return;
-    if (titleEl) titleEl.textContent = "✏️ Paket bearbeiten";
-    if (iconInput) iconInput.value = preset.icon || "📦";
-    if (titleInput) titleInput.value = preset.title || "";
-    if (descInput) descInput.value = preset.description || "";
-    editingPresetItems = JSON.parse(JSON.stringify(preset.items || []));
-    if (deleteBtn) deleteBtn.style.display = "inline-block";
+function startChangeAdminSlot(slotKey) {
+  if (adminChangingSlot === slotKey) {
+    adminChangingSlot = null;
   } else {
-    if (titleEl) titleEl.textContent = "➕ Neues Paket erstellen";
-    if (iconInput) iconInput.value = "📦";
-    if (titleInput) titleInput.value = "";
-    if (descInput) descInput.value = "";
-    editingPresetItems = [];
-    if (deleteBtn) deleteBtn.style.display = "none";
+    adminChangingSlot = slotKey;
   }
-
-  renderPresetItemsList();
-  document.getElementById("adminPresetEditOverlay").classList.add("open");
+  renderAdminStandardsSlots();
 }
 
-function closePresetEditModal() {
-  document.getElementById("adminPresetEditOverlay").classList.remove("open");
-}
-
-function filterPresetSearchProducts(query) {
-  const container = document.getElementById("presetSearchResults");
+function filterAdminSlotSearch(query, slotKey) {
+  const container = document.getElementById(`adminSlotSearchResults_${slotKey}`);
   if (!container) return;
 
   const q = (query || "").trim().toLowerCase();
@@ -4250,207 +5352,68 @@ function filterPresetSearchProducts(query) {
 
   let matches = [];
   if (!q) {
-    matches = allProds.slice(0, 10);
+    matches = allProds.filter(p => getProductCategoryGroup(p) === slotKey).slice(0, 12);
+    if (matches.length === 0) matches = allProds.slice(0, 10);
   } else {
-    matches = allProds.filter(p => 
-      (p.name || "").toLowerCase().includes(q) || 
+    matches = allProds.filter(p =>
+      (p.name || "").toLowerCase().includes(q) ||
       String(p.art).includes(q) ||
       (p.category || "").toLowerCase().includes(q)
     ).slice(0, 15);
   }
 
   if (matches.length === 0) {
-    container.innerHTML = '<div style="padding:10px; color:var(--text-muted); font-size:0.84rem; text-align:center;">Kein Produkt gefunden.</div>';
-  } else {
-    container.innerHTML = matches.map(p => `
-      <div onclick="selectPresetSearchProduct('${p.art}')" style="padding:8px 12px; cursor:pointer; border-bottom:1px solid var(--border); font-size:0.84rem; display:flex; justify-content:space-between; align-items:center;" onmouseover="this.style.background='var(--primary-light)'" onmouseout="this.style.background='transparent'">
-        <div>
-          <strong>${p.name}</strong>
-          <span style="color:var(--text-muted); font-size:0.78rem; display:block;">Art.-Nr. ${p.art}</span>
-        </div>
-        <span style="font-weight:600; color:var(--primary); font-size:0.82rem;">${money(p.price)}</span>
+    container.innerHTML = '<div style="padding:10px; color:var(--text-muted); font-size:0.84rem; text-align:center;">Kein passendes Produkt gefunden.</div>';
+    return;
+  }
+
+  container.innerHTML = matches.map(p => `
+    <div onclick="selectAdminSlotProduct('${slotKey}', '${p.art}')" style="padding:8px 12px; cursor:pointer; border-bottom:1px solid var(--border); font-size:0.84rem; display:flex; justify-content:space-between; align-items:center;" onmouseover="this.style.background='var(--primary-light)'" onmouseout="this.style.background='transparent'">
+      <div>
+        <strong>${p.name}</strong>
+        <span style="color:var(--text-muted); font-size:0.78rem; display:block;">Art.-Nr. ${p.art} • ${p.category || ''}</span>
       </div>
-    `).join("");
-  }
-  container.style.display = "block";
+      <span style="font-weight:700; color:var(--primary); font-size:0.85rem;">${money(p.price)}</span>
+    </div>
+  `).join("");
 }
 
-function selectPresetSearchProduct(art) {
-  const p = findProduct(art);
-  if (!p) return;
-  selectedPresetAddProduct = p;
-  const input = document.getElementById("presetSearchInput");
-  if (input) input.value = `[Art. ${p.art}] ${p.name}`;
-  const container = document.getElementById("presetSearchResults");
-  if (container) container.style.display = "none";
+function selectAdminSlotProduct(slotKey, art) {
+  if (!calcStandards[activeAdminStandardsTab]) {
+    calcStandards[activeAdminStandardsTab] = {};
+  }
+  calcStandards[activeAdminStandardsTab][slotKey] = String(art);
+  adminChangingSlot = null;
+  renderAdminStandardsSlots();
 }
 
-document.addEventListener("click", e => {
-  const searchBox = document.getElementById("presetSearchInput");
-  const resultsBox = document.getElementById("presetSearchResults");
-  if (searchBox && resultsBox && !searchBox.contains(e.target) && !resultsBox.contains(e.target)) {
-    resultsBox.style.display = "none";
-  }
-});
-
-function renderPresetItemsList() {
-  const container = document.getElementById("presetItemsList");
-  if (!container) return;
-
-  if (editingPresetItems.length === 0) {
-    container.innerHTML = '<p style="color:var(--text-muted); font-size:0.85rem; font-style:italic; padding:8px 0;">Noch keine Artikel in diesem Paket. Nutze das Suchfeld unten, um Produkte hinzuzufügen.</p>';
-    return;
-  }
-
-  container.innerHTML = editingPresetItems.map((item, idx) => {
-    const p = findProduct(item.art);
-    const prodName = p ? p.name : `Artikel ${item.art}`;
-    const qtyVal = item.cases !== undefined ? item.cases : (item.bottles !== undefined ? item.bottles : 1);
-    const unitType = item.cases !== undefined ? "cases" : "bottles";
-
-    return `
-      <div style="display:flex; align-items:center; justify-content:space-between; background:var(--bg-card); padding:8px 10px; border-radius:6px; border:1px solid var(--border); font-size:0.88rem;">
-        <div style="flex:1; padding-right:8px;">
-          <strong>${prodName}</strong>
-          <span style="color:var(--text-muted); font-size:0.78rem; display:block;">Art.-Nr. ${item.art}</span>
-        </div>
-        <div style="display:flex; align-items:center; gap:6px;">
-          <input type="number" min="1" value="${qtyVal}" onchange="updatePresetItemQty(${idx}, this.value)" style="width:65px; padding:4px 6px; border-radius:4px; border:1px solid var(--border); text-align:center; background:var(--bg-card); color:var(--text);">
-          <select onchange="updatePresetItemType(${idx}, this.value)" style="padding:4px 6px; border-radius:4px; border:1px solid var(--border); font-size:0.82rem; background:var(--bg-card); color:var(--text);">
-            <option value="bottles" ${unitType === 'bottles' ? 'selected' : ''}>Flaschen/Stk</option>
-            <option value="cases" ${unitType === 'cases' ? 'selected' : ''}>Kartons/Har.</option>
-          </select>
-          <button onclick="removePresetItem(${idx})" style="background:#EF4444; color:white; border:none; padding:4px 8px; border-radius:4px; font-weight:bold; cursor:pointer;" title="Artikel entfernen">✕</button>
-        </div>
-      </div>
-    `;
-  }).join("");
+function saveCalcStandardsFromModal() {
+  localStorage.setItem("landi_calc_standards", JSON.stringify(calcStandards));
+  closeCalcStandardsModal();
+  recalculateCalcNeeds();
+  showCalculatorToast("💾 Standard-Produkte für den Rechner gespeichert!");
 }
 
-function updatePresetItemQty(idx, val) {
-  const num = Math.max(1, parseInt(val, 10) || 1);
-  if (editingPresetItems[idx]) {
-    if (editingPresetItems[idx].cases !== undefined) {
-      editingPresetItems[idx].cases = num;
-    } else {
-      editingPresetItems[idx].bottles = num;
-    }
+function resetCalcStandardsToDefault() {
+  if (confirm("Möchtest du die Standard-Produkte wirklich auf die Landi-Werkseinstellungen zurücksetzen?")) {
+    calcStandards = JSON.parse(JSON.stringify(DEFAULT_CALCULATOR_STANDARDS));
+    localStorage.removeItem("landi_calc_standards");
+    renderAdminStandardsSlots();
+    recalculateCalcNeeds();
+    showCalculatorToast("↩️ Standards erfolgreich zurückgesetzt.");
   }
 }
 
-function updatePresetItemType(idx, type) {
-  if (editingPresetItems[idx]) {
-    const qtyVal = editingPresetItems[idx].cases !== undefined ? editingPresetItems[idx].cases : (editingPresetItems[idx].bottles !== undefined ? editingPresetItems[idx].bottles : 1);
-    if (type === "cases") {
-      delete editingPresetItems[idx].bottles;
-      editingPresetItems[idx].cases = qtyVal;
-    } else {
-      delete editingPresetItems[idx].cases;
-      editingPresetItems[idx].bottles = qtyVal;
-    }
-    renderPresetItemsList();
-  }
+// Initialisierung des Getränkerechners
+function initDrinkCalculator() {
+  const adminCalcBtn = document.getElementById("adminCalcSettingsBtnContainer");
+  if (adminCalcBtn) adminCalcBtn.style.display = isEditPricesMode ? "block" : "none";
+  recalculateCalcNeeds();
 }
 
-function removePresetItem(idx) {
-  editingPresetItems.splice(idx, 1);
-  renderPresetItemsList();
-}
-
-function addArticleToEditingPreset() {
-  const searchInput = document.getElementById("presetSearchInput");
-  const qtyVal = Math.max(1, parseInt(document.getElementById("presetProductQty").value, 10) || 1);
-  const type = document.getElementById("presetProductType").value;
-
-  let targetProduct = selectedPresetAddProduct;
-
-  if (!targetProduct && searchInput) {
-    const rawVal = searchInput.value.trim();
-    const artMatch = rawVal.match(/Art\.\s*(\d+)/i) || rawVal.match(/^(\d+)$/);
-    if (artMatch) {
-      targetProduct = findProduct(artMatch[1]);
-    } else if (rawVal) {
-      for (const cat of CATEGORIES) {
-        const found = (cat.items || []).find(p => (p.name || "").toLowerCase().includes(rawVal.toLowerCase()));
-        if (found) {
-          targetProduct = found;
-          break;
-        }
-      }
-    }
-  }
-
-  if (!targetProduct) {
-    alert("Bitte wähle zuerst ein gültiges Produkt über die Suche aus.");
-    return;
-  }
-
-  const artStr = String(targetProduct.art);
-  const existing = editingPresetItems.find(x => String(x.art) === artStr);
-  if (existing) {
-    if (type === "cases") {
-      delete existing.bottles;
-      existing.cases = qtyVal;
-    } else {
-      delete existing.cases;
-      existing.bottles = qtyVal;
-    }
-  } else {
-    const newItem = { art: artStr };
-    if (type === "cases") newItem.cases = qtyVal;
-    else newItem.bottles = qtyVal;
-    editingPresetItems.push(newItem);
-  }
-
-  selectedPresetAddProduct = null;
-  if (searchInput) searchInput.value = "";
-  document.getElementById("presetProductQty").value = "1";
-  renderPresetItemsList();
-}
-
-function savePresetFromModal() {
-  const title = document.getElementById("presetTitleInput").value.trim();
-  const desc = document.getElementById("presetDescInput").value.trim();
-  const icon = document.getElementById("presetIconInput").value.trim() || "📦";
-
-  if (!title) {
-    alert("Bitte gib einen Namen für das Paket ein.");
-    return;
-  }
-  if (editingPresetItems.length === 0) {
-    alert("Das Paket muss mindestens 1 Artikel enthalten.");
-    return;
-  }
-
-  if (editingPresetId) {
-    const p = presetsList.find(x => x.id === editingPresetId);
-    if (p) {
-      p.title = title;
-      p.description = desc;
-      p.icon = icon;
-      p.items = JSON.parse(JSON.stringify(editingPresetItems));
-    }
-  } else {
-    const newId = "preset-" + Date.now();
-    presetsList.push({
-      id: newId,
-      title: title,
-      description: desc,
-      icon: icon,
-      items: JSON.parse(JSON.stringify(editingPresetItems))
-    });
-  }
-
-  localStorage.setItem("landi_custom_presets", JSON.stringify(presetsList));
-  closePresetEditModal();
-  renderPresets();
-}
-
-function deleteEditingPreset() {
-  if (editingPresetId) {
-    deletePreset(editingPresetId);
-    closePresetEditModal();
-  }
+// Kompatibilitäts-Alias für frühere Aufrufe
+function renderPresets() {
+  initDrinkCalculator();
 }
 
 function confirmResetAll() {
@@ -4488,6 +5451,22 @@ window.addEventListener("scroll", () => {
           header.classList.remove("scrolled");
         }
       }
+
+      const floatBar = document.getElementById("floatingTrackerBar");
+      const calcSec = document.getElementById("drinkCalculatorSection");
+      if (floatBar && calcSec) {
+        if (calcTrackerActive) {
+          const rect = calcSec.getBoundingClientRect();
+          if (rect.bottom < 50) {
+            floatBar.style.display = "flex";
+          } else {
+            floatBar.style.display = "none";
+          }
+        } else {
+          floatBar.style.display = "none";
+        }
+      }
+
       scrollTicking = false;
     });
     scrollTicking = true;
