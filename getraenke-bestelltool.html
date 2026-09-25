@@ -1114,10 +1114,29 @@
     margin: 8px 0 6px 0;
   }
   .calc-slider-ticks {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.72rem;
+    position: relative;
+    width: 100%;
+    height: 20px;
+    font-size: 0.75rem;
     color: var(--text-subtle);
+    margin-top: 4px;
+    user-select: none;
+  }
+  .calc-slider-ticks .calc-tick {
+    position: absolute;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: color 0.15s ease, font-weight 0.15s ease, background 0.15s ease;
+    padding: 2px 4px;
+    border-radius: 4px;
+  }
+  .calc-slider-ticks .calc-tick:hover {
+    color: var(--primary);
+    background: rgba(43, 90, 60, 0.08);
+  }
+  .calc-slider-ticks .calc-tick.active {
+    color: var(--primary);
+    font-weight: 800;
   }
 
   .calc-weather-row {
@@ -2674,13 +2693,13 @@
             <span>Personen</span>
           </div>
         </div>
-        <input type="range" id="calcGuestsRange" min="5" max="150" step="5" value="25" oninput="onCalcGuestsRangeChange(this.value)" class="calc-slider">
-        <div class="calc-slider-ticks">
-          <span>10 Pers.</span>
-          <span>25 Pers.</span>
-          <span>50 Pers.</span>
-          <span>75 Pers.</span>
-          <span>100+</span>
+        <input type="range" id="calcGuestsRange" min="0" max="100" step="1" value="25" oninput="onCalcGuestsRangeChange(this.value)" class="calc-slider">
+        <div class="calc-slider-ticks" id="calcGuestsTicks">
+          <span class="calc-tick" style="left: 0%;" onclick="setCalcGuests(10)" title="10 Personen wählen">10 Pers.</span>
+          <span class="calc-tick active" style="left: 25%; transform: translateX(-50%);" onclick="setCalcGuests(25)" title="25 Personen wählen">25 Pers.</span>
+          <span class="calc-tick" style="left: 50%; transform: translateX(-50%);" onclick="setCalcGuests(50)" title="50 Personen wählen">50 Pers.</span>
+          <span class="calc-tick" style="left: 75%; transform: translateX(-50%);" onclick="setCalcGuests(75)" title="75 Personen wählen">75 Pers.</span>
+          <span class="calc-tick" style="left: 100%; transform: translateX(-100%);" onclick="setCalcGuests(100)" title="100 Personen wählen">100+</span>
         </div>
       </div>
 
@@ -2695,12 +2714,12 @@
             <span>Stunden</span>
           </div>
         </div>
-        <input type="range" id="calcHoursRange" min="2" max="10" step="1" value="4" oninput="onCalcHoursChange(this.value)" class="calc-slider">
-        <div class="calc-slider-ticks">
-          <span>2 Std. (Apéro)</span>
-          <span>4 Std. (Abend)</span>
-          <span>6 Std. (Party)</span>
-          <span>8+ Std.</span>
+        <input type="range" id="calcHoursRange" min="2" max="8" step="1" value="4" oninput="onCalcHoursChange(this.value)" class="calc-slider">
+        <div class="calc-slider-ticks" id="calcHoursTicks">
+          <span class="calc-tick" style="left: 0%;" onclick="setCalcHours(2)" title="2 Stunden (Apéro)">2 Std. (Apéro)</span>
+          <span class="calc-tick active" style="left: 33.33%; transform: translateX(-50%);" onclick="setCalcHours(4)" title="4 Stunden (Abend)">4 Std. (Abend)</span>
+          <span class="calc-tick" style="left: 66.67%; transform: translateX(-50%);" onclick="setCalcHours(6)" title="6 Stunden (Party)">6 Std. (Party)</span>
+          <span class="calc-tick" style="left: 100%; transform: translateX(-100%);" onclick="setCalcHours(8)" title="8+ Stunden">8+ Std.</span>
         </div>
       </div>
     </div>
@@ -5427,24 +5446,116 @@ function setCalcEvent(type) {
   recalculateCalcNeeds();
 }
 
+// Hilfsfunktionen für synchrone Regler-Skalierung (10, 25, 50, 75, 100+)
+function sliderPosToGuests(pos) {
+  const p = Math.max(0, Math.min(100, parseFloat(pos) || 0));
+  let val;
+  if (p <= 25) {
+    val = 10 + (p / 25) * 15;
+  } else if (p <= 50) {
+    val = 25 + ((p - 25) / 25) * 25;
+  } else if (p <= 75) {
+    val = 50 + ((p - 50) / 25) * 25;
+  } else {
+    val = 75 + ((p - 75) / 25) * 25;
+  }
+  return Math.round(val);
+}
+
+function guestsToSliderPos(guests) {
+  const g = Math.max(5, parseInt(guests, 10) || 25);
+  if (g <= 10) return 0;
+  if (g >= 100) return 100;
+  if (g <= 25) {
+    return ((g - 10) / 15) * 25;
+  } else if (g <= 50) {
+    return 25 + ((g - 25) / 25) * 25;
+  } else if (g <= 75) {
+    return 50 + ((g - 50) / 25) * 25;
+  } else {
+    return 75 + ((g - 75) / 25) * 25;
+  }
+}
+
+function updateGuestTickHighlight(guests) {
+  const container = document.getElementById("calcGuestsTicks");
+  if (!container) return;
+  const ticks = container.querySelectorAll(".calc-tick");
+  const targets = [10, 25, 50, 75, 100];
+  let minDiff = Infinity;
+  let closestIdx = -1;
+  targets.forEach((target, idx) => {
+    const diff = Math.abs(guests - target);
+    if (diff < minDiff) {
+      minDiff = diff;
+      closestIdx = idx;
+    }
+  });
+  ticks.forEach((tick, idx) => {
+    if (idx === closestIdx && minDiff <= 6) {
+      tick.classList.add("active");
+    } else {
+      tick.classList.remove("active");
+    }
+  });
+}
+
+function updateHoursTickHighlight(hours) {
+  const container = document.getElementById("calcHoursTicks");
+  if (!container) return;
+  const ticks = container.querySelectorAll(".calc-tick");
+  const targets = [2, 4, 6, 8];
+  ticks.forEach((tick, idx) => {
+    const target = targets[idx];
+    if ((idx === 3 && hours >= 8) || hours === target) {
+      tick.classList.add("active");
+    } else {
+      tick.classList.remove("active");
+    }
+  });
+}
+
 function onCalcGuestsRangeChange(val) {
-  calcGuests = Math.max(5, parseInt(val, 10) || 25);
+  calcGuests = sliderPosToGuests(val);
   const input = document.getElementById("calcGuestsInput");
   if (input) input.value = calcGuests;
+  updateGuestTickHighlight(calcGuests);
   recalculateCalcNeeds();
 }
 
 function onCalcGuestsInputChange(val) {
   calcGuests = Math.max(5, parseInt(val, 10) || 5);
   const range = document.getElementById("calcGuestsRange");
-  if (range) range.value = Math.min(150, calcGuests);
+  if (range) range.value = guestsToSliderPos(calcGuests);
+  updateGuestTickHighlight(calcGuests);
+  recalculateCalcNeeds();
+}
+
+function setCalcGuests(num) {
+  calcGuests = parseInt(num, 10) || 25;
+  const input = document.getElementById("calcGuestsInput");
+  if (input) input.value = calcGuests;
+  const range = document.getElementById("calcGuestsRange");
+  if (range) range.value = guestsToSliderPos(calcGuests);
+  updateGuestTickHighlight(calcGuests);
   recalculateCalcNeeds();
 }
 
 function onCalcHoursChange(val) {
   calcHours = Math.max(2, parseInt(val, 10) || 2);
   const display = document.getElementById("calcHoursDisplay");
-  if (display) display.textContent = calcHours;
+  if (display) display.textContent = calcHours >= 8 ? '8+' : calcHours;
+  updateHoursTickHighlight(calcHours);
+  recalculateCalcNeeds();
+}
+
+function setCalcHours(num) {
+  calcHours = Math.max(2, parseInt(num, 10) || 4);
+  const display = document.getElementById("calcHoursDisplay");
+  if (display) display.textContent = calcHours >= 8 ? '8+' : calcHours;
+  const range = document.getElementById("calcHoursRange");
+  if (range) range.value = Math.min(8, calcHours);
+  updateHoursTickHighlight(calcHours);
   recalculateCalcNeeds();
 }
 
@@ -6195,6 +6306,8 @@ function resetCalcStandardsToDefault() {
 function initDrinkCalculator() {
   const adminCalcBtn = document.getElementById("adminCalcSettingsBtnContainer");
   if (adminCalcBtn) adminCalcBtn.style.display = isEditPricesMode ? "block" : "none";
+  updateGuestTickHighlight(calcGuests);
+  updateHoursTickHighlight(calcHours);
   recalculateCalcNeeds();
   updateCollapsedSummary();
   checkStickyTrackerVisibility();
