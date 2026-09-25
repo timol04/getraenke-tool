@@ -1576,41 +1576,38 @@
   }
 
   /* =========================================================================
-     STICKY FESTBEDARF-TRACKER (Direkt unter dem grünen Banner / Suchen-Balken)
+     STICKY FESTBEDARF-TRACKER (Integrierter Teil des grünen Banners / header.top)
      ========================================================================= */
-  .sticky-festbedarf-bar {
-    position: fixed;
-    top: var(--header-bottom, 80px);
-    left: 0;
-    right: 0;
-    width: 100%;
-    z-index: 19;
-    background: rgba(255, 255, 255, 0.98);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border-bottom: 2px solid #C9A227;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-    padding: 10px 20px 12px;
-    transform: translateY(-120%);
+  .header-festbedarf-tracker {
+    max-height: 0;
     opacity: 0;
+    overflow: hidden;
+    margin-top: 0;
     pointer-events: none;
     visibility: hidden;
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
-                opacity 0.22s ease, 
-                visibility 0.3s;
+    transition: max-height 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), 
+                opacity 0.25s ease, 
+                margin-top 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+                visibility 0.35s;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
-  .sticky-festbedarf-bar.visible {
-    transform: translateY(0);
+  .header-festbedarf-tracker.visible {
+    max-height: 220px;
     opacity: 1;
+    margin-top: 10px;
     pointer-events: auto;
     visibility: visible;
   }
-  .sticky-festbedarf-inner {
-    max-width: 1300px;
-    margin: 0 auto;
+  .header-festbedarf-inner {
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
+    padding-top: 10px;
     display: flex;
     flex-direction: column;
     gap: 8px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   .sfb-header-row {
     display: flex;
@@ -1627,6 +1624,7 @@
   .sfb-icon {
     font-size: 1.25rem;
     line-height: 1;
+    color: #FCD34D;
   }
   .sfb-title-group {
     display: flex;
@@ -1636,15 +1634,15 @@
   }
   .sfb-title {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 0.96rem;
+    font-size: 0.95rem;
     font-weight: 700;
-    color: var(--primary);
+    color: #FFFFFF;
     letter-spacing: 0.2px;
   }
   .sfb-badge {
-    background: var(--accent-light);
-    border: 1px solid var(--accent-border);
-    color: var(--accent-dark);
+    background: rgba(201, 162, 39, 0.25);
+    border: 1px solid rgba(201, 162, 39, 0.5);
+    color: #FCD34D;
     font-size: 0.76rem;
     font-weight: 700;
     padding: 2px 8px;
@@ -1652,23 +1650,23 @@
     transition: all 0.2s ease;
   }
   .sfb-badge.all-done {
-    background: #DCFCE7;
-    border-color: #86EFAC;
-    color: #166534;
+    background: rgba(52, 211, 153, 0.25);
+    border-color: rgba(52, 211, 153, 0.6);
+    color: #6EE7B7;
   }
   .sfb-sub {
     display: block;
-    font-size: 0.78rem;
-    color: var(--text-muted);
+    font-size: 0.76rem;
+    color: rgba(255, 255, 255, 0.8);
     margin-top: 1px;
   }
   .sfb-rechner-btn {
-    background: var(--primary-light);
-    color: var(--primary);
-    border: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.12);
+    color: #FFFFFF;
+    border: 1px solid rgba(255, 255, 255, 0.28);
     padding: 5px 14px;
     border-radius: 18px;
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     font-weight: 700;
     cursor: pointer;
     display: inline-flex;
@@ -1678,11 +1676,10 @@
     font-family: inherit;
   }
   .sfb-rechner-btn:hover {
-    background: var(--primary);
-    color: #ffffff;
-    border-color: var(--primary);
+    background: rgba(255, 255, 255, 0.24);
+    border-color: rgba(255, 255, 255, 0.45);
     transform: translateY(-1px);
-    box-shadow: 0 2px 8px rgba(31, 58, 46, 0.2);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   }
 
   .sfb-cards-grid {
@@ -1691,25 +1688,28 @@
     gap: 10px;
   }
   .sfb-card {
-    background: #FFFFFF;
-    border: 1.5px solid var(--border);
+    background: rgba(255, 255, 255, 0.10);
+    border: 1px solid rgba(255, 255, 255, 0.18);
     border-radius: 10px;
     padding: 8px 12px;
     cursor: pointer;
-    transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
     display: flex;
     flex-direction: column;
     gap: 4px;
     text-align: left;
+    color: #FFFFFF;
+    -webkit-font-smoothing: antialiased;
   }
   .sfb-card:hover {
-    border-color: var(--accent);
+    background: rgba(255, 255, 255, 0.18);
+    border-color: rgba(201, 162, 39, 0.6);
     transform: translateY(-1px);
-    box-shadow: var(--shadow-sm);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
   .sfb-card.completed {
-    background: #ECFDF5;
-    border-color: #10B981;
+    background: rgba(16, 185, 129, 0.18);
+    border-color: rgba(52, 211, 153, 0.6);
   }
   .sfb-card-top {
     display: flex;
@@ -1720,7 +1720,7 @@
   .sfb-card-label {
     font-size: 0.84rem;
     font-weight: 700;
-    color: var(--text);
+    color: #FFFFFF;
     display: flex;
     align-items: center;
     gap: 5px;
@@ -1728,17 +1728,17 @@
   .sfb-card-val {
     font-size: 0.86rem;
     font-weight: 800;
-    color: var(--primary);
+    color: #FCD34D;
     white-space: nowrap;
   }
   .sfb-card.completed .sfb-card-val {
-    color: #059669;
+    color: #6EE7B7;
   }
   .sfb-bar-bg {
-    background: transparent !important;
-    border: 1px solid rgba(0, 0, 0, 0.12);
-    height: 8px;
-    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.35) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    height: 7px;
+    border-radius: 4px;
     overflow: hidden;
     margin: 3px 0 2px;
     position: relative;
@@ -1746,7 +1746,7 @@
   .sfb-bar-fill {
     height: 100%;
     background: linear-gradient(90deg, #F59E0B, #10B981);
-    border-radius: 4px;
+    border-radius: 3px;
     transition: width 0.25s ease;
   }
   .sfb-card.completed .sfb-bar-fill {
@@ -1754,15 +1754,18 @@
   }
   .sfb-card-sub {
     font-size: 0.74rem;
-    color: var(--text-muted);
+    color: rgba(255, 255, 255, 0.75);
     font-weight: 600;
   }
   .sfb-card.completed .sfb-card-sub {
-    color: #059669;
+    color: #6EE7B7;
     font-weight: 700;
   }
 
   @media (max-width: 768px) {
+    .header-festbedarf-tracker.visible {
+      max-height: 260px;
+    }
     .sfb-cards-grid {
       grid-template-columns: repeat(2, 1fr);
       gap: 6px;
@@ -1781,9 +1784,6 @@
     }
     .sfb-card-sub {
       font-size: 0.7rem;
-    }
-    .sticky-festbedarf-bar {
-      padding: 8px 12px 10px;
     }
   }
 
@@ -2132,98 +2132,6 @@
     body:not(.light-mode) .calc-toggle-header:hover {
       background: rgba(255, 255, 255, 0.04) !important;
     }
-  body.dark-mode .sticky-festbedarf-bar {
-    background: rgba(20, 36, 28, 0.98) !important;
-    border-bottom: 2px solid #C9A227 !important;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5) !important;
-  }
-  body.dark-mode .sfb-card {
-    background: rgba(255, 255, 255, 0.05) !important;
-    border-color: rgba(255, 255, 255, 0.12) !important;
-    color: var(--text) !important;
-  }
-  body.dark-mode .sfb-card:hover {
-    background: rgba(255, 255, 255, 0.08) !important;
-    border-color: var(--accent) !important;
-  }
-  body.dark-mode .sfb-card.completed {
-    background: rgba(16, 185, 129, 0.16) !important;
-    border-color: #10B981 !important;
-  }
-  body.dark-mode .sfb-title {
-    color: var(--text) !important;
-  }
-  body.dark-mode .sfb-card-label {
-    color: var(--text) !important;
-  }
-  body.dark-mode .sfb-card-val {
-    color: var(--accent) !important;
-  }
-  body.dark-mode .sfb-card.completed .sfb-card-val {
-    color: #34D399 !important;
-  }
-  body.dark-mode .sfb-bar-bg {
-    background: transparent !important;
-    border: 1px solid rgba(255, 255, 255, 0.22) !important;
-  }
-  body.dark-mode .sfb-card-sub {
-    color: var(--text-muted) !important;
-  }
-  body.dark-mode .sfb-card.completed .sfb-card-sub {
-    color: #34D399 !important;
-  }
-  body.dark-mode .sfb-rechner-btn {
-    background: rgba(255, 255, 255, 0.08) !important;
-    border-color: rgba(255, 255, 255, 0.2) !important;
-    color: var(--text) !important;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    body:not(.light-mode) .sticky-festbedarf-bar {
-      background: rgba(20, 36, 28, 0.98) !important;
-      border-bottom: 2px solid #C9A227 !important;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5) !important;
-    }
-    body:not(.light-mode) .sfb-card {
-      background: rgba(255, 255, 255, 0.05) !important;
-      border-color: rgba(255, 255, 255, 0.12) !important;
-      color: var(--text) !important;
-    }
-    body:not(.light-mode) .sfb-card:hover {
-      background: rgba(255, 255, 255, 0.08) !important;
-      border-color: var(--accent) !important;
-    }
-    body:not(.light-mode) .sfb-card.completed {
-      background: rgba(16, 185, 129, 0.16) !important;
-      border-color: #10B981 !important;
-    }
-    body:not(.light-mode) .sfb-title {
-      color: var(--text) !important;
-    }
-    body:not(.light-mode) .sfb-card-label {
-      color: var(--text) !important;
-    }
-    body:not(.light-mode) .sfb-card-val {
-      color: var(--accent) !important;
-    }
-    body:not(.light-mode) .sfb-card.completed .sfb-card-val {
-      color: #34D399 !important;
-    }
-    body:not(.light-mode) .sfb-bar-bg {
-      background: transparent !important;
-      border: 1px solid rgba(255, 255, 255, 0.22) !important;
-    }
-    body:not(.light-mode) .sfb-card-sub {
-      color: var(--text-muted) !important;
-    }
-    body:not(.light-mode) .sfb-card.completed .sfb-card-sub {
-      color: #34D399 !important;
-    }
-    body:not(.light-mode) .sfb-rechner-btn {
-      background: rgba(255, 255, 255, 0.08) !important;
-      border-color: rgba(255, 255, 255, 0.2) !important;
-      color: var(--text) !important;
-    }
   }
   @media (prefers-color-scheme: dark) {
     body:not(.light-mode) .reset-top-btn {
@@ -2478,101 +2386,101 @@
       </svg>
       <input type="search" id="search" placeholder="Produkt oder Art.-Nr. suchen…" oninput="renderProducts()">
     </div>
+
+    <!-- STICKY FESTBEDARF-BAR (Wieder integrierter Teil des grünen Banners) -->
+    <div id="stickyFestbedarfBar" class="header-festbedarf-tracker" aria-label="Festbedarf-Tracker">
+      <div class="header-festbedarf-inner">
+        
+        <!-- Oberzeile: Titel, Ziel und Status -->
+        <div class="sfb-header-row">
+          <div class="sfb-title-wrap">
+            <span class="sfb-icon">
+              <svg class="icon-svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+            </span>
+            <div>
+              <div class="sfb-title-group">
+                <span class="sfb-title">Festbedarf-Tracker</span>
+                <span id="sfbStatusBadge" class="sfb-badge">0 / 4 Bereiche gedeckt</span>
+              </div>
+              <span class="sfb-sub" id="sfbSummaryText">Ziel: 25 Personen • 4 Std. (GRILLFEST)</span>
+            </div>
+          </div>
+          <button type="button" class="sfb-rechner-btn" onclick="scrollToAndOpenCalculator()" title="Zum Rechner springen und anpassen">
+            <span style="display:inline-flex; align-items:center; gap:6px;">
+              <svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="16" y1="14" x2="16" y2="14.01"/><line x1="12" y1="14" x2="12" y2="14.01"/><line x1="8" y1="14" x2="8" y2="14.01"/><line x1="16" y1="18" x2="16" y2="18.01"/><line x1="12" y1="18" x2="12" y2="18.01"/><line x1="8" y1="18" x2="8" y2="18.01"/></svg>
+              Rechner anpassen
+            </span>
+            <svg class="icon-svg sfb-chevron-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+          </button>
+        </div>
+
+        <!-- 4 Kategorie-Karten (Live-Fortschritt & Restmengen) -->
+        <div class="sfb-cards-grid">
+          <!-- 1. Mineral -->
+          <div class="sfb-card" id="sfbColMineral" onclick="scrollToCategorySection('mineral')" title="Zu Mineralwasser springen">
+            <div class="sfb-card-top">
+              <span class="sfb-card-label">
+                <svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#38BDF8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+                Mineralwasser
+              </span>
+              <strong class="sfb-card-val" id="sfbValMineral">0 / 18 L</strong>
+            </div>
+            <div class="sfb-bar-bg">
+              <div class="sfb-bar-fill" id="sfbFillMineral" style="width: 0%;"></div>
+            </div>
+            <div class="sfb-card-sub" id="sfbSubMineral">Noch 18 L</div>
+          </div>
+
+          <!-- 2. Softdrinks -->
+          <div class="sfb-card" id="sfbColSoft" onclick="scrollToCategorySection('soft')" title="Zu Süssgetränken springen">
+            <div class="sfb-card-top">
+              <span class="sfb-card-label">
+                <svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#FBBF24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 21h10l1.5-12H5.5L7 21z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="14" y1="3" x2="11" y2="9"/></svg>
+                Süssgetränke
+              </span>
+              <strong class="sfb-card-val" id="sfbValSoft">0 / 16 L</strong>
+            </div>
+            <div class="sfb-bar-bg">
+              <div class="sfb-bar-fill" id="sfbFillSoft" style="width: 0%;"></div>
+            </div>
+            <div class="sfb-card-sub" id="sfbSubSoft">Noch 16 L</div>
+          </div>
+
+          <!-- 3. Bier -->
+          <div class="sfb-card" id="sfbColBeer" onclick="scrollToCategorySection('beer')" title="Zu Bier springen">
+            <div class="sfb-card-top">
+              <span class="sfb-card-label">
+                <svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h10v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8z"/><path d="M15 10h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-3"/><path d="M5 8a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2"/></svg>
+                Bier & Panaché
+              </span>
+              <strong class="sfb-card-val" id="sfbValBeer">0 / 16 L</strong>
+            </div>
+            <div class="sfb-bar-bg">
+              <div class="sfb-bar-fill" id="sfbFillBeer" style="width: 0%;"></div>
+            </div>
+            <div class="sfb-card-sub" id="sfbSubBeer">Noch 16 L</div>
+          </div>
+
+          <!-- 4. Wein -->
+          <div class="sfb-card" id="sfbColWine" onclick="scrollToCategorySection('wine')" title="Zu Wein & Schaumwein springen">
+            <div class="sfb-card-top">
+              <span class="sfb-card-label">
+                <svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#F87171" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22h8"/><path d="M12 15v7"/><path d="M7 3h10c0 4.5-2.5 8-5 8s-5-3.5-5-8z"/></svg>
+                Wein & Schaumwein
+              </span>
+              <strong class="sfb-card-val" id="sfbValWine">0 / 6 Fl.</strong>
+            </div>
+            <div class="sfb-bar-bg">
+              <div class="sfb-bar-fill" id="sfbFillWine" style="width: 0%;"></div>
+            </div>
+            <div class="sfb-card-sub" id="sfbSubWine">Noch 6 Flaschen</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
   </div>
 </header>
-
-<!-- STICKY FESTBEDARF-BAR (Direkt unter dem grünen Banner / Suchen-Balken eingeblendet) -->
-<div id="stickyFestbedarfBar" class="sticky-festbedarf-bar" aria-label="Festbedarf-Tracker">
-  <div class="sticky-festbedarf-inner">
-    
-    <!-- Oberzeile: Titel, Ziel und Status -->
-    <div class="sfb-header-row">
-      <div class="sfb-title-wrap">
-        <span class="sfb-icon">
-          <svg class="icon-svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-        </span>
-        <div>
-          <div class="sfb-title-group">
-            <span class="sfb-title">Festbedarf-Tracker</span>
-            <span id="sfbStatusBadge" class="sfb-badge">0 / 4 Bereiche gedeckt</span>
-          </div>
-          <span class="sfb-sub" id="sfbSummaryText">Ziel: 25 Personen • 4 Std. (GRILLFEST)</span>
-        </div>
-      </div>
-      <button type="button" class="sfb-rechner-btn" onclick="scrollToAndOpenCalculator()" title="Zum Rechner springen und anpassen">
-        <span style="display:inline-flex; align-items:center; gap:6px;">
-          <svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="16" y1="14" x2="16" y2="14.01"/><line x1="12" y1="14" x2="12" y2="14.01"/><line x1="8" y1="14" x2="8" y2="14.01"/><line x1="16" y1="18" x2="16" y2="18.01"/><line x1="12" y1="18" x2="12" y2="18.01"/><line x1="8" y1="18" x2="8" y2="18.01"/></svg>
-          Rechner anpassen
-        </span>
-        <svg class="icon-svg sfb-chevron-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
-      </button>
-    </div>
-
-    <!-- 4 Kategorie-Karten (Grösser, mit Live-Fortschritt & Restmengen) -->
-    <div class="sfb-cards-grid">
-      <!-- 1. Mineral -->
-      <div class="sfb-card" id="sfbColMineral" onclick="scrollToCategorySection('mineral')" title="Zu Mineralwasser springen">
-        <div class="sfb-card-top">
-          <span class="sfb-card-label">
-            <svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#0284C7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
-            Mineralwasser
-          </span>
-          <strong class="sfb-card-val" id="sfbValMineral">0 / 18 L</strong>
-        </div>
-        <div class="sfb-bar-bg">
-          <div class="sfb-bar-fill" id="sfbFillMineral" style="width: 0%;"></div>
-        </div>
-        <div class="sfb-card-sub" id="sfbSubMineral">Noch 18 L</div>
-      </div>
-
-      <!-- 2. Softdrinks -->
-      <div class="sfb-card" id="sfbColSoft" onclick="scrollToCategorySection('soft')" title="Zu Süssgetränken springen">
-        <div class="sfb-card-top">
-          <span class="sfb-card-label">
-            <svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#D97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 21h10l1.5-12H5.5L7 21z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="14" y1="3" x2="11" y2="9"/></svg>
-            Süssgetränke
-          </span>
-          <strong class="sfb-card-val" id="sfbValSoft">0 / 16 L</strong>
-        </div>
-        <div class="sfb-bar-bg">
-          <div class="sfb-bar-fill" id="sfbFillSoft" style="width: 0%;"></div>
-        </div>
-        <div class="sfb-card-sub" id="sfbSubSoft">Noch 16 L</div>
-      </div>
-
-      <!-- 3. Bier -->
-      <div class="sfb-card" id="sfbColBeer" onclick="scrollToCategorySection('beer')" title="Zu Bier springen">
-        <div class="sfb-card-top">
-          <span class="sfb-card-label">
-            <svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#B45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h10v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V8z"/><path d="M15 10h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-3"/><path d="M5 8a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2"/></svg>
-            Bier & Panaché
-          </span>
-          <strong class="sfb-card-val" id="sfbValBeer">0 / 16 L</strong>
-        </div>
-        <div class="sfb-bar-bg">
-          <div class="sfb-bar-fill" id="sfbFillBeer" style="width: 0%;"></div>
-        </div>
-        <div class="sfb-card-sub" id="sfbSubBeer">Noch 16 L</div>
-      </div>
-
-      <!-- 4. Wein -->
-      <div class="sfb-card" id="sfbColWine" onclick="scrollToCategorySection('wine')" title="Zu Wein & Schaumwein springen">
-        <div class="sfb-card-top">
-          <span class="sfb-card-label">
-            <svg class="icon-svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#991B1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22h8"/><path d="M12 15v7"/><path d="M7 3h10c0 4.5-2.5 8-5 8s-5-3.5-5-8z"/></svg>
-            Wein & Schaumwein
-          </span>
-          <strong class="sfb-card-val" id="sfbValWine">0 / 6 Fl.</strong>
-        </div>
-        <div class="sfb-bar-bg">
-          <div class="sfb-bar-fill" id="sfbFillWine" style="width: 0%;"></div>
-        </div>
-        <div class="sfb-card-sub" id="sfbSubWine">Noch 6 Flaschen</div>
-      </div>
-    </div>
-
-  </div>
-</div>
 
 <main>
   <div id="editBanner" style="display:none; background:#FEF3C7; border:1px solid #FCD34D; color:#92400E; padding:16px 20px; border-radius:var(--radius); margin-bottom:20px; font-size:0.9rem; box-shadow:var(--shadow-sm);">
@@ -6077,7 +5985,6 @@ function updateCollapsedSummary() {
 function checkStickyTrackerVisibility() {
   const bar = document.getElementById("stickyFestbedarfBar");
   const calcSec = document.getElementById("drinkCalculatorSection");
-  const header = document.querySelector("header.top");
   if (!bar || !calcSec) return;
 
   // Nur anzeigen wenn der Kunde auch wirklich etwas im Rechner ausgewählt hat
@@ -6086,15 +5993,9 @@ function checkStickyTrackerVisibility() {
     return;
   }
 
-  if (header) {
-    const headerBottom = Math.round(header.getBoundingClientRect().bottom);
-    bar.style.top = `${headerBottom}px`;
-    document.documentElement.style.setProperty("--header-bottom", `${headerBottom}px`);
-  }
-
   const rect = calcSec.getBoundingClientRect();
-  const threshold = header ? header.getBoundingClientRect().bottom + 10 : 80;
-  if (rect.bottom < threshold) {
+  // Sobald der Rechner nach oben aus dem Sichtfeld scrollt
+  if (rect.bottom < 60) {
     bar.classList.add("visible");
   } else {
     bar.classList.remove("visible");
@@ -6109,8 +6010,9 @@ function scrollToAndOpenCalculator() {
   toggleDrinkCalculator(true); // Sicherstellen, dass Rechner offen ist
   const el = document.getElementById("drinkCalculatorSection");
   if (el) {
-    const yOffset = -70;
-    const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
+    const header = document.querySelector("header.top");
+    const headerH = header ? header.offsetHeight : 80;
+    const y = el.getBoundingClientRect().top + window.pageYOffset - (headerH + 15);
     window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
   }
 }
