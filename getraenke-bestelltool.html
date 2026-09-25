@@ -1594,6 +1594,7 @@
         <button onclick="openAdminSortimentModal()" style="background:#10B981; color:white; border:none; padding:8px 16px; border-radius:14px; font-weight:bold; font-size:0.86rem; cursor:pointer; box-shadow:0 2px 8px rgba(16,185,129,0.3);">📦 Sortiment verwalten (Neu / Löschen / Verbergen)</button>
         <button id="saveGithubBtn" onclick="savePricesToGithub()" style="background:#0284C7; color:white; border:none; padding:8px 16px; border-radius:14px; font-weight:bold; font-size:0.86rem; cursor:pointer; box-shadow:0 2px 8px rgba(2,132,199,0.3); transition:all 0.15s ease;">☁️ Live auf GitHub speichern</button>
         <button onclick="openTokenModal()" style="background:transparent; color:#92400E; border:1px solid #FCD34D; padding:8px 12px; border-radius:14px; font-weight:600; font-size:0.82rem; cursor:pointer;">⚙️ Token erneuern</button>
+        <button onclick="downloadSortimentCsv()" style="background:#059669; color:white; border:none; padding:8px 16px; border-radius:14px; font-weight:bold; font-size:0.86rem; cursor:pointer; box-shadow:0 2px 8px rgba(5,150,105,0.3);">📥 CSV herunterladen</button>
         <button onclick="exportUpdatedJs()" style="background:#B45309; color:white; border:none; padding:8px 16px; border-radius:14px; font-weight:bold; font-size:0.86rem; cursor:pointer;">📋 Code kopieren</button>
         <button onclick="logoutAdmin()" style="background:transparent; color:#92400E; border:1px solid #FCD34D; padding:8px 12px; border-radius:14px; font-weight:600; font-size:0.82rem; cursor:pointer;">Abmelden</button>
       </div>
@@ -1728,6 +1729,7 @@
       </div>
 
       <div style="display:flex; gap:8px;">
+        <button onclick="downloadSortimentCsv()" style="background:#059669; color:white; border:none; padding:8px 14px; border-radius:8px; font-weight:bold; font-size:0.86rem; cursor:pointer;">📥 CSV herunterladen</button>
         <button onclick="openAddProductModal()" style="background:#10B981; color:white; border:none; padding:8px 14px; border-radius:8px; font-weight:bold; font-size:0.86rem; cursor:pointer;">➕ Neues Produkt</button>
         <button onclick="savePricesToGithub()" style="background:#0284C7; color:white; border:none; padding:8px 14px; border-radius:8px; font-weight:bold; font-size:0.86rem; cursor:pointer;">☁️ Auf GitHub speichern</button>
       </div>
@@ -2756,6 +2758,88 @@ function cleanCategoriesForExport() {
       return item;
     })
   }));
+}
+
+function generateSortimentCsvString() {
+  const headers = [
+    'Art.-Nr.',
+    'Name des Produkts',
+    'Gebinde',
+    'Kategorie',
+    'Top-Angebot',
+    'Unterkategorie',
+    'Preis Einzeln (CHF)',
+    'Preis Pack (CHF)',
+    'Eigenmarke',
+    'Status',
+    'Packungsgrösse',
+    'Einheit'
+  ];
+
+  function escapeCsv(val) {
+    if (val === null || val === undefined) return '';
+    const str = String(val);
+    if (str.includes(',') || str.includes('"') || str.includes('\n') || str.includes('\r')) {
+      return '"' + str.replace(/"/g, '""') + '"';
+    }
+    return str;
+  }
+
+  const rows = [headers.map(escapeCsv).join(',')];
+  const seenIds = new Set();
+
+  categoriesData.forEach(cat => {
+    if (cat.id === 'top') return;
+    (cat.items || []).forEach(item => {
+      const artNr = item.artNr || item.id;
+      if (seenIds.has(artNr)) return;
+      seenIds.add(artNr);
+
+      let gebinde = 'Einzeln';
+      if (item.einzeln && item.pack) gebinde = 'Einzeln & Pack';
+      else if (item.pack) gebinde = 'Pack';
+
+      const isTop = item.topAngebot ? 'TRUE' : 'FALSE';
+      const isEigenmarke = item.eigenmarke ? 'TRUE' : 'FALSE';
+      const status = item.disabled ? 'Deaktiviert' : 'Aktiv';
+      const pEinzeln = (item.einzeln && item.preisEinzeln != null) ? Number(item.preisEinzeln).toFixed(2) : '';
+      const pPack = (item.pack && item.preisPack != null) ? Number(item.preisPack).toFixed(2) : '';
+      const packGroesse = item.packGroesse ? String(item.packGroesse) : '';
+      const einheit = item.einheit || 'flasche';
+
+      const row = [
+        artNr,
+        item.name || '',
+        gebinde,
+        cat.title || '',
+        isTop,
+        item.subCategory || '',
+        pEinzeln,
+        pPack,
+        isEigenmarke,
+        status,
+        packGroesse,
+        einheit
+      ];
+      rows.push(row.map(escapeCsv).join(','));
+    });
+  });
+
+  return '\uFEFF' + rows.join('\r\n');
+}
+
+function downloadSortimentCsv() {
+  const csvContent = generateSortimentCsvString();
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  const dateStr = new Date().toISOString().slice(0, 10);
+  a.download = `sortiment_${dateStr}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
 }
 
 function exportUpdatedJs() {
