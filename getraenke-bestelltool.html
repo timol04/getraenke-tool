@@ -2495,6 +2495,7 @@
         <button id="seedSupabaseBtn" onclick="seedSupabaseFromBrowser()" style="background:#8B5CF6; color:white; border:none; padding:8px 16px; border-radius:14px; font-weight:bold; font-size:0.86rem; cursor:pointer; box-shadow:0 2px 8px rgba(139,92,246,0.3); transition:all 0.15s ease;">🚀 Sortiment in Supabase übertragen</button>
         <button onclick="downloadSortimentCsv()" style="background:#059669; color:white; border:none; padding:8px 16px; border-radius:14px; font-weight:bold; font-size:0.86rem; cursor:pointer; box-shadow:0 2px 8px rgba(5,150,105,0.3);">📥 CSV herunterladen</button>
         <button onclick="exportUpdatedJs()" style="background:#B45309; color:white; border:none; padding:8px 16px; border-radius:14px; font-weight:bold; font-size:0.86rem; cursor:pointer;">📋 Code kopieren</button>
+        <button onclick="exitEditPricesMode()" style="background:#B45309; color:white; border:none; padding:8px 16px; border-radius:14px; font-weight:bold; font-size:0.86rem; cursor:pointer; box-shadow:0 2px 8px rgba(180,83,9,0.3);">✅ Bearbeiten beenden</button>
         <button onclick="logoutAdmin()" style="background:transparent; color:#92400E; border:1px solid #FCD34D; padding:8px 12px; border-radius:14px; font-weight:600; font-size:0.82rem; cursor:pointer;">Abmelden</button>
       </div>
     </div>
@@ -2867,7 +2868,7 @@
 </div>
 
 <!-- INFO / WELCOME POPUP MODAL -->
-<div class="overlay open" id="infoModalOverlay" onclick="if(event.target.id==='infoModalOverlay') closeInfoModal()">
+<div class="overlay" id="infoModalOverlay" onclick="if(event.target.id==='infoModalOverlay') closeInfoModal()">
   <div class="sheet" style="max-width: 480px; text-align: center; padding: 32px 24px; position: relative;">
     <button class="sheet-close" onclick="closeInfoModal()" style="position: absolute; top: 16px; right: 16px; font-size: 1.2rem; background: none; border: none; cursor: pointer; color: var(--text-muted);">✕</button>
     <div style="width: 56px; height: 56px; background: rgba(16, 185, 129, 0.12); color: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;">
@@ -3370,21 +3371,34 @@ function handleBrandBadgeClick() {
   }
 }
 
-function checkAdminUrlTrigger() {
+function isAdminUrlRequested() {
   const hash = (window.location.hash || "").toLowerCase();
   const search = (window.location.search || "").toLowerCase();
   const path = (window.location.pathname || "").toLowerCase();
 
-  const isAdminRequested = hash.includes("admin") || 
-                           search.includes("admin") || 
-                           path.endsWith("/admin") || 
-                           path.endsWith("/admin/");
+  return hash.includes("admin") || 
+         search.includes("admin") || 
+         path.endsWith("/admin") || 
+         path.endsWith("/admin/");
+}
 
-  if (isAdminRequested) {
+function initWelcomeModal() {
+  // Wenn /admin oder #admin aufgerufen wird: NIEMALS das Welcome-Popup öffnen!
+  if (isAdminUrlRequested()) {
+    closeInfoModal();
+    return;
+  }
+  // Für reguläre Kunden das Welcome-Popup beim Laden öffnen
+  openInfoModal();
+}
+
+function checkAdminUrlTrigger() {
+  if (isAdminUrlRequested()) {
+    closeInfoModal();
     if (!isAdminAuthenticated) {
       setTimeout(() => {
         openAdminModal();
-      }, 350);
+      }, 100);
     } else {
       toggleEditPricesMode(true);
     }
@@ -3395,7 +3409,7 @@ window.addEventListener("hashchange", checkAdminUrlTrigger);
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", checkAdminUrlTrigger);
 } else {
-  setTimeout(checkAdminUrlTrigger, 150);
+  setTimeout(checkAdminUrlTrigger, 100);
 }
 
 window.addEventListener("keydown", (e) => {
@@ -3950,13 +3964,37 @@ function updateAdminHeaderBtn() {
     btn.style.display = "inline-flex";
     btn.textContent = "✅ Bearbeiten beenden";
     btn.style.background = "#B45309";
-  } else if (isAdminAuthenticated) {
-    btn.style.display = "inline-flex";
-    btn.textContent = "✏️ Preise bearbeiten";
-    btn.style.background = "rgba(255,255,255,0.14)";
   } else {
+    // Im Standardmodus für Kunden unsichtbar
     btn.style.display = "none";
   }
+}
+
+function exitEditPricesMode() {
+  isEditPricesMode = false;
+
+  const b = document.getElementById("editBanner");
+  if (b) b.style.display = "none";
+
+  const adminCalcBtn = document.getElementById("adminCalcSettingsBtnContainer");
+  if (adminCalcBtn) adminCalcBtn.style.display = "none";
+
+  updateAdminHeaderBtn();
+  renderPresets();
+  renderProducts();
+
+  // Auf Standardseite leiten: URL von Admin-Parametern bereinigen
+  if (window.location.hash.toLowerCase().includes("admin") || window.location.search.toLowerCase().includes("admin")) {
+    try {
+      history.replaceState(null, "", window.location.pathname);
+    } catch (e) {
+      window.location.hash = "";
+    }
+  } else if (window.location.pathname.toLowerCase().endsWith("/admin") || window.location.pathname.toLowerCase().endsWith("/admin/")) {
+    window.location.replace("../");
+  }
+
+  showAdminToast("info", "Bearbeitungsmodus beendet – Standardansicht aktiv");
 }
 
 function toggleEditPricesMode(forceState) {
@@ -3966,15 +4004,16 @@ function toggleEditPricesMode(forceState) {
     return;
   }
 
-  if (forceState !== undefined) {
-    isEditPricesMode = forceState;
-  } else {
-    isEditPricesMode = !isEditPricesMode;
+  if (forceState === false || (forceState === undefined && isEditPricesMode)) {
+    exitEditPricesMode();
+    return;
   }
 
-  document.getElementById("editBanner").style.display = isEditPricesMode ? "block" : "none";
+  isEditPricesMode = true;
+  const b = document.getElementById("editBanner");
+  if (b) b.style.display = "block";
   const adminCalcBtn = document.getElementById("adminCalcSettingsBtnContainer");
-  if (adminCalcBtn) adminCalcBtn.style.display = isEditPricesMode ? "block" : "none";
+  if (adminCalcBtn) adminCalcBtn.style.display = "block";
   updateAdminHeaderBtn();
   renderPresets();
   renderProducts();
@@ -6282,6 +6321,9 @@ window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e =
 updateAdminHeaderBtn();
 renderPresets();
 renderProducts();
+
+// Welcome-Modal nur für normale Kunden anzeigen (niemals wenn /admin oder #admin aufgerufen wird)
+initWelcomeModal();
 
 // Sortiment live aus Supabase nachladen (falls Tabellen vorhanden)
 if (typeof loadCatalogFromSupabase === "function") {
