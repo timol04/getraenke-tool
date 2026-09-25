@@ -2605,7 +2605,7 @@
             <svg class="icon-svg" viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
             Schnellplanung
           </span>
-          <div id="calcCollapsedSummary" class="calc-collapsed-summary" style="display:inline-flex;"></div>
+          <div id="calcCollapsedSummary" class="calc-collapsed-summary" style="display:none;"></div>
         </div>
         <h2 class="calc-title">
           <span style="display:inline-flex; align-items:center; gap:8px;">
@@ -2727,7 +2727,7 @@
     <!-- Wetter Option -->
     <div class="calc-weather-row">
       <label class="calc-weather-toggle">
-        <input type="checkbox" id="calcHotWeather" onchange="recalculateCalcNeeds()">
+        <input type="checkbox" id="calcHotWeather" onchange="calcHasUserSelected = true; recalculateCalcNeeds(); updateCollapsedSummary();">
         <span style="display:inline-flex; align-items:center; gap:6px;">
           <svg class="icon-svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#EAB308" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
           <strong>Heisser Sommertag:</strong> +20% mehr Durstlöscher (Mineral & Erfrischung einplanen)
@@ -5376,6 +5376,7 @@ let calcHours = 4;
 let calcHotWeather = false;
 let calcTrackerActive = false;
 let isDrinkCalcCollapsed = true;
+let calcHasUserSelected = false;
 
 // Berechnete Soll-Ziele
 let calcTargets = {
@@ -5434,6 +5435,7 @@ function getProductCategoryGroup(p) {
 
 // Rechner Event-Typ setzen
 function setCalcEvent(type) {
+  calcHasUserSelected = true;
   calcEventType = type;
   const btnIds = ["grillfest", "apero", "party", "family"];
   btnIds.forEach(id => {
@@ -5444,6 +5446,7 @@ function setCalcEvent(type) {
     }
   });
   recalculateCalcNeeds();
+  updateCollapsedSummary();
 }
 
 // Hilfsfunktionen für synchrone Regler-Skalierung (10, 25, 50, 75, 100+)
@@ -5516,22 +5519,27 @@ function updateHoursTickHighlight(hours) {
 }
 
 function onCalcGuestsRangeChange(val) {
+  calcHasUserSelected = true;
   calcGuests = sliderPosToGuests(val);
   const input = document.getElementById("calcGuestsInput");
   if (input) input.value = calcGuests;
   updateGuestTickHighlight(calcGuests);
   recalculateCalcNeeds();
+  updateCollapsedSummary();
 }
 
 function onCalcGuestsInputChange(val) {
+  calcHasUserSelected = true;
   calcGuests = Math.max(5, parseInt(val, 10) || 5);
   const range = document.getElementById("calcGuestsRange");
   if (range) range.value = guestsToSliderPos(calcGuests);
   updateGuestTickHighlight(calcGuests);
   recalculateCalcNeeds();
+  updateCollapsedSummary();
 }
 
 function setCalcGuests(num) {
+  calcHasUserSelected = true;
   calcGuests = parseInt(num, 10) || 25;
   const input = document.getElementById("calcGuestsInput");
   if (input) input.value = calcGuests;
@@ -5539,17 +5547,21 @@ function setCalcGuests(num) {
   if (range) range.value = guestsToSliderPos(calcGuests);
   updateGuestTickHighlight(calcGuests);
   recalculateCalcNeeds();
+  updateCollapsedSummary();
 }
 
 function onCalcHoursChange(val) {
+  calcHasUserSelected = true;
   calcHours = Math.max(2, parseInt(val, 10) || 2);
   const display = document.getElementById("calcHoursDisplay");
   if (display) display.textContent = calcHours >= 8 ? '8+' : calcHours;
   updateHoursTickHighlight(calcHours);
   recalculateCalcNeeds();
+  updateCollapsedSummary();
 }
 
 function setCalcHours(num) {
+  calcHasUserSelected = true;
   calcHours = Math.max(2, parseInt(num, 10) || 4);
   const display = document.getElementById("calcHoursDisplay");
   if (display) display.textContent = calcHours >= 8 ? '8+' : calcHours;
@@ -5557,6 +5569,7 @@ function setCalcHours(num) {
   if (range) range.value = Math.min(8, calcHours);
   updateHoursTickHighlight(calcHours);
   recalculateCalcNeeds();
+  updateCollapsedSummary();
 }
 
 // Kern-Berechnung der empfohlenen Mengen
@@ -5896,6 +5909,8 @@ function updateCalculatorTracker() {
 
 // Option 1: Standard-Produkte mit 1 Klick übernehmen
 function applyCalculatorStandardProducts() {
+  calcHasUserSelected = true;
+  updateCollapsedSummary();
   const std = calcStandards[calcEventType] || DEFAULT_CALCULATOR_STANDARDS[calcEventType];
   if (!std) return;
 
@@ -5968,7 +5983,9 @@ function applyCalculatorStandardProducts() {
 
 // Option 2: Bedarfs-Tracker aktivieren
 function activateTrackerMode(shouldScroll) {
+  calcHasUserSelected = true;
   calcTrackerActive = true;
+  updateCollapsedSummary();
   const panel = document.getElementById("calcTrackerPanel");
   if (panel) panel.style.display = "block";
   updateCalculatorTracker();
@@ -6013,8 +6030,12 @@ function toggleDrinkCalculator(forceState) {
     if (btnText) btnText.textContent = "Rechner aufklappen";
     if (btnIcon) btnIcon.innerHTML = CALC_SVGS.chevronDown;
     if (summaryBadge) {
-      updateCollapsedSummary();
-      summaryBadge.style.display = "inline-flex";
+      if (calcHasUserSelected) {
+        updateCollapsedSummary();
+        summaryBadge.style.display = "inline-flex";
+      } else {
+        summaryBadge.style.display = "none";
+      }
     }
     if (subText) subText.style.display = "none";
   } else {
@@ -6033,6 +6054,11 @@ function toggleDrinkCalculator(forceState) {
 function updateCollapsedSummary() {
   const badge = document.getElementById("calcCollapsedSummary");
   if (!badge) return;
+  if (!calcHasUserSelected) {
+    badge.style.display = "none";
+    badge.innerHTML = "";
+    return;
+  }
   const eventLabels = {
     grillfest: `${CALC_SVGS.grillfest} <span>Grillfest</span>`,
     apero: `${CALC_SVGS.apero} <span>Apéro</span>`,
@@ -6041,6 +6067,11 @@ function updateCollapsedSummary() {
   };
   const evHtml = eventLabels[calcEventType] || "<span>Anlass</span>";
   badge.innerHTML = `<strong style="display:inline-flex; align-items:center; gap:5px;">${evHtml}</strong> • ${calcGuests} Pers. • ${calcHours} Std. <span style="opacity:0.35; margin:0 5px;">|</span> <span class="calc-sum-pill">${CALC_SVGS.mineral} ${calcTargets.mineralLiters} L</span> <span class="calc-sum-pill">${CALC_SVGS.soft} ${calcTargets.softLiters} L</span> <span class="calc-sum-pill">${CALC_SVGS.beer} ${calcTargets.beerLiters} L</span> <span class="calc-sum-pill">${CALC_SVGS.wine} ${calcTargets.wineBottles} Fl.</span>`;
+  if (isDrinkCalcCollapsed) {
+    badge.style.display = "inline-flex";
+  } else {
+    badge.style.display = "none";
+  }
 }
 
 function checkStickyTrackerVisibility() {
@@ -6048,6 +6079,12 @@ function checkStickyTrackerVisibility() {
   const calcSec = document.getElementById("drinkCalculatorSection");
   const header = document.querySelector("header.top");
   if (!bar || !calcSec) return;
+
+  // Nur anzeigen wenn der Kunde auch wirklich etwas im Rechner ausgewählt hat
+  if (!calcHasUserSelected) {
+    bar.classList.remove("visible");
+    return;
+  }
 
   if (header) {
     const headerBottom = Math.round(header.getBoundingClientRect().bottom);
