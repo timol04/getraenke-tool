@@ -7411,9 +7411,10 @@ function recalculateCalcNeeds() {
 
   // Flüssigkeitsbedarf pro Person:
   // 1.0L für die ersten 2 Stunden, danach +0.3L pro weiterer Stunde
-  let perPersonLiters = 1.0 + Math.max(0, calcHours - 2) * 0.3;
+  // Standardmässig 20% Sicherheitsmarge auf alle Berechnungen aufschlagen
+  let perPersonLiters = (1.0 + Math.max(0, calcHours - 2) * 0.3) * 1.2;
   if (calcHotWeather) {
-    perPersonLiters *= 1.2; // +20% bei Hitze
+    perPersonLiters *= 1.2; // zusätzliche +20% bei Hitze
   }
 
   const totalEventLiters = Math.round(calcGuests * perPersonLiters);
