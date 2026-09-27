@@ -6870,8 +6870,37 @@ async function downloadPdf() {
   try {
       if (supabaseClient) {
           const itemsPayload = [];
-          selected.forEach(s => itemsPayload.push({art: s.product.art, name: s.product.name, qty: s.count, unit_price: s.product.price, is_pack: false, type: 'drink'}));
-          selectedFest.forEach(f => itemsPayload.push({art: f.item.id || f.item.art, name: f.item.name, qty: f.qty, unit_price: f.item.price || 0, is_pack: false, type: 'fest'}));
+          selected.forEach(s => {
+              const q = qty[s.product.id] || { bottles: 0, cases: 0 };
+              let gebindeDetail = "";
+              if (q.cases > 0 && q.bottles > 0 && s.product.caseSize) {
+                gebindeDetail = `${q.cases} ${getCaseLabel(s.product, true)} + ${q.bottles} ${getUnitLabel(s.product, true)}`;
+              } else if (q.cases > 0 && s.product.caseSize) {
+                gebindeDetail = `${q.cases} ${getCaseLabel(s.product, true)}`;
+              } else {
+                gebindeDetail = `${s.count} ${getUnitLabel(s.product, true)}`;
+              }
+              itemsPayload.push({
+                  art: s.product.art, 
+                  name: s.product.name, 
+                  qty: s.count, 
+                  display_qty: gebindeDetail,
+                  unit_price: s.product.price, 
+                  is_pack: false, 
+                  type: 'drink'
+              });
+          });
+          selectedFest.forEach(f => {
+              itemsPayload.push({
+                  art: f.item.id || f.item.art, 
+                  name: f.item.name, 
+                  qty: f.qty, 
+                  display_qty: `${f.qty}x ${f.item.unitDesc || "Stk."}`,
+                  unit_price: f.item.price || 0, 
+                  is_pack: false, 
+                  type: 'fest'
+              });
+          });
           
           const { data: refNr, error } = await supabaseClient.rpc('submit_order', {
               p_items: itemsPayload,
@@ -8465,7 +8494,7 @@ function viewOrderDetails(id) {
       tr.innerHTML = `
         <td>${item.art || '-'}</td>
         <td>${item.name}</td>
-        <td>${item.qty}x</td>
+        <td>${item.display_qty || item.qty + 'x'}</td>
         <td>CHF ${parseFloat(item.unit_price).toFixed(2)}</td>
         <td><strong>CHF ${rowTotal.toFixed(2)}</strong></td>
       `;
