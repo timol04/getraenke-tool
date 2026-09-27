@@ -3612,6 +3612,11 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
         </table>
       </div>
       
+      <div style="margin-top: 20px; margin-bottom: 15px; padding: 10px; background: #fffbeb; border: 1px solid #fef3c7; border-radius: 8px; display: flex; align-items: center; gap: 10px;">
+        <input type="checkbox" id="returnAlreadyPaid" onchange="calcReturn()" style="width: 18px; height: 18px; cursor: pointer;">
+        <label for="returnAlreadyPaid" style="font-weight: 600; color: #92400e; cursor: pointer; margin: 0;">Ursprüngliche Rechnung wurde bereits bezahlt</label>
+      </div>
+      
       <div style="margin-top: 20px; padding: 15px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px;">
         <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
           <span>Total Ursprünglich:</span>
@@ -8395,12 +8400,19 @@ function calcReturn() {
   document.getElementById("returnTotalRefund").innerText = `CHF ${totalRefund.toFixed(2)}`;
   
   const orig = parseFloat(currentReturnOrder.total_amount);
-  const newTotal = orig - totalRefund;
+  const isPaid = document.getElementById("returnAlreadyPaid") && document.getElementById("returnAlreadyPaid").checked;
+  const newTotal = isPaid ? -totalRefund : (orig - totalRefund);
+  
   document.getElementById("returnNewTotal").innerText = `CHF ${newTotal.toFixed(2)}`;
+  if (isPaid) {
+      document.getElementById("returnNewTotal").style.color = "#DC2626"; // Red for payout
+  } else {
+      document.getElementById("returnNewTotal").style.color = "inherit";
+  }
 }
 
 
-async function generateReturnPdf(order, returns, totalRefund) {
+async function generateReturnPdf(order, returns, totalRefund, isPaid) {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
     const refFormatted = order.ref_nr || String(order.id).padStart(6, "0");
@@ -8440,10 +8452,17 @@ async function generateReturnPdf(order, returns, totalRefund) {
         doc.text("Total Gutschrift: CHF " + parseFloat(totalRefund).toFixed(2), 14, finalY);
         
         const orig = parseFloat(order.total_amount);
-        const newTotal = orig - totalRefund;
         doc.setTextColor(31, 58, 46);
         doc.text("Ursprünglicher Rechnungsbetrag: CHF " + orig.toFixed(2), 14, finalY + 8);
-        doc.text("Neuer Rechnungsbetrag (nach Retoure): CHF " + newTotal.toFixed(2), 14, finalY + 16);
+        
+        if (isPaid) {
+            doc.setFont("helvetica", "bold");
+            doc.setTextColor(220, 38, 38);
+            doc.text("Auszahlungsbetrag (Kunde erhält zurück): CHF " + totalRefund.toFixed(2), 14, finalY + 18);
+        } else {
+            const newTotal = orig - totalRefund;
+            doc.text("Neuer Rechnungsbetrag (nach Retoure): CHF " + newTotal.toFixed(2), 14, finalY + 16);
+        }
     } else {
         doc.text("Es wurden keine Artikel retourniert (Total Gutschrift: CHF 0.00).", 14, 45);
     }
@@ -8484,7 +8503,8 @@ async function saveReturn() {
       if (error) throw error;
       
       // PDF generieren
-      await generateReturnPdf(currentReturnOrder, returns, totalRefund);
+      const isPaid = document.getElementById("returnAlreadyPaid") && document.getElementById("returnAlreadyPaid").checked;
+      await generateReturnPdf(currentReturnOrder, returns, totalRefund, isPaid);
       
       closeAdminReturnModal();
       loadOrders(); // reload
