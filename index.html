@@ -6868,15 +6868,14 @@ async function downloadPdf() {
           selected.forEach(s => itemsPayload.push({name: s.product.name, qty: s.count, unit_price: s.product.price, is_pack: false, type: 'drink'}));
           selectedFest.forEach(f => itemsPayload.push({name: f.item.name, qty: f.qty, unit_price: f.item.price || 0, is_pack: false, type: 'fest'}));
           
-          const { data, error } = await supabaseClient.from('orders').insert([{
-              items: itemsPayload,
-              total_amount: combinedTotal,
-              total_deposit: 0 // You can calculate real deposit if needed
-          }]).select('id, ref_nr').single();
+          const { data: refNr, error } = await supabaseClient.rpc('submit_order', {
+              p_items: itemsPayload,
+              p_total: combinedTotal,
+              p_deposit: 0
+          });
           
-          if (!error && data) {
-              ref = data.ref_nr || String(data.id).padStart(6, '0');
-              supabaseOrderId = data.id;
+          if (!error && refNr) {
+              ref = refNr;
           } else {
               console.error("Supabase Order Insert Error:", error);
           }

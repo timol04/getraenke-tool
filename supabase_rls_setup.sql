@@ -57,18 +57,32 @@ CREATE POLICY "Public presets read access"
   TO anon, authenticated
   USING (true);
 
--- 4. ORDERS: KUNDEN (anon) DÜRFEN BESTELLUNGEN ANLEGEN
--- Dies ist zwingend erforderlich, damit das PDF-Tool die Bestellung speichern kann!
-CREATE POLICY "Anon can create order"
-  ON orders FOR INSERT
-  TO anon
-  WITH CHECK (true);
+-- 4. ORDERS: RPC-FUNKTION FÜR SICHERES SPEICHERN
+-- Ersetzt das unsichere INSERT/SELECT für anonyme Benutzer.
+-- Anonyme Benutzer dürfen die orders-Tabelle nicht direkt lesen oder beschreiben!
+create or replace function submit_order(
+  p_items jsonb, 
+  p_total numeric, 
+  p_deposit numeric
+)
+returns text
+language plpgsql
+security definer
+set search_path = public, pg_temp
+as $$
+declare
+  v_ref text;
+begin
+  insert into orders (items, total_amount, total_deposit)
+  values (p_items, p_total, p_deposit)
+  returning ref_nr into v_ref;
 
--- Kunden dürfen den Datensatz nach dem Einfügen zurücklesen (wegen .select() in JS)
-CREATE POLICY "Anon can read own ref"
-  ON orders FOR SELECT
-  TO anon
-  USING (true);
+  return v_ref;
+end;
+$$;
+
+-- Ausführungsrecht an anonyme Nutzer erteilen
+grant execute on function submit_order(jsonb, numeric, numeric) to anon, authenticated;
 
 -- 5. SCHREIBZUGRIFF (INSERT, UPDATE, DELETE):
 -- Nur authentifizierte Benutzer (dein Admin-Account) dürfen Daten (inkl. Retouren) ändern
