@@ -7417,7 +7417,7 @@ function recalculateCalcNeeds() {
     perPersonLiters *= 1.2; // zusätzliche +20% bei Hitze
   }
 
-  const totalEventLiters = Math.round(calcGuests * perPersonLiters);
+  let totalEventLiters = Math.round(calcGuests * perPersonLiters);
 
   // Verteilung je nach Event-Typ
   let minPct = 0.32, softPct = 0.23, beerPct = 0.35, winePct = 0.10;
@@ -7439,20 +7439,30 @@ function recalculateCalcNeeds() {
     winePct = 0.00;
   }
 
-  let minLiters = Math.round(totalEventLiters * minPct);
-  let softLiters = Math.round(totalEventLiters * softPct);
-  let beerLiters = Math.round(totalEventLiters * beerPct);
-  let wineLiters = Math.round(totalEventLiters * winePct * 10) / 10;
+  let minLiters = totalEventLiters * minPct;
+  let softLiters = totalEventLiters * softPct;
+  let beerLiters = totalEventLiters * beerPct;
+  let wineLiters = totalEventLiters * winePct;
 
-  // Harassen-Abschätzungen:
+  // Harassen-Abschätzungen & Liter auf volle Packs runden:
   // Mineral: Farmer blau 6x1.5L = 9L pro Pack -> Harassen = aufrunden(L / 9)
   const minCases = Math.max(1, Math.ceil(minLiters / 9));
+  minLiters = minCases * 9;
+  
   // Soft: Cola 8x1.5L = 12L pro Pack -> Harassen = aufrunden(L / 12)
   const softCases = Math.max(1, Math.ceil(softLiters / 12));
+  softLiters = softCases * 12;
+  
   // Bier: 24x33cl = 7.92L pro Pack -> Packs = aufrunden(L / 8)
   const beerCases = beerPct > 0 ? Math.max(1, Math.ceil(beerLiters / 8)) : 0;
+  beerLiters = beerCases * 8;
+  
   // Wein: 0.75L pro Flasche
   const wineBottles = winePct > 0 ? Math.max(1, Math.ceil(wineLiters / 0.75)) : 0;
+  wineLiters = Math.round(wineBottles * 0.75 * 10) / 10;
+  
+  // Update total liters to reflect the rounded-up pack sizes
+  totalEventLiters = Math.round(minLiters + softLiters + beerLiters + wineLiters);
 
   calcTargets = {
     mineralLiters: minLiters,
