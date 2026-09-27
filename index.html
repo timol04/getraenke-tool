@@ -3228,7 +3228,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
       <div class="festmaterial-title-group" style="flex:1; min-width:260px;">
         <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
           <span class="festmaterial-badge"><svg width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align: text-bottom; margin-right: 4px;'><path d='M19 20 10 4'/><path d='m5 20 9-16'/><path d='M3 20h18'/><path d='m12 15-3 5'/><path d='m12 15 3 5'/></svg> Festbetrieb & Eventbedarf</span>
-          <span id="festCollapsedBadge" style="font-size:0.78rem; font-weight:700; background:#edf5e8; color:#3d7d1e; border:1px solid #d4e7cb; padding:2px 8px; border-radius:12px;">Optional</span>
+          <span id="festCollapsedBadge" style="font-size:0.78rem; font-weight:700; background:#edf5e8; color:#3d7d1e; border:1px solid #d4e7cb; padding:2px 8px; border-radius:12px; display:none;"></span>
         </div>
         <h2 style="font-size:1.35rem; font-weight:700; margin:4px 0 2px; color:var(--text);">Festmobiliar & Einweggeschirr</h2>
         <p style="font-size:0.88rem; color:var(--text-muted); margin:0;">Mieten Sie Mobiliar für Ihren Anlass oder bestellen Sie passenden Festbedarf direkt mit.</p>
@@ -6243,11 +6243,7 @@ function updateFestCollapsedBadge() {
     badge.style.color = "#3d7d1e";
     badge.style.borderColor = "#d4e7cb";
   } else {
-    badge.textContent = "Optional";
-    badge.style.display = isFestmaterialCollapsed ? "inline-flex" : "none";
-    badge.style.background = "#f1f5f9";
-    badge.style.color = "#64748b";
-    badge.style.borderColor = "#e2e8f0";
+    badge.style.display = "none";
   }
 }
 
