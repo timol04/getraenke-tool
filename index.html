@@ -6149,15 +6149,48 @@ function checkStickyTrackerVisibility() {
   const calcSec = document.getElementById("drinkCalculatorSection");
   if (!bar || !calcSec) return;
 
-  // Nur anzeigen wenn der Kunde auch wirklich etwas im Rechner ausgewählt hat
-  if (!calcHasUserSelected) {
+  // Im reinen Admin-Dashboard niemals den Festbedarf-Tracker einblenden
+  if (typeof isEditPricesMode !== "undefined" && isEditPricesMode && !isCustomerPreviewMode) {
     bar.classList.remove("visible");
     return;
   }
 
-  const rect = calcSec.getBoundingClientRect();
-  // Sobald der Rechner nach oben aus dem Sichtfeld scrollt
-  if (rect.bottom < 60) {
+  const header = document.querySelector("header.top");
+  const headerBottom = header ? header.getBoundingClientRect().bottom : 85;
+
+  let isBuiltinTrackerVisible = false;
+
+  const trackerPanel = document.getElementById("calcTrackerPanel");
+  const isTrackerPanelOpen = trackerPanel && trackerPanel.style.display !== "none" && trackerPanel.offsetHeight > 0;
+
+  if (isTrackerPanelOpen) {
+    // 1. Wenn das eingebaute Tracker-Panel im Rechner geöffnet ist:
+    const tRect = trackerPanel.getBoundingClientRect();
+    if (tRect.bottom > headerBottom + 10 && tRect.top < window.innerHeight) {
+      isBuiltinTrackerVisible = true;
+    }
+  } else if (!isDrinkCalcCollapsed) {
+    // 2. Wenn der Rechner aufgeklappt ist, aber das Panel noch nicht aktiviert wurde:
+    // Der relevante Bereich (Schritt 3 mit Bedarfs-Zielen)
+    const trackerBtn = document.getElementById("activateTrackerBtn");
+    const calcBody = document.getElementById("calcCollapsibleBody");
+    const checkEl = trackerBtn || calcBody;
+    if (checkEl) {
+      const bRect = checkEl.getBoundingClientRect();
+      if (bRect.bottom > headerBottom + 20 && bRect.top < window.innerHeight) {
+        isBuiltinTrackerVisible = true;
+      }
+    }
+  } else {
+    // 3. Wenn der Rechner zugeklappt ist:
+    const cRect = calcSec.getBoundingClientRect();
+    if (cRect.bottom > headerBottom + 10) {
+      isBuiltinTrackerVisible = true;
+    }
+  }
+
+  // Sobald der eingebaute Tracker nach oben aus dem Sichtfeld scrollt (sobald man bei den Kategorien ist wie im Screenshot):
+  if (!isBuiltinTrackerVisible) {
     bar.classList.add("visible");
   } else {
     bar.classList.remove("visible");
