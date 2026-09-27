@@ -2739,6 +2739,26 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
       </div>
 
 
+      
+      /* START: pdf_extended */
+      <!-- Card: Bestellungen & Fest-Retouren -->
+      <div class="admin-action-card card-featured" onclick="openAdminOrdersModal()" style="border-top: 4px solid #10B981;">
+        <div class="action-card-header">
+          <div class="action-icon-wrap icon-green">📋</div>
+          <span class="card-badge-featured" style="background:#D1FAE5; color:#065F46; border:1px solid #34D399;">Bestellungen</span>
+        </div>
+        <div class="action-card-body">
+          <h3 class="action-card-title">Bestellungen & Fest-Retouren</h3>
+          <p class="action-card-desc">Alle Referenz-Bestellungen einsehen, durchsuchen, Retouren verbuchen und abrechnen.</p>
+        </div>
+        <div class="action-card-footer">
+          <button type="button" class="action-btn btn-primary-big">
+            Bestellungen öffnen ➔
+          </button>
+        </div>
+      </div>
+      /* END: pdf_extended */
+
       <!-- Card 2: Rechner Standards -->
       <div class="admin-action-card" onclick="openCalcStandardsModal()">
         <div class="action-card-header">
@@ -3520,6 +3540,101 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
 </div>
 
 <!-- ADMIN SORTIMENT MANAGEMENT MODAL -->
+
+/* START: pdf_extended */
+<!-- ADMIN ORDERS MODAL -->
+<div class="overlay" id="adminOrdersOverlay" onclick="if(event.target.id==='adminOrdersOverlay') closeAdminOrdersModal()">
+  <div class="bottom-sheet admin-sheet">
+    <div class="sheet-header">
+      <h2>Bestellungen & Fest-Retouren</h2>
+      <button class="sheet-close" onclick="closeAdminOrdersModal()">✕</button>
+    </div>
+    
+    <!-- Such- und Filterbereich -->
+    <div style="padding: 15px; border-bottom: 1px solid #e2e8f0; display: flex; gap: 10px;">
+        <input type="text" id="adminOrdersSearch" placeholder="Suche nach Ref.-Nr. (#000042)..." onkeyup="filterOrders()" style="flex: 1; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-family: 'DM Sans', sans-serif;">
+        <button class="primary" onclick="loadOrders()" style="white-space: nowrap;">🔄 Aktualisieren</button>
+    </div>
+
+    <div class="sheet-content" style="padding: 0;">
+      <div class="table-responsive">
+        <table class="admin-fest-table" id="adminOrdersTable">
+          <thead>
+            <tr>
+              <th>Ref.-Nr.</th>
+              <th>Datum/Zeit</th>
+              <th>Positionen</th>
+              <th>Betrag</th>
+              <th>Status</th>
+              <th style="text-align: right;">Aktionen</th>
+            </tr>
+          </thead>
+          <tbody id="adminOrdersTbody">
+            <!-- Dynamisch via Supabase -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="sheet-footer" style="justify-content: flex-end;">
+      <button class="secondary" onclick="closeAdminOrdersModal()">Schliessen</button>
+    </div>
+  </div>
+</div>
+
+<!-- RETOUREN / RÜCKNAHME MODAL -->
+<div class="overlay" id="adminReturnOverlay" onclick="if(event.target.id==='adminReturnOverlay') closeAdminReturnModal()" style="z-index: 3000;">
+  <div class="bottom-sheet admin-sheet" style="max-width: 700px;">
+    <div class="sheet-header">
+      <h2 id="returnModalTitle">Fest-Rücknahme: #000000</h2>
+      <button class="sheet-close" onclick="closeAdminReturnModal()">✕</button>
+    </div>
+    <div class="sheet-content">
+      <p style="margin-bottom: 15px; color: #475569; font-size: 14px;">Bitte die zurückgebrachten Mengen der einzelnen Artikel erfassen. Die Gutschrift wird automatisch berechnet.</p>
+      
+      <div class="table-responsive">
+        <table class="admin-fest-table" id="adminReturnTable">
+          <thead>
+            <tr>
+              <th>Artikel</th>
+              <th>Bezogen (Qty)</th>
+              <th>Preis/EH</th>
+              <th>Zurückgebracht (Qty)</th>
+              <th>Gutschrift (Waren + Depot)</th>
+            </tr>
+          </thead>
+          <tbody id="adminReturnTbody">
+            <!-- Dynamisch generiert -->
+          </tbody>
+        </table>
+      </div>
+      
+      <div style="margin-top: 20px; padding: 15px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+          <span>Total Ursprünglich:</span>
+          <strong id="returnTotalOriginal">CHF 0.00</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+          <span>Davon ursprünglich Depot:</span>
+          <strong id="returnTotalDeposit">CHF 0.00</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 18px; color: #10B981; border-top: 2px solid #e2e8f0; padding-top: 10px;">
+          <strong>Total Gutschrift (Waren + Depot):</strong>
+          <strong id="returnTotalRefund">CHF 0.00</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 16px; margin-top: 10px;">
+          <strong>Neuer Rechnungsbetrag:</strong>
+          <strong id="returnNewTotal">CHF 0.00</strong>
+        </div>
+      </div>
+    </div>
+    <div class="sheet-footer">
+      <button class="secondary" onclick="closeAdminReturnModal()">Abbrechen</button>
+      <button class="primary" id="btnSaveReturn" onclick="saveReturn()">Rücknahme verbuchen & abschliessen</button>
+    </div>
+  </div>
+</div>
+/* END: pdf_extended */
+
 <div class="overlay" id="adminSortimentOverlay" onclick="if(event.target.id==='adminSortimentOverlay') closeAdminSortimentModal()">
   <div class="sheet" style="max-width: 960px; width: 95vw; max-height: 92vh; display: flex; flex-direction: column;">
     <div class="sheet-head">
@@ -6674,7 +6789,9 @@ function formatDateCH(raw) {
   return raw;
 }
 
-function downloadPdf() {
+/* START: pdf_extended */
+async function downloadPdf() {
+/* END: pdf_extended */
   const selected = getSelectedProducts();
   const selectedFest = getSelectedFestmaterial();
   if (selected.length === 0 && selectedFest.length === 0) return;
@@ -6686,7 +6803,39 @@ function downloadPdf() {
   const hasUnpricedFest = selectedFest.some(f => !f.item.price || f.item.price === 0);
   const combinedTotal = totalDrinks + totalFest;
 
-  const ref = makeReference();
+  /* START: pdf_extended */
+  const downloadBtn = document.querySelector('button[onclick="downloadPdf()"]');
+  const origBtnText = downloadBtn ? downloadBtn.innerText : "PDF erstellen";
+  if (downloadBtn) downloadBtn.innerText = "Speichere... Bitte warten";
+
+  let ref = makeReference(); // Fallback
+  let supabaseOrderId = null;
+  
+  try {
+      if (window.supabaseClient) {
+          const itemsPayload = [];
+          selected.forEach(s => itemsPayload.push({name: s.product.name, qty: s.count, unit_price: s.product.price, is_pack: false, type: 'drink'}));
+          selectedFest.forEach(f => itemsPayload.push({name: f.item.name, qty: f.qty, unit_price: f.item.price || 0, is_pack: false, type: 'fest'}));
+          
+          const { data, error } = await window.supabaseClient.from('orders').insert([{
+              items: itemsPayload,
+              total_amount: combinedTotal,
+              total_deposit: 0 // You can calculate real deposit if needed
+          }]).select('id, ref_nr').single();
+          
+          if (!error && data) {
+              ref = data.ref_nr || String(data.id).padStart(6, '0');
+              supabaseOrderId = data.id;
+          } else {
+              console.error("Supabase Order Insert Error:", error);
+          }
+      }
+  } catch (err) {
+      console.error("Error saving order:", err);
+  } finally {
+      if (downloadBtn) downloadBtn.innerText = origBtnText;
+  }
+  /* END: pdf_extended */
   const name = document.getElementById("custName") ? document.getElementById("custName").value.trim() : "";
   const phone = document.getElementById("custPhone") ? document.getElementById("custPhone").value.trim() : "";
   const email = document.getElementById("custEmail") ? document.getElementById("custEmail").value.trim() : "";
@@ -8117,3 +8266,200 @@ if (typeof loadFestmaterialFromSupabase === "function") {
 </script>
 </body>
 </html>
+
+
+/* START: pdf_extended */
+let currentOrders = [];
+let currentReturnOrder = null;
+
+function openAdminOrdersModal() {
+  document.getElementById("adminOrdersOverlay").classList.add("open");
+  loadOrders();
+}
+
+function closeAdminOrdersModal() {
+  document.getElementById("adminOrdersOverlay").classList.remove("open");
+}
+
+async function loadOrders() {
+  if (!window.supabaseClient) return;
+  const tbody = document.getElementById("adminOrdersTbody");
+  tbody.innerHTML = "<tr><td colspan='6' style='text-align:center;'>Lade Bestellungen...</td></tr>";
+  
+  const { data, error } = await window.supabaseClient.from('orders').select('*').order('created_at', { ascending: false }).limit(200);
+  if (error) {
+    console.error("Error loading orders", error);
+    tbody.innerHTML = "<tr><td colspan='6' style='text-align:center; color:red;'>Fehler beim Laden.</td></tr>";
+    return;
+  }
+  
+  currentOrders = data;
+  renderOrdersTable();
+}
+
+function filterOrders() {
+  renderOrdersTable();
+}
+
+function renderOrdersTable() {
+  const tbody = document.getElementById("adminOrdersTbody");
+  const search = document.getElementById("adminOrdersSearch").value.toLowerCase();
+  
+  tbody.innerHTML = "";
+  if (currentOrders.length === 0) {
+      tbody.innerHTML = "<tr><td colspan='6' style='text-align:center;'>Keine Bestellungen gefunden.</td></tr>";
+      return;
+  }
+  
+  currentOrders.forEach(order => {
+      const refFormatted = order.ref_nr || String(order.id).padStart(6, '0');
+      if (search && !refFormatted.toLowerCase().includes(search)) return;
+      
+      const date = new Date(order.created_at).toLocaleString('de-CH');
+      const itemCount = (order.items || []).length;
+      
+      let statusBadge = `<span style="padding: 4px 8px; border-radius: 12px; background: #FEF3C7; color: #92400E; font-size: 12px; font-weight: bold;">Offen</span>`;
+      if (order.status === 'abgeschlossen') {
+          statusBadge = `<span style="padding: 4px 8px; border-radius: 12px; background: #D1FAE5; color: #065F46; font-size: 12px; font-weight: bold;">Abgeschlossen</span>`;
+      }
+      
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td><strong>#${refFormatted}</strong></td>
+        <td>${date}</td>
+        <td>${itemCount} Pos.</td>
+        <td>CHF ${parseFloat(order.total_amount).toFixed(2)}</td>
+        <td>${statusBadge}</td>
+        <td style="text-align: right;">
+          <button class="admin-fest-status-btn" onclick="openReturnModal(${order.id})" title="Retoure verbuchen" ${order.status === 'abgeschlossen' ? 'disabled' : ''}>🔙 Retoure</button>
+          <button class="admin-fest-status-btn" style="color: #EF4444; border-color: #EF4444;" onclick="deleteOrder(${order.id})" title="Löschen">🗑️</button>
+        </td>
+      `;
+      tbody.appendChild(tr);
+  });
+}
+
+function openReturnModal(id) {
+  currentReturnOrder = currentOrders.find(o => o.id === id);
+  if (!currentReturnOrder) return;
+  
+  const refFormatted = currentReturnOrder.ref_nr || String(currentReturnOrder.id).padStart(6, '0');
+  document.getElementById("returnModalTitle").innerText = `Fest-Rücknahme: #${refFormatted}`;
+  
+  const tbody = document.getElementById("adminReturnTbody");
+  tbody.innerHTML = "";
+  
+  (currentReturnOrder.items || []).forEach((item, index) => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${item.name}</td>
+        <td>${item.qty}</td>
+        <td>CHF ${parseFloat(item.unit_price).toFixed(2)}</td>
+        <td>
+          <input type="number" min="0" max="${item.qty}" value="0" id="retQty_${index}" onchange="calcReturn()" onkeyup="calcReturn()" style="width: 70px; padding: 5px; border: 1px solid #cbd5e1; border-radius: 4px;">
+        </td>
+        <td id="retRowTotal_${index}">CHF 0.00</td>
+      `;
+      tbody.appendChild(tr);
+  });
+  
+  document.getElementById("returnTotalOriginal").innerText = `CHF ${parseFloat(currentReturnOrder.total_amount).toFixed(2)}`;
+  document.getElementById("returnTotalDeposit").innerText = `CHF ${parseFloat(currentReturnOrder.total_deposit || 0).toFixed(2)}`;
+  
+  calcReturn();
+  document.getElementById("adminReturnOverlay").classList.add("open");
+}
+
+function closeAdminReturnModal() {
+  document.getElementById("adminReturnOverlay").classList.remove("open");
+  currentReturnOrder = null;
+}
+
+function calcReturn() {
+  if (!currentReturnOrder) return;
+  let totalRefund = 0;
+  
+  (currentReturnOrder.items || []).forEach((item, index) => {
+      const retQtyInput = document.getElementById(`retQty_${index}`);
+      if (retQtyInput) {
+          let qty = parseInt(retQtyInput.value) || 0;
+          if (qty > item.qty) { qty = item.qty; retQtyInput.value = qty; } // constrain
+          const refundValue = qty * parseFloat(item.unit_price);
+          document.getElementById(`retRowTotal_${index}`).innerText = `CHF ${refundValue.toFixed(2)}`;
+          totalRefund += refundValue;
+      }
+  });
+  
+  document.getElementById("returnTotalRefund").innerText = `CHF ${totalRefund.toFixed(2)}`;
+  
+  const orig = parseFloat(currentReturnOrder.total_amount);
+  const newTotal = orig - totalRefund;
+  document.getElementById("returnNewTotal").innerText = `CHF ${newTotal.toFixed(2)}`;
+}
+
+async function saveReturn() {
+  if (!currentReturnOrder || !window.supabaseClient) return;
+  
+  const btn = document.getElementById("btnSaveReturn");
+  const origText = btn.innerText;
+  btn.innerText = "Speichere...";
+  btn.disabled = true;
+  
+  const returns = [];
+  let totalRefund = 0;
+  
+  (currentReturnOrder.items || []).forEach((item, index) => {
+      const retQtyInput = document.getElementById(`retQty_${index}`);
+      if (retQtyInput) {
+          let qty = parseInt(retQtyInput.value) || 0;
+          if (qty > 0) {
+              const refundValue = qty * parseFloat(item.unit_price);
+              returns.push({ name: item.name, returned_qty: qty, refund_value: refundValue });
+              totalRefund += refundValue;
+          }
+      }
+  });
+  
+  try {
+      const { error } = await window.supabaseClient.from('orders').update({
+          returns: returns,
+          refund_amount: totalRefund,
+          status: 'abgeschlossen'
+      }).eq('id', currentReturnOrder.id);
+      
+      if (error) throw error;
+      
+      closeAdminReturnModal();
+      loadOrders(); // reload
+      
+  } catch (err) {
+      console.error("Fehler beim Speichern der Retoure:", err);
+      alert("Fehler beim Speichern. Bitte Konsole prüfen.");
+  } finally {
+      btn.innerText = origText;
+      btn.disabled = false;
+  }
+}
+
+async function deleteOrder(id) {
+  if (!window.supabaseClient) return;
+  
+  const order = currentOrders.find(o => o.id === id);
+  if (!order) return;
+  
+  const refFormatted = order.ref_nr || String(order.id).padStart(6, '0');
+  
+  if (!confirm(`Möchtest du die Referenz #${refFormatted} wirklich unwiderruflich aus der Datenbank löschen?`)) {
+      return;
+  }
+  
+  try {
+      const { error } = await window.supabaseClient.from('orders').delete().eq('id', id);
+      if (error) throw error;
+      loadOrders();
+  } catch (err) {
+      console.error("Fehler beim Löschen:", err);
+      alert("Fehler beim Löschen.");
+  }
+}
+/* END: pdf_extended */
