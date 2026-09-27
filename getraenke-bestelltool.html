@@ -4386,7 +4386,7 @@ async function loginAdmin() {
     closeAdminModal();
     toggleEditPricesMode(true);
     setAdminUrl();
-    showAdminToast("Willkommen!", email + " angemeldet");
+    showAdminToast("Willkommen!", email + " angemeldet", false);
   } catch (e) {
     console.error("Login Fehler:", e);
     alert("Fehler beim Anmelden: " + (e.message || e));
