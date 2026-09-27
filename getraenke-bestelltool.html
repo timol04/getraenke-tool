@@ -4794,6 +4794,7 @@ function switchToAdminDashboard() {
   isCustomerPreviewMode = false;
   updateAdminViewDisplay();
   updateAdminHeaderBtn();
+  updateAdminCardPermissions();
   updateAdminDashboardStats();
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
@@ -4873,6 +4874,7 @@ function toggleEditPricesMode(forceState) {
 
   updateAdminViewDisplay();
   updateAdminHeaderBtn();
+  updateAdminCardPermissions();
   updateAdminDashboardStats();
   setAdminUrl();
 }
