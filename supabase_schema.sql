@@ -129,3 +129,46 @@ CREATE TRIGGER trg_products_updated_at
   BEFORE UPDATE ON products
   FOR EACH ROW
   EXECUTE FUNCTION set_updated_at();
+
+-- ==============================================================================
+-- 5. FESTMATERIAL & MIETMOBILIAR TABELLE
+-- ==============================================================================
+CREATE TABLE IF NOT EXISTS festmaterial (
+  id TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  category TEXT NOT NULL, -- 'Mietmobiliar' oder 'Einweggeschirr'
+  unit_desc TEXT DEFAULT '',
+  price_notice TEXT DEFAULT 'Preis auf Anfrage',
+  disabled BOOLEAN DEFAULT FALSE,
+  sort_order INTEGER DEFAULT 0,
+  created_at TIMESTAMPTZ DEFAULT timezone('utc'::text, now()) NOT NULL,
+  updated_at TIMESTAMPTZ DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_festmaterial_cat ON festmaterial(category);
+CREATE INDEX IF NOT EXISTS idx_festmaterial_disabled ON festmaterial(disabled);
+
+ALTER TABLE festmaterial ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Public can view festmaterial" ON festmaterial;
+CREATE POLICY "Public can view festmaterial" ON festmaterial
+  FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Admins can insert festmaterial" ON festmaterial;
+CREATE POLICY "Admins can insert festmaterial" ON festmaterial
+  FOR INSERT TO authenticated WITH CHECK (true);
+
+DROP POLICY IF EXISTS "Admins can update festmaterial" ON festmaterial;
+CREATE POLICY "Admins can update festmaterial" ON festmaterial
+  FOR UPDATE TO authenticated USING (true);
+
+DROP POLICY IF EXISTS "Admins can delete festmaterial" ON festmaterial;
+CREATE POLICY "Admins can delete festmaterial" ON festmaterial
+  FOR DELETE TO authenticated USING (true);
+
+DROP TRIGGER IF EXISTS trg_festmaterial_updated_at ON festmaterial;
+CREATE TRIGGER trg_festmaterial_updated_at
+  BEFORE UPDATE ON festmaterial
+  FOR EACH ROW
+  EXECUTE FUNCTION set_updated_at();
+
