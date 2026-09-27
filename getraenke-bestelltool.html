@@ -6051,6 +6051,8 @@ function applyCalculatorStandardProducts() {
   }
 }
 
+let isProgrammaticScrollingToTracker = false;
+
 // Option 2: Bedarfs-Tracker aktivieren ("Selbst zusammenstellen mit Fortschrittsbalken")
 function activateTrackerMode(shouldScroll) {
   calcHasUserSelected = true;
@@ -6065,16 +6067,25 @@ function activateTrackerMode(shouldScroll) {
   }
 
   if (shouldScroll) {
+    isProgrammaticScrollingToTracker = true;
     showCalculatorToast("Bedarfs-Tracker aktiv: Wähle jetzt deine Produkte!");
-    // Exakt bis zu Top-Angebote scrollen (sodass Top-Angebote direkt unter dem Tracker sichtbar ist)
+
     setTimeout(() => {
       const topCat = document.querySelector('details.category[data-cat-name="Top-Angebote"]') || document.getElementById("categories");
-      if (topCat) {
+      const actionsGrid = document.querySelector(".calc-actions-grid");
+      const targetEl = (!isDrinkCalcCollapsed && actionsGrid) ? actionsGrid : topCat;
+
+      if (targetEl) {
         const header = document.querySelector("header.top");
         const headerH = header ? header.offsetHeight : 220;
-        const targetY = topCat.getBoundingClientRect().top + window.pageYOffset - (headerH + 16);
+        const targetY = targetEl.getBoundingClientRect().top + window.pageYOffset - (headerH + 12);
         window.scrollTo({ top: Math.max(0, targetY), behavior: "smooth" });
       }
+
+      setTimeout(() => {
+        isProgrammaticScrollingToTracker = false;
+        checkStickyTrackerVisibility();
+      }, 700);
     }, 100);
   }
 }
@@ -6169,16 +6180,42 @@ function checkStickyTrackerVisibility() {
     return;
   }
 
+  // Während des automatischen Scrollens Tracker immer sichtbar halten
+  if (isProgrammaticScrollingToTracker) {
+    bar.classList.add("visible");
+    return;
+  }
+
   const topCat = document.querySelector('details.category[data-cat-name="Top-Angebote"]') || document.getElementById("categories");
   if (!topCat) return;
 
   const header = document.querySelector("header.top");
   const headerBottom = header ? header.getBoundingClientRect().bottom : 85;
   const topRect = topCat.getBoundingClientRect();
+  const actionsGrid = document.querySelector(".calc-actions-grid");
+  const actionsRect = actionsGrid ? actionsGrid.getBoundingClientRect() : null;
 
-  // Regel: Alles oberhalb von Top-Angebote ist der Tracker ausgeblendet.
-  // Ab Top-Angebote (sobald Top-Angebote unter der Kopfzeile erreicht ist) wird der Tracker eingeblendet!
-  if (topRect.top <= headerBottom + 30) {
+  // Regel:
+  // - Alles oberhalb von Top-Angebote / Aktionsbereich (Rechner-Eingaben für Gäste, Stunden, etc.): Tracker ist ausgeblendet.
+  // - Ab genau hier (Aktionsbuttons bzw. Top-Angebote im Sichtbereich, sodass Top-Angebote perfekt zu sehen ist):
+  //   Tracker wird eingeblendet und bleibt über alle Kategorien hinweg sichtbar!
+  let shouldShow = false;
+
+  if (isDrinkCalcCollapsed) {
+    // Wenn Rechner zugeklappt ist: Tracker sichtbar, sobald aus dem obersten Headerbereich gescrollt wird
+    shouldShow = window.scrollY > 40 || topRect.top <= headerBottom + 120;
+  } else {
+    // Wenn Rechner aufgeklappt ist:
+    // Im oberen Teil (Gäste, Stunden, Anlass) ausgeblendet.
+    // Sobald die Aktionsbuttons die Kopfzeile erreichen bzw. Top-Angebote im Viewport sichtbar ist:
+    const isActionsReached = actionsRect && actionsRect.top <= headerBottom + 120;
+    const isTopCatVisible = topRect.top <= 550;
+    const isScrolledPast = topRect.top <= headerBottom + 30;
+
+    shouldShow = isActionsReached || isTopCatVisible || isScrolledPast;
+  }
+
+  if (shouldShow) {
     bar.classList.add("visible");
   } else {
     bar.classList.remove("visible");
