@@ -4584,7 +4584,7 @@ function deleteProduct(art) {
 
 function openAddProductModal(defaultCat = "Weine") {
   editingProductArt = null;
-  document.getElementById("modalProductTitle").textContent = "<i class="fa-solid fa-plus"></i> Neues Produkt";
+  document.getElementById("modalProductTitle").innerHTML = '<i class="fa-solid fa-plus"></i> Neues Produkt';
   document.getElementById("formArt").value = "";
   document.getElementById("formName").value = "";
   document.getElementById("formCategory").value = defaultCat || "Weine";
@@ -4720,7 +4720,7 @@ function openEditProductModal(art) {
   }
   editingProductArt = String(p.art);
   editingProductOldId = String(p.id || ('art-' + p.art));
-  document.getElementById("modalProductTitle").textContent = "<i class="fa-solid fa-pen"></i> Produkt bearbeiten (" + p.art + ")";
+  document.getElementById("modalProductTitle").innerHTML = '<i class="fa-solid fa-pen"></i> Produkt bearbeiten (' + p.art + ')';
   document.getElementById("formArt").value = p.art || "";
   document.getElementById("formName").value = p.name || "";
   
@@ -4989,11 +4989,11 @@ function updateAdminHeaderBtn() {
   if (isAdminAuthenticated) {
     btn.style.display = "inline-flex";
     if (isCustomerPreviewMode) {
-      btn.textContent = "<i class="fa-solid fa-arrow-left" style="margin-right:5px;"></i> Zum Dashboard";
+      btn.innerHTML = '<i class="fa-solid fa-arrow-left" style="margin-right:5px;"></i> Zum Dashboard';
       btn.style.background = "#3d7d1e";
       btn.onclick = switchToAdminDashboard;
     } else {
-      btn.textContent = "<i class="fa-solid fa-eye" style="margin-right:5px;"></i> Kundenansicht";
+      btn.innerHTML = '<i class="fa-solid fa-eye" style="margin-right:5px;"></i> Kundenansicht';
       btn.style.background = "#2563eb";
       btn.onclick = switchToCustomerPreview;
     }
@@ -5506,7 +5506,7 @@ async function seedSupabaseFromBrowser() {
   } finally {
     if (btn) {
       btn.disabled = false;
-      btn.textContent = "<i class="fa-solid fa-rocket"></i> Sortiment übertragen";
+      btn.innerHTML = '<i class="fa-solid fa-rocket"></i> Sortiment übertragen';
     }
   }
 }
@@ -6359,7 +6359,7 @@ function toggleFestStatus(id) {
 
 function openAddFestmaterialModal() {
   editingFestItemId = null;
-  document.getElementById("modalFestTitle").textContent = "<i class="fa-solid fa-plus"></i> Neuer Festartikel";
+  document.getElementById("modalFestTitle").innerHTML = '<i class="fa-solid fa-plus"></i> Neuer Festartikel';
   document.getElementById("formFestArt").value = "";
   document.getElementById("formFestName").value = "";
   document.getElementById("formFestCategory").value = "Einweggeschirr";
@@ -6378,7 +6378,7 @@ function openEditFestmaterialModal(id) {
   if (!item) return;
   editingFestItemId = String(item.id || item.art);
   editingFestOldArt = String(item.art || item.id || "");
-  document.getElementById("modalFestTitle").textContent = "<i class="fa-solid fa-pen"></i> Festartikel bearbeiten";
+  document.getElementById("modalFestTitle").innerHTML = '<i class="fa-solid fa-pen"></i> Festartikel bearbeiten';
   document.getElementById("formFestArt").value = item.art || "";
   document.getElementById("formFestName").value = item.name || "";
   document.getElementById("formFestCategory").value = item.category || "Mietmobiliar";
