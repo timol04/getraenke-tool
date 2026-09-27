@@ -4176,6 +4176,7 @@ async function logoutAdmin() {
 }
 
 let editingProductArt = null;
+let editingProductOldId = null;
 
 function openAdminSortimentModal() {
   if (!isAdminAuthenticated) {
@@ -4337,9 +4338,16 @@ function deleteProduct(art) {
   const prodName = p ? p.name : `Art. ${art}`;
   if (!confirm(`Möchtest du das Produkt "${prodName}" wirklich dauerhaft löschen?`)) return;
   
+  const targetArt = String(art);
   CATEGORIES.forEach(cat => {
-    cat.items = (cat.items || []).filter(x => x.art !== art);
+    cat.items = (cat.items || []).filter(x => String(x.art) !== targetArt && String(x.id) !== targetArt && String(x.id) !== ('art-' + targetArt));
   });
+
+  if (supabaseClient && isAdminAuthenticated) {
+    supabaseClient.from('products').delete().eq('art', targetArt).then(() => {
+      supabaseClient.from('products').delete().eq('id', 'art-' + targetArt);
+    }).catch(e => console.warn("Supabase delete product error:", e));
+  }
   
   renderAdminSortimentTable();
   renderProducts();
@@ -4483,6 +4491,7 @@ function openEditProductModal(art) {
     return;
   }
   editingProductArt = String(p.art);
+  editingProductOldId = String(p.id || ('art-' + p.art));
   document.getElementById("modalProductTitle").textContent = "✏️ Produkt bearbeiten (" + p.art + ")";
   document.getElementById("formArt").value = p.art || "";
   document.getElementById("formName").value = p.name || "";
@@ -4510,6 +4519,8 @@ function openEditProductModal(art) {
 }
 
 function closeProductEditModal() {
+  editingProductArt = null;
+  editingProductOldId = null;
   document.getElementById("adminProductEditOverlay").classList.remove("open");
 }
 
@@ -4523,6 +4534,8 @@ function closeInfoModal() {
 
 function saveProductFromModal() {
   const isEdit = !!editingProductArt;
+  const oldArt = editingProductArt;
+  const oldId = editingProductOldId;
   const art = document.getElementById("formArt").value.trim();
   const name = document.getElementById("formName").value.trim();
   const catName = document.getElementById("formCategory").value;
@@ -4580,8 +4593,17 @@ function saveProductFromModal() {
     productObj.allowSingleBottle = true;
   }
 
+  // Falls Art.-Nr. geändert wurde, altes Produkt in Supabase bereinigen
+  if (isEdit && oldArt && String(oldArt) !== String(art) && supabaseClient && isAdminAuthenticated) {
+    const targetDelId = oldId || ('art-' + oldArt);
+    supabaseClient.from('products').delete().eq('id', targetDelId).then(() => {
+      supabaseClient.from('products').delete().eq('art', oldArt);
+    }).catch(e => console.warn("Supabase altes Produkt entfernen:", e));
+  }
+
   const targetOldArts = new Set([String(art)]);
-  if (editingProductArt) targetOldArts.add(String(editingProductArt));
+  if (oldArt) targetOldArts.add(String(oldArt));
+  if (oldId) targetOldArts.add(String(oldId));
 
   CATEGORIES.forEach(cat => {
     cat.items = (cat.items || []).filter(x => !targetOldArts.has(String(x.art)) && !targetOldArts.has(String(x.id)));
@@ -4603,6 +4625,9 @@ function saveProductFromModal() {
     const topCopy = { ...productObj, deal: true };
     topCatObj.items.push(topCopy);
   }
+
+  editingProductArt = null;
+  editingProductOldId = null;
 
   normalizeAssortment();
   closeProductEditModal();
@@ -5065,7 +5090,7 @@ async function savePricesToSupabase() {
     return;
   }
 
-  const saveBtn = document.getElementById("saveSupabaseBtn");
+  const saveBtn = document.getElementById("saveSupabaseBtn") || document.getElementById("dashSaveSupabaseBtn");
   const origText = saveBtn ? saveBtn.textContent : "";
   if (saveBtn) {
     saveBtn.disabled = true;
@@ -5106,6 +5131,22 @@ async function savePricesToSupabase() {
       const chunk = prodRows.slice(i, i + 50);
       const { error: prodErr } = await supabaseClient.from('products').upsert(chunk);
       if (prodErr) throw prodErr;
+    }
+
+    // 2b. Gelöschte oder umbenannte Produkte in Supabase bereinigen
+    const currentProdIds = new Set(prodRows.map(p => p.id));
+    const currentProdArts = new Set(prodRows.map(p => p.art));
+    const { data: dbProds } = await supabaseClient.from('products').select('id, art');
+    if (dbProds && dbProds.length > 0) {
+      const obsoleteIds = dbProds
+        .filter(p => !currentProdIds.has(p.id) && !currentProdArts.has(p.art))
+        .map(p => p.id);
+      if (obsoleteIds.length > 0) {
+        console.log(`Bereinige ${obsoleteIds.length} veraltete Produkte aus Supabase...`);
+        for (let i = 0; i < obsoleteIds.length; i += 50) {
+          await supabaseClient.from('products').delete().in('id', obsoleteIds.slice(i, i + 50));
+        }
+      }
     }
 
     // 3. Presets speichern
@@ -5683,8 +5724,8 @@ const DEFAULT_FESTMATERIAL = (typeof FESTMATERIAL_SORTIMENT !== "undefined" && A
   ? FESTMATERIAL_SORTIMENT
   : [
   {
-    id: "91001",
-    art: "91001",
+    id: "00000",
+    art: "00000",
     name: "Festtisch-Garnitur",
     category: "Mietmobiliar",
     unitDesc: "1 Tisch + 2 Bänke (220 x 60 cm)",
@@ -5695,8 +5736,8 @@ const DEFAULT_FESTMATERIAL = (typeof FESTMATERIAL_SORTIMENT !== "undefined" && A
     sortOrder: 1
   },
   {
-    id: "91002",
-    art: "91002",
+    id: "00001",
+    art: "00001",
     name: "Event-Flaschenkühlschrank (Glasfront)",
     category: "Mietmobiliar",
     unitDesc: "Grosser Event-Kühlschrank (230V)",
@@ -5707,48 +5748,48 @@ const DEFAULT_FESTMATERIAL = (typeof FESTMATERIAL_SORTIMENT !== "undefined" && A
     sortOrder: 2
   },
   {
-    id: "92001",
-    art: "92001",
-    name: "Einweg-Gabeln",
+    id: "73778",
+    art: "73778",
+    name: "Gabel Kunststoff 40 Stück",
     category: "Einweggeschirr",
-    unitDesc: "Pack à 50 Stk.",
-    price: 3.50,
+    unitDesc: "Pack à 40 Stk.",
+    price: 1.95,
     priceNotice: "",
     note: "Praktischer Festbedarf",
     disabled: false,
     sortOrder: 3
   },
   {
-    id: "92002",
-    art: "92002",
-    name: "Einweg-Messer",
+    id: "73783",
+    art: "73783",
+    name: "Messer Kunststoff 40 Stück",
     category: "Einweggeschirr",
-    unitDesc: "Pack à 50 Stk.",
-    price: 3.50,
+    unitDesc: "Pack à 40 Stk.",
+    price: 1.95,
     priceNotice: "",
     note: "Praktischer Festbedarf",
     disabled: false,
     sortOrder: 4
   },
   {
-    id: "92003",
-    art: "92003",
-    name: "Trinkbecher (Bier/Softdrinks)",
+    id: "05458",
+    art: "05458",
+    name: "Plastikbecher PET klar 3 dl",
     category: "Einweggeschirr",
-    unitDesc: "Pack à 50 Stk. (Ausschank 3dl / 4dl)",
-    price: 6.90,
+    unitDesc: "Pack à 50 Stk.",
+    price: 4.95,
     priceNotice: "",
     note: "Praktischer Festbedarf",
     disabled: false,
     sortOrder: 5
   },
   {
-    id: "92004",
-    art: "92004",
-    name: "Weinbecher / Apérobecher",
+    id: "05216",
+    art: "05216",
+    name: "Champagnerglas Plastik 20St",
     category: "Einweggeschirr",
-    unitDesc: "Pack à 25 Stk. (Glasklar)",
-    price: 5.50,
+    unitDesc: "Pack à 20 Stk.",
+    price: 10.95,
     priceNotice: "",
     note: "Praktischer Festbedarf",
     disabled: false,
@@ -6084,10 +6125,14 @@ function openAddFestmaterialModal() {
   document.getElementById("adminFestEditOverlay").classList.add("open");
 }
 
+let editingFestItemId = null;
+let editingFestOldArt = null;
+
 function openEditFestmaterialModal(id) {
-  const item = festmaterialList.find(f => f.id === id);
+  const item = festmaterialList.find(f => String(f.id) === String(id) || String(f.art) === String(id));
   if (!item) return;
-  editingFestItemId = id;
+  editingFestItemId = String(item.id || item.art);
+  editingFestOldArt = String(item.art || item.id || "");
   document.getElementById("modalFestTitle").textContent = "✏️ Festartikel bearbeiten";
   document.getElementById("formFestArt").value = item.art || "";
   document.getElementById("formFestName").value = item.name || "";
@@ -6100,6 +6145,8 @@ function openEditFestmaterialModal(id) {
 }
 
 function closeFestEditModal() {
+  editingFestItemId = null;
+  editingFestOldArt = null;
   document.getElementById("adminFestEditOverlay").classList.remove("open");
 }
 
@@ -6118,9 +6165,28 @@ function saveFestmaterialFromModal() {
     return;
   }
 
-  if (editingFestItemId) {
-    const item = festmaterialList.find(f => f.id === editingFestItemId || f.art === editingFestItemId);
+  const isEdit = !!editingFestItemId;
+  const oldArt = editingFestOldArt;
+
+  if (isEdit) {
+    const item = festmaterialList.find(f => 
+      String(f.id) === String(editingFestItemId) || 
+      String(f.art) === String(editingFestItemId) ||
+      (oldArt && String(f.art) === String(oldArt))
+    );
+
     if (item) {
+      // Wenn Artikel-Nr. geändert wurde, alten Eintrag aus Supabase löschen und Mengen migrieren
+      if (oldArt && art && String(oldArt) !== String(art)) {
+        if (festQty[oldArt] !== undefined) {
+          festQty[art] = festQty[oldArt];
+          delete festQty[oldArt];
+        }
+        if (supabaseClient && isAdminAuthenticated) {
+          supabaseClient.from('festmaterial').delete().eq('art', oldArt).catch(e => console.warn("Konnte alte Art.-Nr. nicht löschen:", e));
+        }
+      }
+
       item.art = art || item.art || item.id;
       item.id = item.art;
       item.name = name;
@@ -6145,28 +6211,37 @@ function saveFestmaterialFromModal() {
     });
   }
 
+  editingFestItemId = null;
+  editingFestOldArt = null;
+
   saveFestmaterialLocal();
   closeFestEditModal();
   renderAdminFestmaterialTable();
   renderFestmaterial();
   updateSummaryBar();
-  showAdminToast(editingFestItemId ? "Artikel aktualisiert" : "Neuer Artikel hinzugefügt");
+  showAdminToast(isEdit ? "Artikel aktualisiert" : "Neuer Artikel hinzugefügt");
 }
 
 function deleteFestmaterialItem(id) {
-  const item = festmaterialList.find(f => f.id === id || f.art === id);
+  const item = festmaterialList.find(f => String(f.id) === String(id) || String(f.art) === String(id));
   if (!item) return;
-  if (!confirm(`Möchten Sie «${item.name}» wirklich löschen?`)) return;
+  if (!confirm(`Möchten Sie «${item.name}» (Art. ${item.art || item.id}) wirklich löschen?`)) return;
 
-  const targetId = item.id;
-  const targetArt = item.art;
-  festmaterialList = festmaterialList.filter(f => f.id !== targetId && f.art !== targetArt);
+  const targetId = String(item.id);
+  const targetArt = String(item.art || item.id);
+  festmaterialList = festmaterialList.filter(f => String(f.id) !== targetId && String(f.art) !== targetArt);
   delete festQty[targetId];
   if (targetArt) delete festQty[targetArt];
+
   saveFestmaterialLocal();
   renderAdminFestmaterialTable();
   renderFestmaterial();
   updateSummaryBar();
+
+  if (supabaseClient && isAdminAuthenticated && targetArt) {
+    supabaseClient.from('festmaterial').delete().eq('art', targetArt).catch(e => console.warn("Supabase delete festmaterial error:", e));
+  }
+
   showAdminToast("Artikel gelöscht");
 }
 
@@ -6215,21 +6290,30 @@ async function saveFestmaterialToSupabase(showToast = false) {
       };
     });
 
-    const { error } = await supabaseClient
+    // 1. Alle aktuellen Zeilen upserten
+    const { error: upsertErr } = await supabaseClient
       .from('festmaterial')
-      .upsert(rows);
+      .upsert(rows, { onConflict: 'art' });
 
-    if (error) {
-      console.warn("Supabase Festmaterial Sync:", error.message);
-      if (showToast) {
-        alert("❌ Fehler beim Speichern in Supabase:\n" + error.message + "\nDie Daten wurden im Browser gesichert.");
+    if (upsertErr) throw upsertErr;
+
+    // 2. Nicht mehr vorhandene / gelöschte Zeilen aus Supabase bereinigen
+    const validArts = new Set(rows.map(r => r.art).filter(Boolean));
+    const { data: existingRows } = await supabaseClient.from('festmaterial').select('art');
+    if (existingRows && existingRows.length > 0) {
+      const obsoleteArts = existingRows.map(r => r.art).filter(a => a && !validArts.has(a));
+      if (obsoleteArts.length > 0) {
+        console.log("Entferne veraltete Festmaterial-Artikel aus Supabase:", obsoleteArts);
+        await supabaseClient.from('festmaterial').delete().in('art', obsoleteArts);
       }
-    } else {
-      if (showToast) showAdminToast("☁️ Festmaterial erfolgreich in Supabase gesichert");
     }
+
+    if (showToast) showAdminToast("☁️ Festmaterial erfolgreich in Supabase gesichert");
   } catch (e) {
     console.error("Supabase Festmaterial Error:", e);
-    if (showToast) showAdminToast("Lokal gespeichert");
+    if (showToast) {
+      alert("❌ Fehler beim Speichern in Supabase:\n" + (e.message || JSON.stringify(e)));
+    }
   }
 }
 
@@ -6245,9 +6329,14 @@ async function loadFestmaterialFromSupabase() {
       return false;
     }
 
-    festmaterialList = data.map(d => {
+    // Falls '73779' (alte Art.-Nr.) noch rumliegt, aber '73778' existiert, '73779' ignorieren
+    const cleanRows = [];
+    data.forEach(d => {
       const artVal = String(d.art || d.id || '').trim();
-      return {
+      if (artVal === '73779' && data.some(x => String(x.art) === '73778')) {
+        return;
+      }
+      cleanRows.push({
         id: artVal,
         art: artVal,
         name: d.name,
@@ -6257,11 +6346,13 @@ async function loadFestmaterialFromSupabase() {
         priceNotice: d.price_notice,
         disabled: !!d.disabled,
         sortOrder: d.sort_order
-      };
+      });
     });
 
+    festmaterialList = cleanRows;
     saveFestmaterialLocal();
     renderFestmaterial();
+    renderAdminFestmaterialTable();
     updateSummaryBar();
     return true;
   } catch (e) {
