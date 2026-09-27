@@ -6056,19 +6056,26 @@ function activateTrackerMode(shouldScroll) {
   calcHasUserSelected = true;
   calcTrackerActive = true;
   updateCollapsedSummary();
-  const panel = document.getElementById("calcTrackerPanel");
-  if (panel) panel.style.display = "block";
   updateCalculatorTracker();
-  checkStickyTrackerVisibility();
+
+  // Sticky Festbedarf-Tracker im Header sofort sichtbar machen
+  const bar = document.getElementById("stickyFestbedarfBar");
+  if (bar) {
+    bar.classList.add("visible");
+  }
 
   if (shouldScroll) {
-    showCalculatorToast("Bedarfs-Tracker aktiv: Wähle jetzt unten deine Produkte!");
-    const catEl = document.getElementById("categories");
-    if (catEl) {
-      setTimeout(() => {
-        catEl.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, 200);
-    }
+    showCalculatorToast("Bedarfs-Tracker aktiv: Wähle jetzt deine Produkte!");
+    // Exakt bis zur Position im Screenshot (Kategorie Mineralwasser) scrollen
+    setTimeout(() => {
+      const mineralCat = document.querySelector('details.category[data-cat-name="Mineralwasser"]') || document.getElementById("categories");
+      if (mineralCat) {
+        const header = document.querySelector("header.top");
+        const headerH = header ? header.offsetHeight : 220;
+        const targetY = mineralCat.getBoundingClientRect().top + window.pageYOffset - (headerH + 16);
+        window.scrollTo({ top: Math.max(0, targetY), behavior: "smooth" });
+      }
+    }, 100);
   }
 }
 
@@ -6233,8 +6240,9 @@ function scrollToCategorySection(type) {
     const name = (det.dataset.catName || "").toLowerCase();
     if (name.includes(kw)) {
       det.open = true;
-      const yOffset = -120;
-      const y = det.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      const header = document.querySelector("header.top");
+      const headerH = header ? header.offsetHeight : 220;
+      const y = det.getBoundingClientRect().top + window.pageYOffset - (headerH + 16);
       window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
       break;
     }
