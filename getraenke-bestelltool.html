@@ -3720,18 +3720,15 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
     </div>
     <form onsubmit="event.preventDefault(); loginAdmin();">
       <div style="margin-bottom: 16px; font-size: 0.9rem; color: var(--text-muted); line-height: 1.5;">
-        Gib das Admin-Passwort ein, um Preise, Sortiment und Festmaterial direkt zu bearbeiten und zu synchronisieren.
+        Melde dich mit deinem Supabase Admin-Account an, um Preise, Sortiment und Festmaterial zu bearbeiten.
       </div>
       <div style="margin-bottom: 16px;">
-        <label style="display:block; font-size:0.82rem; font-weight:600; color:var(--text-muted); margin-bottom:6px;" for="adminPasswordInput">Admin-Passwort *</label>
-        <input type="password" id="adminPasswordInput" placeholder="Admin-Passwort eingeben…" autofocus style="width:100%; padding:12px 14px; border-radius:var(--radius-sm); border:1px solid var(--border); font-size:0.95rem;">
+        <label style="display:block; font-size:0.82rem; font-weight:600; color:var(--text-muted); margin-bottom:6px;" for="adminEmailInput">E-Mail *</label>
+        <input type="email" id="adminEmailInput" placeholder="admin@landi.ch" autofocus required style="width:100%; padding:12px 14px; border-radius:var(--radius-sm); border:1px solid var(--border); font-size:0.95rem;">
       </div>
       <div style="margin-bottom: 18px;">
-        <label style="display:block; font-size:0.82rem; font-weight:600; color:var(--text-muted); margin-bottom:6px;" for="adminEmailInput">Admin E-Mail (optional für Supabase Auth):</label>
-        <input type="email" id="adminEmailInput" placeholder="z. B. admin@landi.ch" style="width:100%; padding:10px 12px; border-radius:var(--radius-sm); border:1px solid var(--border); font-size:0.88rem;">
-      </div>
-      <div style="font-size:0.8rem; color:var(--text-subtle); margin-bottom:20px; display:flex; justify-content:space-between; align-items:center;">
-        <span>⚡ Passwortgeschützter Admin-Zugang</span>
+        <label style="display:block; font-size:0.82rem; font-weight:600; color:var(--text-muted); margin-bottom:6px;" for="adminPasswordInput">Passwort *</label>
+        <input type="password" id="adminPasswordInput" placeholder="Passwort eingeben…" required style="width:100%; padding:12px 14px; border-radius:var(--radius-sm); border:1px solid var(--border); font-size:0.95rem;">
       </div>
       <div class="sheet-actions">
         <button type="button" class="secondary" onclick="closeAdminModal()">Abbrechen</button>
@@ -4141,68 +4138,54 @@ function handleAdminOverlayClick(e) {
 }
 
 async function loginAdmin() {
-  const pwdInput = document.getElementById("adminPasswordInput");
   const emailInput = document.getElementById("adminEmailInput");
-  const pwd = pwdInput ? pwdInput.value.trim() : "";
+  const pwdInput = document.getElementById("adminPasswordInput");
   const email = emailInput ? emailInput.value.trim() : "";
+  const pwd = pwdInput ? pwdInput.value.trim() : "";
 
+  if (!email) {
+    alert("Bitte gib deine E-Mail-Adresse ein.");
+    if (emailInput) emailInput.focus();
+    return;
+  }
   if (!pwd) {
-    alert("Bitte gib das Admin-Passwort ein.");
+    alert("Bitte gib dein Passwort ein.");
     if (pwdInput) pwdInput.focus();
     return;
   }
 
-  const submitBtn = document.getElementById("adminLoginSubmitBtn");
-  const origBtnText = submitBtn ? submitBtn.textContent : "Anmelden";
-
-  // 1. Master-Passwort Prüfung (direkter, sicherer Zugang für Timo)
-  if (pwd === ADMIN_PASSWORD) {
-    isAdminAuthenticated = true;
-    currentAdminEmail = email || "Admin";
-    try { localStorage.setItem("landi_admin_session", "true"); } catch (e) {}
-    if (pwdInput) pwdInput.value = "";
-    closeAdminModal();
-    toggleEditPricesMode(true);
-    setAdminUrl();
-    showAdminToast("Willkommen Admin!", "Bearbeitungsmodus aktiv");
+  if (!supabaseClient) {
+    alert("Supabase ist nicht verbunden.");
     return;
   }
 
-  // 2. Supabase Auth Versuch, falls E-Mail angegeben ist
-  if (supabaseClient && email) {
-    if (submitBtn) {
-      submitBtn.disabled = true;
-      submitBtn.textContent = "⏳ Anmelden...";
-    }
-    try {
-      const { data, error } = await supabaseClient.auth.signInWithPassword({
-        email: email,
-        password: pwd
-      });
+  const submitBtn = document.getElementById("adminLoginSubmitBtn");
+  if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "Anmelden..."; }
 
-      if (!error && data && data.session) {
-        isAdminAuthenticated = true;
-        currentAdminEmail = email;
-        try { localStorage.setItem("landi_admin_session", "true"); } catch (e) {}
-        if (pwdInput) pwdInput.value = "";
-        closeAdminModal();
-        toggleEditPricesMode(true);
-        setAdminUrl();
-        showAdminToast(`${email} angemeldet`, "", false);
-        return;
-      }
-    } catch (e) {
-      console.warn("Supabase Auth Fehler:", e);
-    } finally {
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.textContent = origBtnText;
-      }
+  try {
+    const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password: pwd });
+
+    if (error || !data || !data.session) {
+      alert("Falsches E-Mail oder Passwort. Bitte überprüfe deine Eingabe.");
+      if (pwdInput) { pwdInput.value = ""; pwdInput.focus(); }
+      return;
     }
+
+    isAdminAuthenticated = true;
+    currentAdminEmail = email;
+    try { localStorage.setItem("landi_admin_session", "true"); } catch (e) {}
+    if (pwdInput) pwdInput.value = "";
+    if (emailInput) emailInput.value = "";
+    closeAdminModal();
+    toggleEditPricesMode(true);
+    setAdminUrl();
+    showAdminToast("Willkommen!", email + " angemeldet");
+  } catch (e) {
+    console.error("Login Fehler:", e);
+    alert("Fehler beim Anmelden: " + (e.message || e));
+  } finally {
+    if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = "Anmelden"; }
   }
-
-  alert("❌ Falsches Admin-Passwort! Bitte überprüfe deine Eingabe.");
-  if (pwdInput) pwdInput.select();
 }
 
 async function logoutAdmin() {
