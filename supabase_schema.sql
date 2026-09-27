@@ -157,13 +157,23 @@ CREATE INDEX IF NOT EXISTS idx_festmaterial_disabled ON festmaterial(disabled);
 
 ALTER TABLE festmaterial ENABLE ROW LEVEL SECURITY;
 
+-- Jeder darf Festmaterial ansehen (SELECT)
 DROP POLICY IF EXISTS "Public can view festmaterial" ON festmaterial;
 CREATE POLICY "Public can view festmaterial" ON festmaterial
   FOR SELECT USING (true);
 
-DROP POLICY IF EXISTS "Allow all for festmaterial" ON festmaterial;
-CREATE POLICY "Allow all for festmaterial" ON festmaterial
-  FOR ALL TO anon, authenticated USING (true) WITH CHECK (true);
+-- Nur angemeldete Admins dürfen verwalten (INSERT, UPDATE, DELETE)
+DROP POLICY IF EXISTS "Admins can insert festmaterial" ON festmaterial;
+CREATE POLICY "Admins can insert festmaterial" ON festmaterial
+  FOR INSERT TO authenticated WITH CHECK (true);
+
+DROP POLICY IF EXISTS "Admins can update festmaterial" ON festmaterial;
+CREATE POLICY "Admins can update festmaterial" ON festmaterial
+  FOR UPDATE TO authenticated USING (true);
+
+DROP POLICY IF EXISTS "Admins can delete festmaterial" ON festmaterial;
+CREATE POLICY "Admins can delete festmaterial" ON festmaterial
+  FOR DELETE TO authenticated USING (true);
 
 DROP TRIGGER IF EXISTS trg_festmaterial_updated_at ON festmaterial;
 CREATE TRIGGER trg_festmaterial_updated_at

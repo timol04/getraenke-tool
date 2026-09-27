@@ -6185,6 +6185,20 @@ async function saveFestmaterialToSupabase(showToast = false) {
     return;
   }
 
+  // Supabase Auth Session prüfen (wegen RLS)
+  try {
+    const { data: { session } } = await supabaseClient.auth.getSession();
+    if (!session || !session.user) {
+      if (showToast) {
+        alert("🔒 Bitte melde dich zuerst als Admin mit deinem Supabase-Account an, um Änderungen in Supabase zu speichern.");
+        openAdminModal();
+      }
+      return;
+    }
+  } catch (e) {
+    console.warn("Auth check error:", e);
+  }
+
   try {
     const rows = festmaterialList.map((item, idx) => {
       const artVal = String(item.art || item.id || '').trim();
@@ -6208,11 +6222,7 @@ async function saveFestmaterialToSupabase(showToast = false) {
     if (error) {
       console.warn("Supabase Festmaterial Sync:", error.message);
       if (showToast) {
-        if (error.message.includes("row-level security") || error.message.includes("policy") || error.code === "42501") {
-          alert("⚠️ Supabase RLS blockiert das Speichern:\nDie Tabelle 'festmaterial' erlaubt noch keine Schreibzugriffe für den Web-Client.\n\nFühre folgenden Befehl im Supabase SQL Editor aus:\nCREATE POLICY \"Allow all for festmaterial\" ON festmaterial FOR ALL TO anon, authenticated USING (true) WITH CHECK (true);");
-        } else {
-          alert("Hinweis zu Supabase: " + error.message + "\nDie Daten wurden im Browser gesichert.");
-        }
+        alert("❌ Fehler beim Speichern in Supabase:\n" + error.message + "\nDie Daten wurden im Browser gesichert.");
       }
     } else {
       if (showToast) showAdminToast("☁️ Festmaterial erfolgreich in Supabase gesichert");
