@@ -3547,7 +3547,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
   <div class="sheet" style="max-width: 960px; width: 95vw; max-height: 92vh; display: flex; flex-direction: column; background: white;">
     <div class="sheet-head">
       <div>
-        <h2 style="margin:0; font-size:1.35rem; color:var(--primary);">📋 Bestellungen & Fest-Retouren</h2>
+        <h2 style="margin:0; font-size:1.35rem; color:var(--primary);">Bestellungen & Fest-Retouren</h2>
       </div>
       <button class="sheet-close" onclick="closeAdminOrdersModal()">✕</button>
     </div>
@@ -8380,9 +8380,17 @@ function renderOrdersTable() {
         <td>CHF ${parseFloat(order.total_amount).toFixed(2)}</td>
         <td>${statusBadge}</td>
         <td style="text-align: right;">
-          <button class="admin-fest-status-btn" onclick="viewOrderDetails(${order.id})" title="Details anzeigen" style="margin-right: 5px;">👁️ Öffnen</button>
-          <button class="admin-fest-status-btn" onclick="openReturnModal(${order.id})" title="Retoure verbuchen" ${order.status === 'abgeschlossen' ? 'disabled' : ''}>🔙 Retoure</button>
-          <button class="admin-fest-status-btn" style="color: #EF4444; border-color: #EF4444;" onclick="deleteOrder(${order.id})" title="Löschen">🗑️</button>
+          <button class="admin-fest-status-btn" onclick="viewOrderDetails(${order.id})" title="Details anzeigen">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+            Öffnen
+          </button>
+          <button class="admin-fest-status-btn" onclick="openReturnModal(${order.id})" title="Retoure verbuchen" ${order.status === 'abgeschlossen' ? 'disabled' : ''}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            Retoure
+          </button>
+          <button class="admin-fest-status-btn danger" onclick="deleteOrder(${order.id})" title="Löschen">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+          </button>
         </td>
       `;
       tbody.appendChild(tr);
