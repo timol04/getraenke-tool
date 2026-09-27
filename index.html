@@ -3420,10 +3420,11 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
       <table class="admin-fest-table">
         <thead>
           <tr>
+            <th style="width:90px;">Art.-Nr.</th>
             <th>Artikelname</th>
             <th>Kategorie</th>
             <th>Gebindeeinheit / Beschreibung</th>
-            <th>Preishinweis</th>
+            <th>Preis</th>
             <th>Status</th>
             <th style="text-align:right;">Aktionen</th>
           </tr>
@@ -3447,22 +3448,27 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
     </div>
     
     <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px;">
-      <div style="grid-column: span 2;">
-        <label style="font-size:0.8rem; font-weight:600; color:var(--text-muted); display:block; margin-bottom:4px;">Artikelname *</label>
-        <input type="text" id="formFestName" placeholder="z. B. Festtisch-Garnitur" style="width:100%; padding:8px 10px; border-radius:6px; border:1px solid var(--border);">
+      <div style="grid-column: span 1;">
+        <label style="font-size:0.8rem; font-weight:600; color:var(--text-muted); display:block; margin-bottom:4px;">Artikel-Nr. (z. B. 92001)</label>
+        <input type="text" id="formFestArt" placeholder="z. B. 92001" style="width:100%; padding:8px 10px; border-radius:6px; border:1px solid var(--border);">
       </div>
 
       <div style="grid-column: span 1;">
         <label style="font-size:0.8rem; font-weight:600; color:var(--text-muted); display:block; margin-bottom:4px;">Kategorie *</label>
         <select id="formFestCategory" style="width:100%; padding:8px 10px; border-radius:6px; border:1px solid var(--border);">
-          <option value="Mietmobiliar">Mietmobiliar</option>
           <option value="Einweggeschirr">Einweggeschirr</option>
+          <option value="Mietmobiliar">Mietmobiliar</option>
         </select>
+      </div>
+
+      <div style="grid-column: span 2;">
+        <label style="font-size:0.8rem; font-weight:600; color:var(--text-muted); display:block; margin-bottom:4px;">Artikelname *</label>
+        <input type="text" id="formFestName" placeholder="z. B. Einweg-Gabeln" style="width:100%; padding:8px 10px; border-radius:6px; border:1px solid var(--border);">
       </div>
 
       <div style="grid-column: span 1;">
         <label style="font-size:0.8rem; font-weight:600; color:var(--text-muted); display:block; margin-bottom:4px;">Gebindeeinheit *</label>
-        <input type="text" id="formFestUnit" placeholder="z. B. 1 Tisch + 2 Bänke oder Pack à 50 Stk." style="width:100%; padding:8px 10px; border-radius:6px; border:1px solid var(--border);">
+        <input type="text" id="formFestUnit" placeholder="z. B. Pack à 50 Stk." style="width:100%; padding:8px 10px; border-radius:6px; border:1px solid var(--border);">
       </div>
 
       <div style="grid-column: span 1;">
@@ -3470,9 +3476,9 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
         <input type="number" step="0.05" min="0" id="formFestPrice" placeholder="z. B. 3.50" style="width:100%; padding:8px 10px; border-radius:6px; border:1px solid var(--border);">
       </div>
 
-      <div style="grid-column: span 1;">
-        <label style="font-size:0.8rem; font-weight:600; color:var(--text-muted); display:block; margin-bottom:4px;">Preishinweis / Zusatz</label>
-        <input type="text" id="formFestPriceNotice" placeholder="z. B. pro Pack oder nach Vereinbarung" style="width:100%; padding:8px 10px; border-radius:6px; border:1px solid var(--border);">
+      <div style="grid-column: span 2;">
+        <label style="font-size:0.8rem; font-weight:600; color:var(--text-muted); display:block; margin-bottom:4px;">Preishinweis / Zusatz (optional für Mietmobiliar)</label>
+        <input type="text" id="formFestPriceNotice" placeholder="z. B. Auf Anfrage / nach Vereinbarung" style="width:100%; padding:8px 10px; border-radius:6px; border:1px solid var(--border);">
       </div>
 
       <div style="grid-column: span 2; margin-top:6px;">
@@ -5670,6 +5676,7 @@ function getSelectedProducts() {
 const DEFAULT_FESTMATERIAL = [
   {
     id: "fest-garnitur",
+    art: "91001",
     name: "Festtisch-Garnitur",
     category: "Mietmobiliar",
     unitDesc: "1 Tisch + 2 Bänke (220 x 60 cm)",
@@ -5681,6 +5688,7 @@ const DEFAULT_FESTMATERIAL = [
   },
   {
     id: "fest-kuehlschrank",
+    art: "91002",
     name: "Event-Flaschenkühlschrank (Glasfront)",
     category: "Mietmobiliar",
     unitDesc: "Grosser Event-Kühlschrank (230V)",
@@ -5692,6 +5700,7 @@ const DEFAULT_FESTMATERIAL = [
   },
   {
     id: "geschirr-gabeln",
+    art: "92001",
     name: "Einweg-Gabeln",
     category: "Einweggeschirr",
     unitDesc: "Pack à 50 Stk.",
@@ -5703,6 +5712,7 @@ const DEFAULT_FESTMATERIAL = [
   },
   {
     id: "geschirr-messer",
+    art: "92002",
     name: "Einweg-Messer",
     category: "Einweggeschirr",
     unitDesc: "Pack à 50 Stk.",
@@ -5714,6 +5724,7 @@ const DEFAULT_FESTMATERIAL = [
   },
   {
     id: "geschirr-trinkbecher",
+    art: "92003",
     name: "Trinkbecher (Bier/Softdrinks)",
     category: "Einweggeschirr",
     unitDesc: "Pack à 50 Stk. (Ausschank 3dl / 4dl)",
@@ -5725,6 +5736,7 @@ const DEFAULT_FESTMATERIAL = [
   },
   {
     id: "geschirr-weinbecher",
+    art: "92004",
     name: "Weinbecher / Apérobecher",
     category: "Einweggeschirr",
     unitDesc: "Pack à 25 Stk. (Glasklar)",
@@ -5739,7 +5751,7 @@ const DEFAULT_FESTMATERIAL = [
 let festmaterialList = [...DEFAULT_FESTMATERIAL];
 const festQty = {};
 
-// LocalStorage Init für Festmaterial mit Preiskompatibilität
+// LocalStorage Init für Festmaterial mit Preiskompatibilität & Art.-Nr.
 try {
   const cachedFest = localStorage.getItem("landi_festmaterial");
   if (cachedFest) {
@@ -5763,6 +5775,7 @@ try {
         return {
           ...def,
           ...item,
+          art: item.art || (def ? def.art : ""),
           price: isNaN(p) ? 0 : p,
           priceNotice: notice
         };
@@ -5820,6 +5833,7 @@ function renderFestmaterial() {
         <div class="festmaterial-item-row ${isSelected ? 'selected' : ''}" id="fest_row_${escapeHtml(item.id)}">
           <div class="festmaterial-item-info">
             <div class="festmaterial-item-name">${escapeHtml(item.name)}</div>
+            ${item.art ? `<span class="product-meta" style="font-size:0.75rem; color:var(--text-muted); display:inline-block; margin-bottom:2px;">Art.-Nr. ${escapeHtml(item.art)}</span>` : ''}
             ${priceHtml}
           </div>
           <div class="stepper">
@@ -5991,7 +6005,7 @@ function renderAdminFestmaterialTable() {
   const statusFilter = document.getElementById("adminFestStatusFilter")?.value || "all";
 
   const filtered = festmaterialList.filter(item => {
-    if (search && !item.name.toLowerCase().includes(search) && !(item.unitDesc || "").toLowerCase().includes(search)) {
+    if (search && !item.name.toLowerCase().includes(search) && !(item.unitDesc || "").toLowerCase().includes(search) && !(item.art || "").toLowerCase().includes(search)) {
       return false;
     }
     if (catFilter !== "all" && item.category !== catFilter) return false;
@@ -6001,18 +6015,19 @@ function renderAdminFestmaterialTable() {
   });
 
   if (filtered.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:24px; color:var(--text-muted);">Keine Artikel gefunden.</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:24px; color:var(--text-muted);">Keine Artikel gefunden.</td></tr>`;
     return;
   }
 
   tbody.innerHTML = filtered.map(item => {
     const isMob = item.category === "Mietmobiliar";
     const priceDisplay = (item.price && item.price > 0)
-      ? `<strong style="color:var(--accent-dark);">CHF ${item.price.toFixed(2)}</strong> <span style="font-size:0.75rem; color:var(--text-muted);">${item.priceNotice ? '(' + escapeHtml(item.priceNotice) + ')' : ''}</span>`
+      ? `<strong style="color:var(--accent-dark);">CHF ${item.price.toFixed(2)}</strong>`
       : `<span style="color:var(--text-muted); font-size:0.84rem;">${escapeHtml(item.priceNotice || "Auf Anfrage")}</span>`;
 
     return `
       <tr>
+        <td style="font-weight:600; font-family:monospace; color:var(--text);">${escapeHtml(item.art || "—")}</td>
         <td style="font-weight:600; color:var(--text);">${escapeHtml(item.name)}</td>
         <td>
           <span class="admin-fest-badge-cat ${isMob ? 'badge-mobiliar' : 'badge-geschirr'}">
@@ -6049,6 +6064,7 @@ function toggleFestStatus(id) {
 function openAddFestmaterialModal() {
   editingFestItemId = null;
   document.getElementById("modalFestTitle").textContent = "➕ Neuer Festartikel";
+  document.getElementById("formFestArt").value = "";
   document.getElementById("formFestName").value = "";
   document.getElementById("formFestCategory").value = "Einweggeschirr";
   document.getElementById("formFestUnit").value = "";
@@ -6063,6 +6079,7 @@ function openEditFestmaterialModal(id) {
   if (!item) return;
   editingFestItemId = id;
   document.getElementById("modalFestTitle").textContent = "✏️ Festartikel bearbeiten";
+  document.getElementById("formFestArt").value = item.art || "";
   document.getElementById("formFestName").value = item.name || "";
   document.getElementById("formFestCategory").value = item.category || "Mietmobiliar";
   document.getElementById("formFestUnit").value = item.unitDesc || "";
@@ -6077,6 +6094,7 @@ function closeFestEditModal() {
 }
 
 function saveFestmaterialFromModal() {
+  const art = (document.getElementById("formFestArt").value || "").trim();
   const name = document.getElementById("formFestName").value.trim();
   const category = document.getElementById("formFestCategory").value;
   const unitDesc = document.getElementById("formFestUnit").value.trim();
@@ -6093,6 +6111,7 @@ function saveFestmaterialFromModal() {
   if (editingFestItemId) {
     const item = festmaterialList.find(f => f.id === editingFestItemId);
     if (item) {
+      item.art = art;
       item.name = name;
       item.category = category;
       item.unitDesc = unitDesc;
@@ -6101,9 +6120,10 @@ function saveFestmaterialFromModal() {
       item.disabled = disabled;
     }
   } else {
-    const newId = "fest-" + Date.now();
+    const newId = art ? ("fest-" + art.replace(/[^a-zA-Z0-9_-]/g, "_")) : ("fest-" + Date.now());
     festmaterialList.push({
       id: newId,
+      art,
       name,
       category,
       unitDesc,
@@ -6154,11 +6174,12 @@ async function saveFestmaterialToSupabase(showToast = false) {
   try {
     const rows = festmaterialList.map((item, idx) => ({
       id: item.id,
+      art: item.art || "",
       name: item.name,
       category: item.category,
       unit_desc: item.unitDesc || "",
       price: item.price || 0,
-      price_notice: item.priceNotice || "Preis auf Anfrage",
+      price_notice: item.priceNotice || (item.category === "Mietmobiliar" ? "Preis auf Anfrage" : ""),
       disabled: !!item.disabled,
       sort_order: item.sortOrder || (idx + 1)
     }));
@@ -6193,6 +6214,7 @@ async function loadFestmaterialFromSupabase() {
 
     festmaterialList = data.map(d => ({
       id: d.id,
+      art: d.art || "",
       name: d.name,
       category: d.category,
       unitDesc: d.unit_desc,
@@ -6385,7 +6407,7 @@ function openReview() {
         <tr>
           <td>
             <strong>${escapeHtml(f.item.name)}</strong><br>
-            <span style="color:var(--text-muted);font-size:0.78rem">${escapeHtml(f.item.category)} • ${escapeHtml(f.item.unitDesc || "")} (${unitPriceNote})</span>
+            <span style="color:var(--text-muted);font-size:0.78rem">${f.item.art ? 'Art.-Nr. ' + escapeHtml(f.item.art) + ' • ' : ''}${escapeHtml(f.item.category)} • ${escapeHtml(f.item.unitDesc || "")} (${unitPriceNote})</span>
           </td>
           <td>
             <div class="review-qty-control">
@@ -6600,12 +6622,13 @@ function downloadPdf() {
 
     doc.autoTable({
       startY: finalY + 3,
-      head: [["Bereich", "Artikel", "Menge / Gebinde", "Einzelpreis", "Total"]],
+      head: [["Art.-Nr.", "Bereich", "Artikel", "Menge / Gebinde", "Einzelpreis", "Total"]],
       body: selectedFest.map(f => {
         const hasPrice = f.item.price && f.item.price > 0;
         const rowTotal = hasPrice ? "CHF " + (f.item.price * f.qty).toFixed(2) : "Auf Anfrage";
         const unitPrice = hasPrice ? "CHF " + f.item.price.toFixed(2) : (f.item.priceNotice || "Auf Anfrage");
         return [
+          f.item.art || "—",
           f.item.category,
           f.item.name,
           `${f.qty}× (${f.item.unitDesc || "Stk."})`,

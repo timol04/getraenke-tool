@@ -135,6 +135,7 @@ CREATE TRIGGER trg_products_updated_at
 -- ==============================================================================
 CREATE TABLE IF NOT EXISTS festmaterial (
   id TEXT PRIMARY KEY,
+  art TEXT DEFAULT '',
   name TEXT NOT NULL,
   category TEXT NOT NULL, -- 'Mietmobiliar' oder 'Einweggeschirr'
   unit_desc TEXT DEFAULT '',
@@ -146,6 +147,11 @@ CREATE TABLE IF NOT EXISTS festmaterial (
   updated_at TIMESTAMPTZ DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
+-- Falls Tabelle bereits existiert: Spalten sicherstellen
+ALTER TABLE festmaterial ADD COLUMN IF NOT EXISTS art TEXT DEFAULT '';
+ALTER TABLE festmaterial ADD COLUMN IF NOT EXISTS price NUMERIC(10, 2) DEFAULT 0;
+
+CREATE INDEX IF NOT EXISTS idx_festmaterial_art ON festmaterial(art);
 CREATE INDEX IF NOT EXISTS idx_festmaterial_cat ON festmaterial(category);
 CREATE INDEX IF NOT EXISTS idx_festmaterial_disabled ON festmaterial(disabled);
 
