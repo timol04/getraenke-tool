@@ -3747,6 +3747,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
 
 <!-- SORTIMENT & APP-LOGIK -->
 <script src="sortiment.js?v=21"></script>
+<script src="festmaterial-sortiment.js?v=1"></script>
 <script>
 // Fallback-Sortiment, falls sortiment.js nicht geladen werden konnte
 if (typeof CATEGORIES === "undefined") {
@@ -5678,7 +5679,9 @@ function getSelectedProducts() {
 // FESTMATERIAL & LOGISTIK LOGIK
 // =========================================================================
 
-const DEFAULT_FESTMATERIAL = [
+const DEFAULT_FESTMATERIAL = (typeof FESTMATERIAL_SORTIMENT !== "undefined" && Array.isArray(FESTMATERIAL_SORTIMENT))
+  ? FESTMATERIAL_SORTIMENT
+  : [
   {
     id: "fest-garnitur",
     art: "91001",
@@ -6195,7 +6198,13 @@ async function saveFestmaterialToSupabase(showToast = false) {
 
     if (error) {
       console.warn("Supabase Festmaterial Sync:", error.message);
-      if (showToast) alert("Hinweis zu Supabase: " + error.message + "\nDie Daten wurden im Browser gesichert.");
+      if (showToast) {
+        if (error.message.includes("row-level security") || error.message.includes("policy") || error.code === "42501") {
+          alert("⚠️ Supabase RLS blockiert das Speichern:\nDie Tabelle 'festmaterial' erlaubt noch keine Schreibzugriffe für den Web-Client.\n\nFühre folgenden Befehl im Supabase SQL Editor aus:\nCREATE POLICY \"Allow all for festmaterial\" ON festmaterial FOR ALL TO anon, authenticated USING (true) WITH CHECK (true);");
+        } else {
+          alert("Hinweis zu Supabase: " + error.message + "\nDie Daten wurden im Browser gesichert.");
+        }
+      }
     } else {
       if (showToast) showAdminToast("☁️ Festmaterial erfolgreich in Supabase gesichert");
     }
