@@ -4020,7 +4020,8 @@ if (supabaseClient) {
       }
     } else {
       // Falls eine lokale Admin-Sitzung per Passwort hinterlegt ist, diese beibehalten!
-      const hasLocalSession = localStorage.getItem("landi_admin_session") === "true";
+      let hasLocalSession = false;
+      try { hasLocalSession = localStorage.getItem("landi_admin_session") === "true"; } catch (e) {}
       if (!hasLocalSession) {
         isAdminAuthenticated = false;
         currentAdminEmail = "";
@@ -4054,7 +4055,8 @@ if (supabaseClient) {
         if (b) { b.setAttribute("hidden", ""); b.classList.remove("active"); b.style.setProperty("display", "none", "important"); }
       }
     } else if (event === "SIGNED_OUT") {
-      const hasLocalSession = localStorage.getItem("landi_admin_session") === "true";
+      let hasLocalSession = false;
+      try { hasLocalSession = localStorage.getItem("landi_admin_session") === "true"; } catch (e) {}
       if (!hasLocalSession) {
         isAdminAuthenticated = false;
         currentAdminEmail = "";
