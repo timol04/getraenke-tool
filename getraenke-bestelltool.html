@@ -8622,11 +8622,17 @@ async function generateReturnPdf(order, returns, totalRefund, isPaid) {
         if (isPaid) {
             doc.setFont("helvetica", "bold");
             doc.setTextColor(220, 38, 38);
-            doc.text("Auszahlungsbetrag (Kunde erhält zurück): CHF " + totalRefund.toFixed(2), 14, finalY + 18);
+            doc.text("Auszahlungsbetrag (unverbindlich): CHF " + totalRefund.toFixed(2), 14, finalY + 18);
         } else {
             const newTotal = orig - totalRefund;
-            doc.text("Neuer Rechnungsbetrag (nach Retoure): CHF " + newTotal.toFixed(2), 14, finalY + 16);
+            doc.text("Neuer Rechnungsbetrag nach Retoure (unverbindlich): CHF " + newTotal.toFixed(2), 14, finalY + 16);
         }
+        
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(8.5);
+        doc.setTextColor(100, 100, 100);
+        doc.text("Diese Abrechnung dient der Übersicht. Alle Beträge und Gutschriften sind unverbindlich.", 14, finalY + 28);
+        doc.text("Massgeblich ist die finale Abrechnung und Prüfung durch die LANDI Filiale.", 14, finalY + 32);
     } else {
         doc.text("Es wurden keine Artikel retourniert (Total Gutschrift: CHF 0.00).", 14, 45);
     }
