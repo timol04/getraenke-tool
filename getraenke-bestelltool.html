@@ -1773,8 +1773,341 @@
     gap: 12px;
   }
   #editBanner.active, #editBanner:not([hidden]):not([style*="display: none"]) {
-    display: flex !important;
+    display: none !important;
   }
+
+  /* =========================================================================
+     DEDICATED ADMIN DASHBOARD (Landi-DNA Style)
+     ========================================================================= */
+  #adminDashboardView {
+    display: none;
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 12px 0 60px;
+  }
+  .admin-dash-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 16px;
+    background: #ffffff;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+  }
+  .admin-pill-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--green);
+    background: var(--green-light);
+    border: 1px solid #d4e7cb;
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+    margin-bottom: 8px;
+  }
+  .admin-status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--green);
+    display: inline-block;
+  }
+  .admin-dash-title {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--text);
+    margin: 0 0 4px 0;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+  .admin-dash-sub {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin: 0;
+  }
+  .admin-dash-user-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .admin-user-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #f7f8f5;
+    border: 1px solid var(--border);
+    padding: 7px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .admin-header-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    border: 1px solid transparent;
+  }
+  .admin-header-btn.btn-preview {
+    background: #edf5ea;
+    color: var(--green);
+    border-color: #d4e7cb;
+  }
+  .admin-header-btn.btn-preview:hover {
+    background: #e2eedd;
+  }
+  .admin-header-btn.btn-logout {
+    background: transparent;
+    color: var(--text-muted);
+    border-color: var(--border);
+  }
+  .admin-header-btn.btn-logout:hover {
+    background: #fee2e2;
+    color: #b91c1c;
+    border-color: #fecaca;
+  }
+
+  /* Stats Row */
+  .admin-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+  .admin-stat-card {
+    background: #ffffff;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+  }
+  .admin-stat-card .stat-num {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+  .admin-stat-card .stat-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .admin-stat-card .stat-num.text-success { color: var(--green); }
+  .admin-stat-card .stat-num.text-muted { color: #8c9388; }
+  .admin-stat-card .stat-num.text-blue { color: #1d4ed8; }
+  .admin-stat-card .stat-num.text-green { color: var(--green); }
+
+  /* Action Grid */
+  .admin-section-heading {
+    margin-bottom: 16px;
+  }
+  .admin-section-heading h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 4px 0;
+  }
+  .admin-section-heading p {
+    font-size: 13.5px;
+    color: var(--text-muted);
+    margin: 0;
+  }
+  .admin-action-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  @media (max-width: 768px) {
+    .admin-action-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .admin-action-card {
+    background: #ffffff;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    cursor: pointer;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+  }
+  .admin-action-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+    border-color: var(--green);
+  }
+  .admin-action-card.card-featured {
+    grid-column: 1 / -1;
+    border-color: #c4dec1;
+    background: linear-gradient(180deg, #f7faf5 0%, #ffffff 100%);
+    box-shadow: 0 2px 8px rgba(61, 125, 30, 0.06);
+  }
+  .admin-action-card.card-featured:hover {
+    border-color: var(--green);
+  }
+  .action-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+  .action-icon-wrap {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    background: #f2f5ef;
+  }
+  .action-icon-wrap.icon-green { background: #edf5ea; }
+  .action-icon-wrap.icon-blue { background: #eff6ff; }
+  .action-icon-wrap.icon-gold { background: #fefce8; }
+  .action-icon-wrap.icon-purple { background: #f5f3ff; }
+  .action-icon-wrap.icon-emerald { background: #ecfdf5; }
+  .action-icon-wrap.icon-amber { background: #fffbeb; }
+  .action-icon-wrap.icon-teal { background: #f0fdfa; }
+  .action-icon-wrap.icon-red { background: #fef2f2; }
+
+  .card-badge-featured {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--green);
+    background: #edf5ea;
+    border: 1px solid #d4e7cb;
+    padding: 3px 8px;
+    border-radius: var(--radius-full);
+  }
+  .card-badge-sync {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    background: #f7f8f5;
+    border: 1px solid var(--border);
+    padding: 2px 7px;
+    border-radius: 6px;
+  }
+  .action-card-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 6px 0;
+  }
+  .action-card-desc {
+    font-size: 13.5px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin: 0 0 20px 0;
+  }
+  .action-card-footer {
+    margin-top: auto;
+  }
+  .action-btn {
+    width: 100%;
+    min-height: 46px;
+    border-radius: 10px;
+    font-size: 14.5px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    border: none;
+    box-sizing: border-box;
+  }
+  .btn-primary-big {
+    background: var(--green);
+    color: #ffffff;
+  }
+  .btn-primary-big:hover {
+    background: var(--green-hover);
+  }
+  .btn-secondary-big {
+    background: #f7f8f5;
+    color: var(--text);
+    border: 1.5px solid var(--border);
+  }
+  .btn-secondary-big:hover {
+    background: #eff1ec;
+    border-color: #d1d5cb;
+  }
+  .btn-blue-big {
+    background: #1d4ed8;
+    color: #ffffff;
+  }
+  .btn-blue-big:hover {
+    background: #1e40af;
+  }
+  .btn-danger-big {
+    background: #fef2f2;
+    color: #dc2626;
+    border: 1.5px solid #fecaca;
+  }
+  .btn-danger-big:hover {
+    background: #fee2e2;
+    color: #b91c1c;
+  }
+
+  /* Kunden-Vorschau Banner */
+  #adminPreviewBanner {
+    display: none;
+    background: #fefce8;
+    border: 1.5px solid #fef08a;
+    color: #854d0e;
+    padding: 14px 20px;
+    border-radius: var(--radius);
+    margin-bottom: 20px;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    box-shadow: var(--shadow-sm);
+  }
+  .preview-banner-btn {
+    background: var(--green);
+    color: #ffffff;
+    border: none;
+    padding: 9px 18px;
+    border-radius: 10px;
+    font-size: 13.5px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+  .preview-banner-btn:hover {
+    background: var(--green-hover);
+  }
+
   .admin-table-wrap {
     overflow-x: auto;
     max-height: 60vh;
@@ -1982,24 +2315,217 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
 </header>
 
 <main>
-  <div id="editBanner" hidden style="display:none !important; background:#FEF3C7; border:1px solid #FCD34D; color:#92400E; padding:16px 20px; border-radius:var(--radius); margin-bottom:20px; font-size:0.9rem; box-shadow:var(--shadow-sm);">
-    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
-      <div>
-        <span style="display:inline-block; background:#B45309; color:white; font-size:0.75rem; font-weight:bold; padding:2px 8px; border-radius:10px; margin-right:8px; text-transform:uppercase;">ADMIN</span>
-        <strong>✏️ Preis-Bearbeitungsmodus aktiv:</strong> Ändere die Preise direkt bei den Produkten.
+  <!-- DEDICATED ADMIN DASHBOARD VIEW -->
+  <section id="adminDashboardView" style="display:none;">
+    <!-- Dashboard Top Bar / Welcome -->
+    <div class="admin-dash-header">
+      <div class="admin-dash-title-wrap">
+        <div class="admin-pill-badge">
+          <span class="admin-status-dot"></span>
+          ADMINISTRATION PORTAL
+        </div>
+        <h1 class="admin-dash-title">Admin Dashboard</h1>
+        <p class="admin-dash-sub">Zentrale Verwaltung für Sortiment, Preise und Cloud-Datenbank.</p>
       </div>
-      <div style="display:flex; gap:8px; flex-wrap:wrap;">
-        <button onclick="openAdminSortimentModal()" style="background:#10B981; color:white; border:none; padding:8px 16px; border-radius:14px; font-weight:bold; font-size:0.86rem; cursor:pointer; box-shadow:0 2px 8px rgba(16,185,129,0.3);">📦 Sortiment verwalten (Neu / Löschen / Verbergen)</button>
-        <button id="saveSupabaseBtn" onclick="savePricesToSupabase()" style="background:#0284C7; color:white; border:none; padding:8px 16px; border-radius:14px; font-weight:bold; font-size:0.86rem; cursor:pointer; box-shadow:0 2px 8px rgba(2,132,199,0.3); transition:all 0.15s ease;">☁️ In Supabase speichern</button>
-        <button id="seedSupabaseBtn" onclick="seedSupabaseFromBrowser()" style="background:#8B5CF6; color:white; border:none; padding:8px 16px; border-radius:14px; font-weight:bold; font-size:0.86rem; cursor:pointer; box-shadow:0 2px 8px rgba(139,92,246,0.3); transition:all 0.15s ease;">🚀 Sortiment in Supabase übertragen</button>
-        <button onclick="downloadSortimentCsv()" style="background:#059669; color:white; border:none; padding:8px 16px; border-radius:14px; font-weight:bold; font-size:0.86rem; cursor:pointer; box-shadow:0 2px 8px rgba(5,150,105,0.3);">📥 CSV herunterladen</button>
-        <button onclick="exportUpdatedJs()" style="background:#B45309; color:white; border:none; padding:8px 16px; border-radius:14px; font-weight:bold; font-size:0.86rem; cursor:pointer;">📋 Code kopieren</button>
-        <button onclick="exitEditPricesMode()" style="background:#B45309; color:white; border:none; padding:8px 16px; border-radius:14px; font-weight:bold; font-size:0.86rem; cursor:pointer; box-shadow:0 2px 8px rgba(180,83,9,0.3);">✅ Bearbeiten beenden</button>
-        <button onclick="logoutAdmin()" style="background:transparent; color:#92400E; border:1px solid #FCD34D; padding:8px 12px; border-radius:14px; font-weight:600; font-size:0.82rem; cursor:pointer;">Abmelden</button>
+      <div class="admin-dash-user-actions">
+        <div class="admin-user-pill">
+          <span>👤</span>
+          <span id="adminCurrentEmailBadge">admin@landi.ch</span>
+        </div>
+        <button type="button" class="admin-header-btn btn-preview" onclick="switchToCustomerPreview()">
+          <span>👁️</span> Kundenansicht
+        </button>
+        <button type="button" class="admin-header-btn btn-logout" onclick="logoutAdmin()">
+          <span>🚪</span> Abmelden
+        </button>
       </div>
+    </div>
+
+    <!-- Quick Stats Bar -->
+    <div class="admin-stats-grid">
+      <div class="admin-stat-card">
+        <span class="stat-num" id="adminStatTotal">0</span>
+        <span class="stat-label">Produkte im Sortiment</span>
+      </div>
+      <div class="admin-stat-card">
+        <span class="stat-num text-success" id="adminStatActive">0</span>
+        <span class="stat-label">Aktiv (Sichtbar)</span>
+      </div>
+      <div class="admin-stat-card">
+        <span class="stat-num text-muted" id="adminStatDisabled">0</span>
+        <span class="stat-label">Ausgeblendet</span>
+      </div>
+      <div class="admin-stat-card">
+        <span class="stat-num text-blue" id="adminStatTop">0</span>
+        <span class="stat-label">Top-Angebote</span>
+      </div>
+      <div class="admin-stat-card">
+        <span class="stat-num text-green" id="adminStatEigen">0</span>
+        <span class="stat-label">Eigenmarken</span>
+      </div>
+    </div>
+
+    <!-- Big Action Cards Section -->
+    <div class="admin-section-heading">
+      <h2>Verwaltungsfunktionen</h2>
+      <p>Wähle einen Bereich zur Bearbeitung oder Synchronisation:</p>
+    </div>
+
+    <div class="admin-action-grid">
+      <!-- Card 1: Sortiment & Preise (Featured / Prominent) -->
+      <div class="admin-action-card card-featured" onclick="openAdminSortimentModal()">
+        <div class="action-card-header">
+          <div class="action-icon-wrap icon-green">📦</div>
+          <span class="card-badge-featured">Hauptbereich</span>
+        </div>
+        <div class="action-card-body">
+          <h3 class="action-card-title">Sortiment & Preise verwalten</h3>
+          <p class="action-card-desc">Alle Artikel durchsuchen, Preise anpassen, neue Produkte erfassen, Gebinde verwalten oder Artikel im Shop aktivieren und deaktivieren.</p>
+        </div>
+        <div class="action-card-footer">
+          <button type="button" class="action-btn btn-primary-big">
+            Sortiment öffnen ➔
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 2: Rechner Standards -->
+      <div class="admin-action-card" onclick="openCalcStandardsModal()">
+        <div class="action-card-header">
+          <div class="action-icon-wrap icon-gold">🎯</div>
+          <span class="card-badge-sync">Rechner</span>
+        </div>
+        <div class="action-card-body">
+          <h3 class="action-card-title">Rechner Standard-Getränke</h3>
+          <p class="action-card-desc">Bestimme, welche Standard-Artikel für Mineralwasser, Bier, Wein und Süssgetränke im Event-Rechner vorausgewählt werden.</p>
+        </div>
+        <div class="action-card-footer">
+          <button type="button" class="action-btn btn-secondary-big">
+            Standards anpassen ➔
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 3: Supabase Speichern -->
+      <div class="admin-action-card" onclick="savePricesToSupabase()">
+        <div class="action-card-header">
+          <div class="action-icon-wrap icon-blue">☁️</div>
+          <span class="card-badge-sync">Cloud</span>
+        </div>
+        <div class="action-card-body">
+          <h3 class="action-card-title">In Supabase speichern</h3>
+          <p class="action-card-desc">Alle aktuellen Preise und Sortimentsdaten direkt mit der Supabase Cloud-Datenbank abgleichen und sichern.</p>
+        </div>
+        <div class="action-card-footer">
+          <button type="button" class="action-btn btn-blue-big" id="dashSaveSupabaseBtn">
+            In Supabase speichern ➔
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 4: Supabase Initialisieren / Seed -->
+      <div class="admin-action-card" onclick="seedSupabaseFromBrowser()">
+        <div class="action-card-header">
+          <div class="action-icon-wrap icon-purple">🚀</div>
+          <span class="card-badge-sync">Setup</span>
+        </div>
+        <div class="action-card-body">
+          <h3 class="action-card-title">Sortiment in Supabase übertragen</h3>
+          <p class="action-card-desc">Initiales Seeding aller Kategorien und Produkte aus dem lokalen Datenbestand in die Supabase-Tabelle.</p>
+        </div>
+        <div class="action-card-footer">
+          <button type="button" class="action-btn btn-secondary-big" id="dashSeedSupabaseBtn">
+            Sortiment übertragen ➔
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 5: CSV Export -->
+      <div class="admin-action-card" onclick="downloadSortimentCsv()">
+        <div class="action-card-header">
+          <div class="action-icon-wrap icon-emerald">📥</div>
+          <span class="card-badge-sync">Excel / CSV</span>
+        </div>
+        <div class="action-card-body">
+          <h3 class="action-card-title">CSV-Sortiment herunterladen</h3>
+          <p class="action-card-desc">Exportiere die vollständige Artikelliste mit Artikelnummern, Gebinden und Preisen für Tabellenkalkulationen.</p>
+        </div>
+        <div class="action-card-footer">
+          <button type="button" class="action-btn btn-secondary-big">
+            CSV herunterladen ➔
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 6: Code Kopieren -->
+      <div class="admin-action-card" onclick="exportUpdatedJs()">
+        <div class="action-card-header">
+          <div class="action-icon-wrap icon-amber">📋</div>
+          <span class="card-badge-sync">Repository</span>
+        </div>
+        <div class="action-card-body">
+          <h3 class="action-card-title">sortiment.js Code exportieren</h3>
+          <p class="action-card-desc">Kopiere den generierten JavaScript-Code in die Zwischenablage für Versionierung und Git-Commits.</p>
+        </div>
+        <div class="action-card-footer">
+          <button type="button" class="action-btn btn-secondary-big">
+            Code kopieren ➔
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 7: Kundenansicht -->
+      <div class="admin-action-card" onclick="switchToCustomerPreview()">
+        <div class="action-card-header">
+          <div class="action-icon-wrap icon-teal">👁️</div>
+          <span class="card-badge-sync">Vorschau</span>
+        </div>
+        <div class="action-card-body">
+          <h3 class="action-card-title">Kundenansicht testen</h3>
+          <p class="action-card-desc">Betrachte das Bestelltool, den Festbedarf-Rechner und die Kategorien genau so, wie Kunden sie sehen.</p>
+        </div>
+        <div class="action-card-footer">
+          <button type="button" class="action-btn btn-secondary-big">
+            Kundenansicht öffnen ➔
+          </button>
+        </div>
+      </div>
+
+      <!-- Card 8: Abmelden -->
+      <div class="admin-action-card" onclick="logoutAdmin()">
+        <div class="action-card-header">
+          <div class="action-icon-wrap icon-red">🚪</div>
+        </div>
+        <div class="action-card-body">
+          <h3 class="action-card-title">Admin-Sitzung beenden</h3>
+          <p class="action-card-desc">Melde dich sicher vom Admin-Bereich ab und kehre zur normalen Ansicht zurück.</p>
+        </div>
+        <div class="action-card-footer">
+          <button type="button" class="action-btn btn-danger-big">
+            Sicher abmelden ➔
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KUNDEN-VORSCHAU BANNER (Nur sichtbar in Vorschau-Modus) -->
+  <div id="adminPreviewBanner" style="display:none;">
+    <div style="display:flex; align-items:center; gap:8px;">
+      <span style="background:#B45309; color:white; font-size:0.75rem; font-weight:700; padding:3px 8px; border-radius:6px;">VORSCHAU</span>
+      <strong>Kundenansicht-Vorschau aktiv:</strong> Du siehst die Seite aktuell aus Sicht eines Kunden.
+    </div>
+    <div style="display:flex; gap:8px;">
+      <button type="button" class="preview-banner-btn" onclick="switchToAdminDashboard()">
+        ⬅️ Zurück zum Admin Dashboard
+      </button>
+      <button type="button" onclick="logoutAdmin()" style="background:transparent; color:#854d0e; border:1px solid #fef08a; padding:8px 14px; border-radius:10px; font-weight:600; font-size:0.84rem; cursor:pointer;">
+        Abmelden
+      </button>
     </div>
   </div>
 
+  <div id="customerShopView">
   <div class="banner">
     <strong>Hinweis zur Zusammenstellung:</strong> Preise und Verfügbarkeiten (insbesondere bei Top-Angeboten) können abweichen. Ihre Zusammenstellung wird erst nach unserer Bestätigung bearbeitet.
   </div>
@@ -2343,6 +2869,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
     </div>
     <p class="hint">Diese Angaben bleiben ausschliesslich auf eurem Gerät und werden auf dem fertigen PDF-Beleg angedruckt.</p>
   </div>
+  </div> <!-- /#customerShopView -->
 </main>
 
 <div class="summary-bar">
@@ -2885,10 +3412,8 @@ function checkAdminUrlTrigger() {
     // Standard-Besucher: Niemals automatisch im Bearbeitungsmodus sein
     if (isEditPricesMode) {
       isEditPricesMode = false;
-      const b = document.getElementById("editBanner");
-      if (b) { b.setAttribute("hidden", ""); b.classList.remove("active"); b.style.setProperty("display", "none", "important"); }
-      const adminCalcBtn = document.getElementById("adminCalcSettingsBtnContainer");
-      if (adminCalcBtn) adminCalcBtn.style.display = "none";
+      isCustomerPreviewMode = false;
+      updateAdminViewDisplay();
       updateAdminHeaderBtn();
       renderPresets();
       renderProducts();
@@ -3164,6 +3689,9 @@ function renderAdminSortimentTable() {
       </tr>
     `;
   }).join("");
+  if (typeof updateAdminDashboardStats === "function") {
+    updateAdminDashboardStats();
+  }
 }
 
 function showAdminToast(name, action, showSaveBtn = true) {
@@ -3514,15 +4042,124 @@ function saveProductFromModal() {
   showAdminToast(name, isEdit ? "bearbeitet" : "hinzugefügt");
 }
 
+let isCustomerPreviewMode = false;
+
+function updateAdminViewDisplay() {
+  const adminDash = document.getElementById("adminDashboardView");
+  const custView = document.getElementById("customerShopView");
+  const prevBanner = document.getElementById("adminPreviewBanner");
+  const editBanner = document.getElementById("editBanner");
+  const searchWrap = document.querySelector(".search-wrapper");
+  const sfbBar = document.getElementById("stickyFestbedarfBar");
+  const summaryBar = document.querySelector(".summary-bar");
+  const adminCalcBtn = document.getElementById("adminCalcSettingsBtnContainer");
+
+  if (isEditPricesMode && !isCustomerPreviewMode) {
+    // Reiner Admin Dashboard Modus: Shop, Rechner und Kundenkategorien komplett ausblenden
+    if (adminDash) adminDash.style.display = "block";
+    if (custView) custView.style.display = "none";
+    if (prevBanner) prevBanner.style.display = "none";
+    if (editBanner) editBanner.style.setProperty("display", "none", "important");
+    if (searchWrap) searchWrap.style.display = "none";
+    if (sfbBar) sfbBar.style.display = "none";
+    if (summaryBar) summaryBar.style.display = "none";
+    if (adminCalcBtn) adminCalcBtn.style.display = "none";
+  } else if (isEditPricesMode && isCustomerPreviewMode) {
+    // Admin Kunden-Vorschau Modus
+    if (adminDash) adminDash.style.display = "none";
+    if (custView) custView.style.display = "block";
+    if (prevBanner) prevBanner.style.display = "flex";
+    if (editBanner) editBanner.style.setProperty("display", "none", "important");
+    if (searchWrap) searchWrap.style.display = "";
+    if (sfbBar) sfbBar.style.display = "";
+    if (summaryBar) summaryBar.style.display = "";
+    if (adminCalcBtn) adminCalcBtn.style.display = "block";
+  } else {
+    // Normaler Kunden-Shop Modus
+    if (adminDash) adminDash.style.display = "none";
+    if (custView) custView.style.display = "block";
+    if (prevBanner) prevBanner.style.display = "none";
+    if (editBanner) editBanner.style.setProperty("display", "none", "important");
+    if (searchWrap) searchWrap.style.display = "";
+    if (sfbBar) sfbBar.style.display = "";
+    if (summaryBar) summaryBar.style.display = "";
+    if (adminCalcBtn) adminCalcBtn.style.display = "none";
+  }
+}
+
+function updateAdminDashboardStats() {
+  let totalCount = 0;
+  let activeCount = 0;
+  let disabledCount = 0;
+  let topCount = 0;
+  let eigenmarkeCount = 0;
+
+  const seenArts = new Set();
+  (CATEGORIES || []).forEach(cat => {
+    (cat.items || []).forEach(p => {
+      const artKey = String(p.art);
+      if (seenArts.has(artKey)) return;
+      seenArts.add(artKey);
+      totalCount++;
+      if (p.disabled) {
+        disabledCount++;
+      } else {
+        activeCount++;
+      }
+      if (p.topAngebot || p.deal) topCount++;
+      if (p.eigenmarke) eigenmarkeCount++;
+    });
+  });
+
+  const elTotal = document.getElementById("adminStatTotal");
+  const elActive = document.getElementById("adminStatActive");
+  const elDisabled = document.getElementById("adminStatDisabled");
+  const elTop = document.getElementById("adminStatTop");
+  const elEigen = document.getElementById("adminStatEigen");
+  const elEmail = document.getElementById("adminCurrentEmailBadge");
+
+  if (elTotal) elTotal.textContent = totalCount;
+  if (elActive) elActive.textContent = activeCount;
+  if (elDisabled) elDisabled.textContent = disabledCount;
+  if (elTop) elTop.textContent = topCount;
+  if (elEigen) elEigen.textContent = eigenmarkeCount;
+  if (elEmail) elEmail.textContent = currentAdminEmail || "admin@landi.ch";
+}
+
+function switchToCustomerPreview() {
+  if (!isAdminAuthenticated) return;
+  isCustomerPreviewMode = true;
+  updateAdminViewDisplay();
+  updateAdminHeaderBtn();
+  renderPresets();
+  renderProducts();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function switchToAdminDashboard() {
+  if (!isAdminAuthenticated) return;
+  isCustomerPreviewMode = false;
+  updateAdminViewDisplay();
+  updateAdminHeaderBtn();
+  updateAdminDashboardStats();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
 function updateAdminHeaderBtn() {
   const btn = document.getElementById("editPricesBtn");
   if (!btn) return;
-  if (isEditPricesMode && isAdminAuthenticated) {
+  if (isAdminAuthenticated) {
     btn.style.display = "inline-flex";
-    btn.textContent = "✅ Bearbeiten beenden";
-    btn.style.background = "#B45309";
+    if (isCustomerPreviewMode) {
+      btn.textContent = "⬅️ Zum Dashboard";
+      btn.style.background = "#3d7d1e";
+      btn.onclick = switchToAdminDashboard;
+    } else {
+      btn.textContent = "👁️ Kundenansicht";
+      btn.style.background = "#2563eb";
+      btn.onclick = switchToCustomerPreview;
+    }
   } else {
-    // Im Standardmodus für Kunden unsichtbar
     btn.style.display = "none";
   }
 }
@@ -3539,13 +4176,9 @@ async function exitEditPricesMode() {
   isAdminAuthenticated = false;
   currentAdminEmail = "";
   isEditPricesMode = false;
+  isCustomerPreviewMode = false;
 
-  const b = document.getElementById("editBanner");
-  if (b) { b.setAttribute("hidden", ""); b.classList.remove("active"); b.style.setProperty("display", "none", "important"); }
-
-  const adminCalcBtn = document.getElementById("adminCalcSettingsBtnContainer");
-  if (adminCalcBtn) adminCalcBtn.style.display = "none";
-
+  updateAdminViewDisplay();
   updateAdminHeaderBtn();
   renderPresets();
   renderProducts();
@@ -3563,20 +4196,18 @@ function toggleEditPricesMode(forceState) {
     return;
   }
 
-  if (forceState === false || (forceState === undefined && isEditPricesMode)) {
+  if (forceState === false || (forceState === undefined && isEditPricesMode && !isCustomerPreviewMode)) {
     exitEditPricesMode();
     return;
   }
 
   isEditPricesMode = true;
-  const b = document.getElementById("editBanner");
-  if (b) { b.removeAttribute("hidden"); b.classList.add("active"); b.style.setProperty("display", "flex", "important"); }
-  const adminCalcBtn = document.getElementById("adminCalcSettingsBtnContainer");
-  if (adminCalcBtn) adminCalcBtn.style.display = "block";
+  isCustomerPreviewMode = false;
+
+  updateAdminViewDisplay();
   updateAdminHeaderBtn();
+  updateAdminDashboardStats();
   setAdminUrl();
-  renderPresets();
-  renderProducts();
 }
 
 function updateProductPrice(id, val) {
