@@ -2522,6 +2522,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
   window.location.replace(cleanBase + window.location.search + "#admin");
 }
 </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
@@ -2796,7 +2797,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
       <!-- Card 4: Supabase Initialisieren / Seed -->
       <div class="admin-action-card" id="dashCardSeed" onclick="seedSupabaseFromBrowser()">
         <div class="action-card-header">
-          <div class="action-icon-wrap icon-purple">🚀</div>
+          <div class="action-icon-wrap icon-purple"><i class="fa-solid fa-rocket"></i></div>
           <span class="card-badge-sync">Setup</span>
         </div>
         <div class="action-card-body">
@@ -2805,7 +2806,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
         </div>
         <div class="action-card-footer">
           <button type="button" class="action-btn btn-secondary-big" id="dashSeedSupabaseBtn">
-            Sortiment übertragen ➔
+            <i class="fa-solid fa-rocket" style="margin-right:5px;"></i> Sortiment übertragen
           </button>
         </div>
       </div>
@@ -2813,7 +2814,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
       <!-- Card 5: CSV Export -->
       <div class="admin-action-card" id="dashCardCsv" onclick="downloadSortimentCsv()">
         <div class="action-card-header">
-          <div class="action-icon-wrap icon-emerald">📥</div>
+          <div class="action-icon-wrap icon-emerald"><i class="fa-solid fa-download"></i></div>
           <span class="card-badge-sync">Excel / CSV</span>
         </div>
         <div class="action-card-body">
@@ -2822,7 +2823,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
         </div>
         <div class="action-card-footer">
           <button type="button" class="action-btn btn-secondary-big">
-            CSV herunterladen ➔
+            <i class="fa-solid fa-download" style="margin-right:5px;"></i> CSV herunterladen
           </button>
         </div>
       </div>
@@ -2830,7 +2831,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
       <!-- Card 6: Code Kopieren -->
       <div class="admin-action-card" id="dashCardExport" onclick="exportUpdatedJs()">
         <div class="action-card-header">
-          <div class="action-icon-wrap icon-amber">📋</div>
+          <div class="action-icon-wrap icon-amber"><i class="fa-solid fa-clipboard"></i></div>
           <span class="card-badge-sync">Repository</span>
         </div>
         <div class="action-card-body">
@@ -2839,7 +2840,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
         </div>
         <div class="action-card-footer">
           <button type="button" class="action-btn btn-secondary-big">
-            Code kopieren ➔
+            <i class="fa-solid fa-clipboard" style="margin-right:5px;"></i> Code kopieren
           </button>
         </div>
       </div>
@@ -2847,7 +2848,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
       <!-- Card 7: Kundenansicht -->
       <div class="admin-action-card" id="dashCardPreview" onclick="switchToCustomerPreview()">
         <div class="action-card-header">
-          <div class="action-icon-wrap icon-teal">👁️</div>
+          <div class="action-icon-wrap icon-teal"><i class="fa-solid fa-eye"></i></div>
           <span class="card-badge-sync">Vorschau</span>
         </div>
         <div class="action-card-body">
@@ -2856,7 +2857,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
         </div>
         <div class="action-card-footer">
           <button type="button" class="action-btn btn-secondary-big">
-            Kundenansicht öffnen ➔
+            <i class="fa-solid fa-eye" style="margin-right:5px;"></i> Kundenansicht
           </button>
         </div>
       </div>
@@ -2864,7 +2865,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
       <!-- Card 8: Abmelden -->
       <div class="admin-action-card" onclick="logoutAdmin()">
         <div class="action-card-header">
-          <div class="action-icon-wrap icon-red">🚪</div>
+          <div class="action-icon-wrap icon-red"><i class="fa-solid fa-arrow-right-from-bracket"></i></div>
         </div>
         <div class="action-card-body">
           <h3 class="action-card-title">Admin-Sitzung beenden</h3>
@@ -2872,7 +2873,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
         </div>
         <div class="action-card-footer">
           <button type="button" class="action-btn btn-danger-big">
-            Sicher abmelden ➔
+            <i class="fa-solid fa-arrow-right-from-bracket" style="margin-right:5px;"></i> Abmelden
           </button>
         </div>
       </div>
@@ -2887,7 +2888,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
     </div>
     <div style="display:flex; gap:8px;">
       <button type="button" class="preview-banner-btn" onclick="switchToAdminDashboard()">
-        ⬅️ Zurück zum Admin Dashboard
+        <i class="fa-solid fa-arrow-left" style="margin-right:5px;"></i> Zurück zum Admin Dashboard
       </button>
       <button type="button" onclick="logoutAdmin()" style="background:transparent; color:#854d0e; border:1px solid #fef08a; padding:8px 14px; border-radius:10px; font-weight:600; font-size:0.84rem; cursor:pointer;">
         Abmelden
@@ -3360,7 +3361,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
 
         <!-- Fester Infokasten für den Kunden -->
         <div class="logistics-info-banner">
-          <div class="logistics-info-icon">ℹ️</div>
+          <div class="logistics-info-icon"><i class="fa-solid fa-circle-info"></i></div>
           <div class="logistics-info-text">
             <strong>Hinweis zur Lieferung:</strong> Lieferpauschale ab CHF 69.– (pro Palette / nach Aufwand). Gewünschte Liefertermine und Materialverfügbarkeit werden von unserer Filiale geprüft und anschliessend persönlich bestätigt.
           </div>
@@ -3407,7 +3408,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
       Wählen Sie Ihre Produkte und Mengen aus und erstellen Sie daraus ein PDF, das Sie ausgedruckt direkt in der Filiale abgeben oder uns per E-Mail zusenden können.
     </p>
     <button class="primary" onclick="closeInfoModal()" style="width: 100%; padding: 12px 20px; border-radius: 12px; font-weight: 700; font-size: 0.95rem; cursor: pointer;">
-      Verstanden, los geht's! 🛒
+      Verstanden, los geht's! 
     </button>
   </div>
 </div>
@@ -3431,7 +3432,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
   <div class="sheet" style="max-width: 960px; width: 95vw; max-height: 92vh; display: flex; flex-direction: column;">
     <div class="sheet-head">
       <div>
-        <h2 style="margin:0; font-size:1.35rem; color:var(--primary);">🎪 Festmaterial & Mietmobiliar verwalten</h2>
+        <h2 style="margin:0; font-size:1.35rem; color:var(--primary);"><i class="fa-solid fa-tent"></i> Festmaterial & Mietmobiliar</h2>
         <p style="margin:4px 0 0 0; font-size:0.85rem; color:var(--text-muted);">Mietmobiliar und Einweggeschirr anpassen, neue Artikel hinzufügen oder aktivieren/deaktivieren.</p>
       </div>
       <button class="sheet-close" onclick="closeAdminFestmaterialModal()">✕</button>
@@ -3454,8 +3455,8 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
       </div>
 
       <div style="display:flex; gap:8px;">
-        <button onclick="openAddFestmaterialModal()" style="background:#10B981; color:white; border:none; padding:8px 14px; border-radius:8px; font-weight:bold; font-size:0.86rem; cursor:pointer;">➕ Neuer Festartikel</button>
-        <button onclick="saveFestmaterialToSupabase(true)" style="background:#0284C7; color:white; border:none; padding:8px 14px; border-radius:8px; font-weight:bold; font-size:0.86rem; cursor:pointer;">☁️ In Supabase speichern</button>
+        <button onclick="openAddFestmaterialModal()" style="background:#10B981; color:white; border:none; padding:8px 14px; border-radius:8px; font-weight:bold; font-size:0.86rem; cursor:pointer;"><i class="fa-solid fa-plus"></i> Neuer Festartikel</button>
+        <button onclick="saveFestmaterialToSupabase(true)" style="background:#0284C7; color:white; border:none; padding:8px 14px; border-radius:8px; font-weight:bold; font-size:0.86rem; cursor:pointer;"><i class="fa-solid fa-cloud"></i> In Supabase speichern</button>
       </div>
     </div>
 
@@ -3487,7 +3488,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
 <div class="overlay" id="adminFestEditOverlay" onclick="if(event.target.id==='adminFestEditOverlay') closeFestEditModal()">
   <div class="sheet" style="max-width: 520px;">
     <div class="sheet-head">
-      <h2 id="modalFestTitle">✏️ Festartikel bearbeiten</h2>
+      <h2 id="modalFestTitle"><i class="fa-solid fa-pen"></i> Festartikel bearbeiten</h2>
       <button class="sheet-close" onclick="closeFestEditModal()">✕</button>
     </div>
     
@@ -3527,7 +3528,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
 
       <div style="grid-column: span 2; margin-top:6px;">
         <label style="font-size:0.85rem; font-weight:600; color:#9B1C1C; cursor:pointer; display:flex; align-items:center; gap:6px;">
-          <input type="checkbox" id="formFestDisabled"> ⚠️ Deaktiviert (für Kunden ausblenden)
+          <input type="checkbox" id="formFestDisabled"> <i class="fa-solid fa-triangle-exclamation"></i> Deaktiviert (für Kunden ausblenden)
         </label>
       </div>
     </div>
@@ -3693,7 +3694,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
   <div class="sheet" style="max-width: 960px; width: 95vw; max-height: 92vh; display: flex; flex-direction: column;">
     <div class="sheet-head">
       <div>
-        <h2 style="margin:0; font-size:1.35rem; color:var(--primary);">📦 Sortiment-Verwaltung (Admin)</h2>
+        <h2 style="margin:0; font-size:1.35rem; color:var(--primary);"><i class="fa-solid fa-box"></i> Sortiment-Verwaltung</h2>
         <p style="margin:4px 0 0 0; font-size:0.85rem; color:var(--text-muted);">Produkte hinzufügen, bearbeiten, löschen oder für Kunden deaktivieren (verbergen).</p>
       </div>
       <button class="sheet-close" onclick="closeAdminSortimentModal()">✕</button>
@@ -3715,15 +3716,15 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
           <option value="all">Alle Status</option>
           <option value="active">Nur Aktive (Sichtbar)</option>
           <option value="disabled">Nur Deaktivierte (Versteckt)</option>
-          <option value="eigenmarke">Nur Eigenmarken 🏷️</option>
-          <option value="top">Nur Top-Angebote ⭐</option>
+          <option value="eigenmarke">Nur Eigenmarken</option>
+          <option value="top">Nur Top-Angebote</option>
         </select>
       </div>
 
       <div style="display:flex; gap:8px;">
-        <button onclick="downloadSortimentCsv()" style="background:#059669; color:white; border:none; padding:8px 14px; border-radius:8px; font-weight:bold; font-size:0.86rem; cursor:pointer;">📥 CSV herunterladen</button>
-        <button onclick="openAddProductModal()" style="background:#10B981; color:white; border:none; padding:8px 14px; border-radius:8px; font-weight:bold; font-size:0.86rem; cursor:pointer;">➕ Neues Produkt</button>
-        <button onclick="savePricesToSupabase()" style="background:#0284C7; color:white; border:none; padding:8px 14px; border-radius:8px; font-weight:bold; font-size:0.86rem; cursor:pointer;">☁️ In Supabase speichern</button>
+        <button onclick="downloadSortimentCsv()" style="background:#059669; color:white; border:none; padding:8px 14px; border-radius:8px; font-weight:bold; font-size:0.86rem; cursor:pointer;"><i class="fa-solid fa-download"></i> CSV herunterladen</button>
+        <button onclick="openAddProductModal()" style="background:#10B981; color:white; border:none; padding:8px 14px; border-radius:8px; font-weight:bold; font-size:0.86rem; cursor:pointer;"><i class="fa-solid fa-plus"></i> Neues Produkt</button>
+        <button onclick="savePricesToSupabase()" style="background:#0284C7; color:white; border:none; padding:8px 14px; border-radius:8px; font-weight:bold; font-size:0.86rem; cursor:pointer;"><i class="fa-solid fa-cloud"></i> In Supabase speichern</button>
       </div>
     </div>
 
@@ -3754,7 +3755,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
 <div class="overlay" id="adminProductEditOverlay" onclick="if(event.target.id==='adminProductEditOverlay') closeProductEditModal()">
   <div class="sheet" style="max-width: 550px;">
     <div class="sheet-head">
-      <h2 id="modalProductTitle">✏️ Produkt bearbeiten</h2>
+      <h2 id="modalProductTitle"><i class="fa-solid fa-pen"></i> Produkt bearbeiten</h2>
       <button class="sheet-close" onclick="closeProductEditModal()">✕</button>
     </div>
     
@@ -3821,13 +3822,13 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
 
       <div style="grid-column: span 2; display:flex; flex-wrap:wrap; gap:16px; margin-top:6px;">
         <label style="font-size:0.85rem; font-weight:600; color:var(--text); cursor:pointer; display:flex; align-items:center; gap:6px;">
-          <input type="checkbox" id="formTop"> ⭐ Top-Angebot / Aktion
+          <input type="checkbox" id="formTop"> <i class="fa-solid fa-star"></i> Top-Angebot / Aktion
         </label>
         <label style="font-size:0.85rem; font-weight:600; color:#166534; cursor:pointer; display:flex; align-items:center; gap:6px;">
-          <input type="checkbox" id="formEigenmarke"> 🏷️ Eigenmarke
+          <input type="checkbox" id="formEigenmarke"> <i class="fa-solid fa-tag"></i> Eigenmarke
         </label>
         <label style="font-size:0.85rem; font-weight:600; color:#9B1C1C; cursor:pointer; display:flex; align-items:center; gap:6px;">
-          <input type="checkbox" id="formDisabled"> ⚠️ Deaktiviert (für Kunden ausblenden)
+          <input type="checkbox" id="formDisabled"> <i class="fa-solid fa-triangle-exclamation"></i> Deaktiviert (für Kunden ausblenden)
         </label>
       </div>
     </div>
@@ -3893,7 +3894,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
 <!-- RESET CONFIRMATION MODAL -->
 <div class="overlay" id="resetModalOverlay" onclick="handleResetOverlayClick(event)">
   <div class="sheet" style="max-width: 440px; text-align: center;">
-    <div style="font-size: 2.8rem; margin-bottom: 10px;">🗑️</div>
+    <div style="font-size: 2.8rem; margin-bottom: 10px;"><i class="fa-solid fa-trash"></i></div>
     <h2 style="font-size: 1.4rem; color: var(--primary); margin-bottom: 10px;">Auswahl zurücksetzen?</h2>
     <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 24px; line-height: 1.5;">
       Möchten Sie wirklich alle ausgewählten Produkte und Mengen auf 0 zurücksetzen?
@@ -3908,7 +3909,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
 <div class="overlay" id="adminOverlay" onclick="handleAdminOverlayClick(event)">
   <div class="sheet" style="max-width: 440px;">
     <div class="sheet-head">
-      <h2>🔐 Admin Login</h2>
+      <h2><i class="fa-solid fa-lock"></i> Admin Login</h2>
       <button class="sheet-close" onclick="closeAdminModal()">✕</button>
     </div>
     <form onsubmit="event.preventDefault(); loginAdmin();">
@@ -4465,14 +4466,14 @@ function renderAdminSortimentTable() {
       <tr style="${isDeact ? 'background:#FDF2F2; opacity:0.85;' : ''}">
         <td><strong>${escapeHtml(p.art)}</strong></td>
         <td>
-          <div style="font-weight:600; color:var(--text);">${escapeHtml(p.name)} ${p.eigenmarke ? '<span style="font-size:0.7rem; background:#E8F5E9; color:#1B5E20; padding:2px 6px; border-radius:4px; margin-left:4px; font-weight:700;">🏷️ Eigenmarke</span>' : ''} ${(p.topAngebot || p.deal) ? '<span style="font-size:0.7rem; background:#EFF6FF; color:#1D4ED8; border:1px solid #BFDBFE; padding:2px 6px; border-radius:4px; margin-left:4px; font-weight:700;">Top</span>' : ''}</div>
+          <div style="font-weight:600; color:var(--text);">${escapeHtml(p.name)} ${p.eigenmarke ? '<span style="font-size:0.7rem; background:#E8F5E9; color:#1B5E20; padding:2px 6px; border-radius:4px; margin-left:4px; font-weight:700;"><i class="fa-solid fa-tag"></i> Eigenmarke</span>' : ''} ${(p.topAngebot || p.deal) ? '<span style="font-size:0.7rem; background:#EFF6FF; color:#1D4ED8; border:1px solid #BFDBFE; padding:2px 6px; border-radius:4px; margin-left:4px; font-weight:700;">Top</span>' : ''}</div>
           <div style="font-size:0.75rem; color:var(--text-muted);">${escapeHtml(p.catName)} ${p.subCategory ? '• ' + escapeHtml(p.subCategory) : ''}</div>
         </td>
         <td><span style="font-size:0.8rem; background:var(--primary-light); padding:2px 6px; border-radius:6px;">${escapeHtml(p.gebinde || 'Standard')}</span></td>
         <td><span style="font-weight:700; color:var(--accent-dark);">${priceText}</span></td>
         <td>
           <button class="admin-fest-status-btn ${isDeact ? 'disabled' : 'active'}" onclick="toggleProductStatus(decodeURIComponent('${encArt}'))" title="Klicken zum Umschalten (Aktivieren / Deaktivieren)">
-            ${isDeact ? '⚠️ Ausgeblendet' : '✓ Aktiv'}
+            ${isDeact ? '<i class="fa-solid fa-triangle-exclamation"></i> Ausgeblendet' : '<i class="fa-solid fa-check"></i> Aktiv'}
           </button>
         </td>
         <td style="text-align:right; white-space:nowrap;">
@@ -4504,7 +4505,7 @@ function showAdminToast(name, action, showSaveBtn = true) {
 
   const saveHtml = showSaveBtn ? `
         <div class="admin-toast-sub">Um alle Änderungen festzuhalten, auf <strong>«In Supabase speichern»</strong> drücken.</div>
-        <button class="admin-toast-action-btn" onclick="savePricesToSupabase()">☁️ In Supabase speichern</button>` : "";
+        <button class="admin-toast-action-btn" onclick="savePricesToSupabase()"><i class="fa-solid fa-cloud"></i> In Supabase speichern</button>` : "";
 
   toast.innerHTML = `
     <div class="admin-toast-body">
@@ -4583,7 +4584,7 @@ function deleteProduct(art) {
 
 function openAddProductModal(defaultCat = "Weine") {
   editingProductArt = null;
-  document.getElementById("modalProductTitle").textContent = "➕ Neues Produkt hinzufügen";
+  document.getElementById("modalProductTitle").textContent = "<i class="fa-solid fa-plus"></i> Neues Produkt";
   document.getElementById("formArt").value = "";
   document.getElementById("formName").value = "";
   document.getElementById("formCategory").value = defaultCat || "Weine";
@@ -4719,7 +4720,7 @@ function openEditProductModal(art) {
   }
   editingProductArt = String(p.art);
   editingProductOldId = String(p.id || ('art-' + p.art));
-  document.getElementById("modalProductTitle").textContent = "✏️ Produkt bearbeiten (" + p.art + ")";
+  document.getElementById("modalProductTitle").textContent = "<i class="fa-solid fa-pen"></i> Produkt bearbeiten (" + p.art + ")";
   document.getElementById("formArt").value = p.art || "";
   document.getElementById("formName").value = p.name || "";
   
@@ -4988,11 +4989,11 @@ function updateAdminHeaderBtn() {
   if (isAdminAuthenticated) {
     btn.style.display = "inline-flex";
     if (isCustomerPreviewMode) {
-      btn.textContent = "⬅️ Zum Dashboard";
+      btn.textContent = "<i class="fa-solid fa-arrow-left" style="margin-right:5px;"></i> Zum Dashboard";
       btn.style.background = "#3d7d1e";
       btn.onclick = switchToAdminDashboard;
     } else {
-      btn.textContent = "👁️ Kundenansicht";
+      btn.textContent = "<i class="fa-solid fa-eye" style="margin-right:5px;"></i> Kundenansicht";
       btn.style.background = "#2563eb";
       btn.onclick = switchToCustomerPreview;
     }
@@ -5505,7 +5506,7 @@ async function seedSupabaseFromBrowser() {
   } finally {
     if (btn) {
       btn.disabled = false;
-      btn.textContent = "🚀 Sortiment in Supabase übertragen";
+      btn.textContent = "<i class="fa-solid fa-rocket"></i> Sortiment übertragen";
     }
   }
 }
@@ -5684,7 +5685,7 @@ function renderProducts() {
     if (displayItems.length === 0) {
       const emptyDiv = document.createElement("div");
       emptyDiv.style.cssText = "grid-column: 1 / -1; padding: 2.5rem 1rem; text-align: center; color: var(--text-muted); font-size: 0.95rem;";
-      emptyDiv.innerHTML = `Keine Artikel in dieser Auswahl vorhanden.<br><button class="btn btn-secondary btn-sm" style="margin-top: 0.75rem;" onclick="openAddProductModal(decodeURIComponent('${encodeURIComponent(cat.name)}'))">➕ Produkt hinzufügen</button>`;
+      emptyDiv.innerHTML = `Keine Artikel in dieser Auswahl vorhanden.<br><button class="btn btn-secondary btn-sm" style="margin-top: 0.75rem;" onclick="openAddProductModal(decodeURIComponent('${encodeURIComponent(cat.name)}'))"><i class="fa-solid fa-plus"></i> Produkt hinzufügen</button>`;
       grid.appendChild(emptyDiv);
     } else {
       displayItems.forEach(p => {
@@ -5810,7 +5811,7 @@ function renderProducts() {
             </div>
             <div>
               <span class="product-meta">Art.-Nr. ${escapeHtml(p.art)}</span>
-              ${isEditPricesMode ? `<button onclick="openEditProductModal(decodeURIComponent('${encArt}'))" style="background:#2563EB; color:white; border:none; padding:2px 8px; border-radius:4px; font-size:0.75rem; font-weight:600; cursor:pointer; margin-left:8px;">✏️ Bearbeiten</button>` : ''}
+              ${isEditPricesMode ? `<button onclick="openEditProductModal(decodeURIComponent('${encArt}'))" style="background:#2563EB; color:white; border:none; padding:2px 8px; border-radius:4px; font-size:0.75rem; font-weight:600; cursor:pointer; margin-left:8px;"><i class="fa-solid fa-pen"></i> Bearbeiten</button>` : ''}
             </div>
           </div>
           ${priceDisplayHtml}
@@ -6333,12 +6334,12 @@ function renderAdminFestmaterialTable() {
         <td>${priceDisplay}</td>
         <td>
           <button class="admin-fest-status-btn ${item.disabled ? 'disabled' : 'active'}" onclick="toggleFestStatus('${escapeHtml(item.id)}')">
-            ${item.disabled ? '⚠️ Ausgeblendet' : '✓ Aktiv'}
+            ${item.disabled ? '<i class="fa-solid fa-triangle-exclamation"></i> Ausgeblendet' : '<i class="fa-solid fa-check"></i> Aktiv'}
           </button>
         </td>
         <td style="text-align:right;">
-          <button onclick="openEditFestmaterialModal('${escapeHtml(item.id)}')" style="background:var(--bg); border:1px solid var(--border); padding:5px 9px; border-radius:6px; cursor:pointer; font-size:0.82rem; margin-right:4px;" title="Bearbeiten">✏️</button>
-          <button onclick="deleteFestmaterialItem('${escapeHtml(item.id)}')" style="background:#fee2e2; border:1px solid #fca5a5; color:#991b1b; padding:5px 9px; border-radius:6px; cursor:pointer; font-size:0.82rem;" title="Löschen">🗑️</button>
+          <button onclick="openEditFestmaterialModal('${escapeHtml(item.id)}')" style="background:var(--bg); border:1px solid var(--border); padding:5px 9px; border-radius:6px; cursor:pointer; font-size:0.82rem; margin-right:4px;" title="Bearbeiten"><i class="fa-solid fa-pen"></i></button>
+          <button onclick="deleteFestmaterialItem('${escapeHtml(item.id)}')" style="background:#fee2e2; border:1px solid #fca5a5; color:#991b1b; padding:5px 9px; border-radius:6px; cursor:pointer; font-size:0.82rem;" title="Löschen"><i class="fa-solid fa-trash"></i></button>
         </td>
       </tr>
     `;
@@ -6358,7 +6359,7 @@ function toggleFestStatus(id) {
 
 function openAddFestmaterialModal() {
   editingFestItemId = null;
-  document.getElementById("modalFestTitle").textContent = "➕ Neuer Festartikel";
+  document.getElementById("modalFestTitle").textContent = "<i class="fa-solid fa-plus"></i> Neuer Festartikel";
   document.getElementById("formFestArt").value = "";
   document.getElementById("formFestName").value = "";
   document.getElementById("formFestCategory").value = "Einweggeschirr";
@@ -6377,7 +6378,7 @@ function openEditFestmaterialModal(id) {
   if (!item) return;
   editingFestItemId = String(item.id || item.art);
   editingFestOldArt = String(item.art || item.id || "");
-  document.getElementById("modalFestTitle").textContent = "✏️ Festartikel bearbeiten";
+  document.getElementById("modalFestTitle").textContent = "<i class="fa-solid fa-pen"></i> Festartikel bearbeiten";
   document.getElementById("formFestArt").value = item.art || "";
   document.getElementById("formFestName").value = item.name || "";
   document.getElementById("formFestCategory").value = item.category || "Mietmobiliar";
@@ -6546,7 +6547,7 @@ async function saveFestmaterialToSupabase(showToast = false) {
       }
     }
 
-    if (showToast) showAdminToast("☁️ Festmaterial erfolgreich in Supabase gesichert");
+    if (showToast) showAdminToast("Festmaterial erfolgreich in Supabase gesichert");
   } catch (e) {
     console.error("Supabase Festmaterial Error:", e);
     if (showToast) {
@@ -6744,7 +6745,7 @@ function openReview() {
     drinksHtml = `
       <div style="margin-bottom:16px;">
         <h3 style="font-size:1rem; font-weight:700; color:var(--text); margin-bottom:8px; display:flex; align-items:center; gap:6px;">
-          🍾 Getränke
+          <i class="fa-solid fa-wine-bottle"></i> Getränke
         </h3>
         <table style="width:100%;">
           <thead>
@@ -6791,7 +6792,7 @@ function openReview() {
     festHtml = `
       <div style="margin-top:16px; padding-top:14px; border-top:1.5px solid var(--border);">
         <h3 style="font-size:1rem; font-weight:700; color:var(--text); margin-bottom:8px; display:flex; align-items:center; gap:6px;">
-          🎪 Festmaterial & Mietmobiliar
+          <i class="fa-solid fa-tent"></i> Festmaterial & Mietmobiliar
         </h3>
         <table style="width:100%;">
           <thead>
