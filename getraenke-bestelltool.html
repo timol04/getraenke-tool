@@ -5121,6 +5121,11 @@ async function savePricesToSupabase() {
       if (presetErr) throw presetErr;
     }
 
+    // 4. Festmaterial & Mietmobiliar speichern
+    if (typeof saveFestmaterialToSupabase === 'function') {
+      await saveFestmaterialToSupabase(false);
+    }
+
     if (saveBtn) {
       saveBtn.disabled = false;
       saveBtn.textContent = "✅ In Supabase gespeichert!";
