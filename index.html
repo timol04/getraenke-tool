@@ -1431,13 +1431,17 @@
   .festmaterial-header {
     margin-bottom: 20px;
     border-bottom: 1px solid var(--border-light);
-    padding-bottom: 16px;
+    padding: 10px 14px;
+    margin: -10px -14px 20px -14px;
+    border-radius: var(--r);
     transition: all 0.2s ease;
+  }
+  .festmaterial-header:hover {
+    background: var(--green-light);
   }
   .festmaterial-section.is-collapsed .festmaterial-header {
     margin-bottom: 0;
     border-bottom: none;
-    padding-bottom: 0;
   }
   .fest-toggle-btn {
     display: inline-flex;
