@@ -2303,6 +2303,30 @@
   .action-icon-wrap.icon-teal { background: #f0fdfa; }
   .action-icon-wrap.icon-red { background: #fef2f2; }
 
+  /* Viewer-Role: Gesperrte Karten */
+  .admin-action-card.card-locked {
+    opacity: 0.5;
+    cursor: not-allowed;
+    position: relative;
+    pointer-events: none;
+  }
+  .admin-action-card.card-locked::after {
+    content: "Kein Zugriff";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,0.75);
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 700;
+    padding: 6px 16px;
+    border-radius: 20px;
+    letter-spacing: 0.04em;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
   .card-badge-featured {
     font-size: 11px;
     font-weight: 700;
@@ -2750,7 +2774,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
       </div>
 
       <!-- Card 4: Supabase Initialisieren / Seed -->
-      <div class="admin-action-card" onclick="seedSupabaseFromBrowser()">
+      <div class="admin-action-card" id="dashCardSeed" onclick="seedSupabaseFromBrowser()">
         <div class="action-card-header">
           <div class="action-icon-wrap icon-purple">🚀</div>
           <span class="card-badge-sync">Setup</span>
@@ -2767,7 +2791,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
       </div>
 
       <!-- Card 5: CSV Export -->
-      <div class="admin-action-card" onclick="downloadSortimentCsv()">
+      <div class="admin-action-card" id="dashCardCsv" onclick="downloadSortimentCsv()">
         <div class="action-card-header">
           <div class="action-icon-wrap icon-emerald">📥</div>
           <span class="card-badge-sync">Excel / CSV</span>
@@ -2784,7 +2808,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
       </div>
 
       <!-- Card 6: Code Kopieren -->
-      <div class="admin-action-card" onclick="exportUpdatedJs()">
+      <div class="admin-action-card" id="dashCardExport" onclick="exportUpdatedJs()">
         <div class="action-card-header">
           <div class="action-icon-wrap icon-amber">📋</div>
           <span class="card-badge-sync">Repository</span>
@@ -2801,7 +2825,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
       </div>
 
       <!-- Card 7: Kundenansicht -->
-      <div class="admin-action-card" onclick="switchToCustomerPreview()">
+      <div class="admin-action-card" id="dashCardPreview" onclick="switchToCustomerPreview()">
         <div class="action-card-header">
           <div class="action-icon-wrap icon-teal">👁️</div>
           <span class="card-badge-sync">Vorschau</span>
@@ -3921,6 +3945,7 @@ const ADMIN_PASSWORD = "Landiwasserschlossadmin26";
 let isEditPricesMode = false;
 let isAdminAuthenticated = false;
 let currentAdminEmail = "";
+let currentAdminRole = "super_admin"; // "super_admin" or "viewer"
 
 // Lokale Admin-Sitzung wiederherstellen
 try {
@@ -4006,7 +4031,10 @@ if (supabaseClient) {
     if (session && session.user) {
       isAdminAuthenticated = true;
       currentAdminEmail = session.user.email || "Admin";
+      const sessionMeta = session.user && session.user.user_metadata ? session.user.user_metadata : {};
+      currentAdminRole = sessionMeta.app_role === "viewer" ? "viewer" : "super_admin";
       try { localStorage.setItem("landi_admin_session", "true"); } catch (e) {}
+      try { localStorage.setItem("landi_admin_role", currentAdminRole); } catch (e) {}
       if (isAdminUrlRequested()) {
         toggleEditPricesMode(true);
         setAdminUrl();
@@ -4173,7 +4201,10 @@ async function loginAdmin() {
 
     isAdminAuthenticated = true;
     currentAdminEmail = email;
+    const meta = data.user && data.user.user_metadata ? data.user.user_metadata : {};
+    currentAdminRole = meta.app_role === "viewer" ? "viewer" : "super_admin";
     try { localStorage.setItem("landi_admin_session", "true"); } catch (e) {}
+    try { localStorage.setItem("landi_admin_role", currentAdminRole); } catch (e) {}
     if (pwdInput) pwdInput.value = "";
     if (emailInput) emailInput.value = "";
     closeAdminModal();
@@ -4750,6 +4781,7 @@ function switchToCustomerPreview() {
   isCustomerPreviewMode = true;
   updateAdminViewDisplay();
   updateAdminHeaderBtn();
+  updateAdminCardPermissions();
   renderPresets();
   renderProducts();
   window.scrollTo({ top: 0, behavior: "smooth" });
@@ -4762,6 +4794,20 @@ function switchToAdminDashboard() {
   updateAdminHeaderBtn();
   updateAdminDashboardStats();
   window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function updateAdminCardPermissions() {
+  const restricted = ["dashCardSeed", "dashCardCsv", "dashCardExport", "dashCardPreview"];
+  const isViewer = currentAdminRole === "viewer";
+  restricted.forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (isViewer) {
+      el.classList.add("card-locked");
+    } else {
+      el.classList.remove("card-locked");
+    }
+  });
 }
 
 function updateAdminHeaderBtn() {
