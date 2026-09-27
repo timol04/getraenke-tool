@@ -6172,43 +6172,23 @@ function checkStickyTrackerVisibility() {
 
   const header = document.querySelector("header.top");
   const headerBottom = header ? header.getBoundingClientRect().bottom : 85;
+  const cRect = calcSec.getBoundingClientRect();
 
-  let isBuiltinTrackerVisible = false;
+  // 1. Unten bei den Kategorien (unterhalb des Rechners): Tracker sichtbar
+  const isBelowCalculator = cRect.bottom <= headerBottom + 80;
 
-  const trackerPanel = document.getElementById("calcTrackerPanel");
-  const isTrackerPanelOpen = trackerPanel && trackerPanel.style.display !== "none" && trackerPanel.offsetHeight > 0;
+  // 2. Ganz oben / beim Rechner-Kopf (wie im Screenshot): Tracker sichtbar
+  // Der Rechner-Kopf ist am oberen Rand des Bildschirms / unter der Kopfzeile
+  const isAtTopOrCalculatorHead = cRect.top >= headerBottom - 90 || window.scrollY <= 140;
 
-  if (isTrackerPanelOpen) {
-    // 1. Wenn das eingebaute Tracker-Panel im Rechner geöffnet ist:
-    const tRect = trackerPanel.getBoundingClientRect();
-    if (tRect.bottom > headerBottom + 10 && tRect.top < window.innerHeight) {
-      isBuiltinTrackerVisible = true;
-    }
-  } else if (!isDrinkCalcCollapsed) {
-    // 2. Wenn der Rechner aufgeklappt ist, aber das Panel noch nicht aktiviert wurde:
-    // Der relevante Bereich (Schritt 3 mit Bedarfs-Zielen)
-    const trackerBtn = document.getElementById("activateTrackerBtn");
-    const calcBody = document.getElementById("calcCollapsibleBody");
-    const checkEl = trackerBtn || calcBody;
-    if (checkEl) {
-      const bRect = checkEl.getBoundingClientRect();
-      if (bRect.bottom > headerBottom + 20 && bRect.top < window.innerHeight) {
-        isBuiltinTrackerVisible = true;
-      }
-    }
-  } else {
-    // 3. Wenn der Rechner zugeklappt ist:
-    const cRect = calcSec.getBoundingClientRect();
-    if (cRect.bottom > headerBottom + 10) {
-      isBuiltinTrackerVisible = true;
-    }
-  }
+  // 3. Mitten im Rechner (Sliders, Anlass-Karten, Rechner-Körper):
+  // Hier soll der Tracker NICHT sichtbar sein, damit er den Rechner nicht verdeckt
+  const isInsideCalculatorBody = !isBelowCalculator && !isAtTopOrCalculatorHead && !isDrinkCalcCollapsed;
 
-  // Sobald der eingebaute Tracker nach oben aus dem Sichtfeld scrollt (sobald man bei den Kategorien ist wie im Screenshot):
-  if (!isBuiltinTrackerVisible) {
-    bar.classList.add("visible");
-  } else {
+  if (isInsideCalculatorBody) {
     bar.classList.remove("visible");
+  } else {
+    bar.classList.add("visible");
   }
 }
 
