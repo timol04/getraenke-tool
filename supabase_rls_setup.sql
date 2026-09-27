@@ -7,10 +7,27 @@
 -- 3. Füge dieses Skript ein und klicke auf "Run" (unten rechts)
 -- ==============================================================================
 
+-- 0. Sicherstellen, dass die Tabellen existieren und das public Schema zugänglich ist
+GRANT ALL ON SCHEMA public TO postgres, anon, authenticated, service_role;
+
+-- (Die orders-Tabelle erstellen, falls noch nicht vorhanden)
+CREATE TABLE IF NOT EXISTS public.orders (
+  id bigint generated always as identity primary key,
+  ref_nr text generated always as (lpad(id::text, 6, '0')) stored,
+  items jsonb not null,
+  total_amount numeric not null,
+  total_deposit numeric default 0,
+  returns jsonb default '[]'::jsonb,
+  refund_amount numeric default 0,
+  status text default 'offen',
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
+
 -- 1. RLS (Row Level Security) für alle Tabellen aktivieren
 ALTER TABLE IF EXISTS categories ENABLE ROW LEVEL SECURITY;
 ALTER TABLE IF EXISTS products ENABLE ROW LEVEL SECURITY;
 ALTER TABLE IF EXISTS presets ENABLE ROW LEVEL SECURITY;
+ALTER TABLE IF EXISTS orders ENABLE ROW LEVEL SECURITY;
 
 -- 2. Alte / bestehende Policies bereinigen (verhindert Duplikate / Konflikte)
 DROP POLICY IF EXISTS "Public categories read access" ON categories;
@@ -20,8 +37,11 @@ DROP POLICY IF EXISTS "Admin products write access" ON products;
 DROP POLICY IF EXISTS "Public presets read access" ON presets;
 DROP POLICY IF EXISTS "Admin presets write access" ON presets;
 
+DROP POLICY IF EXISTS "Anon can create order" ON orders;
+DROP POLICY IF EXISTS "Anon can read own ref" ON orders;
+DROP POLICY IF EXISTS "Admins full access" ON orders;
+
 -- 3. ÖFFENTLICHER LESEZUGRIFF (SELECT):
--- Jeder Kunde (anonym oder angemeldet) darf Sortiment, Preise und Presets lesen
 CREATE POLICY "Public categories read access"
   ON categories FOR SELECT
   TO anon, authenticated
@@ -37,8 +57,21 @@ CREATE POLICY "Public presets read access"
   TO anon, authenticated
   USING (true);
 
--- 4. SCHREIBZUGRIFF (INSERT, UPDATE, DELETE):
--- Nur authentifizierte Benutzer (dein Admin-Account) dürfen Daten ändern
+-- 4. ORDERS: KUNDEN (anon) DÜRFEN BESTELLUNGEN ANLEGEN
+-- Dies ist zwingend erforderlich, damit das PDF-Tool die Bestellung speichern kann!
+CREATE POLICY "Anon can create order"
+  ON orders FOR INSERT
+  TO anon
+  WITH CHECK (true);
+
+-- Kunden dürfen den Datensatz nach dem Einfügen zurücklesen (wegen .select() in JS)
+CREATE POLICY "Anon can read own ref"
+  ON orders FOR SELECT
+  TO anon
+  USING (true);
+
+-- 5. SCHREIBZUGRIFF (INSERT, UPDATE, DELETE):
+-- Nur authentifizierte Benutzer (dein Admin-Account) dürfen Daten (inkl. Retouren) ändern
 CREATE POLICY "Admin categories write access"
   ON categories FOR ALL
   TO authenticated
@@ -57,8 +90,15 @@ CREATE POLICY "Admin presets write access"
   USING (true)
   WITH CHECK (true);
 
+-- Admins dürfen bei Bestellungen alles (Retouren speichern, löschen etc.)
+CREATE POLICY "Admins full access"
+  ON orders FOR ALL
+  TO authenticated
+  USING (true)
+  WITH CHECK (true);
+
 -- ==============================================================================
 -- FERTIG: Die Datenbank ist nun abgesichert.
--- Anonyme Besucher können das Sortiment nur lesen.
--- Schreibvorgänge ohne gültigen Supabase-Login werden auf Datenbankebene abgewiesen.
+-- Anonyme Besucher können das Sortiment lesen und neue Bestellungen anlegen.
+-- Schreibvorgänge (Produkte ändern, Retouren buchen) erfordern den Supabase-Login.
 -- ==============================================================================
