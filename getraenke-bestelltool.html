@@ -8450,7 +8450,8 @@ async function generateReturnPdf(order, returns, totalRefund) {
     
     doc.save("retour-beleg-" + refFormatted + ".pdf");
 }
-\nasync function saveReturn() {
+
+async function saveReturn() {
   if (!currentReturnOrder || !supabaseClient) return;
   
   const btn = document.getElementById("btnSaveReturn");
