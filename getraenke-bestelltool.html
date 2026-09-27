@@ -4031,8 +4031,9 @@ if (supabaseClient) {
     if (session && session.user) {
       isAdminAuthenticated = true;
       currentAdminEmail = session.user.email || "Admin";
-      const sessionMeta = session.user && session.user.user_metadata ? session.user.user_metadata : {};
-      currentAdminRole = sessionMeta.app_role === "viewer" ? "viewer" : "super_admin";
+      // Rollen-Zuweisung anhand der E-Mail-Adresse
+      const SUPER_ADMIN_EMAILS_S = ["timo.lanter@icloud.com"];
+      currentAdminRole = SUPER_ADMIN_EMAILS_S.includes((session.user.email || "").toLowerCase()) ? "super_admin" : "viewer";
       try { localStorage.setItem("landi_admin_session", "true"); } catch (e) {}
       try { localStorage.setItem("landi_admin_role", currentAdminRole); } catch (e) {}
       if (isAdminUrlRequested()) {
@@ -4201,8 +4202,9 @@ async function loginAdmin() {
 
     isAdminAuthenticated = true;
     currentAdminEmail = email;
-    const meta = data.user && data.user.user_metadata ? data.user.user_metadata : {};
-    currentAdminRole = meta.app_role === "viewer" ? "viewer" : "super_admin";
+    // Rollen-Zuweisung anhand der E-Mail-Adresse
+    const SUPER_ADMIN_EMAILS = ["timo.lanter@icloud.com"];
+    currentAdminRole = SUPER_ADMIN_EMAILS.includes(email.toLowerCase()) ? "super_admin" : "viewer";
     try { localStorage.setItem("landi_admin_session", "true"); } catch (e) {}
     try { localStorage.setItem("landi_admin_role", currentAdminRole); } catch (e) {}
     if (pwdInput) pwdInput.value = "";
