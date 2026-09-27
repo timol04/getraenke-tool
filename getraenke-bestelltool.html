@@ -5683,7 +5683,7 @@ const DEFAULT_FESTMATERIAL = (typeof FESTMATERIAL_SORTIMENT !== "undefined" && A
   ? FESTMATERIAL_SORTIMENT
   : [
   {
-    id: "fest-garnitur",
+    id: "91001",
     art: "91001",
     name: "Festtisch-Garnitur",
     category: "Mietmobiliar",
@@ -5695,7 +5695,7 @@ const DEFAULT_FESTMATERIAL = (typeof FESTMATERIAL_SORTIMENT !== "undefined" && A
     sortOrder: 1
   },
   {
-    id: "fest-kuehlschrank",
+    id: "91002",
     art: "91002",
     name: "Event-Flaschenkühlschrank (Glasfront)",
     category: "Mietmobiliar",
@@ -5707,7 +5707,7 @@ const DEFAULT_FESTMATERIAL = (typeof FESTMATERIAL_SORTIMENT !== "undefined" && A
     sortOrder: 2
   },
   {
-    id: "geschirr-gabeln",
+    id: "92001",
     art: "92001",
     name: "Einweg-Gabeln",
     category: "Einweggeschirr",
@@ -5719,7 +5719,7 @@ const DEFAULT_FESTMATERIAL = (typeof FESTMATERIAL_SORTIMENT !== "undefined" && A
     sortOrder: 3
   },
   {
-    id: "geschirr-messer",
+    id: "92002",
     art: "92002",
     name: "Einweg-Messer",
     category: "Einweggeschirr",
@@ -5731,7 +5731,7 @@ const DEFAULT_FESTMATERIAL = (typeof FESTMATERIAL_SORTIMENT !== "undefined" && A
     sortOrder: 4
   },
   {
-    id: "geschirr-trinkbecher",
+    id: "92003",
     art: "92003",
     name: "Trinkbecher (Bier/Softdrinks)",
     category: "Einweggeschirr",
@@ -5743,7 +5743,7 @@ const DEFAULT_FESTMATERIAL = (typeof FESTMATERIAL_SORTIMENT !== "undefined" && A
     sortOrder: 5
   },
   {
-    id: "geschirr-weinbecher",
+    id: "92004",
     art: "92004",
     name: "Weinbecher / Apérobecher",
     category: "Einweggeschirr",
@@ -5766,7 +5766,8 @@ try {
     const parsed = JSON.parse(cachedFest);
     if (Array.isArray(parsed) && parsed.length > 0) {
       festmaterialList = parsed.map(item => {
-        const def = DEFAULT_FESTMATERIAL.find(d => d.id === item.id);
+        const def = DEFAULT_FESTMATERIAL.find(d => d.art === item.art || d.id === item.id || d.art === item.id);
+        const artCode = String(item.art || (def ? def.art : item.id) || '').trim();
         let p = (item.price !== undefined && item.price !== null) ? parseFloat(item.price) : (def ? def.price : 0);
         let notice = item.priceNotice || "";
 
@@ -5783,7 +5784,8 @@ try {
         return {
           ...def,
           ...item,
-          art: item.art || (def ? def.art : ""),
+          id: artCode,
+          art: artCode,
           price: isNaN(p) ? 0 : p,
           priceNotice: notice
         };
@@ -6117,9 +6119,10 @@ function saveFestmaterialFromModal() {
   }
 
   if (editingFestItemId) {
-    const item = festmaterialList.find(f => f.id === editingFestItemId);
+    const item = festmaterialList.find(f => f.id === editingFestItemId || f.art === editingFestItemId);
     if (item) {
-      item.art = art;
+      item.art = art || item.art || item.id;
+      item.id = item.art;
       item.name = name;
       item.category = category;
       item.unitDesc = unitDesc;
@@ -6128,10 +6131,10 @@ function saveFestmaterialFromModal() {
       item.disabled = disabled;
     }
   } else {
-    const newId = art ? ("fest-" + art.replace(/[^a-zA-Z0-9_-]/g, "_")) : ("fest-" + Date.now());
+    const newId = art || ("fest-" + Date.now());
     festmaterialList.push({
       id: newId,
-      art,
+      art: newId,
       name,
       category,
       unitDesc,
@@ -6151,12 +6154,15 @@ function saveFestmaterialFromModal() {
 }
 
 function deleteFestmaterialItem(id) {
-  const item = festmaterialList.find(f => f.id === id);
+  const item = festmaterialList.find(f => f.id === id || f.art === id);
   if (!item) return;
   if (!confirm(`Möchten Sie «${item.name}» wirklich löschen?`)) return;
 
-  festmaterialList = festmaterialList.filter(f => f.id !== id);
-  delete festQty[id];
+  const targetId = item.id;
+  const targetArt = item.art;
+  festmaterialList = festmaterialList.filter(f => f.id !== targetId && f.art !== targetArt);
+  delete festQty[targetId];
+  if (targetArt) delete festQty[targetArt];
   saveFestmaterialLocal();
   renderAdminFestmaterialTable();
   renderFestmaterial();
@@ -6180,17 +6186,20 @@ async function saveFestmaterialToSupabase(showToast = false) {
   }
 
   try {
-    const rows = festmaterialList.map((item, idx) => ({
-      id: item.id,
-      art: item.art || "",
-      name: item.name,
-      category: item.category,
-      unit_desc: item.unitDesc || "",
-      price: item.price || 0,
-      price_notice: item.priceNotice || (item.category === "Mietmobiliar" ? "Preis auf Anfrage" : ""),
-      disabled: !!item.disabled,
-      sort_order: item.sortOrder || (idx + 1)
-    }));
+    const rows = festmaterialList.map((item, idx) => {
+      const artVal = String(item.art || item.id || '').trim();
+      return {
+        art: artVal,
+        id: artVal,
+        name: item.name,
+        category: item.category,
+        unit_desc: item.unitDesc || "",
+        price: item.price || 0,
+        price_notice: item.priceNotice || (item.category === "Mietmobiliar" ? "Preis auf Anfrage" : ""),
+        disabled: !!item.disabled,
+        sort_order: item.sortOrder || (idx + 1)
+      };
+    });
 
     const { error } = await supabaseClient
       .from('festmaterial')
@@ -6226,17 +6235,20 @@ async function loadFestmaterialFromSupabase() {
       return false;
     }
 
-    festmaterialList = data.map(d => ({
-      id: d.id,
-      art: d.art || "",
-      name: d.name,
-      category: d.category,
-      unitDesc: d.unit_desc,
-      price: d.price !== undefined && d.price !== null ? parseFloat(d.price) : 0,
-      priceNotice: d.price_notice,
-      disabled: !!d.disabled,
-      sortOrder: d.sort_order
-    }));
+    festmaterialList = data.map(d => {
+      const artVal = String(d.art || d.id || '').trim();
+      return {
+        id: artVal,
+        art: artVal,
+        name: d.name,
+        category: d.category,
+        unitDesc: d.unit_desc,
+        price: d.price !== undefined && d.price !== null ? parseFloat(d.price) : 0,
+        priceNotice: d.price_notice,
+        disabled: !!d.disabled,
+        sortOrder: d.sort_order
+      };
+    });
 
     saveFestmaterialLocal();
     renderFestmaterial();

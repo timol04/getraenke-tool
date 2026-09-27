@@ -5,7 +5,7 @@
 
 var FESTMATERIAL_SORTIMENT = [
   {
-    id: "fest-garnitur",
+    id: "91001",
     art: "91001",
     name: "Festtisch-Garnitur",
     category: "Mietmobiliar",
@@ -17,7 +17,7 @@ var FESTMATERIAL_SORTIMENT = [
     sortOrder: 1
   },
   {
-    id: "fest-kuehlschrank",
+    id: "91002",
     art: "91002",
     name: "Event-Flaschenkühlschrank (Glasfront)",
     category: "Mietmobiliar",
@@ -29,7 +29,7 @@ var FESTMATERIAL_SORTIMENT = [
     sortOrder: 2
   },
   {
-    id: "geschirr-gabeln",
+    id: "92001",
     art: "92001",
     name: "Einweg-Gabeln",
     category: "Einweggeschirr",
@@ -41,7 +41,7 @@ var FESTMATERIAL_SORTIMENT = [
     sortOrder: 3
   },
   {
-    id: "geschirr-messer",
+    id: "92002",
     art: "92002",
     name: "Einweg-Messer",
     category: "Einweggeschirr",
@@ -53,7 +53,7 @@ var FESTMATERIAL_SORTIMENT = [
     sortOrder: 4
   },
   {
-    id: "geschirr-trinkbecher",
+    id: "92003",
     art: "92003",
     name: "Trinkbecher (Bier/Softdrinks)",
     category: "Einweggeschirr",
@@ -65,7 +65,7 @@ var FESTMATERIAL_SORTIMENT = [
     sortOrder: 5
   },
   {
-    id: "geschirr-weinbecher",
+    id: "92004",
     art: "92004",
     name: "Weinbecher / Apérobecher",
     category: "Einweggeschirr",

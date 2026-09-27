@@ -133,25 +133,25 @@ CREATE TRIGGER trg_products_updated_at
 -- ==============================================================================
 -- 5. FESTMATERIAL & MIETMOBILIAR TABELLE
 -- ==============================================================================
+-- 'art' (Artikelnummer) als PRIMARY KEY (analog zur Getränke-Sortimentsstruktur)
 CREATE TABLE IF NOT EXISTS festmaterial (
-  id TEXT PRIMARY KEY,
-  art TEXT DEFAULT '',
+  art TEXT PRIMARY KEY,
+  id TEXT,
   name TEXT NOT NULL,
   category TEXT NOT NULL, -- 'Mietmobiliar' oder 'Einweggeschirr'
   unit_desc TEXT DEFAULT '',
   price NUMERIC(10, 2) DEFAULT 0,
-  price_notice TEXT DEFAULT 'Preis auf Anfrage',
+  price_notice TEXT DEFAULT '',
   disabled BOOLEAN DEFAULT FALSE,
   sort_order INTEGER DEFAULT 0,
   created_at TIMESTAMPTZ DEFAULT timezone('utc'::text, now()) NOT NULL,
   updated_at TIMESTAMPTZ DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
--- Falls Tabelle bereits existiert: Spalten sicherstellen
-ALTER TABLE festmaterial ADD COLUMN IF NOT EXISTS art TEXT DEFAULT '';
+-- Falls Tabelle vorher mit id als PK existierte:
+ALTER TABLE festmaterial ADD COLUMN IF NOT EXISTS art TEXT;
 ALTER TABLE festmaterial ADD COLUMN IF NOT EXISTS price NUMERIC(10, 2) DEFAULT 0;
 
-CREATE INDEX IF NOT EXISTS idx_festmaterial_art ON festmaterial(art);
 CREATE INDEX IF NOT EXISTS idx_festmaterial_cat ON festmaterial(category);
 CREATE INDEX IF NOT EXISTS idx_festmaterial_disabled ON festmaterial(disabled);
 
@@ -171,17 +171,17 @@ CREATE TRIGGER trg_festmaterial_updated_at
   FOR EACH ROW
   EXECUTE FUNCTION set_updated_at();
 
--- Initialer Datenbestand für Festmaterial & Einweggeschirr
-INSERT INTO festmaterial (id, art, name, category, unit_desc, price, price_notice, disabled, sort_order)
+-- Initialer Datenbestand für Festmaterial & Einweggeschirr mit Artikel-Nr. als Key
+INSERT INTO festmaterial (art, id, name, category, unit_desc, price, price_notice, disabled, sort_order)
 VALUES
-  ('fest-garnitur', '91001', 'Festtisch-Garnitur', 'Mietmobiliar', '1 Tisch + 2 Bänke (220 x 60 cm)', 0, 'Preis auf Anfrage / nach Vereinbarung', false, 1),
-  ('fest-kuehlschrank', '91002', 'Event-Flaschenkühlschrank (Glasfront)', 'Mietmobiliar', 'Grosser Event-Kühlschrank (230V)', 0, 'Preis auf Anfrage / nach Vereinbarung', false, 2),
-  ('geschirr-gabeln', '92001', 'Einweg-Gabeln', 'Einweggeschirr', 'Pack à 50 Stk.', 3.50, '', false, 3),
-  ('geschirr-messer', '92002', 'Einweg-Messer', 'Einweggeschirr', 'Pack à 50 Stk.', 3.50, '', false, 4),
-  ('geschirr-trinkbecher', '92003', 'Trinkbecher (Bier/Softdrinks)', 'Einweggeschirr', 'Pack à 50 Stk. (Ausschank 3dl / 4dl)', 6.90, '', false, 5),
-  ('geschirr-weinbecher', '92004', 'Weinbecher / Apérobecher', 'Einweggeschirr', 'Pack à 25 Stk. (Glasklar)', 5.50, '', false, 6)
-ON CONFLICT (id) DO UPDATE SET
-  art = EXCLUDED.art,
+  ('91001', '91001', 'Festtisch-Garnitur', 'Mietmobiliar', '1 Tisch + 2 Bänke (220 x 60 cm)', 0, 'Preis auf Anfrage / nach Vereinbarung', false, 1),
+  ('91002', '91002', 'Event-Flaschenkühlschrank (Glasfront)', 'Mietmobiliar', 'Grosser Event-Kühlschrank (230V)', 0, 'Preis auf Anfrage / nach Vereinbarung', false, 2),
+  ('92001', '92001', 'Einweg-Gabeln', 'Einweggeschirr', 'Pack à 50 Stk.', 3.50, '', false, 3),
+  ('92002', '92002', 'Einweg-Messer', 'Einweggeschirr', 'Pack à 50 Stk.', 3.50, '', false, 4),
+  ('92003', '92003', 'Trinkbecher (Bier/Softdrinks)', 'Einweggeschirr', 'Pack à 50 Stk. (Ausschank 3dl / 4dl)', 6.90, '', false, 5),
+  ('92004', '92004', 'Weinbecher / Apérobecher', 'Einweggeschirr', 'Pack à 25 Stk. (Glasklar)', 5.50, '', false, 6)
+ON CONFLICT (art) DO UPDATE SET
+  id = EXCLUDED.id,
   name = EXCLUDED.name,
   category = EXCLUDED.category,
   unit_desc = EXCLUDED.unit_desc,
