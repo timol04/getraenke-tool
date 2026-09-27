@@ -138,6 +138,7 @@ CREATE TABLE IF NOT EXISTS festmaterial (
   name TEXT NOT NULL,
   category TEXT NOT NULL, -- 'Mietmobiliar' oder 'Einweggeschirr'
   unit_desc TEXT DEFAULT '',
+  price NUMERIC(10, 2) DEFAULT 0,
   price_notice TEXT DEFAULT 'Preis auf Anfrage',
   disabled BOOLEAN DEFAULT FALSE,
   sort_order INTEGER DEFAULT 0,

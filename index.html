@@ -3465,9 +3465,14 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
         <input type="text" id="formFestUnit" placeholder="z. B. 1 Tisch + 2 Bänke oder Pack à 50 Stk." style="width:100%; padding:8px 10px; border-radius:6px; border:1px solid var(--border);">
       </div>
 
-      <div style="grid-column: span 2;">
-        <label style="font-size:0.8rem; font-weight:600; color:var(--text-muted); display:block; margin-bottom:4px;">Preishinweis-Text</label>
-        <input type="text" id="formFestPriceNotice" placeholder="z. B. Preis auf Anfrage / nach Vereinbarung" style="width:100%; padding:8px 10px; border-radius:6px; border:1px solid var(--border);">
+      <div style="grid-column: span 1;">
+        <label style="font-size:0.8rem; font-weight:600; color:var(--text-muted); display:block; margin-bottom:4px;">Preis in CHF (0 = auf Anfrage)</label>
+        <input type="number" step="0.05" min="0" id="formFestPrice" placeholder="z. B. 3.50" style="width:100%; padding:8px 10px; border-radius:6px; border:1px solid var(--border);">
+      </div>
+
+      <div style="grid-column: span 1;">
+        <label style="font-size:0.8rem; font-weight:600; color:var(--text-muted); display:block; margin-bottom:4px;">Preishinweis / Zusatz</label>
+        <input type="text" id="formFestPriceNotice" placeholder="z. B. pro Pack oder nach Vereinbarung" style="width:100%; padding:8px 10px; border-radius:6px; border:1px solid var(--border);">
       </div>
 
       <div style="grid-column: span 2; margin-top:6px;">
@@ -4231,18 +4236,15 @@ function renderAdminSortimentTable() {
         <td><span style="font-size:0.8rem; background:var(--primary-light); padding:2px 6px; border-radius:6px;">${escapeHtml(p.gebinde || 'Standard')}</span></td>
         <td><span style="font-weight:700; color:var(--accent-dark);">${priceText}</span></td>
         <td>
-          ${isDeact 
-            ? '<span class="status-badge-disabled">⚠️ Deaktiviert</span>' 
-            : '<span class="status-badge-active">✓ Aktiv</span>'}
+          <button class="admin-fest-status-btn ${isDeact ? 'disabled' : 'active'}" onclick="toggleProductStatus(decodeURIComponent('${encArt}'))" title="Klicken zum Umschalten (Aktivieren / Deaktivieren)">
+            ${isDeact ? '⚠️ Ausgeblendet' : '✓ Aktiv'}
+          </button>
         </td>
         <td style="text-align:right; white-space:nowrap;">
-          <button onclick="toggleProductStatus(decodeURIComponent('${encArt}'))" style="background:${isDeact ? '#059669' : '#D97706'}; color:white; border:none; padding:5px 9px; border-radius:6px; font-size:0.78rem; font-weight:600; cursor:pointer; margin-right:4px;">
-            ${isDeact ? '👁️ Aktivieren' : '👁️ Deaktivieren'}
+          <button onclick="openEditProductModal(decodeURIComponent('${encArt}'))" style="background:var(--bg); border:1px solid var(--border); padding:5px 9px; border-radius:6px; cursor:pointer; font-size:0.82rem; margin-right:4px;" title="Bearbeiten">
+            ✏️
           </button>
-          <button onclick="openEditProductModal(decodeURIComponent('${encArt}'))" style="background:#2563EB; color:white; border:none; padding:5px 9px; border-radius:6px; font-size:0.78rem; font-weight:600; cursor:pointer; margin-right:4px;">
-            ✏️ Bearbeiten
-          </button>
-          <button onclick="deleteProduct(decodeURIComponent('${encArt}'))" style="background:#DC2626; color:white; border:none; padding:5px 9px; border-radius:6px; font-size:0.78rem; font-weight:600; cursor:pointer;">
+          <button onclick="deleteProduct(decodeURIComponent('${encArt}'))" style="background:#fee2e2; border:1px solid #fca5a5; color:#991b1b; padding:5px 9px; border-radius:6px; cursor:pointer; font-size:0.82rem;" title="Löschen">
             🗑️
           </button>
         </td>
@@ -5671,6 +5673,7 @@ const DEFAULT_FESTMATERIAL = [
     name: "Festtisch-Garnitur",
     category: "Mietmobiliar",
     unitDesc: "1 Tisch + 2 Bänke (220 x 60 cm)",
+    price: 0,
     priceNotice: "Preis auf Anfrage / nach Vereinbarung",
     note: "Auf Anfrage / je nach Verfügbarkeit",
     disabled: false,
@@ -5681,6 +5684,7 @@ const DEFAULT_FESTMATERIAL = [
     name: "Event-Flaschenkühlschrank (Glasfront)",
     category: "Mietmobiliar",
     unitDesc: "Grosser Event-Kühlschrank (230V)",
+    price: 0,
     priceNotice: "Preis auf Anfrage / nach Vereinbarung",
     note: "Auf Anfrage / je nach Verfügbarkeit",
     disabled: false,
@@ -5691,7 +5695,8 @@ const DEFAULT_FESTMATERIAL = [
     name: "Einweg-Gabeln",
     category: "Einweggeschirr",
     unitDesc: "Pack à 50 Stk.",
-    priceNotice: "Preise auf Anfrage",
+    price: 3.50,
+    priceNotice: "pro Pack",
     note: "Praktischer Festbedarf",
     disabled: false,
     sortOrder: 3
@@ -5701,7 +5706,8 @@ const DEFAULT_FESTMATERIAL = [
     name: "Einweg-Messer",
     category: "Einweggeschirr",
     unitDesc: "Pack à 50 Stk.",
-    priceNotice: "Preise auf Anfrage",
+    price: 3.50,
+    priceNotice: "pro Pack",
     note: "Praktischer Festbedarf",
     disabled: false,
     sortOrder: 4
@@ -5711,7 +5717,8 @@ const DEFAULT_FESTMATERIAL = [
     name: "Trinkbecher (Bier/Softdrinks)",
     category: "Einweggeschirr",
     unitDesc: "Pack à 50 Stk. (Ausschank 3dl / 4dl)",
-    priceNotice: "Preise auf Anfrage",
+    price: 6.90,
+    priceNotice: "pro Pack",
     note: "Praktischer Festbedarf",
     disabled: false,
     sortOrder: 5
@@ -5721,7 +5728,8 @@ const DEFAULT_FESTMATERIAL = [
     name: "Weinbecher / Apérobecher",
     category: "Einweggeschirr",
     unitDesc: "Pack à 25 Stk. (Glasklar)",
-    priceNotice: "Preise auf Anfrage",
+    price: 5.50,
+    priceNotice: "pro Pack",
     note: "Praktischer Festbedarf",
     disabled: false,
     sortOrder: 6
@@ -5731,13 +5739,21 @@ const DEFAULT_FESTMATERIAL = [
 let festmaterialList = [...DEFAULT_FESTMATERIAL];
 const festQty = {};
 
-// LocalStorage Init für Festmaterial
+// LocalStorage Init für Festmaterial mit Preiskompatibilität
 try {
   const cachedFest = localStorage.getItem("landi_festmaterial");
   if (cachedFest) {
     const parsed = JSON.parse(cachedFest);
     if (Array.isArray(parsed) && parsed.length > 0) {
-      festmaterialList = parsed;
+      festmaterialList = parsed.map(item => {
+        const def = DEFAULT_FESTMATERIAL.find(d => d.id === item.id);
+        const p = item.price !== undefined && item.price !== null ? parseFloat(item.price) : (def ? def.price : 0);
+        return {
+          ...def,
+          ...item,
+          price: isNaN(p) ? 0 : p
+        };
+      });
     }
   }
 } catch (e) {
@@ -5760,7 +5776,7 @@ function renderFestmaterial() {
       key: "Einweggeschirr",
       title: "🍽️ Einweggeschirr & Festbedarf",
       subtitle: "Gabeln, Messer, Becher für Ihren Anlass",
-      badge: "Preise auf Anfrage",
+      badge: "Preise berechnet",
       items: festmaterialList.filter(f => f.category === "Einweggeschirr" && !f.disabled)
     }
   ];
@@ -5770,12 +5786,20 @@ function renderFestmaterial() {
     const itemsHtml = cat.items.map(item => {
       const currentQty = festQty[item.id] || 0;
       const isSelected = currentQty > 0;
+      
+      let priceDisplay = "";
+      if (item.price && item.price > 0) {
+        priceDisplay = `CHF ${item.price.toFixed(2)}${item.priceNotice ? ' (' + escapeHtml(item.priceNotice) + ')' : ''}`;
+      } else {
+        priceDisplay = escapeHtml(item.priceNotice || "Preis auf Anfrage");
+      }
+
       return `
         <div class="festmaterial-item-row ${isSelected ? 'selected' : ''}" id="fest_row_${escapeHtml(item.id)}">
           <div class="festmaterial-item-info">
             <div class="festmaterial-item-name">${escapeHtml(item.name)}</div>
             <div class="festmaterial-item-unit">${escapeHtml(item.unitDesc || "")}</div>
-            <span class="festmaterial-item-price">${escapeHtml(item.priceNotice || "Preis auf Anfrage")}</span>
+            <span class="festmaterial-item-price">${priceDisplay}</span>
           </div>
           <div class="stepper">
             <button type="button" class="qty-btn" onclick="changeFestQty('${escapeHtml(item.id)}', -1)">−</button>
@@ -5896,7 +5920,6 @@ function updateFestCollapsedBadge() {
   }
 }
 
-
 function toggleLogisticsType(type) {
   const cardPickup = document.getElementById("logisticsCardPickup");
   const cardDelivery = document.getElementById("logisticsCardDelivery");
@@ -5963,6 +5986,10 @@ function renderAdminFestmaterialTable() {
 
   tbody.innerHTML = filtered.map(item => {
     const isMob = item.category === "Mietmobiliar";
+    const priceDisplay = (item.price && item.price > 0)
+      ? `<strong style="color:var(--accent-dark);">CHF ${item.price.toFixed(2)}</strong> <span style="font-size:0.75rem; color:var(--text-muted);">${item.priceNotice ? '(' + escapeHtml(item.priceNotice) + ')' : ''}</span>`
+      : `<span style="color:var(--text-muted); font-size:0.84rem;">${escapeHtml(item.priceNotice || "Auf Anfrage")}</span>`;
+
     return `
       <tr>
         <td style="font-weight:600; color:var(--text);">${escapeHtml(item.name)}</td>
@@ -5972,15 +5999,15 @@ function renderAdminFestmaterialTable() {
           </span>
         </td>
         <td style="color:var(--text-muted); font-size:0.84rem;">${escapeHtml(item.unitDesc || "—")}</td>
-        <td style="color:var(--text-muted); font-size:0.84rem;">${escapeHtml(item.priceNotice || "—")}</td>
+        <td>${priceDisplay}</td>
         <td>
           <button class="admin-fest-status-btn ${item.disabled ? 'disabled' : 'active'}" onclick="toggleFestStatus('${escapeHtml(item.id)}')">
             ${item.disabled ? '⚠️ Ausgeblendet' : '✓ Aktiv'}
           </button>
         </td>
         <td style="text-align:right;">
-          <button onclick="openEditFestmaterialModal('${escapeHtml(item.id)}')" style="background:var(--bg); border:1px solid var(--border); padding:5px 9px; border-radius:6px; cursor:pointer; font-size:0.82rem; margin-right:4px;">✏️</button>
-          <button onclick="deleteFestmaterialItem('${escapeHtml(item.id)}')" style="background:#fee2e2; border:1px solid #fca5a5; color:#991b1b; padding:5px 9px; border-radius:6px; cursor:pointer; font-size:0.82rem;">🗑️</button>
+          <button onclick="openEditFestmaterialModal('${escapeHtml(item.id)}')" style="background:var(--bg); border:1px solid var(--border); padding:5px 9px; border-radius:6px; cursor:pointer; font-size:0.82rem; margin-right:4px;" title="Bearbeiten">✏️</button>
+          <button onclick="deleteFestmaterialItem('${escapeHtml(item.id)}')" style="background:#fee2e2; border:1px solid #fca5a5; color:#991b1b; padding:5px 9px; border-radius:6px; cursor:pointer; font-size:0.82rem;" title="Löschen">🗑️</button>
         </td>
       </tr>
     `;
@@ -5994,6 +6021,7 @@ function toggleFestStatus(id) {
   saveFestmaterialLocal();
   renderAdminFestmaterialTable();
   renderFestmaterial();
+  updateSummaryBar();
   showAdminToast(`Status für «${item.name}» aktualisiert`);
 }
 
@@ -6001,9 +6029,10 @@ function openAddFestmaterialModal() {
   editingFestItemId = null;
   document.getElementById("modalFestTitle").textContent = "➕ Neuer Festartikel";
   document.getElementById("formFestName").value = "";
-  document.getElementById("formFestCategory").value = "Mietmobiliar";
+  document.getElementById("formFestCategory").value = "Einweggeschirr";
   document.getElementById("formFestUnit").value = "";
-  document.getElementById("formFestPriceNotice").value = "Preis auf Anfrage / nach Vereinbarung";
+  document.getElementById("formFestPrice").value = "";
+  document.getElementById("formFestPriceNotice").value = "pro Pack";
   document.getElementById("formFestDisabled").checked = false;
   document.getElementById("adminFestEditOverlay").classList.add("open");
 }
@@ -6016,6 +6045,7 @@ function openEditFestmaterialModal(id) {
   document.getElementById("formFestName").value = item.name || "";
   document.getElementById("formFestCategory").value = item.category || "Mietmobiliar";
   document.getElementById("formFestUnit").value = item.unitDesc || "";
+  document.getElementById("formFestPrice").value = (item.price !== undefined && item.price !== null && item.price > 0) ? item.price : "";
   document.getElementById("formFestPriceNotice").value = item.priceNotice || "";
   document.getElementById("formFestDisabled").checked = !!item.disabled;
   document.getElementById("adminFestEditOverlay").classList.add("open");
@@ -6029,6 +6059,8 @@ function saveFestmaterialFromModal() {
   const name = document.getElementById("formFestName").value.trim();
   const category = document.getElementById("formFestCategory").value;
   const unitDesc = document.getElementById("formFestUnit").value.trim();
+  const priceRaw = parseFloat(document.getElementById("formFestPrice").value);
+  const price = !isNaN(priceRaw) && priceRaw >= 0 ? Math.round(priceRaw * 100) / 100 : 0;
   const priceNotice = document.getElementById("formFestPriceNotice").value.trim();
   const disabled = document.getElementById("formFestDisabled").checked;
 
@@ -6043,7 +6075,8 @@ function saveFestmaterialFromModal() {
       item.name = name;
       item.category = category;
       item.unitDesc = unitDesc;
-      item.priceNotice = priceNotice;
+      item.price = price;
+      item.priceNotice = priceNotice || (price > 0 ? "pro Pack" : "Preis auf Anfrage");
       item.disabled = disabled;
     }
   } else {
@@ -6053,7 +6086,8 @@ function saveFestmaterialFromModal() {
       name,
       category,
       unitDesc,
-      priceNotice: priceNotice || "Preise auf Anfrage",
+      price,
+      priceNotice: priceNotice || (price > 0 ? "pro Pack" : "Preise auf Anfrage"),
       disabled,
       sortOrder: festmaterialList.length + 1
     });
@@ -6063,6 +6097,7 @@ function saveFestmaterialFromModal() {
   closeFestEditModal();
   renderAdminFestmaterialTable();
   renderFestmaterial();
+  updateSummaryBar();
   showAdminToast(editingFestItemId ? "Artikel aktualisiert" : "Neuer Artikel hinzugefügt");
 }
 
@@ -6101,6 +6136,7 @@ async function saveFestmaterialToSupabase(showToast = false) {
       name: item.name,
       category: item.category,
       unit_desc: item.unitDesc || "",
+      price: item.price || 0,
       price_notice: item.priceNotice || "Preis auf Anfrage",
       disabled: !!item.disabled,
       sort_order: item.sortOrder || (idx + 1)
@@ -6139,6 +6175,7 @@ async function loadFestmaterialFromSupabase() {
       name: d.name,
       category: d.category,
       unitDesc: d.unit_desc,
+      price: d.price !== undefined && d.price !== null ? parseFloat(d.price) : 0,
       priceNotice: d.price_notice,
       disabled: !!d.disabled,
       sortOrder: d.sort_order
@@ -6146,6 +6183,7 @@ async function loadFestmaterialFromSupabase() {
 
     saveFestmaterialLocal();
     renderFestmaterial();
+    updateSummaryBar();
     return true;
   } catch (e) {
     console.warn("Error loading festmaterial from Supabase:", e);
@@ -6157,6 +6195,9 @@ function updateSummaryBar() {
   const selectedDrinks = getSelectedProducts();
   const totalDrinks = selectedDrinks.reduce((sum, s) => sum + s.total, 0);
   const selectedFest = getSelectedFestmaterial();
+  const totalFest = selectedFest.reduce((sum, f) => sum + ((f.item.price || 0) * f.qty), 0);
+  const hasUnpricedFest = selectedFest.some(f => !f.item.price || f.item.price === 0);
+  const combinedTotal = totalDrinks + totalFest;
   const totalItemsCount = selectedDrinks.length + selectedFest.length;
 
   let countText = totalItemsCount === 0 ? "0 Artikel ausgewählt" : totalItemsCount + " Positionen ausgewählt";
@@ -6173,12 +6214,12 @@ function updateSummaryBar() {
 
   const totalEl = document.getElementById("totalPrice");
   if (totalEl) {
-    if (selectedFest.length > 0 && selectedDrinks.length > 0) {
-      totalEl.innerHTML = `${money(totalDrinks)} <span style="font-size:0.75rem; font-weight:normal; opacity:0.85;">(+ Festbedarf auf Anfrage)</span>`;
-    } else if (selectedFest.length > 0) {
+    if (hasUnpricedFest && combinedTotal > 0) {
+      totalEl.innerHTML = `${money(combinedTotal)} <span style="font-size:0.75rem; font-weight:normal; opacity:0.85;">(+ Mobiliar auf Anfrage)</span>`;
+    } else if (hasUnpricedFest && combinedTotal === 0) {
       totalEl.innerHTML = `<span style="font-size:0.92rem; font-weight:700;">Preise auf Anfrage</span>`;
     } else {
-      totalEl.textContent = money(totalDrinks);
+      totalEl.textContent = money(combinedTotal);
     }
   }
 
@@ -6217,7 +6258,11 @@ function changeReviewFestQty(id, delta) {
 function openReview() {
   const selected = getSelectedProducts();
   const selectedFest = getSelectedFestmaterial();
-  const total = selected.reduce((sum, s) => sum + s.total, 0);
+  const totalDrinks = selected.reduce((sum, s) => sum + s.total, 0);
+  const totalFest = selectedFest.reduce((sum, f) => sum + ((f.item.price || 0) * f.qty), 0);
+  const hasUnpricedFest = selectedFest.some(f => !f.item.price || f.item.price === 0);
+  const combinedTotal = totalDrinks + totalFest;
+
   const list = document.getElementById("reviewList");
 
   if (selected.length === 0 && selectedFest.length === 0) {
@@ -6311,11 +6356,15 @@ function openReview() {
   if (selectedFest.length > 0) {
     let festRows = selectedFest.map(f => {
       const encId = encodeURIComponent(f.item.id);
+      const hasPrice = f.item.price && f.item.price > 0;
+      const rowTotal = hasPrice ? money(f.item.price * f.qty) : (f.item.priceNotice || "Auf Anfrage");
+      const unitPriceNote = hasPrice ? `${money(f.item.price)} / Stk.` : (f.item.priceNotice || "Auf Anfrage");
+
       return `
         <tr>
           <td>
             <strong>${escapeHtml(f.item.name)}</strong><br>
-            <span style="color:var(--text-muted);font-size:0.78rem">${escapeHtml(f.item.category)} • ${escapeHtml(f.item.unitDesc || "")}</span>
+            <span style="color:var(--text-muted);font-size:0.78rem">${escapeHtml(f.item.category)} • ${escapeHtml(f.item.unitDesc || "")} (${unitPriceNote})</span>
           </td>
           <td>
             <div class="review-qty-control">
@@ -6324,8 +6373,8 @@ function openReview() {
               <button class="review-qty-btn" onclick="changeReviewFestQty(decodeURIComponent('${encId}'), 1)">+</button>
             </div>
           </td>
-          <td style="font-weight:600; font-size:0.84rem; color:var(--green); text-align:right;">
-            ${escapeHtml(f.item.priceNotice || "Auf Anfrage")}
+          <td style="font-weight:700; font-size:0.86rem; color:var(--primary-dark); text-align:right;">
+            ${rowTotal}
           </td>
         </tr>
       `;
@@ -6341,7 +6390,7 @@ function openReview() {
             <tr>
               <th>Artikel</th>
               <th>Menge</th>
-              <th style="text-align:right;">Preishinweis</th>
+              <th style="text-align:right;">Total</th>
             </tr>
           </thead>
           <tbody>${festRows}</tbody>
@@ -6354,10 +6403,10 @@ function openReview() {
     ${drinksHtml}
     ${festHtml}
     <div class="sheet-total" style="margin-top:18px;">
-      <span>Getränketotal (unverbindlich):</span>
-      <span>${money(total)}</span>
+      <span>Gesamttotal (unverbindlich):</span>
+      <span>${money(combinedTotal)}</span>
     </div>
-    ${selectedFest.length > 0 ? '<div style="font-size:0.8rem; color:var(--text-muted); text-align:right; margin-top:4px;">* Festmobiliar & Geschirr: Verrechnung nach Absprache</div>' : ''}
+    ${hasUnpricedFest ? '<div style="font-size:0.8rem; color:var(--text-muted); text-align:right; margin-top:4px;">* Mietmobiliar (auf Anfrage) wird nach Absprache separat verrechnet</div>' : ''}
   `;
 
   document.getElementById("overlay").classList.add("open");
@@ -6393,7 +6442,11 @@ function downloadPdf() {
 
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
-  const total = selected.reduce((sum, s) => sum + s.total, 0);
+  const totalDrinks = selected.reduce((sum, s) => sum + s.total, 0);
+  const totalFest = selectedFest.reduce((sum, f) => sum + ((f.item.price || 0) * f.qty), 0);
+  const hasUnpricedFest = selectedFest.some(f => !f.item.price || f.item.price === 0);
+  const combinedTotal = totalDrinks + totalFest;
+
   const ref = makeReference();
   const name = document.getElementById("custName") ? document.getElementById("custName").value.trim() : "";
   const phone = document.getElementById("custPhone") ? document.getElementById("custPhone").value.trim() : "";
@@ -6526,13 +6579,19 @@ function downloadPdf() {
 
     doc.autoTable({
       startY: finalY + 3,
-      head: [["Bereich", "Artikel", "Menge / Gebinde", "Preishinweis"]],
-      body: selectedFest.map(f => [
-        f.item.category,
-        f.item.name,
-        `${f.qty}× (${f.item.unitDesc || "Stück"})`,
-        f.item.priceNotice || "Preis auf Anfrage"
-      ]),
+      head: [["Bereich", "Artikel", "Menge / Gebinde", "Einzelpreis", "Total"]],
+      body: selectedFest.map(f => {
+        const hasPrice = f.item.price && f.item.price > 0;
+        const rowTotal = hasPrice ? "CHF " + (f.item.price * f.qty).toFixed(2) : "Auf Anfrage";
+        const unitPrice = hasPrice ? "CHF " + f.item.price.toFixed(2) : (f.item.priceNotice || "Auf Anfrage");
+        return [
+          f.item.category,
+          f.item.name,
+          `${f.qty}× (${f.item.unitDesc || "Stk."})`,
+          unitPrice,
+          rowTotal
+        ];
+      }),
       styles: { fontSize: 8.5, font: "helvetica" },
       headStyles: { fillColor: [61, 125, 30], textColor: [255, 255, 255], fontStyle: "bold" },
       alternateRowStyles: { fillColor: [247, 249, 245] },
@@ -6546,16 +6605,14 @@ function downloadPdf() {
   doc.setFontSize(11);
   doc.setTextColor(31, 58, 46);
 
-  if (selected.length > 0) {
-    doc.text("Gesamttotal Getränke (unverbindlich): CHF " + total.toFixed(2), 14, finalY);
-    finalY += 6;
-  }
+  doc.text("Gesamttotal Zusammenstellung (unverbindlich): CHF " + combinedTotal.toFixed(2), 14, finalY);
+  finalY += 6;
 
-  if (selectedFest.length > 0) {
+  if (hasUnpricedFest) {
     doc.setFont("helvetica", "normal");
     doc.setFontSize(8.5);
     doc.setTextColor(92, 101, 97);
-    doc.text("• Festmobiliar & Einweggeschirr: Verrechnung nach Aufwand & Vereinbarung.", 14, finalY);
+    doc.text("• Mietmobiliar (auf Anfrage) wird nach Aufwand & Absprache separat verrechnet.", 14, finalY);
     finalY += 5;
   }
 
@@ -6577,6 +6634,7 @@ function downloadPdf() {
 
   doc.save("landi-event-zusammenstellung-" + ref + ".pdf");
 }
+
 
 
 function toggleCartDrawer() {
