@@ -3583,6 +3583,48 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
   </div>
 </div>
 
+
+<!-- ORDER VIEW MODAL -->
+<div class="overlay" id="adminOrderViewOverlay" onclick="if(event.target.id==='adminOrderViewOverlay') closeAdminOrderViewModal()" style="z-index: 3000;">
+  <div class="sheet" style="max-width: 700px; max-height: 90vh; display: flex; flex-direction: column; background: white;">
+    <div class="sheet-head">
+      <div>
+        <h2 id="viewModalTitle" style="margin:0; font-size:1.35rem; color:var(--primary);">Bestellung: #000000</h2>
+      </div>
+      <button class="sheet-close" onclick="closeAdminOrderViewModal()">✕</button>
+    </div>
+    <div class="sheet-body" style="overflow-y:auto; padding:15px;">
+      <p style="margin-bottom: 15px; color: #475569; font-size: 14px;">Übersicht der bestellten Artikel und Mengen.</p>
+      
+      <div class="table-responsive">
+        <table class="admin-fest-table" id="adminOrderViewTable">
+          <thead>
+            <tr>
+              <th>Artikel</th>
+              <th>Menge (Qty)</th>
+              <th>Preis/EH</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody id="adminOrderViewTbody">
+            <!-- Dynamisch generiert -->
+          </tbody>
+        </table>
+      </div>
+      
+      <div style="margin-top: 20px; padding: 15px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px;">
+        <div style="display: flex; justify-content: space-between; font-size: 18px; color: #10B981;">
+          <strong>Gesamtbetrag:</strong>
+          <strong id="viewTotalAmount">CHF 0.00</strong>
+        </div>
+      </div>
+    </div>
+    <div style="padding:15px; border-top:1px solid #eee; display:flex; gap:10px; justify-content:flex-end;">
+      <button class="secondary" onclick="closeAdminOrderViewModal()">Schliessen</button>
+    </div>
+  </div>
+</div>
+
 <!-- RETOUREN / RÜCKNAHME MODAL -->
 <div class="overlay" id="adminReturnOverlay" onclick="if(event.target.id==='adminReturnOverlay') closeAdminReturnModal()" style="z-index: 3000;">
   <div class="sheet" style="max-width: 700px; max-height: 90vh; display: flex; flex-direction: column; background: white;">
@@ -8338,12 +8380,45 @@ function renderOrdersTable() {
         <td>CHF ${parseFloat(order.total_amount).toFixed(2)}</td>
         <td>${statusBadge}</td>
         <td style="text-align: right;">
+          <button class="admin-fest-status-btn" onclick="viewOrderDetails(${order.id})" title="Details anzeigen" style="margin-right: 5px;">👁️ Öffnen</button>
           <button class="admin-fest-status-btn" onclick="openReturnModal(${order.id})" title="Retoure verbuchen" ${order.status === 'abgeschlossen' ? 'disabled' : ''}>🔙 Retoure</button>
           <button class="admin-fest-status-btn" style="color: #EF4444; border-color: #EF4444;" onclick="deleteOrder(${order.id})" title="Löschen">🗑️</button>
         </td>
       `;
       tbody.appendChild(tr);
   });
+}
+
+
+function viewOrderDetails(id) {
+  const order = currentOrders.find(o => o.id === id);
+  if (!order) return;
+  
+  const refFormatted = order.ref_nr || String(order.id).padStart(6, '0');
+  document.getElementById("viewModalTitle").innerText = `Bestellung: #${refFormatted}`;
+  
+  const tbody = document.getElementById("adminOrderViewTbody");
+  tbody.innerHTML = "";
+  
+  (order.items || []).forEach(item => {
+      const rowTotal = item.qty * parseFloat(item.unit_price);
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${item.name}</td>
+        <td>${item.qty}x</td>
+        <td>CHF ${parseFloat(item.unit_price).toFixed(2)}</td>
+        <td><strong>CHF ${rowTotal.toFixed(2)}</strong></td>
+      `;
+      tbody.appendChild(tr);
+  });
+  
+  document.getElementById("viewTotalAmount").innerText = `CHF ${parseFloat(order.total_amount).toFixed(2)}`;
+  
+  document.getElementById("adminOrderViewOverlay").classList.add("open");
+}
+
+function closeAdminOrderViewModal() {
+  document.getElementById("adminOrderViewOverlay").classList.remove("open");
 }
 
 function openReturnModal(id) {
