@@ -6051,7 +6051,7 @@ function applyCalculatorStandardProducts() {
   }
 }
 
-// Option 2: Bedarfs-Tracker aktivieren
+// Option 2: Bedarfs-Tracker aktivieren ("Selbst zusammenstellen mit Fortschrittsbalken")
 function activateTrackerMode(shouldScroll) {
   calcHasUserSelected = true;
   calcTrackerActive = true;
@@ -6059,6 +6059,7 @@ function activateTrackerMode(shouldScroll) {
   const panel = document.getElementById("calcTrackerPanel");
   if (panel) panel.style.display = "block";
   updateCalculatorTracker();
+  checkStickyTrackerVisibility();
 
   if (shouldScroll) {
     showCalculatorToast("Bedarfs-Tracker aktiv: Wähle jetzt unten deine Produkte!");
@@ -6075,6 +6076,7 @@ function deactivateTrackerMode() {
   calcTrackerActive = false;
   const panel = document.getElementById("calcTrackerPanel");
   if (panel) panel.style.display = "none";
+  checkStickyTrackerVisibility();
 }
 
 function toggleDrinkCalculator(forceState) {
@@ -6148,6 +6150,12 @@ function checkStickyTrackerVisibility() {
   const bar = document.getElementById("stickyFestbedarfBar");
   const calcSec = document.getElementById("drinkCalculatorSection");
   if (!bar || !calcSec) return;
+
+  // Der Tracker soll erst angezeigt werden, wenn man auf "Selbst zusammenstellen" geklickt hat!
+  if (!calcTrackerActive) {
+    bar.classList.remove("visible");
+    return;
+  }
 
   // Im reinen Admin-Dashboard niemals den Festbedarf-Tracker einblenden
   if (typeof isEditPricesMode !== "undefined" && isEditPricesMode && !isCustomerPreviewMode) {
