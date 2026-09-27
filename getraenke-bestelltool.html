@@ -1423,12 +1423,49 @@
     padding: 24px;
     margin: 32px 0 24px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    transition: padding 0.2s ease;
+  }
+  .festmaterial-section.is-collapsed {
+    padding: 18px 24px;
   }
   .festmaterial-header {
     margin-bottom: 20px;
     border-bottom: 1px solid var(--border-light);
     padding-bottom: 16px;
+    transition: all 0.2s ease;
   }
+  .festmaterial-section.is-collapsed .festmaterial-header {
+    margin-bottom: 0;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  .fest-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 14px;
+    background: #ffffff;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    font-size: 0.86rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .fest-toggle-btn:hover {
+    border-color: var(--green);
+    background: var(--green-light);
+    color: var(--green);
+  }
+  .fest-toggle-btn .chevron-icon {
+    transition: transform 0.2s ease;
+    display: inline-flex;
+  }
+  .festmaterial-section:not(.is-collapsed) .fest-toggle-btn .chevron-icon {
+    transform: rotate(180deg);
+  }
+
   .festmaterial-badge {
     display: inline-flex;
     align-items: center;
@@ -3140,19 +3177,41 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
 
 <div id="categories"></div>
 
-  <!-- NEUE SEKTION: FESTMOBILIAR & EINWEGGESCHIRR -->
-  <section class="festmaterial-section" id="festmaterialSection">
-    <div class="festmaterial-header">
-      <div class="festmaterial-title-group">
-        <span class="festmaterial-badge">🎪 Festbetrieb & Eventbedarf</span>
-        <h2 style="font-size:1.45rem; font-weight:700; margin:6px 0 4px; color:var(--text);">Festmobiliar & Einweggeschirr</h2>
-        <p style="font-size:0.92rem; color:var(--text-muted); margin:0;">Mieten Sie Mobiliar für Ihren Anlass oder bestellen Sie passenden Festbedarf direkt mit.</p>
+  <!-- NEUE SEKTION: FESTMOBILIAR & EINWEGGESCHIRR (Einklappbar) -->
+  <section class="festmaterial-section is-collapsed" id="festmaterialSection">
+    <div class="festmaterial-header" onclick="toggleFestmaterialSection()" style="cursor:pointer; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+      <div class="festmaterial-title-group" style="flex:1; min-width:260px;">
+        <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+          <span class="festmaterial-badge">🎪 Festbetrieb & Eventbedarf</span>
+          <span id="festCollapsedBadge" style="font-size:0.78rem; font-weight:700; background:#edf5e8; color:#3d7d1e; border:1px solid #d4e7cb; padding:2px 8px; border-radius:12px;">Optional</span>
+        </div>
+        <h2 style="font-size:1.35rem; font-weight:700; margin:4px 0 2px; color:var(--text);">Festmobiliar & Einweggeschirr</h2>
+        <p style="font-size:0.88rem; color:var(--text-muted); margin:0;">Mieten Sie Mobiliar für Ihren Anlass oder bestellen Sie passenden Festbedarf direkt mit.</p>
+      </div>
+
+      <div class="festmaterial-header-right" onclick="event.stopPropagation()">
+        <button type="button" class="fest-toggle-btn" id="festToggleBtn" onclick="toggleFestmaterialSection()">
+          <span id="festToggleBtnText">Aufklappen</span>
+          <span class="chevron-icon">
+            <svg class="icon-svg" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </span>
+        </button>
       </div>
     </div>
 
-    <!-- Container für dynamische Festmaterial-Gruppen -->
-    <div id="festmaterialContainer" class="festmaterial-groups-grid">
-      <!-- Wird dynamisch durch renderFestmaterial() befüllt -->
+    <!-- Einklappbarer Inhalt -->
+    <div id="festmaterialCollapsibleBody" style="display:none; margin-top:20px;">
+      <!-- Container für dynamische Festmaterial-Gruppen -->
+      <div id="festmaterialContainer" class="festmaterial-groups-grid">
+        <!-- Wird dynamisch durch renderFestmaterial() befüllt -->
+      </div>
+
+      <!-- Zuklapp-Leiste unten -->
+      <div style="margin-top:16px; text-align:center; padding-top:12px; border-top:1px dashed var(--border);">
+        <button type="button" class="calc-collapse-footer-btn" onclick="toggleFestmaterialSection(false)">
+          <svg class="icon-svg" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg> Festmaterial einklappen
+        </button>
+      </div>
     </div>
   </section>
 
@@ -5742,6 +5801,8 @@ function renderFestmaterial() {
       </div>
     `;
   }).join("");
+
+  updateFestCollapsedBadge();
 }
 
 function changeFestQty(id, delta) {
@@ -5787,6 +5848,54 @@ function getSelectedFestmaterial() {
   });
   return result;
 }
+
+let isFestmaterialCollapsed = true;
+
+function toggleFestmaterialSection(forceState) {
+  const section = document.getElementById("festmaterialSection");
+  const body = document.getElementById("festmaterialCollapsibleBody");
+  const btnText = document.getElementById("festToggleBtnText");
+  if (!section || !body) return;
+
+  if (typeof forceState === "boolean") {
+    isFestmaterialCollapsed = !forceState;
+  } else {
+    isFestmaterialCollapsed = !isFestmaterialCollapsed;
+  }
+
+  if (isFestmaterialCollapsed) {
+    section.classList.add("is-collapsed");
+    body.style.display = "none";
+    if (btnText) btnText.textContent = "Aufklappen";
+  } else {
+    section.classList.remove("is-collapsed");
+    body.style.display = "block";
+    if (btnText) btnText.textContent = "Einklappen";
+  }
+  updateFestCollapsedBadge();
+}
+
+function updateFestCollapsedBadge() {
+  const badge = document.getElementById("festCollapsedBadge");
+  if (!badge) return;
+  const selectedFest = getSelectedFestmaterial();
+  const totalQty = selectedFest.reduce((sum, f) => sum + f.qty, 0);
+
+  if (totalQty > 0) {
+    badge.textContent = `${totalQty} Festartikel gewählt`;
+    badge.style.display = "inline-flex";
+    badge.style.background = "#edf5e8";
+    badge.style.color = "#3d7d1e";
+    badge.style.borderColor = "#d4e7cb";
+  } else {
+    badge.textContent = "Optional";
+    badge.style.display = isFestmaterialCollapsed ? "inline-flex" : "none";
+    badge.style.background = "#f1f5f9";
+    badge.style.color = "#64748b";
+    badge.style.borderColor = "#e2e8f0";
+  }
+}
+
 
 function toggleLogisticsType(type) {
   const cardPickup = document.getElementById("logisticsCardPickup");
@@ -6079,6 +6188,7 @@ function updateSummaryBar() {
   }
 
   updateFloatingCartBtn();
+  updateFestCollapsedBadge();
   if (typeof updateCalculatorTracker === "function") {
     updateCalculatorTracker();
   }
