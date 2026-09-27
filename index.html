@@ -3715,23 +3715,23 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
 <div class="overlay" id="adminOverlay" onclick="handleAdminOverlayClick(event)">
   <div class="sheet" style="max-width: 440px;">
     <div class="sheet-head">
-      <h2>🔐 Admin Login (Supabase)</h2>
+      <h2>🔐 Admin Login</h2>
       <button class="sheet-close" onclick="closeAdminModal()">✕</button>
     </div>
     <form onsubmit="event.preventDefault(); loginAdmin();">
       <div style="margin-bottom: 16px; font-size: 0.9rem; color: var(--text-muted); line-height: 1.5;">
-        Melde dich mit deinem Supabase Admin-Account an, um Preise und Sortiment direkt in der Datenbank zu verwalten.
+        Gib das Admin-Passwort ein, um Preise, Sortiment und Festmaterial direkt zu bearbeiten und zu synchronisieren.
       </div>
-      <div style="margin-bottom: 14px;">
-        <label style="display:block; font-size:0.82rem; font-weight:600; color:var(--text-muted); margin-bottom:6px;" for="adminEmailInput">Admin E-Mail:</label>
-        <input type="email" id="adminEmailInput" placeholder="admin@domain.ch" style="width:100%; padding:12px 14px; border-radius:var(--radius-sm); border:1px solid var(--border); font-size:0.95rem;">
+      <div style="margin-bottom: 16px;">
+        <label style="display:block; font-size:0.82rem; font-weight:600; color:var(--text-muted); margin-bottom:6px;" for="adminPasswordInput">Admin-Passwort *</label>
+        <input type="password" id="adminPasswordInput" placeholder="Admin-Passwort eingeben…" autofocus style="width:100%; padding:12px 14px; border-radius:var(--radius-sm); border:1px solid var(--border); font-size:0.95rem;">
       </div>
       <div style="margin-bottom: 18px;">
-        <label style="display:block; font-size:0.82rem; font-weight:600; color:var(--text-muted); margin-bottom:6px;" for="adminPasswordInput">Passwort:</label>
-        <input type="password" id="adminPasswordInput" placeholder="Passwort eingeben…" style="width:100%; padding:12px 14px; border-radius:var(--radius-sm); border:1px solid var(--border); font-size:0.95rem;">
+        <label style="display:block; font-size:0.82rem; font-weight:600; color:var(--text-muted); margin-bottom:6px;" for="adminEmailInput">Admin E-Mail (optional für Supabase Auth):</label>
+        <input type="email" id="adminEmailInput" placeholder="z. B. admin@landi.ch" style="width:100%; padding:10px 12px; border-radius:var(--radius-sm); border:1px solid var(--border); font-size:0.88rem;">
       </div>
       <div style="font-size:0.8rem; color:var(--text-subtle); margin-bottom:20px; display:flex; justify-content:space-between; align-items:center;">
-        <span>⚡ Direkt mit Supabase verbunden</span>
+        <span>⚡ Passwortgeschützter Admin-Zugang</span>
       </div>
       <div class="sheet-actions">
         <button type="button" class="secondary" onclick="closeAdminModal()">Abbrechen</button>
@@ -3919,9 +3919,19 @@ function escapeHtml(str) {
     .replace(/'/g, "&#39;");
 }
 
+const ADMIN_PASSWORD = "Landiwasserschlossadmin26";
+
 let isEditPricesMode = false;
 let isAdminAuthenticated = false;
 let currentAdminEmail = "";
+
+// Lokale Admin-Sitzung wiederherstellen
+try {
+  if (localStorage.getItem("landi_admin_session") === "true") {
+    isAdminAuthenticated = true;
+    currentAdminEmail = "Admin";
+  }
+} catch (e) {}
 
 function getBaseUrl() {
   let p = window.location.pathname || "/";
@@ -3999,8 +4009,7 @@ if (supabaseClient) {
     if (session && session.user) {
       isAdminAuthenticated = true;
       currentAdminEmail = session.user.email || "Admin";
-      console.log("Supabase Auth aktiv:", currentAdminEmail);
-      // Nur wenn die URL explizit /admin oder #admin verlangt, den Bearbeitungsmodus aktivieren
+      try { localStorage.setItem("landi_admin_session", "true"); } catch (e) {}
       if (isAdminUrlRequested()) {
         toggleEditPricesMode(true);
         setAdminUrl();
@@ -4010,12 +4019,22 @@ if (supabaseClient) {
         if (b) { b.setAttribute("hidden", ""); b.classList.remove("active"); b.style.setProperty("display", "none", "important"); }
       }
     } else {
-      isAdminAuthenticated = false;
-      currentAdminEmail = "";
-      if (isAdminUrlRequested()) {
-        openAdminModal();
+      // Falls eine lokale Admin-Sitzung per Passwort hinterlegt ist, diese beibehalten!
+      const hasLocalSession = localStorage.getItem("landi_admin_session") === "true";
+      if (!hasLocalSession) {
+        isAdminAuthenticated = false;
+        currentAdminEmail = "";
+        if (isAdminUrlRequested()) {
+          openAdminModal();
+        } else {
+          setNormalUrl();
+        }
       } else {
-        setNormalUrl();
+        isAdminAuthenticated = true;
+        if (isAdminUrlRequested()) {
+          toggleEditPricesMode(true);
+          setAdminUrl();
+        }
       }
     }
     updateAdminHeaderBtn();
@@ -4025,7 +4044,7 @@ if (supabaseClient) {
     if (session && session.user) {
       isAdminAuthenticated = true;
       currentAdminEmail = session.user.email || "Admin";
-      // Nur bei explizitem Login-Vorgang oder auf /admin-URL den Bearbeitungsmodus aktivieren
+      try { localStorage.setItem("landi_admin_session", "true"); } catch (e) {}
       if (event === "SIGNED_IN" || isAdminUrlRequested()) {
         toggleEditPricesMode(true);
         setAdminUrl();
@@ -4034,13 +4053,16 @@ if (supabaseClient) {
         const b = document.getElementById("editBanner");
         if (b) { b.setAttribute("hidden", ""); b.classList.remove("active"); b.style.setProperty("display", "none", "important"); }
       }
-    } else {
-      isAdminAuthenticated = false;
-      currentAdminEmail = "";
-      isEditPricesMode = false;
-      const b = document.getElementById("editBanner");
-      if (b) { b.setAttribute("hidden", ""); b.classList.remove("active"); b.style.setProperty("display", "none", "important"); }
-      setNormalUrl();
+    } else if (event === "SIGNED_OUT") {
+      const hasLocalSession = localStorage.getItem("landi_admin_session") === "true";
+      if (!hasLocalSession) {
+        isAdminAuthenticated = false;
+        currentAdminEmail = "";
+        isEditPricesMode = false;
+        const b = document.getElementById("editBanner");
+        if (b) { b.setAttribute("hidden", ""); b.classList.remove("active"); b.style.setProperty("display", "none", "important"); }
+        setNormalUrl();
+      }
     }
     updateAdminHeaderBtn();
     renderProducts();
@@ -4099,8 +4121,8 @@ function openAdminModal() {
   if (pwdInput) pwdInput.value = "";
   document.getElementById("adminOverlay").classList.add("open");
   setTimeout(() => {
-    if (emailInput && !emailInput.value) emailInput.focus();
-    else if (pwdInput) pwdInput.focus();
+    if (pwdInput) pwdInput.focus();
+    else if (emailInput) emailInput.focus();
   }, 100);
 }
 
@@ -4117,61 +4139,79 @@ function handleAdminOverlayClick(e) {
 }
 
 async function loginAdmin() {
-  const emailInput = document.getElementById("adminEmailInput");
   const pwdInput = document.getElementById("adminPasswordInput");
+  const emailInput = document.getElementById("adminEmailInput");
+  const pwd = pwdInput ? pwdInput.value.trim() : "";
   const email = emailInput ? emailInput.value.trim() : "";
-  const pwd = pwdInput ? pwdInput.value : "";
 
-  if (!email || !pwd) {
-    alert("Bitte gib deine Admin E-Mail-Adresse und dein Passwort ein.");
-    return;
-  }
-
-  if (!supabaseClient) {
-    alert("❌ Supabase ist nicht konfiguriert oder nicht erreichbar.");
+  if (!pwd) {
+    alert("Bitte gib das Admin-Passwort ein.");
+    if (pwdInput) pwdInput.focus();
     return;
   }
 
   const submitBtn = document.getElementById("adminLoginSubmitBtn");
   const origBtnText = submitBtn ? submitBtn.textContent : "Anmelden";
 
-  if (submitBtn) {
-    submitBtn.disabled = true;
-    submitBtn.textContent = "⏳ Anmelden...";
+  // 1. Master-Passwort Prüfung (direkter, sicherer Zugang für Timo)
+  if (pwd === ADMIN_PASSWORD) {
+    isAdminAuthenticated = true;
+    currentAdminEmail = email || "Admin";
+    try { localStorage.setItem("landi_admin_session", "true"); } catch (e) {}
+    if (pwdInput) pwdInput.value = "";
+    closeAdminModal();
+    toggleEditPricesMode(true);
+    setAdminUrl();
+    showAdminToast("Willkommen Admin!", "Bearbeitungsmodus aktiv");
+    return;
   }
 
-  try {
-    const { data, error } = await supabaseClient.auth.signInWithPassword({
-      email: email,
-      password: pwd
-    });
-
-    if (error) {
-      alert("❌ Supabase-Anmeldung fehlgeschlagen:\n" + (error.message || "Ungültige Anmeldedaten."));
-      return;
-    }
-
-    if (data && data.session) {
-      isAdminAuthenticated = true;
-      currentAdminEmail = email;
-      if (pwdInput) pwdInput.value = "";
-      closeAdminModal();
-      toggleEditPricesMode(true);
-      setAdminUrl();
-      showAdminToast(`${email} wurde angemeldet`, "", false);
-    }
-  } catch (e) {
-    console.error("Supabase Login Error:", e);
-    alert("❌ Ein unerwarteter Fehler ist aufgetreten: " + (e.message || e));
-  } finally {
+  // 2. Supabase Auth Versuch, falls E-Mail angegeben ist
+  if (supabaseClient && email) {
     if (submitBtn) {
-      submitBtn.disabled = false;
-      submitBtn.textContent = origBtnText;
+      submitBtn.disabled = true;
+      submitBtn.textContent = "⏳ Anmelden...";
+    }
+    try {
+      const { data, error } = await supabaseClient.auth.signInWithPassword({
+        email: email,
+        password: pwd
+      });
+
+      if (!error && data && data.session) {
+        isAdminAuthenticated = true;
+        currentAdminEmail = email;
+        try { localStorage.setItem("landi_admin_session", "true"); } catch (e) {}
+        if (pwdInput) pwdInput.value = "";
+        closeAdminModal();
+        toggleEditPricesMode(true);
+        setAdminUrl();
+        showAdminToast(`${email} angemeldet`, "", false);
+        return;
+      }
+    } catch (e) {
+      console.warn("Supabase Auth Fehler:", e);
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = origBtnText;
+      }
     }
   }
+
+  alert("❌ Falsches Admin-Passwort! Bitte überprüfe deine Eingabe.");
+  if (pwdInput) pwdInput.select();
 }
 
 async function logoutAdmin() {
+  isAdminAuthenticated = false;
+  currentAdminEmail = "";
+  try {
+    localStorage.removeItem("landi_admin_session");
+  } catch (e) {}
+  if (supabaseClient) {
+    try { await supabaseClient.auth.signOut(); } catch (e) {}
+  }
   await exitEditPricesMode();
 }
 
@@ -6260,18 +6300,12 @@ async function saveFestmaterialToSupabase(showToast = false) {
     return;
   }
 
-  // Supabase Auth Session prüfen (wegen RLS)
-  try {
-    const { data: { session } } = await supabaseClient.auth.getSession();
-    if (!session || !session.user) {
-      if (showToast) {
-        alert("🔒 Bitte melde dich zuerst als Admin mit deinem Supabase-Account an, um Änderungen in Supabase zu speichern.");
-        openAdminModal();
-      }
-      return;
+  if (!isAdminAuthenticated) {
+    if (showToast) {
+      alert("🔒 Bitte melde dich zuerst als Admin mit dem Admin-Passwort an, um in Supabase zu speichern.");
+      openAdminModal();
     }
-  } catch (e) {
-    console.warn("Auth check error:", e);
+    return;
   }
 
   try {
