@@ -1037,7 +1037,7 @@
     font-weight: 600;
   }
   .prog-done .prog-label-right::after {
-    content: ' <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+    content: ' ✓';
   }
 
   /* =========================================================================
@@ -2516,7 +2516,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
           <svg class="moon-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
           <span id="themeToggleLabel">Design</span>
         </button>
-        <button id="editPricesBtn" onclick="toggleEditPricesMode()" style="display:none; background:rgba(255,255,255,0.14); color:white; border:1px solid rgba(255,255,255,0.28); border-radius:20px; padding:5px 14px; font-size:0.78rem; font-weight:600; cursor:pointer; transition:all 0.15s ease;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> Admin</button>
+        <button id="editPricesBtn" onclick="toggleEditPricesMode()" style="display:none; background:rgba(255,255,255,0.14); color:white; border:1px solid rgba(255,255,255,0.28); border-radius:20px; padding:5px 14px; font-size:0.78rem; font-weight:600; cursor:pointer; transition:all 0.15s ease;">🔐 Admin</button>
       </div>
     </div>
     
@@ -2641,7 +2641,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
           <span id="adminCurrentEmailBadge">admin@landi.ch</span>
         </div>
         <button type="button" class="admin-header-btn btn-preview" onclick="switchToCustomerPreview()">
-          <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></span> Kundenansicht
+          <span>👁️</span> Kundenansicht
         </button>
         <button type="button" class="admin-header-btn btn-logout" onclick="logoutAdmin()">
           <span>🚪</span> Abmelden
@@ -2735,7 +2735,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
       <!-- Card 3: Supabase Speichern -->
       <div class="admin-action-card" onclick="savePricesToSupabase()">
         <div class="action-card-header">
-          <div class="action-icon-wrap icon-blue"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path></svg></div>
+          <div class="action-icon-wrap icon-blue">☁️</div>
           <span class="card-badge-sync">Cloud</span>
         </div>
         <div class="action-card-body">
@@ -2803,7 +2803,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
       <!-- Card 7: Kundenansicht -->
       <div class="admin-action-card" onclick="switchToCustomerPreview()">
         <div class="action-card-header">
-          <div class="action-icon-wrap icon-teal"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></div>
+          <div class="action-icon-wrap icon-teal">👁️</div>
           <span class="card-badge-sync">Vorschau</span>
         </div>
         <div class="action-card-body">
@@ -2843,7 +2843,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
     </div>
     <div style="display:flex; gap:8px;">
       <button type="button" class="preview-banner-btn" onclick="switchToAdminDashboard()">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg> Zurück zum Admin Dashboard
+        ⬅️ Zurück zum Admin Dashboard
       </button>
       <button type="button" onclick="logoutAdmin()" style="background:transparent; color:#854d0e; border:1px solid #fef08a; padding:8px 14px; border-radius:10px; font-weight:600; font-size:0.84rem; cursor:pointer;">
         Abmelden
@@ -3257,7 +3257,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
         <label class="logistics-card" id="logisticsCardDelivery" onclick="toggleLogisticsType('delivery')">
           <input type="radio" name="logisticsType" id="radioLogisticsDelivery" value="delivery" style="display:none;">
           <div class="logistics-card-head">
-            <span class="logistics-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg></span>
+            <span class="logistics-icon">🚚</span>
             <div class="logistics-card-title-group">
               <span class="logistics-card-title">Lieferung durch die LANDI</span>
               <span class="logistics-card-sub">Bequem direkt zum Festort / Abladeort</span>
@@ -3316,7 +3316,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
 
         <!-- Fester Infokasten für den Kunden -->
         <div class="logistics-info-banner">
-          <div class="logistics-info-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg></div>
+          <div class="logistics-info-icon">ℹ️</div>
           <div class="logistics-info-text">
             <strong>Hinweis zur Lieferung:</strong> Lieferpauschale ab CHF 69.– (pro Palette / nach Aufwand). Gewünschte Liefertermine und Materialverfügbarkeit werden von unserer Filiale geprüft und anschliessend persönlich bestätigt.
           </div>
@@ -3339,7 +3339,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
     </div>
     <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
       <button class="reset-bottom-btn" onclick="confirmResetAll()" title="Auswahl zurücksetzen">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg> Zurücksetzen
+        🗑️ Zurücksetzen
       </button>
       <button id="reviewBtn" onclick="openReview()" disabled>
         Zusammenstellung ansehen (PDF)
@@ -3363,7 +3363,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
       Wählen Sie Ihre Produkte und Mengen aus und erstellen Sie daraus ein PDF, das Sie ausgedruckt direkt in der Filiale abgeben oder uns per E-Mail zusenden können.
     </p>
     <button class="primary" onclick="closeInfoModal()" style="width: 100%; padding: 12px 20px; border-radius: 12px; font-weight: 700; font-size: 0.95rem; cursor: pointer;">
-      Verstanden, los geht's! <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-left: 4px;"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+      Verstanden, los geht's! 🛒
     </button>
   </div>
 </div>
@@ -3410,8 +3410,8 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
       </div>
 
       <div style="display:flex; gap:8px;">
-        <button onclick="openAddFestmaterialModal()" style="background:#10B981; color:white; border:none; padding:8px 14px; border-radius:8px; font-weight:bold; font-size:0.86rem; cursor:pointer;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg> Neuer Festartikel</button>
-        <button onclick="saveFestmaterialToSupabase(true)" style="background:#0284C7; color:white; border:none; padding:8px 14px; border-radius:8px; font-weight:bold; font-size:0.86rem; cursor:pointer;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path></svg> In Supabase speichern</button>
+        <button onclick="openAddFestmaterialModal()" style="background:#10B981; color:white; border:none; padding:8px 14px; border-radius:8px; font-weight:bold; font-size:0.86rem; cursor:pointer;">➕ Neuer Festartikel</button>
+        <button onclick="saveFestmaterialToSupabase(true)" style="background:#0284C7; color:white; border:none; padding:8px 14px; border-radius:8px; font-weight:bold; font-size:0.86rem; cursor:pointer;">☁️ In Supabase speichern</button>
       </div>
     </div>
 
@@ -3443,7 +3443,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
 <div class="overlay" id="adminFestEditOverlay" onclick="if(event.target.id==='adminFestEditOverlay') closeFestEditModal()">
   <div class="sheet" style="max-width: 520px;">
     <div class="sheet-head">
-      <h2 id="modalFestTitle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg> Festartikel bearbeiten</h2>
+      <h2 id="modalFestTitle">✏️ Festartikel bearbeiten</h2>
       <button class="sheet-close" onclick="closeFestEditModal()">✕</button>
     </div>
     
@@ -3483,7 +3483,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
 
       <div style="grid-column: span 2; margin-top:6px;">
         <label style="font-size:0.85rem; font-weight:600; color:#9B1C1C; cursor:pointer; display:flex; align-items:center; gap:6px;">
-          <input type="checkbox" id="formFestDisabled"> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> Deaktiviert (für Kunden ausblenden)
+          <input type="checkbox" id="formFestDisabled"> ⚠️ Deaktiviert (für Kunden ausblenden)
         </label>
       </div>
     </div>
@@ -3522,15 +3522,15 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
           <option value="all">Alle Status</option>
           <option value="active">Nur Aktive (Sichtbar)</option>
           <option value="disabled">Nur Deaktivierte (Versteckt)</option>
-          <option value="eigenmarke">Nur Eigenmarken <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg></option>
+          <option value="eigenmarke">Nur Eigenmarken 🏷️</option>
           <option value="top">Nur Top-Angebote ⭐</option>
         </select>
       </div>
 
       <div style="display:flex; gap:8px;">
         <button onclick="downloadSortimentCsv()" style="background:#059669; color:white; border:none; padding:8px 14px; border-radius:8px; font-weight:bold; font-size:0.86rem; cursor:pointer;">📥 CSV herunterladen</button>
-        <button onclick="openAddProductModal()" style="background:#10B981; color:white; border:none; padding:8px 14px; border-radius:8px; font-weight:bold; font-size:0.86rem; cursor:pointer;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg> Neues Produkt</button>
-        <button onclick="savePricesToSupabase()" style="background:#0284C7; color:white; border:none; padding:8px 14px; border-radius:8px; font-weight:bold; font-size:0.86rem; cursor:pointer;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path></svg> In Supabase speichern</button>
+        <button onclick="openAddProductModal()" style="background:#10B981; color:white; border:none; padding:8px 14px; border-radius:8px; font-weight:bold; font-size:0.86rem; cursor:pointer;">➕ Neues Produkt</button>
+        <button onclick="savePricesToSupabase()" style="background:#0284C7; color:white; border:none; padding:8px 14px; border-radius:8px; font-weight:bold; font-size:0.86rem; cursor:pointer;">☁️ In Supabase speichern</button>
       </div>
     </div>
 
@@ -3561,7 +3561,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
 <div class="overlay" id="adminProductEditOverlay" onclick="if(event.target.id==='adminProductEditOverlay') closeProductEditModal()">
   <div class="sheet" style="max-width: 550px;">
     <div class="sheet-head">
-      <h2 id="modalProductTitle"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg> Produkt bearbeiten</h2>
+      <h2 id="modalProductTitle">✏️ Produkt bearbeiten</h2>
       <button class="sheet-close" onclick="closeProductEditModal()">✕</button>
     </div>
     
@@ -3631,10 +3631,10 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
           <input type="checkbox" id="formTop"> ⭐ Top-Angebot / Aktion
         </label>
         <label style="font-size:0.85rem; font-weight:600; color:#166534; cursor:pointer; display:flex; align-items:center; gap:6px;">
-          <input type="checkbox" id="formEigenmarke"> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg> Eigenmarke
+          <input type="checkbox" id="formEigenmarke"> 🏷️ Eigenmarke
         </label>
         <label style="font-size:0.85rem; font-weight:600; color:#9B1C1C; cursor:pointer; display:flex; align-items:center; gap:6px;">
-          <input type="checkbox" id="formDisabled"> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> Deaktiviert (für Kunden ausblenden)
+          <input type="checkbox" id="formDisabled"> ⚠️ Deaktiviert (für Kunden ausblenden)
         </label>
       </div>
     </div>
@@ -3700,7 +3700,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
 <!-- RESET CONFIRMATION MODAL -->
 <div class="overlay" id="resetModalOverlay" onclick="handleResetOverlayClick(event)">
   <div class="sheet" style="max-width: 440px; text-align: center;">
-    <div style="font-size: 2.8rem; margin-bottom: 10px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></div>
+    <div style="font-size: 2.8rem; margin-bottom: 10px;">🗑️</div>
     <h2 style="font-size: 1.4rem; color: var(--primary); margin-bottom: 10px;">Auswahl zurücksetzen?</h2>
     <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 24px; line-height: 1.5;">
       Möchten Sie wirklich alle ausgewählten Produkte und Mengen auf 0 zurücksetzen?
@@ -3715,7 +3715,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
 <div class="overlay" id="adminOverlay" onclick="handleAdminOverlayClick(event)">
   <div class="sheet" style="max-width: 440px;">
     <div class="sheet-head">
-      <h2><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> Admin Login</h2>
+      <h2>🔐 Admin Login</h2>
       <button class="sheet-close" onclick="closeAdminModal()">✕</button>
     </div>
     <form onsubmit="event.preventDefault(); loginAdmin();">
@@ -4201,7 +4201,7 @@ async function loginAdmin() {
     }
   }
 
-  alert("<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg> Falsches Admin-Passwort! Bitte überprüfe deine Eingabe.");
+  alert("❌ Falsches Admin-Passwort! Bitte überprüfe deine Eingabe.");
   if (pwdInput) pwdInput.select();
 }
 
@@ -4280,22 +4280,22 @@ function renderAdminSortimentTable() {
       <tr style="${isDeact ? 'background:#FDF2F2; opacity:0.85;' : ''}">
         <td><strong>${escapeHtml(p.art)}</strong></td>
         <td>
-          <div style="font-weight:600; color:var(--text);">${escapeHtml(p.name)} ${p.eigenmarke ? '<span style="font-size:0.7rem; background:#E8F5E9; color:#1B5E20; padding:2px 6px; border-radius:4px; margin-left:4px; font-weight:700;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg> Eigenmarke</span>' : ''} ${(p.topAngebot || p.deal) ? '<span style="font-size:0.7rem; background:#EFF6FF; color:#1D4ED8; border:1px solid #BFDBFE; padding:2px 6px; border-radius:4px; margin-left:4px; font-weight:700;">Top</span>' : ''}</div>
+          <div style="font-weight:600; color:var(--text);">${escapeHtml(p.name)} ${p.eigenmarke ? '<span style="font-size:0.7rem; background:#E8F5E9; color:#1B5E20; padding:2px 6px; border-radius:4px; margin-left:4px; font-weight:700;">🏷️ Eigenmarke</span>' : ''} ${(p.topAngebot || p.deal) ? '<span style="font-size:0.7rem; background:#EFF6FF; color:#1D4ED8; border:1px solid #BFDBFE; padding:2px 6px; border-radius:4px; margin-left:4px; font-weight:700;">Top</span>' : ''}</div>
           <div style="font-size:0.75rem; color:var(--text-muted);">${escapeHtml(p.catName)} ${p.subCategory ? '• ' + escapeHtml(p.subCategory) : ''}</div>
         </td>
         <td><span style="font-size:0.8rem; background:var(--primary-light); padding:2px 6px; border-radius:6px;">${escapeHtml(p.gebinde || 'Standard')}</span></td>
         <td><span style="font-weight:700; color:var(--accent-dark);">${priceText}</span></td>
         <td>
           <button class="admin-fest-status-btn ${isDeact ? 'disabled' : 'active'}" onclick="toggleProductStatus(decodeURIComponent('${encArt}'))" title="Klicken zum Umschalten (Aktivieren / Deaktivieren)">
-            ${isDeact ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> Ausgeblendet' : '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><polyline points="20 6 9 17 4 12"></polyline></svg> Aktiv'}
+            ${isDeact ? '⚠️ Ausgeblendet' : '✓ Aktiv'}
           </button>
         </td>
         <td style="text-align:right; white-space:nowrap;">
           <button onclick="openEditProductModal(decodeURIComponent('${encArt}'))" style="background:var(--bg); border:1px solid var(--border); padding:5px 9px; border-radius:6px; cursor:pointer; font-size:0.82rem; margin-right:4px;" title="Bearbeiten">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
+            ✏️
           </button>
           <button onclick="deleteProduct(decodeURIComponent('${encArt}'))" style="background:#fee2e2; border:1px solid #fca5a5; color:#991b1b; padding:5px 9px; border-radius:6px; cursor:pointer; font-size:0.82rem;" title="Löschen">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+            🗑️
           </button>
         </td>
       </tr>
@@ -4319,11 +4319,11 @@ function showAdminToast(name, action, showSaveBtn = true) {
 
   const saveHtml = showSaveBtn ? `
         <div class="admin-toast-sub">Um alle Änderungen festzuhalten, auf <strong>«In Supabase speichern»</strong> drücken.</div>
-        <button class="admin-toast-action-btn" onclick="savePricesToSupabase()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path></svg> In Supabase speichern</button>` : "";
+        <button class="admin-toast-action-btn" onclick="savePricesToSupabase()">☁️ In Supabase speichern</button>` : "";
 
   toast.innerHTML = `
     <div class="admin-toast-body">
-      <div class="admin-toast-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+      <div class="admin-toast-icon">✓</div>
       <div class="admin-toast-content">
         <div class="admin-toast-title">${isMessageOnly ? safeName : `Das Produkt <strong>"${safeName}"</strong> wurde erfolgreich ${safeAction}.`}</div>
         ${saveHtml}
@@ -4398,7 +4398,7 @@ function deleteProduct(art) {
 
 function openAddProductModal(defaultCat = "Weine") {
   editingProductArt = null;
-  document.getElementById("modalProductTitle").textContent = "<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg> Neues Produkt hinzufügen";
+  document.getElementById("modalProductTitle").textContent = "➕ Neues Produkt hinzufügen";
   document.getElementById("formArt").value = "";
   document.getElementById("formName").value = "";
   document.getElementById("formCategory").value = defaultCat || "Weine";
@@ -4534,7 +4534,7 @@ function openEditProductModal(art) {
   }
   editingProductArt = String(p.art);
   editingProductOldId = String(p.id || ('art-' + p.art));
-  document.getElementById("modalProductTitle").textContent = "<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg> Produkt bearbeiten (" + p.art + ")";
+  document.getElementById("modalProductTitle").textContent = "✏️ Produkt bearbeiten (" + p.art + ")";
   document.getElementById("formArt").value = p.art || "";
   document.getElementById("formName").value = p.name || "";
   
@@ -4787,11 +4787,11 @@ function updateAdminHeaderBtn() {
   if (isAdminAuthenticated) {
     btn.style.display = "inline-flex";
     if (isCustomerPreviewMode) {
-      btn.textContent = "<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg> Zum Dashboard";
+      btn.textContent = "⬅️ Zum Dashboard";
       btn.style.background = "#3d7d1e";
       btn.onclick = switchToAdminDashboard;
     } else {
-      btn.textContent = "<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg> Kundenansicht";
+      btn.textContent = "👁️ Kundenansicht";
       btn.style.background = "#2563eb";
       btn.onclick = switchToCustomerPreview;
     }
@@ -5123,11 +5123,11 @@ async function loadCatalogFromSupabase() {
 
 async function savePricesToSupabase() {
   if (!supabaseClient) {
-    alert("<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg> Supabase ist nicht verbunden.");
+    alert("❌ Supabase ist nicht verbunden.");
     return;
   }
   if (!isAdminAuthenticated) {
-    alert("<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> Bitte melde dich zuerst als Admin mit deinem Supabase-Account an.");
+    alert("🔒 Bitte melde dich zuerst als Admin mit deinem Supabase-Account an.");
     openAdminModal();
     return;
   }
@@ -5220,7 +5220,7 @@ async function savePricesToSupabase() {
 
   } catch (err) {
     console.error("Supabase Save Error:", err);
-    alert("<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg> Fehler beim Speichern in Supabase:\n" + (err.message || JSON.stringify(err)));
+    alert("❌ Fehler beim Speichern in Supabase:\n" + (err.message || JSON.stringify(err)));
     if (saveBtn) {
       saveBtn.disabled = false;
       saveBtn.textContent = origText;
@@ -5230,11 +5230,11 @@ async function savePricesToSupabase() {
 
 async function seedSupabaseFromBrowser() {
   if (!supabaseClient) {
-    alert("<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg> Supabase ist nicht verbunden.");
+    alert("❌ Supabase ist nicht verbunden.");
     return;
   }
   if (!isAdminAuthenticated) {
-    alert("<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> Bitte melde dich zuerst als Admin mit deinem Supabase-Account an.");
+    alert("🔒 Bitte melde dich zuerst als Admin mit deinem Supabase-Account an.");
     openAdminModal();
     return;
   }
@@ -5299,7 +5299,7 @@ async function seedSupabaseFromBrowser() {
     if (btn) btn.style.display = "none";
   } catch (err) {
     console.error("Supabase Seed Error:", err);
-    alert("<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg> Fehler beim Übertragen nach Supabase:\n" + (err.message || JSON.stringify(err)));
+    alert("❌ Fehler beim Übertragen nach Supabase:\n" + (err.message || JSON.stringify(err)));
   } finally {
     if (btn) {
       btn.disabled = false;
@@ -5482,7 +5482,7 @@ function renderProducts() {
     if (displayItems.length === 0) {
       const emptyDiv = document.createElement("div");
       emptyDiv.style.cssText = "grid-column: 1 / -1; padding: 2.5rem 1rem; text-align: center; color: var(--text-muted); font-size: 0.95rem;";
-      emptyDiv.innerHTML = `Keine Artikel in dieser Auswahl vorhanden.<br><button class="btn btn-secondary btn-sm" style="margin-top: 0.75rem;" onclick="openAddProductModal(decodeURIComponent('${encodeURIComponent(cat.name)}'))"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg> Produkt hinzufügen</button>`;
+      emptyDiv.innerHTML = `Keine Artikel in dieser Auswahl vorhanden.<br><button class="btn btn-secondary btn-sm" style="margin-top: 0.75rem;" onclick="openAddProductModal(decodeURIComponent('${encodeURIComponent(cat.name)}'))">➕ Produkt hinzufügen</button>`;
       grid.appendChild(emptyDiv);
     } else {
       displayItems.forEach(p => {
@@ -5608,7 +5608,7 @@ function renderProducts() {
             </div>
             <div>
               <span class="product-meta">Art.-Nr. ${escapeHtml(p.art)}</span>
-              ${isEditPricesMode ? `<button onclick="openEditProductModal(decodeURIComponent('${encArt}'))" style="background:#2563EB; color:white; border:none; padding:2px 8px; border-radius:4px; font-size:0.75rem; font-weight:600; cursor:pointer; margin-left:8px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg> Bearbeiten</button>` : ''}
+              ${isEditPricesMode ? `<button onclick="openEditProductModal(decodeURIComponent('${encArt}'))" style="background:#2563EB; color:white; border:none; padding:2px 8px; border-radius:4px; font-size:0.75rem; font-weight:600; cursor:pointer; margin-left:8px;">✏️ Bearbeiten</button>` : ''}
             </div>
           </div>
           ${priceDisplayHtml}
@@ -5893,7 +5893,7 @@ function renderFestmaterial() {
     },
     {
       key: "Einweggeschirr",
-      title: "<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><path d="M11 2v20"></path><path d="M7 2v20"></path><path d="M3 2v20"></path><path d="M15 2v20"></path><path d="M19 2v20"></path><path d="M3 11h16"></path></svg> Einweggeschirr & Festbedarf",
+      title: "🍽️ Einweggeschirr & Festbedarf",
       subtitle: "Gabeln, Messer, Becher für Ihren Anlass",
       badge: "",
       items: festmaterialList.filter(f => f.category === "Einweggeschirr" && !f.disabled)
@@ -6131,12 +6131,12 @@ function renderAdminFestmaterialTable() {
         <td>${priceDisplay}</td>
         <td>
           <button class="admin-fest-status-btn ${item.disabled ? 'disabled' : 'active'}" onclick="toggleFestStatus('${escapeHtml(item.id)}')">
-            ${item.disabled ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg> Ausgeblendet' : '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><polyline points="20 6 9 17 4 12"></polyline></svg> Aktiv'}
+            ${item.disabled ? '⚠️ Ausgeblendet' : '✓ Aktiv'}
           </button>
         </td>
         <td style="text-align:right;">
-          <button onclick="openEditFestmaterialModal('${escapeHtml(item.id)}')" style="background:var(--bg); border:1px solid var(--border); padding:5px 9px; border-radius:6px; cursor:pointer; font-size:0.82rem; margin-right:4px;" title="Bearbeiten"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></button>
-          <button onclick="deleteFestmaterialItem('${escapeHtml(item.id)}')" style="background:#fee2e2; border:1px solid #fca5a5; color:#991b1b; padding:5px 9px; border-radius:6px; cursor:pointer; font-size:0.82rem;" title="Löschen"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
+          <button onclick="openEditFestmaterialModal('${escapeHtml(item.id)}')" style="background:var(--bg); border:1px solid var(--border); padding:5px 9px; border-radius:6px; cursor:pointer; font-size:0.82rem; margin-right:4px;" title="Bearbeiten">✏️</button>
+          <button onclick="deleteFestmaterialItem('${escapeHtml(item.id)}')" style="background:#fee2e2; border:1px solid #fca5a5; color:#991b1b; padding:5px 9px; border-radius:6px; cursor:pointer; font-size:0.82rem;" title="Löschen">🗑️</button>
         </td>
       </tr>
     `;
@@ -6156,7 +6156,7 @@ function toggleFestStatus(id) {
 
 function openAddFestmaterialModal() {
   editingFestItemId = null;
-  document.getElementById("modalFestTitle").textContent = "<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg> Neuer Festartikel";
+  document.getElementById("modalFestTitle").textContent = "➕ Neuer Festartikel";
   document.getElementById("formFestArt").value = "";
   document.getElementById("formFestName").value = "";
   document.getElementById("formFestCategory").value = "Einweggeschirr";
@@ -6175,7 +6175,7 @@ function openEditFestmaterialModal(id) {
   if (!item) return;
   editingFestItemId = String(item.id || item.art);
   editingFestOldArt = String(item.art || item.id || "");
-  document.getElementById("modalFestTitle").textContent = "<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg> Festartikel bearbeiten";
+  document.getElementById("modalFestTitle").textContent = "✏️ Festartikel bearbeiten";
   document.getElementById("formFestArt").value = item.art || "";
   document.getElementById("formFestName").value = item.name || "";
   document.getElementById("formFestCategory").value = item.category || "Mietmobiliar";
@@ -6304,7 +6304,7 @@ async function saveFestmaterialToSupabase(showToast = false) {
 
   if (!isAdminAuthenticated) {
     if (showToast) {
-      alert("<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> Bitte melde dich zuerst als Admin mit dem Admin-Passwort an, um in Supabase zu speichern.");
+      alert("🔒 Bitte melde dich zuerst als Admin mit dem Admin-Passwort an, um in Supabase zu speichern.");
       openAdminModal();
     }
     return;
@@ -6344,11 +6344,11 @@ async function saveFestmaterialToSupabase(showToast = false) {
       }
     }
 
-    if (showToast) showAdminToast("<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path></svg> Festmaterial erfolgreich in Supabase gesichert");
+    if (showToast) showAdminToast("☁️ Festmaterial erfolgreich in Supabase gesichert");
   } catch (e) {
     console.error("Supabase Festmaterial Error:", e);
     if (showToast) {
-      alert("<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg> Fehler beim Speichern in Supabase:\n" + (e.message || JSON.stringify(e)));
+      alert("❌ Fehler beim Speichern in Supabase:\n" + (e.message || JSON.stringify(e)));
     }
   }
 }
@@ -6542,7 +6542,7 @@ function openReview() {
     drinksHtml = `
       <div style="margin-bottom:16px;">
         <h3 style="font-size:1rem; font-weight:700; color:var(--text); margin-bottom:8px; display:flex; align-items:center; gap:6px;">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><path d="M12 2v6"></path><path d="M12 18v4"></path><path d="M10.5 8.5C9 10.5 8 13 8 16c0 2.2 1.8 4 4 4s4-1.8 4-4c0-3-1-5.5-2.5-7.5L12 8z"></path></svg> Getränke
+          🍾 Getränke
         </h3>
         <table style="width:100%;">
           <thead>
@@ -6894,7 +6894,7 @@ function triggerQtyFeedback(id) {
 
     const toast = document.createElement("div");
     toast.className = "qty-confirm-toast";
-    toast.innerHTML = `<span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><polyline points="20 6 9 17 4 12"></polyline></svg></span> <span>Hinzugefügt</span>`;
+    toast.innerHTML = `<span>✓</span> <span>Hinzugefügt</span>`;
     productCard.appendChild(toast);
 
     setTimeout(() => {
