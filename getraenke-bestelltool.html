@@ -6066,13 +6066,13 @@ function activateTrackerMode(shouldScroll) {
 
   if (shouldScroll) {
     showCalculatorToast("Bedarfs-Tracker aktiv: Wähle jetzt deine Produkte!");
-    // Exakt bis zur Position im Screenshot (Kategorie Mineralwasser) scrollen
+    // Exakt bis zu Top-Angebote scrollen (sodass Top-Angebote direkt unter dem Tracker sichtbar ist)
     setTimeout(() => {
-      const mineralCat = document.querySelector('details.category[data-cat-name="Mineralwasser"]') || document.getElementById("categories");
-      if (mineralCat) {
+      const topCat = document.querySelector('details.category[data-cat-name="Top-Angebote"]') || document.getElementById("categories");
+      if (topCat) {
         const header = document.querySelector("header.top");
         const headerH = header ? header.offsetHeight : 220;
-        const targetY = mineralCat.getBoundingClientRect().top + window.pageYOffset - (headerH + 16);
+        const targetY = topCat.getBoundingClientRect().top + window.pageYOffset - (headerH + 16);
         window.scrollTo({ top: Math.max(0, targetY), behavior: "smooth" });
       }
     }, 100);
@@ -6155,8 +6155,7 @@ function updateCollapsedSummary() {
 
 function checkStickyTrackerVisibility() {
   const bar = document.getElementById("stickyFestbedarfBar");
-  const calcSec = document.getElementById("drinkCalculatorSection");
-  if (!bar || !calcSec) return;
+  if (!bar) return;
 
   // Der Tracker soll erst angezeigt werden, wenn man auf "Selbst zusammenstellen" geklickt hat!
   if (!calcTrackerActive) {
@@ -6170,25 +6169,19 @@ function checkStickyTrackerVisibility() {
     return;
   }
 
+  const topCat = document.querySelector('details.category[data-cat-name="Top-Angebote"]') || document.getElementById("categories");
+  if (!topCat) return;
+
   const header = document.querySelector("header.top");
   const headerBottom = header ? header.getBoundingClientRect().bottom : 85;
-  const cRect = calcSec.getBoundingClientRect();
+  const topRect = topCat.getBoundingClientRect();
 
-  // 1. Unten bei den Kategorien (unterhalb des Rechners): Tracker sichtbar
-  const isBelowCalculator = cRect.bottom <= headerBottom + 80;
-
-  // 2. Ganz oben / beim Rechner-Kopf (wie im Screenshot): Tracker sichtbar
-  // Der Rechner-Kopf ist am oberen Rand des Bildschirms / unter der Kopfzeile
-  const isAtTopOrCalculatorHead = cRect.top >= headerBottom - 90 || window.scrollY <= 140;
-
-  // 3. Mitten im Rechner (Sliders, Anlass-Karten, Rechner-Körper):
-  // Hier soll der Tracker NICHT sichtbar sein, damit er den Rechner nicht verdeckt
-  const isInsideCalculatorBody = !isBelowCalculator && !isAtTopOrCalculatorHead && !isDrinkCalcCollapsed;
-
-  if (isInsideCalculatorBody) {
-    bar.classList.remove("visible");
-  } else {
+  // Regel: Alles oberhalb von Top-Angebote ist der Tracker ausgeblendet.
+  // Ab Top-Angebote (sobald Top-Angebote unter der Kopfzeile erreicht ist) wird der Tracker eingeblendet!
+  if (topRect.top <= headerBottom + 30) {
     bar.classList.add("visible");
+  } else {
+    bar.classList.remove("visible");
   }
 }
 
