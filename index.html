@@ -3244,7 +3244,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
         <label class="logistics-card active" id="logisticsCardPickup" onclick="toggleLogisticsType('pickup')">
           <input type="radio" name="logisticsType" id="radioLogisticsPickup" value="pickup" checked style="display:none;">
           <div class="logistics-card-head">
-            <span class="logistics-icon">🏬</span>
+            <span class="logistics-icon"><svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align: middle;'><path d='M3 9h18v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z'/><path d='m3 9 2.45-4.9A2 2 0 0 1 7.24 3h9.52a2 2 0 0 1 1.8 1.1L21 9'/><path d='M12 3v6'/></svg></span>
             <div class="logistics-card-title-group">
               <span class="logistics-card-title">Selbstabholung an der Filiale</span>
               <span class="logistics-card-sub">Standard – Kostenlos & flexibel</span>
@@ -3257,7 +3257,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
         <label class="logistics-card" id="logisticsCardDelivery" onclick="toggleLogisticsType('delivery')">
           <input type="radio" name="logisticsType" id="radioLogisticsDelivery" value="delivery" style="display:none;">
           <div class="logistics-card-head">
-            <span class="logistics-icon">🚚</span>
+            <span class="logistics-icon"><svg width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' style='vertical-align: middle;'><path d='M10 17h4V5H2v12h3'/><path d='M20 17h2v-3.34a4 4 0 0 0-1.17-2.83L19 9h-5'/><path d='M14 17h1'/><circle cx='7.5' cy='17.5' r='2.5'/><circle cx='17.5' cy='17.5' r='2.5'/></svg></span>
             <div class="logistics-card-title-group">
               <span class="logistics-card-title">Lieferung durch die LANDI</span>
               <span class="logistics-card-sub">Bequem direkt zum Festort / Abladeort</span>
@@ -5945,7 +5945,7 @@ function renderFestmaterial() {
             <h3 class="festmaterial-group-title">${cat.title}</h3>
             <div class="festmaterial-group-sub">${cat.subtitle}</div>
           </div>
-          <span class="festmaterial-avail-pill">${cat.badge}</span>
+          ${cat.badge ? `<span class="festmaterial-avail-pill">${cat.badge}</span>` : ""}
         </div>
         <div class="festmaterial-items-list">
           ${itemsHtml}
