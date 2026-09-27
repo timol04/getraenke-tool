@@ -6816,12 +6816,12 @@ async function downloadPdf() {
   let supabaseOrderId = null;
   
   try {
-      if (window.supabaseClient) {
+      if (supabaseClient) {
           const itemsPayload = [];
           selected.forEach(s => itemsPayload.push({name: s.product.name, qty: s.count, unit_price: s.product.price, is_pack: false, type: 'drink'}));
           selectedFest.forEach(f => itemsPayload.push({name: f.item.name, qty: f.qty, unit_price: f.item.price || 0, is_pack: false, type: 'fest'}));
           
-          const { data, error } = await window.supabaseClient.from('orders').insert([{
+          const { data, error } = await supabaseClient.from('orders').insert([{
               items: itemsPayload,
               total_amount: combinedTotal,
               total_deposit: 0 // You can calculate real deposit if needed
@@ -8284,11 +8284,11 @@ function closeAdminOrdersModal() {
 }
 
 async function loadOrders() {
-  if (!window.supabaseClient) return;
+  if (!supabaseClient) return;
   const tbody = document.getElementById("adminOrdersTbody");
   tbody.innerHTML = "<tr><td colspan='6' style='text-align:center;'>Lade Bestellungen...</td></tr>";
   
-  const { data, error } = await window.supabaseClient.from('orders').select('*').order('created_at', { ascending: false }).limit(200);
+  const { data, error } = await supabaseClient.from('orders').select('*').order('created_at', { ascending: false }).limit(200);
   if (error) {
     console.error("Error loading orders", error);
     tbody.innerHTML = "<tr><td colspan='6' style='text-align:center; color:red;'>Fehler beim Laden.</td></tr>";
@@ -8400,7 +8400,7 @@ function calcReturn() {
 }
 
 async function saveReturn() {
-  if (!currentReturnOrder || !window.supabaseClient) return;
+  if (!currentReturnOrder || !supabaseClient) return;
   
   const btn = document.getElementById("btnSaveReturn");
   const origText = btn.innerText;
@@ -8423,7 +8423,7 @@ async function saveReturn() {
   });
   
   try {
-      const { error } = await window.supabaseClient.from('orders').update({
+      const { error } = await supabaseClient.from('orders').update({
           returns: returns,
           refund_amount: totalRefund,
           status: 'abgeschlossen'
@@ -8444,7 +8444,7 @@ async function saveReturn() {
 }
 
 async function deleteOrder(id) {
-  if (!window.supabaseClient) return;
+  if (!supabaseClient) return;
   
   const order = currentOrders.find(o => o.id === id);
   if (!order) return;
@@ -8456,7 +8456,7 @@ async function deleteOrder(id) {
   }
   
   try {
-      const { error } = await window.supabaseClient.from('orders').delete().eq('id', id);
+      const { error } = await supabaseClient.from('orders').delete().eq('id', id);
       if (error) throw error;
       loadOrders();
   } catch (err) {
