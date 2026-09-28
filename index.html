@@ -7114,15 +7114,15 @@ async function downloadPdf() {
   
   // Harassen Box
   doc.setDrawColor(150, 150, 150);
-  doc.rect(14, finalY - 4, 10, 6);
+  doc.roundedRect(14, finalY - 4, 10, 6, 1.5, 1.5, "S");
   doc.text("x  Harassen (CHF 5.00)", 26, finalY + 0.5);
   
   // Flaschen 0.30 Box
-  doc.rect(75, finalY - 4, 10, 6);
+  doc.roundedRect(75, finalY - 4, 10, 6, 1.5, 1.5, "S");
   doc.text("x  Flaschen (CHF 0.30)", 87, finalY + 0.5);
   
   // Flaschen 0.50 Box
-  doc.rect(136, finalY - 4, 10, 6);
+  doc.roundedRect(136, finalY - 4, 10, 6, 1.5, 1.5, "S");
   doc.text("x  Flaschen (CHF 0.50)", 148, finalY + 0.5);
   
   finalY += 10;
