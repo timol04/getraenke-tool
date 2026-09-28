@@ -2765,7 +2765,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
       <!-- END: pdf_extended -->
       
       <!-- Card: Entwicklungsnotizen -->
-      <div class="admin-action-card" onclick="openAdminFeedbackModal()">
+      <div class="admin-action-card">
         <div class="action-card-header">
           <div class="action-icon-wrap icon-purple"><i class="fa-solid fa-lightbulb"></i></div>
           <span class="card-badge-sync" style="background:#EEF2FF; color:#4F46E5;">Feedback</span>
@@ -2774,9 +2774,12 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
           <h3 class="action-card-title">Entwicklungsnotizen / Feedback</h3>
           <p class="action-card-desc">Hinterlasse eine Notiz, Fehlerbericht oder Idee für die Weiterentwicklung des Tools.</p>
         </div>
-        <div class="action-card-footer">
-          <button type="button" class="action-btn btn-secondary-big">
-            Notiz verfassen ➔
+        <div class="action-card-footer" style="display:flex; gap:10px;">
+          <button type="button" class="action-btn btn-secondary-big" style="flex:1; padding:10px;" onclick="openAdminFeedbackModal()">
+            Verfassen
+          </button>
+          <button type="button" class="action-btn btn-secondary-big" style="flex:1; padding:10px;" onclick="openAdminFeedbackListModal()">
+            Ansehen
           </button>
         </div>
       </div>
@@ -3726,6 +3729,23 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
       <p style="margin-bottom: 20px; color: #64748b; font-size: 0.9rem;">Sie können diese Seite jetzt schliessen.</p>
       
       <button class="primary" style="padding: 10px 30px; font-size: 1rem;" onclick="closeCustomerFinalOverlay()">Seite schliessen</button>
+    </div>
+  </div>
+</div>
+
+<!-- NOTIZEN ANSEHEN MODAL -->
+<div class="overlay" id="adminFeedbackListOverlay" onclick="if(event.target.id==='adminFeedbackListOverlay') closeAdminFeedbackListModal()" style="z-index: 3000;">
+  <div class="sheet" style="max-width: 600px; max-height: 90vh; display: flex; flex-direction: column; background: white;">
+    <div class="sheet-head">
+      <div>
+        <h2 style="margin:0; font-size:1.35rem; color:var(--primary);">Entwicklungsnotizen</h2>
+      </div>
+      <button class="sheet-close" onclick="closeAdminFeedbackListModal()">✕</button>
+    </div>
+    <div class="sheet-body" style="overflow-y:auto; padding:15px; background: #f8fafc;">
+      <div id="adminFeedbackListContainer" style="display: flex; flex-direction: column; gap: 15px;">
+        <!-- Notizen werden hier geladen -->
+      </div>
     </div>
   </div>
 </div>
@@ -8673,6 +8693,7 @@ function renderOrdersTable() {
   }
   
   currentOrders.forEach(order => {
+      if (order.status === 'feedback') return;
       const refFormatted = order.ref_nr || String(order.id).padStart(6, '0');
       if (search && !refFormatted.toLowerCase().includes(search)) return;
       
@@ -8877,6 +8898,74 @@ function openAdminFeedbackModal() {
 
 function closeAdminFeedbackModal() {
   document.getElementById("adminFeedbackOverlay").classList.remove("open");
+}
+
+function openAdminFeedbackListModal() {
+  document.getElementById("adminFeedbackListOverlay").classList.add("open");
+  loadFeedbackList();
+}
+
+function closeAdminFeedbackListModal() {
+  document.getElementById("adminFeedbackListOverlay").classList.remove("open");
+}
+
+async function loadFeedbackList() {
+  const container = document.getElementById("adminFeedbackListContainer");
+  container.innerHTML = "<div style='text-align:center; padding:20px; color:#64748b;'>Lade Notizen...</div>";
+  if (!supabaseClient) return;
+  
+  const { data, error } = await supabaseClient.from('orders').select('*').eq('status', 'feedback').order('created_at', { ascending: false });
+  if (error) {
+    container.innerHTML = "<div style='text-align:center; padding:20px; color:red;'>Fehler beim Laden.</div>";
+    return;
+  }
+  
+  if (!data || data.length === 0) {
+    container.innerHTML = "<div style='text-align:center; padding:20px; color:#64748b;'>Keine Entwicklungsnotizen vorhanden.</div>";
+    return;
+  }
+  
+  container.innerHTML = "";
+  data.forEach(note => {
+    const isSuperAdmin = (currentAdminRole === "super_admin");
+    const date = new Date(note.created_at).toLocaleString('de-CH');
+    const name = note.customer_name || "Unbekannt";
+    const text = note.internal_note || "";
+    
+    let delBtn = "";
+    if (isSuperAdmin) {
+      delBtn = `<button class="admin-fest-status-btn danger" style="padding:4px 8px; font-size:12px;" onclick="deleteFeedbackNote(${note.id})">Löschen</button>`;
+    }
+    
+    const div = document.createElement("div");
+    div.style.cssText = "background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; position: relative; box-shadow: 0 1px 2px rgba(0,0,0,0.05);";
+    div.innerHTML = `
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px;">
+        <div>
+          <div style="font-weight:600; color:#1e293b;">${escapeHtml(name)}</div>
+          <div style="font-size:12px; color:#94a3b8;">${date}</div>
+        </div>
+        ${delBtn}
+      </div>
+      <div style="color:#475569; font-size:14px; white-space:pre-wrap; line-height: 1.5;">${escapeHtml(text)}</div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+async function deleteFeedbackNote(id) {
+  if (!confirm("Diese Notiz wirklich löschen?")) return;
+  if (!supabaseClient) return;
+  
+  try {
+    const { error } = await supabaseClient.from('orders').delete().eq('id', id);
+    if (error) throw error;
+    loadFeedbackList();
+    loadOrders(); // Reload orders in background just in case
+  } catch (err) {
+    console.error(err);
+    alert("Fehler beim Löschen der Notiz.");
+  }
 }
 
 async function saveFeedback() {
