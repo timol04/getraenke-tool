@@ -12,6 +12,32 @@
  * - v1.0.0: Initiales Release
  * =================================================================== */
 
+// Fehler-Anzeige (CODE-2)
+window.showErrorToast = function(msg) {
+  let container = document.getElementById("errorToastContainer");
+  if (!container) {
+    container = document.createElement("div");
+    container.id = "errorToastContainer";
+    container.style.cssText = "position:fixed; top:20px; left:50%; transform:translateX(-50%); z-index:9999; display:flex; flex-direction:column; gap:10px; pointer-events:none; width: 90%; max-width: 400px;";
+    document.body.appendChild(container);
+  }
+  const toast = document.createElement("div");
+  toast.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> <span>${msg}</span>`;
+  toast.style.cssText = "background:#EF4444; color:white; padding:12px 20px; border-radius:8px; font-weight:600; font-size:0.9rem; box-shadow:0 10px 25px rgba(239,68,68,0.4); display:flex; align-items:center; gap:10px; opacity:0; transform:translateY(-20px); transition:all 0.3s ease;";
+  container.appendChild(toast);
+  
+  requestAnimationFrame(() => {
+    toast.style.opacity = "1";
+    toast.style.transform = "translateY(0)";
+  });
+
+  setTimeout(() => {
+    toast.style.opacity = "0";
+    toast.style.transform = "translateY(-20px)";
+    setTimeout(() => toast.remove(), 300);
+  }, 5000);
+};
+
 // Fallback-Sortiment, falls sortiment.js nicht geladen werden konnte
 if (typeof CATEGORIES === "undefined") {
   window.CATEGORIES = [
@@ -1422,6 +1448,7 @@ async function loadCatalogFromSupabase() {
     return true;
   } catch (err) {
     console.warn("Konnte Sortiment nicht aus Supabase laden:", err);
+    if (typeof window.showErrorToast === "function") window.showErrorToast("Keine Verbindung zur Datenbank. Standard-Sortiment wird geladen.");
     return false;
   }
 }
@@ -3015,6 +3042,7 @@ async function downloadPdf() {
       }
   } catch (err) {
       console.error("Error saving order:", err);
+      if (typeof window.showErrorToast === "function") window.showErrorToast("Fehler beim Speichern der Bestellung im System. PDF wird trotzdem erstellt.");
   } finally {
       if (downloadBtn) downloadBtn.innerText = origBtnText;
   }
