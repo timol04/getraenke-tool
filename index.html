@@ -1646,12 +1646,12 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
 
 <!-- Privacy Policy Modal -->
 <div class="overlay" id="privacyModalOverlay" onclick="if(event.target.id==='privacyModalOverlay') closePrivacyModal()" style="z-index: 3000;">
-  <div class="sheet" style="max-width: 600px; width: 90%; max-height: 90vh; overflow-y: auto;">
-    <div class="sheet-header" style="padding: 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+  <div class="sheet" style="max-width: 600px; width: 90%; max-height: 90vh; display: flex; flex-direction: column; padding: 0;">
+    <div class="sheet-header" style="padding: 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-shrink: 0;">
       <h2 style="font-size: 1.2rem; font-weight: 700; margin: 0;">Datenschutzerklärung</h2>
       <button class="sheet-close" onclick="closePrivacyModal()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-muted);">✕</button>
     </div>
-    <div class="sheet-body" style="padding: 20px; font-size: 14px; line-height: 1.6; color: var(--text); text-align: left;">
+    <div class="sheet-body" style="padding: 20px; font-size: 14px; line-height: 1.6; color: var(--text); text-align: left; overflow-y: auto; flex: 1; -webkit-overflow-scrolling: touch; margin-bottom: 0;">
       <p>Wir nehmen den Schutz deiner persönlichen Daten ernst. Diese Datenschutzerklärung informiert dich darüber, welche Daten wir über unser Tool erheben.</p>
       
       <h3 style="margin-top:16px; font-size: 15px; color: var(--green);">1. Keine Speicherung persönlicher Bestelldaten</h3>
@@ -1664,7 +1664,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
       <h3 style="margin-top:16px; font-size: 15px; color: var(--green);">3. Technische Daten</h3>
       <p>Unsere Website nutzt GitHub Pages und Supabase. Aus technischen Gründen werden hierbei IP-Adressen verarbeitet, um die Website auszuliefern.</p>
     </div>
-    <div style="padding: 16px 20px; border-top: 1px solid var(--border); text-align: right;">
+    <div style="padding: 16px 20px; border-top: 1px solid var(--border); text-align: right; flex-shrink: 0; background: var(--bg-card); border-bottom-left-radius: var(--r-lg); border-bottom-right-radius: var(--r-lg);">
       <button class="secondary" onclick="closePrivacyModal()" style="padding: 8px 16px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-card); cursor: pointer; font-weight: 600;">Schliessen</button>
     </div>
   </div>
