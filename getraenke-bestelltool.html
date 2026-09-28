@@ -3652,6 +3652,62 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
   </div>
 </div>
 
+<!-- KUNDEN ACTION MODAL -->
+<div class="overlay" id="customerActionOverlay" style="z-index: 3000;">
+  <div class="sheet" style="max-width: 500px; background: white; text-align: center;">
+    <div class="sheet-head">
+      <div>
+        <h2 style="margin:0; font-size:1.35rem; color:var(--primary);">Bestellung vorbereitet</h2>
+      </div>
+    </div>
+    <div class="sheet-body" style="padding:20px;">
+      <p style="margin-bottom: 20px; color: #475569;">Ihre Zusammenstellung wurde erfolgreich erstellt.</p>
+      
+      <p style="margin-bottom: 20px; font-size: 0.9rem; color: #64748b; background: #f1f5f9; padding: 10px; border-radius: 6px; text-align: left;">
+        <strong>Hinweis:</strong> Das PDF wird in jedem Fall auf Ihr Gerät heruntergeladen. 
+        Wenn Sie "In Mail-App öffnen" wählen, öffnet sich Ihr Mail-Programm. Sie müssen das heruntergeladene PDF dort noch <strong>manuell als Anhang hinzufügen</strong>.
+      </p>
+
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <button class="primary" style="padding: 12px; font-size: 1rem; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;" onclick="executeCustomerAction(true)">
+          <i class="fa-solid fa-envelope"></i> Direkt in Mail-App öffnen
+        </button>
+        <button class="admin-fest-status-btn" style="padding: 12px; font-size: 1rem; width: 100%; background: #e2e8f0; color: #334155; display: flex; align-items: center; justify-content: center; gap: 8px;" onclick="executeCustomerAction(false)">
+          <i class="fa-solid fa-download"></i> Nur PDF generieren
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- KUNDEN FEEDBACK MODAL -->
+<div class="overlay" id="customerFeedbackOverlay" style="z-index: 3000;">
+  <div class="sheet" style="max-width: 500px; background: white;">
+    <div class="sheet-head">
+      <div>
+        <h2 style="margin:0; font-size:1.35rem; color:var(--primary);">Vielen Dank!</h2>
+      </div>
+      <button class="sheet-close" onclick="finishCustomerFlow()">✕</button>
+    </div>
+    <div class="sheet-body" style="padding:20px;">
+      <p style="margin-bottom: 10px; color: #475569; font-weight: 600;">Danke für das Nutzen von diesem Tool!</p>
+      <p style="margin-bottom: 15px; color: #475569; font-size: 14px;">Wir hoffen, dass es Ihnen gefallen und Zeit gespart hat.</p>
+      
+      <p style="margin-bottom: 15px; color: #475569; font-size: 14px;">Da sich dieses Tool aktuell in Entwicklung befindet, würden wir uns über ein kurzes Feedback sehr freuen. Hat etwas gefehlt oder war unklar?</p>
+      
+      <div style="margin-bottom: 15px;">
+        <textarea id="customerFeedbackText" rows="4" placeholder="Ihr Feedback..." style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-family: inherit;"></textarea>
+      </div>
+      
+      <div id="customerFeedbackMessage" style="color: #10B981; font-weight: 600; display: none; margin-bottom: 10px; padding: 10px; background: #d1fae5; border-radius: 6px;">Feedback gesendet. Herzlichen Dank!</div>
+    </div>
+    <div class="sheet-actions" style="padding:15px; border-top:1px solid #eee; display:flex; gap:10px; justify-content:flex-end;">
+      <button class="admin-fest-status-btn" style="padding: 8px 16px; font-size: 14px; background: #e2e8f0; color: #475569;" onclick="finishCustomerFlow()">Nur Schliessen</button>
+      <button class="primary" style="padding: 8px 16px; font-size: 14px; background: #10B981; border-color: #10B981;" id="btnSubmitCustFeedback" onclick="submitCustomerFeedback()">Feedback senden</button>
+    </div>
+  </div>
+</div>
+
 <!-- FEEDBACK MODAL -->
 <div class="overlay" id="adminFeedbackOverlay" onclick="if(event.target.id==='adminFeedbackOverlay') closeAdminFeedbackModal()" style="z-index: 3000;">
   <div class="sheet" style="max-width: 600px; background: white;">
@@ -7201,7 +7257,83 @@ async function downloadPdf() {
     14, finalY + 4
   );
 
-  doc.save("landi-event-zusammenstellung-" + ref + ".pdf");
+  tempCustomerPdf = doc;
+  tempCustomerRef = ref;
+  
+  if (downloadBtn) {
+      downloadBtn.innerText = origBtnText;
+  }
+  document.getElementById("customerActionOverlay").classList.add("open");
+}
+
+let tempCustomerPdf = null;
+let tempCustomerRef = null;
+
+function executeCustomerAction(isMail) {
+  if (!tempCustomerPdf || !tempCustomerRef) return;
+  
+  tempCustomerPdf.save("landi-event-zusammenstellung-" + tempCustomerRef + ".pdf");
+  
+  if (isMail) {
+    const subject = encodeURIComponent("Getränkebestellung Event - Ref: " + tempCustomerRef);
+    const body = encodeURIComponent("Guten Tag,\n\nBitte finden Sie anbei meine Getränkebestellung für unser Event.\n(Hinweis: Bitte vergessen Sie nicht, das soeben heruntergeladene PDF 'landi-event-zusammenstellung-" + tempCustomerRef + ".pdf' manuell hier als Anhang hinzuzufügen!)\n\nFreundliche Grüsse");
+    window.location.href = `mailto:getraenke.rorschach@landisgo.ch?subject=${subject}&body=${body}`;
+  }
+  
+  document.getElementById("customerActionOverlay").classList.remove("open");
+  
+  // Show Feedback Modal
+  setTimeout(() => {
+    document.getElementById("customerFeedbackOverlay").classList.add("open");
+  }, 400);
+}
+
+async function submitCustomerFeedback() {
+  if (!supabaseClient) {
+      finishCustomerFlow();
+      return;
+  }
+  const text = document.getElementById("customerFeedbackText").value.trim();
+  if (!text) {
+      finishCustomerFlow();
+      return;
+  }
+  
+  const btn = document.getElementById("btnSubmitCustFeedback");
+  btn.disabled = true;
+  btn.innerText = "Sendet...";
+  
+  try {
+      const { error } = await supabaseClient.from('orders').insert([{
+          customer_name: "Kunde: " + (tempCustomerRef || "Unbekannt"),
+          internal_note: text,
+          status: 'feedback',
+          total_amount: 0,
+          items: [],
+          fest_returns: []
+      }]);
+      
+      if (error) throw error;
+      
+      document.getElementById("customerFeedbackMessage").style.display = "block";
+      setTimeout(finishCustomerFlow, 2000);
+  } catch (err) {
+      console.error(err);
+      finishCustomerFlow();
+  }
+}
+
+function finishCustomerFlow() {
+  document.getElementById("customerFeedbackOverlay").classList.remove("open");
+  tempCustomerPdf = null;
+  tempCustomerRef = null;
+  document.getElementById("customerFeedbackText").value = "";
+  document.getElementById("customerFeedbackMessage").style.display = "none";
+  const btn = document.getElementById("btnSubmitCustFeedback");
+  if (btn) {
+    btn.disabled = false;
+    btn.innerText = "Feedback senden";
+  }
 }
 
 
