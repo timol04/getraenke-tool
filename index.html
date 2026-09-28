@@ -3845,9 +3845,13 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
         </div>
       </div>
       
-      <div style="margin-top: 20px; margin-bottom: 15px; padding: 10px; background: #fffbeb; border: 1px solid #fef3c7; border-radius: 8px; display: flex; align-items: center; gap: 10px;">
+      <div style="margin-top: 20px; margin-bottom: 5px; padding: 10px; background: #fffbeb; border: 1px solid #fef3c7; border-radius: 8px; display: flex; align-items: center; gap: 10px;">
         <input type="checkbox" id="returnAlreadyPaid" onchange="calcReturn()" style="width: 18px; height: 18px; cursor: pointer;">
         <label for="returnAlreadyPaid" style="font-weight: 600; color: #92400e; cursor: pointer; margin: 0;">Ursprüngliche Rechnung wurde bereits bezahlt</label>
+      </div>
+      <div style="margin-bottom: 15px; padding: 10px; background: #e0f2fe; border: 1px solid #bae6fd; border-radius: 8px; display: flex; align-items: center; gap: 10px;">
+        <input type="checkbox" id="returnFestmobiliar" style="width: 18px; height: 18px; cursor: pointer;">
+        <label for="returnFestmobiliar" style="font-weight: 600; color: #0369a1; cursor: pointer; margin: 0;">Festmobiliar komplett retour gebracht</label>
       </div>
       
       <div style="margin-top: 20px; padding: 15px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px;">
@@ -9095,7 +9099,7 @@ function calcReturn() {
 }
 
 
-async function generateReturnPdf(order, returns, totalRefund, isPaid) {
+async function generateReturnPdf(order, returns, totalRefund, isPaid, festRetour) {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
     const refFormatted = order.ref_nr || String(order.id).padStart(6, "0");
@@ -9145,6 +9149,12 @@ async function generateReturnPdf(order, returns, totalRefund, isPaid) {
         } else {
             const newTotal = orig - totalRefund;
             doc.text("Neuer Rechnungsbetrag nach Retoure (unverbindlich): CHF " + newTotal.toFixed(2), 14, finalY + 16);
+        }
+        
+        if (festRetour) {
+            doc.setFont("helvetica", "bold");
+            doc.setTextColor(3, 105, 161);
+            doc.text("✓ Festmobiliar & Mietmaterial komplett retourniert.", 14, finalY + 28);
         }
         
         doc.setFont("helvetica", "normal");
@@ -9221,7 +9231,8 @@ async function saveReturn() {
       
       // PDF generieren
       const isPaid = document.getElementById("returnAlreadyPaid") && document.getElementById("returnAlreadyPaid").checked;
-      await generateReturnPdf(currentReturnOrder, returns, totalRefund, isPaid);
+      const festRetour = document.getElementById("returnFestmobiliar") && document.getElementById("returnFestmobiliar").checked;
+      await generateReturnPdf(currentReturnOrder, returns, totalRefund, isPaid, festRetour);
       
       closeAdminReturnModal();
       loadOrders(); // reload
