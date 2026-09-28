@@ -28,6 +28,8 @@ ALTER TABLE IF EXISTS categories ENABLE ROW LEVEL SECURITY;
 ALTER TABLE IF EXISTS products ENABLE ROW LEVEL SECURITY;
 ALTER TABLE IF EXISTS presets ENABLE ROW LEVEL SECURITY;
 ALTER TABLE IF EXISTS orders ENABLE ROW LEVEL SECURITY;
+ALTER TABLE IF EXISTS festmaterial ENABLE ROW LEVEL SECURITY;
+ALTER TABLE IF EXISTS feedbacks ENABLE ROW LEVEL SECURITY;
 
 -- 2. Alte / bestehende Policies bereinigen (verhindert Duplikate / Konflikte)
 DROP POLICY IF EXISTS "Public categories read access" ON categories;
@@ -36,6 +38,12 @@ DROP POLICY IF EXISTS "Public products read access" ON products;
 DROP POLICY IF EXISTS "Admin products write access" ON products;
 DROP POLICY IF EXISTS "Public presets read access" ON presets;
 DROP POLICY IF EXISTS "Admin presets write access" ON presets;
+
+DROP POLICY IF EXISTS "Public festmaterial read access" ON festmaterial;
+DROP POLICY IF EXISTS "Admin festmaterial write access" ON festmaterial;
+DROP POLICY IF EXISTS "Admin feedbacks read access" ON feedbacks;
+DROP POLICY IF EXISTS "Public feedbacks insert access" ON feedbacks;
+DROP POLICY IF EXISTS "Admin feedbacks write access" ON feedbacks;
 
 DROP POLICY IF EXISTS "Anon can create order" ON orders;
 DROP POLICY IF EXISTS "Anon can read own ref" ON orders;
@@ -55,6 +63,16 @@ CREATE POLICY "Public products read access"
 CREATE POLICY "Public presets read access"
   ON presets FOR SELECT
   TO anon, authenticated
+  USING (true);
+
+CREATE POLICY "Public festmaterial read access"
+  ON festmaterial FOR SELECT
+  TO anon, authenticated
+  USING (true);
+
+CREATE POLICY "Admin feedbacks read access"
+  ON feedbacks FOR SELECT
+  TO authenticated
   USING (true);
 
 -- 4. ORDERS: RPC-FUNKTION FÜR SICHERES SPEICHERN
@@ -100,6 +118,23 @@ CREATE POLICY "Admin products write access"
 
 CREATE POLICY "Admin presets write access"
   ON presets FOR ALL
+  TO authenticated
+  USING (true)
+  WITH CHECK (true);
+
+CREATE POLICY "Admin festmaterial write access"
+  ON festmaterial FOR ALL
+  TO authenticated
+  USING (true)
+  WITH CHECK (true);
+
+CREATE POLICY "Public feedbacks insert access"
+  ON feedbacks FOR INSERT
+  TO anon, authenticated
+  WITH CHECK (true);
+
+CREATE POLICY "Admin feedbacks write access"
+  ON feedbacks FOR ALL
   TO authenticated
   USING (true)
   WITH CHECK (true);

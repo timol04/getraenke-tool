@@ -3399,6 +3399,10 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
   </div> <!-- /#customerShopView -->
 </main>
 
+<footer style="text-align: center; padding: 40px 20px 140px 20px; font-size: 13px; color: var(--text-muted);">
+  <a href="#" onclick="openPrivacyModal(event)" style="color: var(--text-muted); text-decoration: underline; cursor: pointer;">Datenschutz / Privacy Policy</a>
+</footer>
+
 <div class="summary-bar">
   <div class="summary-bar-inner">
     <div>
@@ -9274,7 +9278,40 @@ function deleteOrder(id) {
 }
 /* END: pdf_extended */
 
+function openPrivacyModal(e) {
+  if (e) e.preventDefault();
+  document.getElementById('privacyModalOverlay').classList.add('open');
+}
+function closePrivacyModal() {
+  document.getElementById('privacyModalOverlay').classList.remove('open');
+}
 </script>
+
+<!-- Privacy Policy Modal -->
+<div class="overlay" id="privacyModalOverlay" onclick="if(event.target.id==='privacyModalOverlay') closePrivacyModal()" style="z-index: 3000;">
+  <div class="sheet" style="max-width: 600px; width: 90%; max-height: 90vh; overflow-y: auto;">
+    <div class="sheet-header" style="padding: 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+      <h2 style="font-size: 1.2rem; font-weight: 700; margin: 0;">Datenschutzerklärung</h2>
+      <button class="sheet-close" onclick="closePrivacyModal()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-muted);">✕</button>
+    </div>
+    <div class="sheet-body" style="padding: 20px; font-size: 14px; line-height: 1.6; color: var(--text); text-align: left;">
+      <p>Wir nehmen den Schutz deiner persönlichen Daten ernst. Diese Datenschutzerklärung informiert dich darüber, welche Daten wir über unser Tool erheben.</p>
+      
+      <h3 style="margin-top:16px; font-size: 15px; color: var(--green);">1. Keine Speicherung persönlicher Bestelldaten</h3>
+      <p>Wenn du über unser Tool Getränke zusammenstellst und das PDF erstellen lässt, kannst du Angaben machen (z. B. deinen Namen). <strong>Wichtig: Diese Daten verbleiben lokal auf deinem Gerät und werden niemals auf unsere Server übertragen oder dort gespeichert.</strong></p>
+      <p>Wenn eine Bestellung in unserem System abgelegt wird, speichern wir ausschliesslich anonyme Bestelldaten (gewählte Artikel, Mengen). Namen, Adressen oder Telefonnummern werden <strong>nicht</strong> gespeichert.</p>
+
+      <h3 style="margin-top:16px; font-size: 15px; color: var(--green);">2. Feedback-Formular</h3>
+      <p>Wenn du uns Feedback sendest, speichern wir ausschliesslich die Textnachricht. Wir erfragen und speichern keine E-Mail-Adressen (ausser, du schreibst sie freiwillig in den Text).</p>
+
+      <h3 style="margin-top:16px; font-size: 15px; color: var(--green);">3. Technische Daten</h3>
+      <p>Unsere Website nutzt GitHub Pages und Supabase. Aus technischen Gründen werden hierbei IP-Adressen verarbeitet, um die Website auszuliefern.</p>
+    </div>
+    <div style="padding: 16px 20px; border-top: 1px solid var(--border); text-align: right;">
+      <button class="secondary" onclick="closePrivacyModal()" style="padding: 8px 16px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-card); cursor: pointer; font-weight: 600;">Schliessen</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
 
