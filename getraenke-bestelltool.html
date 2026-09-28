@@ -3628,8 +3628,9 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
         </div>
       </div>
     </div>
-    <div style="padding:15px; border-top:1px solid #eee; display:flex; gap:10px; justify-content:flex-end;">
-      <button class="admin-fest-status-btn" style="padding: 8px 16px; font-size: 14px;" onclick="closeAdminOrderViewModal()">Schliessen</button>
+    <div style="padding:15px; border-top:1px solid #eee; display:flex; gap:10px; justify-content:space-between;">
+      <button class="primary" style="padding: 8px 16px; font-size: 14px;" onclick="downloadPickingList()"><i class="fa-solid fa-file-pdf"></i> Rüstliste PDF</button>
+      <button class="admin-fest-status-btn" style="padding: 8px 16px; font-size: 14px; background: #e2e8f0; color: #475569;" onclick="closeAdminOrderViewModal()">Schliessen</button>
     </div>
   </div>
 </div>
@@ -8526,6 +8527,7 @@ async function cycleOrderStatus(id, currentStatus) {
 function viewOrderDetails(id) {
   const order = currentOrders.find(o => o.id === id);
   if (!order) return;
+  window.currentViewOrder = order;
   
   const refFormatted = order.ref_nr || String(order.id).padStart(6, '0');
   document.getElementById("viewModalTitle").innerText = `Bestellung: #${refFormatted}`;
@@ -8553,6 +8555,46 @@ function viewOrderDetails(id) {
 
 function closeAdminOrderViewModal() {
   document.getElementById("adminOrderViewOverlay").classList.remove("open");
+}
+
+async function downloadPickingList() {
+    if (!window.currentViewOrder) return;
+    const order = window.currentViewOrder;
+    
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    const refFormatted = order.ref_nr || String(order.id).padStart(6, "0");
+    const today = new Date().toLocaleDateString("de-CH");
+    
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(20);
+    doc.setTextColor(31, 58, 46);
+    doc.text("RÜSTLISTE / PICKING LIST", 14, 20);
+    
+    doc.setFontSize(14);
+    doc.text("Referenz-Nr.: #" + refFormatted, 14, 30);
+    
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    doc.text("Datum: " + today, 14, 38);
+    
+    if (order.items && order.items.length > 0) {
+        doc.autoTable({
+            startY: 45,
+            head: [["Art-Nr.", "Artikel", "Menge (Gebinde/Pack/Flaschen)", "Rüsten"]],
+            body: order.items.map(item => [
+                item.art || "-",
+                item.name,
+                item.display_qty || (item.qty + "x"),
+                "[      ]"
+            ]),
+            styles: { fontSize: 11, font: "helvetica", cellPadding: 4 },
+            headStyles: { fillColor: [31, 58, 46], textColor: [255, 255, 255], fontStyle: "bold" },
+            alternateRowStyles: { fillColor: [247, 249, 245] }
+        });
+    }
+    
+    doc.save("ruestliste-" + refFormatted + ".pdf");
 }
 
 function openReturnModal(id) {
