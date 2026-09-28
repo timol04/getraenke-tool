@@ -6906,6 +6906,8 @@ async function downloadPdf() {
                   qty: s.count, 
                   display_qty: gebindeDetail,
                   unit_price: s.product.price, 
+                  row_total: s.total,
+                  price_per_unit: s.unitPrice,
                   is_pack: false, 
                   type: 'drink'
               });
@@ -8536,13 +8538,25 @@ function viewOrderDetails(id) {
   tbody.innerHTML = "";
   
   (order.items || []).forEach(item => {
-      const rowTotal = item.qty * parseFloat(item.unit_price);
+      const displayPrice = parseFloat(item.unit_price);
+      let rowTotal = item.row_total;
+      if (rowTotal === undefined) {
+          let calcPrice = displayPrice;
+          if (item.display_qty && (item.display_qty.includes("Pck") || item.display_qty.includes("Harass"))) {
+              let caseSize = 1;
+              const aMatch = item.display_qty.match(/à\s*(\d+)/);
+              if (aMatch) caseSize = parseInt(aMatch[1]);
+              if (caseSize > 1) calcPrice = displayPrice / caseSize;
+          }
+          rowTotal = item.qty * calcPrice;
+      }
+
       const tr = document.createElement("tr");
       tr.innerHTML = `
         <td>${item.art || '-'}</td>
         <td>${item.name}</td>
         <td>${item.display_qty || item.qty + 'x'}</td>
-        <td>CHF ${parseFloat(item.unit_price).toFixed(2)}</td>
+        <td>CHF ${displayPrice.toFixed(2)}</td>
         <td><strong>CHF ${rowTotal.toFixed(2)}</strong></td>
       `;
       tbody.appendChild(tr);
@@ -8646,7 +8660,19 @@ function calcReturn() {
       if (retQtyInput) {
           let qty = parseInt(retQtyInput.value) || 0;
           if (qty > item.qty) { qty = item.qty; retQtyInput.value = qty; } // constrain
-          const refundValue = qty * parseFloat(item.unit_price);
+          
+          let calcPrice = item.price_per_unit;
+          if (calcPrice === undefined) {
+              calcPrice = parseFloat(item.unit_price);
+              if (item.display_qty && (item.display_qty.includes("Pck") || item.display_qty.includes("Harass"))) {
+                  let caseSize = 1;
+                  const aMatch = item.display_qty.match(/à\s*(\d+)/);
+                  if (aMatch) caseSize = parseInt(aMatch[1]);
+                  if (caseSize > 1) calcPrice = parseFloat(item.unit_price) / caseSize;
+              }
+          }
+          
+          const refundValue = qty * calcPrice;
           document.getElementById(`retRowTotal_${index}`).innerText = `CHF ${refundValue.toFixed(2)}`;
           totalRefund += refundValue;
       }
@@ -8754,7 +8780,17 @@ async function saveReturn() {
       if (retQtyInput) {
           let qty = parseInt(retQtyInput.value) || 0;
           if (qty > 0) {
-              const refundValue = qty * parseFloat(item.unit_price);
+              let calcPrice = item.price_per_unit;
+              if (calcPrice === undefined) {
+                  calcPrice = parseFloat(item.unit_price);
+                  if (item.display_qty && (item.display_qty.includes("Pck") || item.display_qty.includes("Harass"))) {
+                      let caseSize = 1;
+                      const aMatch = item.display_qty.match(/à\s*(\d+)/);
+                      if (aMatch) caseSize = parseInt(aMatch[1]);
+                      if (caseSize > 1) calcPrice = parseFloat(item.unit_price) / caseSize;
+                  }
+              }
+              const refundValue = qty * calcPrice;
               returns.push({ name: item.name, returned_qty: qty, refund_value: refundValue });
               totalRefund += refundValue;
           }
