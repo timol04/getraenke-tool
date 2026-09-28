@@ -8746,7 +8746,7 @@ function renderOrdersTable() {
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
             Retoure
           </button>
-          <button class="admin-fest-status-btn danger" onclick="deleteOrder(${order.id})" title="Löschen">
+          <button class="admin-fest-status-btn danger" onclick="event.stopPropagation(); deleteOrder(${order.id})" title="Löschen">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
           </button>
         </td>
@@ -9245,6 +9245,9 @@ function deleteOrder(id) {
   
   showConfirmModal("Bestellung löschen", `Möchtest du die Referenz #${refFormatted} wirklich unwiderruflich aus der Datenbank löschen?`, "Löschen", async () => {
     try {
+        if (window.currentViewOrder && window.currentViewOrder.id === id) closeAdminOrderViewModal();
+        if (typeof currentReturnOrder !== 'undefined' && currentReturnOrder && currentReturnOrder.id === id) closeReturnModal();
+        
         const { error } = await supabaseClient.from('orders').delete().eq('id', id);
         if (error) throw error;
         loadOrders();
