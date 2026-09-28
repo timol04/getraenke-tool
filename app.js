@@ -3241,6 +3241,19 @@ async function downloadPdf() {
   doc.roundedRect(136, finalY - 4, 10, 6, 1.5, 1.5, "S");
   doc.text("x  Flaschen (CHF 0.50)", 148, finalY + 0.5);
   
+  // Zzgl. Lieferung Section
+  finalY += 10;
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(10);
+  doc.setTextColor(31, 58, 46);
+  doc.text("Zzgl. Lieferung (falls gewünscht):", 14, finalY);
+  
+  finalY += 6;
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(9);
+  doc.roundedRect(14, finalY - 4, 10, 6, 1.5, 1.5, "S");
+  doc.text("x  Lieferung (CHF 69.00)", 26, finalY + 0.5);
+  
   finalY += 10;
 
   if (hasUnpricedFest) {
