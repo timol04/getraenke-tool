@@ -7345,13 +7345,9 @@ async function submitCustomerFeedback() {
   btn.innerText = "Sendet...";
   
   try {
-      const { error } = await supabaseClient.from('orders').insert([{
-          customer_name: "Kunde: " + (tempCustomerRef || "Unbekannt"),
-          internal_note: text,
-          status: 'feedback',
-          total_amount: 0,
-          items: [],
-          fest_returns: []
+      const { error } = await supabaseClient.from('feedbacks').insert([{
+          name: "Kunde: " + (tempCustomerRef || "Unbekannt"),
+          message: text
       }]);
       
       if (error) throw error;
@@ -8693,7 +8689,6 @@ function renderOrdersTable() {
   }
   
   currentOrders.forEach(order => {
-      if (order.status === 'feedback') return;
       const refFormatted = order.ref_nr || String(order.id).padStart(6, '0');
       if (search && !refFormatted.toLowerCase().includes(search)) return;
       
@@ -8914,7 +8909,7 @@ async function loadFeedbackList() {
   container.innerHTML = "<div style='text-align:center; padding:20px; color:#64748b;'>Lade Notizen...</div>";
   if (!supabaseClient) return;
   
-  const { data, error } = await supabaseClient.from('orders').select('*').eq('status', 'feedback').order('created_at', { ascending: false });
+  const { data, error } = await supabaseClient.from('feedbacks').select('*').order('created_at', { ascending: false });
   if (error) {
     container.innerHTML = "<div style='text-align:center; padding:20px; color:red;'>Fehler beim Laden.</div>";
     return;
@@ -8929,8 +8924,9 @@ async function loadFeedbackList() {
   data.forEach(note => {
     const isSuperAdmin = (currentAdminRole === "super_admin");
     const date = new Date(note.created_at).toLocaleString('de-CH');
-    const name = note.customer_name || "Unbekannt";
-    const text = note.internal_note || "";
+    const idStr = String(note.id).padStart(3, '0');
+    const name = note.name || "Unbekannt";
+    const text = note.message || "";
     
     let delBtn = "";
     if (isSuperAdmin) {
@@ -8942,7 +8938,7 @@ async function loadFeedbackList() {
     div.innerHTML = `
       <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px;">
         <div>
-          <div style="font-weight:600; color:#1e293b;">${escapeHtml(name)}</div>
+          <div style="font-weight:600; color:#1e293b;">#${idStr} - ${escapeHtml(name)}</div>
           <div style="font-size:12px; color:#94a3b8;">${date}</div>
         </div>
         ${delBtn}
@@ -8958,10 +8954,9 @@ async function deleteFeedbackNote(id) {
   if (!supabaseClient) return;
   
   try {
-    const { error } = await supabaseClient.from('orders').delete().eq('id', id);
+    const { error } = await supabaseClient.from('feedbacks').delete().eq('id', id);
     if (error) throw error;
     loadFeedbackList();
-    loadOrders(); // Reload orders in background just in case
   } catch (err) {
     console.error(err);
     alert("Fehler beim Löschen der Notiz.");
@@ -8983,13 +8978,9 @@ async function saveFeedback() {
   btn.innerText = "Sendet...";
   
   try {
-      const { error } = await supabaseClient.from('orders').insert([{
-          customer_name: "FEEDBACK: " + name,
-          internal_note: text,
-          status: 'feedback',
-          total_amount: 0,
-          items: [],
-          fest_returns: []
+      const { error } = await supabaseClient.from('feedbacks').insert([{
+          name: name,
+          message: text
       }]);
       
       if (error) throw error;
