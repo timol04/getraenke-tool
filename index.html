@@ -4207,6 +4207,21 @@ function normalizeAssortment() {
       } else {
         p.eigenmarke = !!p.eigenmarke;
       }
+
+      // GEÄNDERT: Mineralwasser und Süssgetränke zwingend als "Pack" behandeln
+      if (cat.name === "Mineralwasser" || cat.name === "Süssgetränke") {
+        if (!p.caseSize || p.caseSize <= 1) p.caseSize = 6;
+        if (p.pricePack === undefined || p.pricePack === null) {
+          if (p.priceSingle !== undefined && p.priceSingle !== null) {
+            p.pricePack = Math.round(p.priceSingle * p.caseSize * 100) / 100;
+          } else if (p.price !== undefined && p.price !== null) {
+            p.pricePack = Math.round(p.price * p.caseSize * 100) / 100;
+          }
+        }
+        p.gebinde = "Pack";
+        p.caseOnly = true;
+        p.allowSingleBottle = false;
+      }
       const isWine = (cat.name === "Weine" || cat.name === "Schaumweine & Champagner") && !/Bag-in-Box|3\s*l|5\s*l/i.test(p.name);
       if (isWine) {
         if (!p.caseSize) p.caseSize = 6;
@@ -5105,6 +5120,16 @@ function updateAdminViewDisplay() {
 }
 
 function updateAdminDashboardStats() {
+  if (!window.isCatalogLoaded) {
+    const spinner = '<i class="fa-solid fa-spinner fa-spin" style="font-size:0.8em; color:var(--text-muted);"></i>';
+    const ids = ["adminStatTotal", "adminStatActive", "adminStatDisabled", "adminStatTop", "adminStatEigen"];
+    ids.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.innerHTML = spinner;
+    });
+    return;
+  }
+
   let totalCount = 0;
   let activeCount = 0;
   let disabledCount = 0;
@@ -5448,6 +5473,8 @@ async function loadCatalogFromSupabase() {
 
     if (catErr || !cats || cats.length === 0) {
       console.log("Supabase: Noch keine Kategorien vorhanden.");
+      window.isCatalogLoaded = true;
+      if (typeof updateAdminDashboardStats === "function") updateAdminDashboardStats();
       return false;
     }
 
@@ -5458,6 +5485,8 @@ async function loadCatalogFromSupabase() {
 
     if (prodErr || !prods || prods.length === 0) {
       console.log("Supabase: Noch keine Produkte vorhanden.");
+      window.isCatalogLoaded = true;
+      if (typeof updateAdminDashboardStats === "function") updateAdminDashboardStats();
       return false;
     }
 
@@ -5511,6 +5540,8 @@ async function loadCatalogFromSupabase() {
     if (seedBtn) seedBtn.style.display = "none";
 
     console.log(`✅ ${prods.length} Produkte und ${cats.length} Kategorien live aus Supabase geladen!`);
+    window.isCatalogLoaded = true;
+    if (typeof updateAdminDashboardStats === "function") updateAdminDashboardStats();
     return true;
   } catch (err) {
     console.warn("Konnte Sortiment nicht aus Supabase laden:", err);
@@ -5636,7 +5667,7 @@ async function seedSupabaseFromBrowser() {
     return;
   }
 
-  const ok = confirm("Möchtest du das gesamte aktuelle Sortiment (alle Kategorien, 338 Produkte und Pakete) jetzt nach Supabase übertragen?");
+  const ok = confirm("⚠️ ACHTUNG: Dies überschreibt die aktuellen Produkte in der Datenbank mit den Standardwerten. Eigene Anpassungen an Produkten und Preisen gehen verloren.\n\nMöchtest du wirklich fortfahren?");
   if (!ok) return;
 
   const btn = document.getElementById("seedSupabaseBtn");
