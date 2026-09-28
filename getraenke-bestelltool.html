@@ -7227,6 +7227,10 @@ async function downloadPdf() {
 
   // TABELLE 2: FESTMATERIAL & EINWEGGESCHIRR (Nur wenn ausgewählt)
   if (selectedFest.length > 0) {
+    if (finalY > 260) {
+      doc.addPage();
+      finalY = 20;
+    }
     doc.setFont("helvetica", "bold");
     doc.setFontSize(11);
     doc.setTextColor(31, 58, 46);
@@ -7257,6 +7261,10 @@ async function downloadPdf() {
   }
 
   // BEREITSTELLUNG & TOTAL-ZUSAMMENFASSUNG
+  if (finalY > 250) {
+    doc.addPage();
+    finalY = 20;
+  }
   doc.setFont("helvetica", "bold");
   doc.setFontSize(11);
   doc.setTextColor(31, 58, 46);
