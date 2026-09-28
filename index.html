@@ -3750,6 +3750,22 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
   </div>
 </div>
 
+<!-- CONFIRM MODAL -->
+<div class="overlay" id="confirmOverlay" style="z-index: 4000;" onclick="if(event.target.id==='confirmOverlay') closeConfirmModal()">
+  <div class="sheet" style="max-width: 350px; background: white; text-align: center; border-radius: 12px; padding-top: 10px;">
+    <div class="sheet-body" style="padding: 20px;">
+      <div style="font-size: 3rem; color: #ef4444; margin-bottom: 15px;"><i class="fa-solid fa-circle-exclamation"></i></div>
+      <h3 id="confirmTitle" style="margin-bottom: 15px; color: #1e293b; font-size: 1.35rem;">Bestätigung</h3>
+      <p id="confirmMessage" style="color: #64748b; margin-bottom: 25px; line-height: 1.5; font-size: 0.95rem;"></p>
+      
+      <div style="display: flex; gap: 10px; justify-content: center;">
+        <button style="flex: 1; padding: 12px; border-radius: 8px; border: 1px solid #cbd5e1; background: white; color: #475569; font-weight: 600; cursor: pointer; transition: background 0.2s;" onclick="closeConfirmModal()" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='white'">Abbrechen</button>
+        <button id="confirmBtn" style="flex: 1; padding: 12px; border-radius: 8px; border: none; background: #ef4444; color: white; font-weight: 600; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background='#dc2626'" onmouseout="this.style.background='#ef4444'">Löschen</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- FEEDBACK MODAL -->
 <div class="overlay" id="adminFeedbackOverlay" onclick="if(event.target.id==='adminFeedbackOverlay') closeAdminFeedbackModal()" style="z-index: 3000;">
   <div class="sheet" style="max-width: 600px; background: white;">
@@ -8891,6 +8907,27 @@ function openAdminFeedbackModal() {
   document.getElementById("adminFeedbackOverlay").classList.add("open");
 }
 
+let currentConfirmCallback = null;
+
+function showConfirmModal(title, message, btnText, callback) {
+    document.getElementById("confirmTitle").innerText = title;
+    document.getElementById("confirmMessage").innerText = message;
+    document.getElementById("confirmBtn").innerText = btnText;
+    currentConfirmCallback = callback;
+    
+    document.getElementById("confirmBtn").onclick = function() {
+        closeConfirmModal();
+        if (currentConfirmCallback) currentConfirmCallback();
+    };
+    
+    document.getElementById("confirmOverlay").classList.add("open");
+}
+
+function closeConfirmModal() {
+    document.getElementById("confirmOverlay").classList.remove("open");
+    currentConfirmCallback = null;
+}
+
 function closeAdminFeedbackModal() {
   document.getElementById("adminFeedbackOverlay").classList.remove("open");
 }
@@ -8950,17 +8987,18 @@ async function loadFeedbackList() {
 }
 
 async function deleteFeedbackNote(id) {
-  if (!confirm("Diese Notiz wirklich löschen?")) return;
-  if (!supabaseClient) return;
-  
-  try {
-    const { error } = await supabaseClient.from('feedbacks').delete().eq('id', id);
-    if (error) throw error;
-    loadFeedbackList();
-  } catch (err) {
-    console.error(err);
-    alert("Fehler beim Löschen der Notiz.");
-  }
+  showConfirmModal("Notiz löschen", "Möchtest du diese Notiz wirklich löschen?", "Löschen", async () => {
+    if (!supabaseClient) return;
+    
+    try {
+      const { error } = await supabaseClient.from('feedbacks').delete().eq('id', id);
+      if (error) throw error;
+      loadFeedbackList();
+    } catch (err) {
+      console.error(err);
+      alert("Fehler beim Löschen der Notiz.");
+    }
+  });
 }
 
 async function saveFeedback() {
@@ -9189,7 +9227,7 @@ async function saveReturn() {
   }
 }
 
-async function deleteOrder(id) {
+function deleteOrder(id) {
   if (!supabaseClient) return;
   
   const order = currentOrders.find(o => o.id === id);
@@ -9197,18 +9235,16 @@ async function deleteOrder(id) {
   
   const refFormatted = order.ref_nr || String(order.id).padStart(6, '0');
   
-  if (!confirm(`Möchtest du die Referenz #${refFormatted} wirklich unwiderruflich aus der Datenbank löschen?`)) {
-      return;
-  }
-  
-  try {
-      const { error } = await supabaseClient.from('orders').delete().eq('id', id);
-      if (error) throw error;
-      loadOrders();
-  } catch (err) {
-      console.error("Fehler beim Löschen:", err);
-      alert("Fehler beim Löschen.");
-  }
+  showConfirmModal("Bestellung löschen", `Möchtest du die Referenz #${refFormatted} wirklich unwiderruflich aus der Datenbank löschen?`, "Löschen", async () => {
+    try {
+        const { error } = await supabaseClient.from('orders').delete().eq('id', id);
+        if (error) throw error;
+        loadOrders();
+    } catch (err) {
+        console.error("Fehler beim Löschen:", err);
+        alert("Fehler beim Löschen.");
+    }
+  });
 }
 /* END: pdf_extended */
 
