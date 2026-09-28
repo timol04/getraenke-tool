@@ -3708,6 +3708,28 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
   </div>
 </div>
 
+<!-- KUNDEN FINAL MODAL -->
+<div class="overlay" id="customerFinalOverlay" style="z-index: 3000;">
+  <div class="sheet" style="max-width: 500px; background: white; text-align: center;">
+    <div class="sheet-head">
+      <div>
+        <h2 id="finalModalTitle" style="margin:0; font-size:1.35rem; color:var(--primary);">Feedback gesendet</h2>
+      </div>
+    </div>
+    <div class="sheet-body" style="padding:20px;">
+      <p id="finalModalThanks" style="margin-bottom: 20px; color: #10B981; font-weight: 600; font-size: 1.1rem;">Vielen Dank, Ihr Feedback wurde gesendet!</p>
+      
+      <p style="margin-bottom: 25px; color: #475569; font-size: 0.95rem; background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0; text-align: left;">
+        <strong>Wichtig:</strong> Damit die Bestellung bearbeitet wird, müssen Sie sich entweder <strong>im Laden bei einem Mitarbeitenden melden</strong> oder uns das PDF <strong>per E-Mail kontaktieren</strong>.
+      </p>
+      
+      <p style="margin-bottom: 20px; color: #64748b; font-size: 0.9rem;">Sie können diese Seite jetzt schliessen.</p>
+      
+      <button class="primary" style="padding: 10px 30px; font-size: 1rem;" onclick="closeCustomerFinalOverlay()">Seite schliessen</button>
+    </div>
+  </div>
+</div>
+
 <!-- FEEDBACK MODAL -->
 <div class="overlay" id="adminFeedbackOverlay" onclick="if(event.target.id==='adminFeedbackOverlay') closeAdminFeedbackModal()" style="z-index: 3000;">
   <div class="sheet" style="max-width: 600px; background: white;">
@@ -7289,12 +7311,12 @@ function executeCustomerAction(isMail) {
 
 async function submitCustomerFeedback() {
   if (!supabaseClient) {
-      finishCustomerFlow();
+      showCustomerFinal(false);
       return;
   }
   const text = document.getElementById("customerFeedbackText").value.trim();
   if (!text) {
-      finishCustomerFlow();
+      showCustomerFinal(false);
       return;
   }
   
@@ -7315,14 +7337,19 @@ async function submitCustomerFeedback() {
       if (error) throw error;
       
       document.getElementById("customerFeedbackMessage").style.display = "block";
-      setTimeout(finishCustomerFlow, 2000);
+      setTimeout(() => { showCustomerFinal(true); }, 1000);
   } catch (err) {
       console.error(err);
-      finishCustomerFlow();
+      showCustomerFinal(false);
   }
 }
 
 function finishCustomerFlow() {
+  // Wenn nur abgebrochen wird
+  showCustomerFinal(false);
+}
+
+function showCustomerFinal(feedbackSent) {
   document.getElementById("customerFeedbackOverlay").classList.remove("open");
   tempCustomerPdf = null;
   tempCustomerRef = null;
@@ -7333,6 +7360,20 @@ function finishCustomerFlow() {
     btn.disabled = false;
     btn.innerText = "Feedback senden";
   }
+  
+  if (feedbackSent) {
+    document.getElementById("finalModalTitle").innerText = "Feedback gesendet";
+    document.getElementById("finalModalThanks").innerText = "Vielen Dank, Ihr Feedback wurde gesendet!";
+  } else {
+    document.getElementById("finalModalTitle").innerText = "Abgeschlossen";
+    document.getElementById("finalModalThanks").innerText = "Vielen Dank für die Nutzung des Tools!";
+  }
+  
+  document.getElementById("customerFinalOverlay").classList.add("open");
+}
+
+function closeCustomerFinalOverlay() {
+  document.getElementById("customerFinalOverlay").classList.remove("open");
 }
 
 
