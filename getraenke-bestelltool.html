@@ -4533,7 +4533,7 @@ async function loginAdmin() {
     closeAdminModal();
     toggleEditPricesMode(true);
     setAdminUrl();
-    showAdminToast("Willkommen!", email + " angemeldet", false);
+    showAdminToast(email + " wurde angemeldet", "", false);
   } catch (e) {
     console.error("Login Fehler:", e);
     alert("Fehler beim Anmelden: " + (e.message || e));
