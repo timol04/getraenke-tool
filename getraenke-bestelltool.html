@@ -5116,15 +5116,14 @@ function updateAdminHeaderBtn() {
   const btn = document.getElementById("editPricesBtn");
   if (!btn) return;
   if (isAdminAuthenticated) {
-    btn.style.display = "inline-flex";
     if (isCustomerPreviewMode) {
+      btn.style.display = "inline-flex";
       btn.innerHTML = '<i class="fa-solid fa-arrow-left" style="margin-right:5px;"></i> Zum Dashboard';
       btn.style.background = "#3d7d1e";
       btn.onclick = switchToAdminDashboard;
     } else {
-      btn.innerHTML = '<i class="fa-solid fa-eye" style="margin-right:5px;"></i> Kundenansicht';
-      btn.style.background = "#2563eb";
-      btn.onclick = switchToCustomerPreview;
+      // Ausblenden, da es im Dashboard dafür bereits eine grosse Karte (Kundenansicht) gibt.
+      btn.style.display = "none";
     }
   } else {
     btn.style.display = "none";
