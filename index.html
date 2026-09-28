@@ -2763,9 +2763,26 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
         </div>
       </div>
       <!-- END: pdf_extended -->
+      
+      <!-- Card: Entwicklungsnotizen -->
+      <div class="admin-action-card" onclick="openAdminFeedbackModal()">
+        <div class="action-card-header">
+          <div class="action-icon-wrap icon-purple"><i class="fa-solid fa-lightbulb"></i></div>
+          <span class="card-badge-sync" style="background:#EEF2FF; color:#4F46E5;">Feedback</span>
+        </div>
+        <div class="action-card-body">
+          <h3 class="action-card-title">Entwicklungsnotizen / Feedback</h3>
+          <p class="action-card-desc">Hinterlasse eine Notiz, Fehlerbericht oder Idee für die Weiterentwicklung des Tools.</p>
+        </div>
+        <div class="action-card-footer">
+          <button type="button" class="action-btn btn-secondary-big">
+            Notiz verfassen ➔
+          </button>
+        </div>
+      </div>
 
       <!-- Card 2: Rechner Standards -->
-      <div class="admin-action-card" onclick="openCalcStandardsModal()">
+      <div class="admin-action-card" id="dashCardCalc" onclick="openCalcStandardsModal()">
         <div class="action-card-header">
           <div class="action-icon-wrap icon-gold"><i class="fa-solid fa-bullseye"></i></div>
           <span class="card-badge-sync">Rechner</span>
@@ -3631,6 +3648,37 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
     <div style="padding:15px; border-top:1px solid #eee; display:flex; gap:10px; justify-content:space-between;">
       <button style="padding: 10px 18px; font-size: 14.5px; font-weight: 600; background: #0284c7; color: white; border: none; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 2px 5px rgba(2, 132, 199, 0.3);" onclick="downloadPickingList()" onmouseover="this.style.background='#0369a1'" onmouseout="this.style.background='#0284c7'"><i class="fa-solid fa-file-pdf"></i> Rüstliste PDF erstellen</button>
       <button class="admin-fest-status-btn" style="padding: 8px 16px; font-size: 14px; background: #e2e8f0; color: #475569;" onclick="closeAdminOrderViewModal()">Schliessen</button>
+    </div>
+  </div>
+</div>
+
+<!-- FEEDBACK MODAL -->
+<div class="overlay" id="adminFeedbackOverlay" onclick="if(event.target.id==='adminFeedbackOverlay') closeAdminFeedbackModal()" style="z-index: 3000;">
+  <div class="sheet" style="max-width: 600px; background: white;">
+    <div class="sheet-head">
+      <div>
+        <h2 style="margin:0; font-size:1.35rem; color:var(--primary);">Entwicklungsnotizen / Feedback</h2>
+      </div>
+      <button class="sheet-close" onclick="closeAdminFeedbackModal()">✕</button>
+    </div>
+    <div class="sheet-body" style="padding:15px;">
+      <p style="margin-bottom: 15px; color: #475569; font-size: 14px;">Hast du eine Idee, einen Fehler gefunden oder einen Anpassungswunsch? Hinterlasse hier eine Notiz für Timo.</p>
+      
+      <div style="margin-bottom: 15px;">
+        <label style="display:block; font-weight:600; margin-bottom:5px;">Dein Name / Kürzel</label>
+        <input type="text" id="feedbackName" placeholder="z. B. Max Mustermann" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
+      </div>
+      
+      <div style="margin-bottom: 15px;">
+        <label style="display:block; font-weight:600; margin-bottom:5px;">Anliegen / Idee</label>
+        <textarea id="feedbackText" rows="6" placeholder="Was genau passt nicht oder was würdest du gerne anpassen?" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-family: inherit;"></textarea>
+      </div>
+      
+      <div id="feedbackMessage" style="color: #10B981; font-weight: 600; display: none; margin-bottom: 10px; padding: 10px; background: #d1fae5; border-radius: 6px;">Notiz erfolgreich gespeichert!</div>
+    </div>
+    <div class="sheet-actions" style="padding:15px; border-top:1px solid #eee; display:flex; gap:10px; justify-content:flex-end;">
+      <button class="admin-fest-status-btn" style="padding: 8px 16px; font-size: 14px; background: #e2e8f0; color: #475569;" onclick="closeAdminFeedbackModal()">Abbrechen</button>
+      <button class="primary" style="padding: 8px 16px; font-size: 14px; background: #4F46E5; border-color: #4F46E5;" id="btnSubmitFeedback" onclick="saveFeedback()">Notiz senden</button>
     </div>
   </div>
 </div>
@@ -4995,7 +5043,7 @@ function switchToAdminDashboard() {
 }
 
 function updateAdminCardPermissions() {
-  const restricted = ["dashCardSeed", "dashCardCsv", "dashCardExport", "dashCardPreview"];
+  const restricted = ["dashCardSeed", "dashCardCsv", "dashCardExport", "dashCardPreview", "dashCardCalc"];
   const isViewer = currentAdminRole === "viewer";
   restricted.forEach(id => {
     const el = document.getElementById(id);
@@ -8644,6 +8692,55 @@ function openReturnModal(id) {
   
   calcReturn();
   document.getElementById("adminReturnOverlay").classList.add("open");
+}
+
+function openAdminFeedbackModal() {
+  document.getElementById("feedbackName").value = "";
+  document.getElementById("feedbackText").value = "";
+  document.getElementById("feedbackMessage").style.display = "none";
+  document.getElementById("btnSubmitFeedback").disabled = false;
+  document.getElementById("btnSubmitFeedback").innerText = "Notiz senden";
+  document.getElementById("adminFeedbackOverlay").classList.add("open");
+}
+
+function closeAdminFeedbackModal() {
+  document.getElementById("adminFeedbackOverlay").classList.remove("open");
+}
+
+async function saveFeedback() {
+  if (!supabaseClient) return;
+  const name = document.getElementById("feedbackName").value.trim();
+  const text = document.getElementById("feedbackText").value.trim();
+  
+  if (!name || !text) {
+    alert("Bitte Name und Anliegen ausfüllen.");
+    return;
+  }
+  
+  const btn = document.getElementById("btnSubmitFeedback");
+  btn.disabled = true;
+  btn.innerText = "Sendet...";
+  
+  try {
+      const { error } = await supabaseClient.from('orders').insert([{
+          customer_name: "FEEDBACK: " + name,
+          internal_note: text,
+          status: 'feedback',
+          total_amount: 0,
+          items: [],
+          fest_returns: []
+      }]);
+      
+      if (error) throw error;
+      
+      document.getElementById("feedbackMessage").style.display = "block";
+      setTimeout(closeAdminFeedbackModal, 2000);
+  } catch (err) {
+      console.error(err);
+      alert("Fehler beim Senden des Feedbacks.");
+      btn.disabled = false;
+      btn.innerText = "Notiz senden";
+  }
 }
 
 function closeAdminReturnModal() {
