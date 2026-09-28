@@ -4,6 +4,7 @@
  * Letzte Änderung: 28.09.2026
  * 
  * CHANGELOG (Was ist neu?):
+ * - v1.4.1: Datenschutz-Hinweis bei Feedback, Globale Error-Banner (try/catch)
  * - v1.4.0: Code in HTML, CSS und JS aufgeteilt (Performance & Übersicht)
  * - v1.4.0: Mineralwasser/Süssgetränke zwingend auf "Pack" umgestellt
  * - v1.3.0: Admin-Dashboard Lade-Animation & "Überschreiben"-Warnung
