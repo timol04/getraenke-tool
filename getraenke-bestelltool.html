@@ -3663,6 +3663,25 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
         </table>
       </div>
       
+      <!-- Depot-Erfassung -->
+      <div style="margin-top: 20px; margin-bottom: 15px; padding: 15px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px;">
+        <h3 style="font-size: 1rem; color: #166534; margin: 0 0 10px 0;">Leergut / Depot erfassen</h3>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+          <div>
+            <label style="display:block; font-size:0.85rem; font-weight:600; color:#166534; margin-bottom:4px;">Harassen (5.-)</label>
+            <input type="number" id="returnDepotHarassen" min="0" value="0" onchange="calcReturn()" onkeyup="calcReturn()" style="width: 100%; padding: 8px; border: 1px solid #86efac; border-radius: 4px;">
+          </div>
+          <div>
+            <label style="display:block; font-size:0.85rem; font-weight:600; color:#166534; margin-bottom:4px;">Flaschen (0.30.-)</label>
+            <input type="number" id="returnDepotFlaschen30" min="0" value="0" onchange="calcReturn()" onkeyup="calcReturn()" style="width: 100%; padding: 8px; border: 1px solid #86efac; border-radius: 4px;">
+          </div>
+          <div>
+            <label style="display:block; font-size:0.85rem; font-weight:600; color:#166534; margin-bottom:4px;">Flaschen (0.50.-)</label>
+            <input type="number" id="returnDepotFlaschen50" min="0" value="0" onchange="calcReturn()" onkeyup="calcReturn()" style="width: 100%; padding: 8px; border: 1px solid #86efac; border-radius: 4px;">
+          </div>
+        </div>
+      </div>
+      
       <div style="margin-top: 20px; margin-bottom: 15px; padding: 10px; background: #fffbeb; border: 1px solid #fef3c7; border-radius: 8px; display: flex; align-items: center; gap: 10px;">
         <input type="checkbox" id="returnAlreadyPaid" onchange="calcReturn()" style="width: 18px; height: 18px; cursor: pointer;">
         <label for="returnAlreadyPaid" style="font-weight: 600; color: #92400e; cursor: pointer; margin: 0;">Ursprüngliche Rechnung wurde bereits bezahlt</label>
@@ -8520,6 +8539,10 @@ function openReturnModal(id) {
   const tbody = document.getElementById("adminReturnTbody");
   tbody.innerHTML = "";
   
+  if (document.getElementById("returnDepotHarassen")) document.getElementById("returnDepotHarassen").value = 0;
+  if (document.getElementById("returnDepotFlaschen30")) document.getElementById("returnDepotFlaschen30").value = 0;
+  if (document.getElementById("returnDepotFlaschen50")) document.getElementById("returnDepotFlaschen50").value = 0;
+  
   (currentReturnOrder.items || []).forEach((item, index) => {
       const tr = document.createElement("tr");
       tr.innerHTML = `
@@ -8560,6 +8583,13 @@ function calcReturn() {
           totalRefund += refundValue;
       }
   });
+  
+  const hQty = parseInt(document.getElementById("returnDepotHarassen")?.value) || 0;
+  const f30Qty = parseInt(document.getElementById("returnDepotFlaschen30")?.value) || 0;
+  const f50Qty = parseInt(document.getElementById("returnDepotFlaschen50")?.value) || 0;
+  
+  const depotRefund = (hQty * 5) + (f30Qty * 0.3) + (f50Qty * 0.5);
+  totalRefund += depotRefund;
   
   document.getElementById("returnTotalRefund").innerText = `CHF ${totalRefund.toFixed(2)}`;
   
@@ -8662,6 +8692,24 @@ async function saveReturn() {
           }
       }
   });
+  
+  const hQty = parseInt(document.getElementById("returnDepotHarassen")?.value) || 0;
+  if (hQty > 0) {
+      returns.push({ name: "Leergut Harassen (Depot)", returned_qty: hQty, refund_value: hQty * 5 });
+      totalRefund += hQty * 5;
+  }
+  
+  const f30Qty = parseInt(document.getElementById("returnDepotFlaschen30")?.value) || 0;
+  if (f30Qty > 0) {
+      returns.push({ name: "Leergut Flaschen 0.30 (Depot)", returned_qty: f30Qty, refund_value: f30Qty * 0.30 });
+      totalRefund += f30Qty * 0.30;
+  }
+  
+  const f50Qty = parseInt(document.getElementById("returnDepotFlaschen50")?.value) || 0;
+  if (f50Qty > 0) {
+      returns.push({ name: "Leergut Flaschen 0.50 (Depot)", returned_qty: f50Qty, refund_value: f50Qty * 0.50 });
+      totalRefund += f50Qty * 0.50;
+  }
   
   try {
       const { error } = await supabaseClient.from('orders').update({
