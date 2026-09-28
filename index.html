@@ -9121,8 +9121,9 @@ async function generateReturnPdf(order, returns, totalRefund, isPaid, festRetour
     if (returns.length > 0) {
         doc.autoTable({
             startY: 45,
-            head: [["Zurückgebrachter Artikel", "Menge", "Gutschrift"]],
+            head: [["Art.-Nr.", "Zurückgebrachter Artikel", "Menge", "Gutschrift"]],
             body: returns.map(r => [
+                r.art || "—",
                 r.name,
                 r.returned_qty + "x",
                 "CHF " + parseFloat(r.refund_value).toFixed(2)
@@ -9196,7 +9197,7 @@ async function saveReturn() {
                   }
               }
               const refundValue = qty * calcPrice;
-              returns.push({ name: item.name, returned_qty: qty, refund_value: refundValue });
+              returns.push({ art: item.art, name: item.name, returned_qty: qty, refund_value: refundValue });
               totalRefund += refundValue;
           }
       }
@@ -9204,19 +9205,19 @@ async function saveReturn() {
   
   const hQty = parseInt(document.getElementById("returnDepotHarassen")?.value) || 0;
   if (hQty > 0) {
-      returns.push({ name: "Leergut Harassen (Depot)", returned_qty: hQty, refund_value: hQty * 5 });
+      returns.push({ art: "—", name: "Leergut Harassen (Depot)", returned_qty: hQty, refund_value: hQty * 5 });
       totalRefund += hQty * 5;
   }
   
   const f30Qty = parseInt(document.getElementById("returnDepotFlaschen30")?.value) || 0;
   if (f30Qty > 0) {
-      returns.push({ name: "Leergut Flaschen 0.30 (Depot)", returned_qty: f30Qty, refund_value: f30Qty * 0.30 });
+      returns.push({ art: "—", name: "Leergut Flaschen 0.30 (Depot)", returned_qty: f30Qty, refund_value: f30Qty * 0.30 });
       totalRefund += f30Qty * 0.30;
   }
   
   const f50Qty = parseInt(document.getElementById("returnDepotFlaschen50")?.value) || 0;
   if (f50Qty > 0) {
-      returns.push({ name: "Leergut Flaschen 0.50 (Depot)", returned_qty: f50Qty, refund_value: f50Qty * 0.50 });
+      returns.push({ art: "—", name: "Leergut Flaschen 0.50 (Depot)", returned_qty: f50Qty, refund_value: f50Qty * 0.50 });
       totalRefund += f50Qty * 0.50;
   }
   
