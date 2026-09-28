@@ -1,3 +1,17 @@
+/* ===================================================================
+ * LANDI GETRÄNKE-TOOL
+ * Version: 1.4.0
+ * Letzte Änderung: 28.09.2026
+ * 
+ * CHANGELOG (Was ist neu?):
+ * - v1.4.0: Code in HTML, CSS und JS aufgeteilt (Performance & Übersicht)
+ * - v1.4.0: Mineralwasser/Süssgetränke zwingend auf "Pack" umgestellt
+ * - v1.3.0: Admin-Dashboard Lade-Animation & "Überschreiben"-Warnung
+ * - v1.2.0: Datenschutz-Modal eingebaut
+ * - v1.1.0: RLS Sicherheitsregeln für Supabase aktiviert
+ * - v1.0.0: Initiales Release
+ * =================================================================== */
+
 // Fallback-Sortiment, falls sortiment.js nicht geladen werden konnte
 if (typeof CATEGORIES === "undefined") {
   window.CATEGORIES = [
