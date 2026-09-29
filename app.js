@@ -4364,26 +4364,7 @@ function toggleDrinkCalculator(forceState) {
 }
 
 function updateCollapsedSummary() {
-  const badge = document.getElementById("calcCollapsedSummary");
-  if (!badge) return;
-  if (!calcHasUserSelected) {
-    badge.style.display = "none";
-    badge.innerHTML = "";
-    return;
-  }
-  const eventLabels = {
-    grillfest: `${CALC_SVGS.grillfest} <span>Grillfest</span>`,
-    apero: `${CALC_SVGS.apero} <span>Apéro</span>`,
-    party: `${CALC_SVGS.party} <span>Party</span>`,
-    family: `${CALC_SVGS.family} <span>Familie</span>`
-  };
-  const evHtml = eventLabels[calcEventType] || "<span>Anlass</span>";
-  badge.innerHTML = `<strong style="display:inline-flex; align-items:center; gap:5px;">${evHtml}</strong> • ${calcGuests} Pers. • ${calcHours} Std. <span style="opacity:0.35; margin:0 5px;">|</span> <span class="calc-sum-pill">${CALC_SVGS.mineral} ${calcTargets.mineralLiters} L</span> <span class="calc-sum-pill">${CALC_SVGS.soft} ${calcTargets.softLiters} L</span> <span class="calc-sum-pill">${CALC_SVGS.beer} ${calcTargets.beerLiters} L</span> <span class="calc-sum-pill">${CALC_SVGS.wine} ${calcTargets.wineBottles} Fl.</span>`;
-  if (isDrinkCalcCollapsed) {
-    badge.style.display = "inline-flex";
-  } else {
-    badge.style.display = "none";
-  }
+  // Not used in Wizard UI
 }
 
 function checkStickyTrackerVisibility() {
