@@ -1413,13 +1413,30 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
         </div>
       </div>
       
-      <div style="margin-top: 20px; margin-bottom: 5px; padding: 10px; background: #fffbeb; border: 1px solid #fef3c7; border-radius: 8px; display: flex; align-items: center; gap: 10px;">
-        <input type="checkbox" id="returnAlreadyPaid" onchange="calcReturn()" style="width: 18px; height: 18px; cursor: pointer;">
-        <label for="returnAlreadyPaid" style="font-weight: 600; color: #92400e; cursor: pointer; margin: 0;">Ursprüngliche Rechnung wurde bereits bezahlt</label>
+      <div id="returnPaidContainer" style="margin-top: 20px; margin-bottom: 5px; padding: 10px; background: #fffbeb; border: 1px solid #fef3c7; border-radius: 8px;">
+        <label style="display:block; font-weight: 600; color: #92400e; margin-bottom: 8px;">Ursprüngliche Rechnung wurde bereits bezahlt *</label>
+        <div style="display:flex; gap:16px;">
+          <label style="cursor:pointer; display:flex; align-items:center; gap:6px; color:#92400e;">
+            <input type="radio" name="returnAlreadyPaid" value="yes" onchange="calcReturn()"> Ja
+          </label>
+          <label style="cursor:pointer; display:flex; align-items:center; gap:6px; color:#92400e;">
+            <input type="radio" name="returnAlreadyPaid" value="no" onchange="calcReturn()"> Nein, auf Lieferschein
+          </label>
+        </div>
       </div>
-      <div style="margin-bottom: 15px; padding: 10px; background: #e0f2fe; border: 1px solid #bae6fd; border-radius: 8px; display: flex; align-items: center; gap: 10px;">
-        <input type="checkbox" id="returnFestmobiliar" style="width: 18px; height: 18px; cursor: pointer;">
-        <label for="returnFestmobiliar" style="font-weight: 600; color: #0369a1; cursor: pointer; margin: 0;">Festmobiliar komplett retour gebracht</label>
+      <div id="returnFestContainer" style="margin-bottom: 15px; padding: 10px; background: #e0f2fe; border: 1px solid #bae6fd; border-radius: 8px;">
+        <label style="display:block; font-weight: 600; color: #0369a1; margin-bottom: 8px;">Festmobiliar komplett retour gebracht *</label>
+        <div style="display:flex; gap:16px; flex-wrap:wrap;">
+          <label style="cursor:pointer; display:flex; align-items:center; gap:6px; color:#0369a1;">
+            <input type="radio" name="returnFestmobiliar" value="yes"> Ja
+          </label>
+          <label style="cursor:pointer; display:flex; align-items:center; gap:6px; color:#0369a1;">
+            <input type="radio" name="returnFestmobiliar" value="no"> Nein
+          </label>
+          <label style="cursor:pointer; display:flex; align-items:center; gap:6px; color:#0369a1;">
+            <input type="radio" name="returnFestmobiliar" value="none"> Keine vorhanden
+          </label>
+        </div>
       </div>
       
       <div style="margin-top: 20px; padding: 15px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px;">

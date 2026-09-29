@@ -5140,7 +5140,8 @@ function calcReturn() {
   document.getElementById("returnTotalRefund").innerText = `CHF ${totalRefund.toFixed(2)}`;
   
   const orig = parseFloat(currentReturnOrder.total_amount);
-  const isPaid = document.getElementById("returnAlreadyPaid") && document.getElementById("returnAlreadyPaid").checked;
+  const isPaidRadio = document.querySelector('input[name="returnAlreadyPaid"]:checked');
+  const isPaid = isPaidRadio && isPaidRadio.value === 'yes';
   const newTotal = isPaid ? -totalRefund : (orig - totalRefund);
   
   document.getElementById("returnNewTotal").innerText = `CHF ${newTotal.toFixed(2)}`;
@@ -5206,11 +5207,16 @@ async function generateReturnPdf(order, returns, totalRefund, isPaid, festRetour
             doc.text("Neuer Rechnungsbetrag nach Retoure (unverbindlich): CHF " + newTotal.toFixed(2), 14, currentY);
         }
         
-        if (festRetour) {
+        if (festRetour === 'yes') {
             currentY += 8;
             doc.setFont("helvetica", "bold");
             doc.setTextColor(3, 105, 161);
             doc.text("Info: Festmobiliar & Mietmaterial komplett retourniert.", 14, currentY);
+        } else if (festRetour === 'no') {
+            currentY += 8;
+            doc.setFont("helvetica", "bold");
+            doc.setTextColor(220, 38, 38); // Red
+            doc.text("Achtung: Festmobiliar & Mietmaterial noch NICHT komplett retourniert.", 14, currentY);
         }
         
         currentY += 10;
@@ -5229,6 +5235,14 @@ async function generateReturnPdf(order, returns, totalRefund, isPaid, festRetour
 async function saveReturn() {
   if (!currentReturnOrder || !supabaseClient) return;
   
+  const isPaidRadio = document.querySelector('input[name="returnAlreadyPaid"]:checked');
+  const festRetourRadio = document.querySelector('input[name="returnFestmobiliar"]:checked');
+  
+  if (!isPaidRadio || !festRetourRadio) {
+      alert("Bitte füllen Sie die Pflichtfelder zur Rechnung und zum Festmobiliar aus.");
+      return;
+  }
+
   const btn = document.getElementById("btnSaveReturn");
   const origText = btn.innerText;
   btn.innerText = "Speichere...";
@@ -5287,8 +5301,8 @@ async function saveReturn() {
       if (error) throw error;
       
       // PDF generieren
-      const isPaid = document.getElementById("returnAlreadyPaid") && document.getElementById("returnAlreadyPaid").checked;
-      const festRetour = document.getElementById("returnFestmobiliar") && document.getElementById("returnFestmobiliar").checked;
+      const isPaid = isPaidRadio.value === 'yes';
+      const festRetour = festRetourRadio.value;
       await generateReturnPdf(currentReturnOrder, returns, totalRefund, isPaid, festRetour);
       
       closeAdminReturnModal();
