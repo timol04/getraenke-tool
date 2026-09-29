@@ -4,6 +4,7 @@
  * Letzte Änderung: 29.09.2026
  * 
  * CHANGELOG (Was ist neu?):
+ * - v1.5.0: Wizard-Flow für Kundenbereich (Zwei Einstiege, 4 Schritte), Sticky Fortschrittsleiste
  * - v1.4.2: Manuelles Feld für "Lieferung" im PDF hinzugefügt, Button "Kundenansicht" entfernt, Modal-Scroll Fix
  * - v1.4.1: Datenschutz-Hinweis bei Feedback, Globale Error-Banner (try/catch)
  * - v1.4.0: Code in HTML, CSS und JS aufgeteilt (Performance & Übersicht)
@@ -38,6 +39,104 @@ window.showErrorToast = function(msg) {
     toast.style.transform = "translateY(-20px)";
     setTimeout(() => toast.remove(), 300);
   }, 5000);
+};
+
+/* =========================================================================
+   WIZARD STATE & LOGIK
+   ========================================================================= */
+window.wizardStep = 0;
+window.wizardEntry = null; // 'calculator' | 'direct'
+
+window.setWizardEntry = function(entry) {
+  window.wizardEntry = entry;
+  if (entry === 'calculator') {
+    setWizardStep(1);
+    document.getElementById("drinkCalculatorSection").classList.remove("is-collapsed");
+    document.getElementById("calcCollapsibleBody").style.display = "block";
+    calcHasUserSelected = false; // Zurücksetzen, falls neu gestartet
+  } else {
+    // Direkt zu Produkten
+    setWizardStep(2);
+  }
+};
+
+window.setWizardStep = function(step) {
+  window.wizardStep = step;
+
+  // 1. Alle Steps ausblenden
+  document.querySelectorAll('.wizard-step').forEach(el => {
+    el.classList.remove('active');
+  });
+
+  // 2. Ziel-Step einblenden
+  const targetEl = document.getElementById(`wizard-step-${step}`);
+  if (targetEl) targetEl.classList.add('active');
+
+  // 3. Fortschrittsleiste
+  const progress = document.getElementById('wizard-progress');
+  if (step === 0) {
+    progress.style.display = 'none';
+  } else {
+    progress.style.display = 'flex';
+    // Update active state
+    document.querySelectorAll('.wizard-progress-step').forEach(el => {
+      const s = parseInt(el.getAttribute('data-step'), 10);
+      const line = el.previousElementSibling;
+      const checkIcon = el.querySelector('.step-check');
+      const numberText = el.querySelector('.step-number');
+      
+      el.classList.remove('current', 'done');
+      if (line && line.classList.contains('wizard-progress-line')) line.classList.remove('done');
+      if (checkIcon) checkIcon.style.display = 'none';
+      if (numberText) numberText.style.display = 'inline';
+
+      if (s < step) {
+        el.classList.add('done');
+        if (line && line.classList.contains('wizard-progress-line')) line.classList.add('done');
+        if (checkIcon) checkIcon.style.display = 'inline-block';
+        if (numberText) numberText.style.display = 'none';
+      } else if (s === step) {
+        el.classList.add('current');
+        if (line && line.classList.contains('wizard-progress-line')) line.classList.add('done');
+      }
+    });
+  }
+
+  // 4. Spezifische UI
+  const cartSummaryBar = document.getElementById('cartSummaryBar');
+  
+  if (step === 2) {
+    // Zeige Footer Bar nur in Step 2 an (ausser auf Mobile, wo es vielleicht sinn macht)
+    if (cartSummaryBar) cartSummaryBar.style.display = 'block';
+
+    // Tracker anzeigen oder verbergen
+    const sfbHeader = document.getElementById('stickyFestbedarfBar');
+    if (window.wizardEntry === 'direct' || !calcHasUserSelected) {
+      // Wenn man direkt einsteigt oder die Standardwerte übernommen hat
+      if (sfbHeader) sfbHeader.style.display = 'none';
+      const calcPanel = document.getElementById('calcTrackerPanel');
+      if (calcPanel) calcPanel.style.display = 'none';
+    } else {
+      // Wenn "Selbst zusammenstellen" gewählt wurde
+      if (sfbHeader) sfbHeader.style.display = 'block';
+    }
+    
+    // Festmobiliar-Titel anpassen, je nach Rechner/Direkt Einstieg
+    const festSection = document.getElementById('festmaterialSection');
+    if (festSection) festSection.style.display = 'block'; // Immer da, aber zusammengeklappt
+  } else {
+    // Verberge Sticky Footer
+    if (cartSummaryBar) cartSummaryBar.style.display = 'none';
+    const sfbHeader = document.getElementById('stickyFestbedarfBar');
+    if (sfbHeader) sfbHeader.style.display = 'none';
+  }
+
+  if (step === 4) {
+    // Render Modal / Inline Review Inhalt
+    renderReview();
+  }
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
 // Fallback-Sortiment, falls sortiment.js nicht geladen werden konnte
@@ -4113,12 +4212,10 @@ function applyCalculatorStandardProducts() {
 
   showCalculatorToast(`Mengen für ${calcGuests} Personen (${calcHours} Std.) übernommen!`);
 
-  const catEl = document.getElementById("categories");
-  if (catEl) {
-    setTimeout(() => {
-      catEl.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 250);
-  }
+  // Wizard: Springe direkt zu Schritt 3 (Angaben), markiere 2 als übersprungen/fertig
+  setTimeout(() => {
+    setWizardStep(3);
+  }, 250);
 }
 
 let isProgrammaticScrollingToTracker = false;

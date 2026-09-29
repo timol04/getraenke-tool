@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <!-- ===================================================================
   * LANDI GETRÄNKE-TOOL
-  * Version: 1.4.2
+  * Version: 1.5.0
   * Letzte Änderung: 29.09.2026
   * 
   * CHANGELOG:
+  * - v1.5.0: Wizard-Flow für Kundenbereich (Rechner/Direkt, 4 Schritte), Sticky Fortschrittsleiste
   * - v1.4.2: Manuelles Feld für "Lieferung" im PDF hinzugefügt, Button "Kundenansicht" entfernt, Modal-Scroll Fix
   * - v1.4.1: Datenschutz-Hinweis bei Feedback, Globale Error-Banner (try/catch)
   * - v1.4.0: Code in HTML, CSS und JS aufgeteilt (Performance & Übersicht)
@@ -424,6 +425,56 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
   </div>
 
   <div id="customerShopView">
+  
+  <!-- WIZARD FORTSCHRITTSLEISTE -->
+  <div id="wizard-progress" class="wizard-progress" style="display: none;">
+    <div class="wizard-progress-step" id="progress-step-1">
+      <div class="step-indicator"><span class="step-number">1</span><i class="fa-solid fa-check step-check" style="display:none;"></i></div>
+      <span class="step-label">Rechner</span>
+    </div>
+    <div class="wizard-progress-line"></div>
+    <div class="wizard-progress-step" id="progress-step-2">
+      <div class="step-indicator"><span class="step-number">2</span><i class="fa-solid fa-check step-check" style="display:none;"></i></div>
+      <span class="step-label">Produkte</span>
+    </div>
+    <div class="wizard-progress-line"></div>
+    <div class="wizard-progress-step" id="progress-step-3">
+      <div class="step-indicator"><span class="step-number">3</span><i class="fa-solid fa-check step-check" style="display:none;"></i></div>
+      <span class="step-label">Angaben</span>
+    </div>
+    <div class="wizard-progress-line"></div>
+    <div class="wizard-progress-step" id="progress-step-4">
+      <div class="step-indicator"><span class="step-number">4</span><i class="fa-solid fa-check step-check" style="display:none;"></i></div>
+      <span class="step-label">Prüfen & PDF</span>
+    </div>
+  </div>
+
+  <!-- SCHRITT 0: EINSTIEG -->
+  <div id="wizard-step-0" class="wizard-step active">
+    <div class="wizard-start-container">
+      <h1 class="wizard-main-title">Landi Getränke-Zusammenstellung</h1>
+      <p class="wizard-main-desc">Stellen Sie Ihre Getränke zusammen und erhalten Sie ein PDF für die Filiale.</p>
+      <div class="wizard-start-grid">
+        <button class="wizard-start-card" onclick="setWizardEntry('calculator')">
+          <i class="fa-solid fa-calculator start-icon"></i>
+          <div class="start-text">
+            <strong>Ich brauche Hilfe bei der Planung</strong>
+            <span>Rechner zeigt Ihnen wie viel Sie brauchen</span>
+          </div>
+        </button>
+        <button class="wizard-start-card" onclick="setWizardEntry('direct')">
+          <i class="fa-solid fa-list-check start-icon"></i>
+          <div class="start-text">
+            <strong>Ich weiss was ich möchte</strong>
+            <span>Direkt Produkte auswählen und PDF erstellen</span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCHRITT 1: RECHNER -->
+  <div id="wizard-step-1" class="wizard-step">
   <div class="banner">
     <strong>Hinweis zur Zusammenstellung:</strong> Preise und Verfügbarkeiten (insbesondere bei Top-Angeboten) können abweichen. Ihre Zusammenstellung wird erst nach unserer Bestätigung bearbeitet.
   </div>
@@ -738,15 +789,22 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
       </div>
     </div>
 
-    <!-- Schnell-Zuklapp-Leiste unten -->
-    <div class="calc-collapse-footer">
+    <!-- Schnell-Zuklapp-Leiste unten (Rechner) -->
+    <div class="calc-collapse-footer" id="calcCollapseFooterBtn">
       <button type="button" class="calc-collapse-footer-btn" onclick="toggleDrinkCalculator(false)">
-        <svg class="icon-svg sfb-chevron-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg> Rechner einklappen (Auswahl unten fortsetzen)
+        <svg class="icon-svg sfb-chevron-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg> Rechner einklappen
       </button>
     </div>
-  </div>
-</div>
+    
+    <div style="text-align:center; padding:20px; border-top:1px solid var(--border); margin-top:20px;">
+      <button class="wizard-next-btn primary" onclick="setWizardStep(2)">Weiter zu den Produkten <i class="fa-solid fa-arrow-right"></i></button>
+    </div>
+  </div> <!-- /.calc-collapsible-body -->
+  </div> <!-- /.calc-section -->
+  </div> <!-- /#wizard-step-1 -->
 
+  <!-- SCHRITT 2: PRODUKTE -->
+  <div id="wizard-step-2" class="wizard-step">
 <div id="categories"></div>
 
   <!-- NEUE SEKTION: FESTMOBILIAR & EINWEGGESCHIRR (Einklappbar) -->
@@ -787,6 +845,13 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
     </div>
   </section>
 
+  <div style="text-align:center; padding:20px 20px 40px; margin-top:10px;">
+    <button class="wizard-next-btn primary" onclick="setWizardStep(3)" style="padding:14px 24px; font-size:1.1rem;">Weiter zu den Angaben <i class="fa-solid fa-arrow-right"></i></button>
+  </div>
+  </div> <!-- /#wizard-step-2 -->
+
+  <!-- SCHRITT 3: ANGABEN -->
+  <div id="wizard-step-3" class="wizard-step">
   <!-- SEKTION LOGISTIK & PERSONALIEN -->
   <div class="details-block" id="orderLogisticsBlock">
     <h2>Angaben zur Logistik & Person</h2>
@@ -898,7 +963,26 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
     </div>
 
     <p class="hint">Diese Angaben bleiben ausschliesslich auf eurem Gerät und werden auf dem fertigen PDF-Beleg angedruckt.</p>
-  </div>
+    <div style="text-align:center; padding:20px 0; border-top:1px solid var(--border); margin-top:20px;">
+      <button class="wizard-next-btn primary" onclick="openReview()" style="padding:14px 24px; font-size:1.1rem;">Zusammenstellung prüfen <i class="fa-solid fa-arrow-right"></i></button>
+    </div>
+  </div> <!-- /#orderLogisticsBlock -->
+  </div> <!-- /#wizard-step-3 -->
+
+  <!-- SCHRITT 4: PDF REVIEW (Inline) -->
+  <div id="wizard-step-4" class="wizard-step">
+    <div class="review-inline-container">
+      <div class="sheet-head" style="margin-bottom: 20px;">
+        <h2 style="font-size: 1.5rem;"><i class="fa-solid fa-file-invoice" style="color:var(--primary); margin-right:8px;"></i>Zusammenstellung prüfen</h2>
+      </div>
+      <div id="reviewList"></div>
+      <div class="sheet-actions" style="margin-top:24px; display:flex; justify-content:space-between; align-items:center;">
+        <button class="secondary" onclick="setWizardStep(3)" style="padding:12px 20px;"><i class="fa-solid fa-arrow-left"></i> Zurück anpassen</button>
+        <button class="primary" onclick="downloadPdf()" style="padding:12px 24px; font-size:1.05rem;"><i class="fa-solid fa-file-pdf"></i> PDF erstellen</button>
+      </div>
+    </div>
+  </div> <!-- /#wizard-step-4 -->
+
   </div> <!-- /#customerShopView -->
 </main>
 
@@ -906,7 +990,8 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
   <a href="#" onclick="openPrivacyModal(event)" style="color: var(--text-muted); text-decoration: underline; cursor: pointer;">Datenschutz / Privacy Policy</a>
 </footer>
 
-<div class="summary-bar">
+<!-- SUMMARY BAR (Sticky Footer) - Nur in Step 2 sichtbar -->
+<div class="summary-bar" id="cartSummaryBar">
   <div class="summary-bar-inner">
     <div>
       <div class="count" id="itemCount">0 Artikel ausgewählt</div>
@@ -915,10 +1000,10 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
     </div>
     <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
       <button class="reset-bottom-btn" onclick="confirmResetAll()" title="Auswahl zurücksetzen">
-        🗑️ Zurücksetzen
+        <i class="fa-solid fa-trash-can"></i> Zurücksetzen
       </button>
-      <button id="reviewBtn" onclick="openReview()" disabled>
-        Zusammenstellung ansehen (PDF)
+      <button id="reviewBtn" onclick="setWizardStep(3)" disabled>
+        Weiter zu den Angaben
         <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 5l7 7-7 7"></path>
         </svg>
@@ -944,19 +1029,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
   </div>
 </div>
 
-<div class="overlay" id="overlay" onclick="handleOverlayClick(event)">
-  <div class="sheet">
-    <div class="sheet-head">
-      <h2>Zusammenstellung prüfen</h2>
-      <button class="sheet-close" onclick="closeReview()">✕</button>
-    </div>
-    <div id="reviewList"></div>
-    <div class="sheet-actions">
-      <button class="secondary" onclick="closeReview()">Zurück</button>
-      <button class="primary" onclick="downloadPdf()">PDF erstellen</button>
-    </div>
-  </div>
-</div>
+<!-- REVIEW MODAL ENTFERNT, JETZT INLINE IN STEP 4 -->
 
 <!-- DEDICATED ADMIN FESTMATERIAL MANAGEMENT MODAL -->
 <div class="overlay" id="adminFestmaterialOverlay" onclick="if(event.target.id==='adminFestmaterialOverlay') closeAdminFestmaterialModal()">
