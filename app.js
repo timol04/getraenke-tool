@@ -1,9 +1,10 @@
 /* ===================================================================
  * LANDI GETRÄNKE-TOOL
- * Version: 1.4.0
- * Letzte Änderung: 28.09.2026
+ * Version: 1.4.2
+ * Letzte Änderung: 29.09.2026
  * 
  * CHANGELOG (Was ist neu?):
+ * - v1.4.2: Manuelles Feld für "Lieferung" im PDF hinzugefügt, Button "Kundenansicht" entfernt, Modal-Scroll Fix
  * - v1.4.1: Datenschutz-Hinweis bei Feedback, Globale Error-Banner (try/catch)
  * - v1.4.0: Code in HTML, CSS und JS aufgeteilt (Performance & Übersicht)
  * - v1.4.0: Mineralwasser/Süssgetränke zwingend auf "Pack" umgestellt
