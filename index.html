@@ -910,7 +910,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
       <div id="logisticsPickupDetails" class="logistics-details-panel">
         <div class="field-pair" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
           <div class="field">
-            <label for="custDate">Abholdatum</label>
+            <label for="custDate">Abholdatum *</label>
             <input type="date" id="custDate">
           </div>
           <div class="field">
@@ -935,7 +935,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
 
         <div class="field-pair" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); margin-bottom:14px;">
           <div class="field">
-            <label for="deliveryDate">Gewünschtes Lieferdatum</label>
+            <label for="deliveryDate">Gewünschtes Lieferdatum *</label>
             <input type="date" id="deliveryDate">
           </div>
           <div class="field">
@@ -964,10 +964,10 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
 
     </div>
 
-    <p class="hint">Diese Angaben bleiben ausschliesslich auf eurem Gerät und werden auf dem fertigen PDF-Beleg angedruckt.</p>
+    <p class="hint">Persönliche Angaben (Name, Telefon) bleiben ausschliesslich auf Ihrem Gerät. Nur die Referenznummer, Mengen sowie Abhol-/Lieferdaten werden zur Auftragsabwicklung in unserem System gespeichert (gemäss Datenschutzerklärung).</p>
     <div style="text-align:center; padding:20px 0; border-top:1px solid var(--border); margin-top:20px; display:flex; justify-content:center; gap:16px; flex-wrap:wrap;">
       <button class="wizard-back-btn" onclick="setWizardStep(2)"><i class="fa-solid fa-arrow-left"></i> Zurück zu Produkten</button>
-      <button class="wizard-next-btn primary" onclick="openReview()">Zusammenstellung prüfen <i class="fa-solid fa-arrow-right"></i></button>
+      <button class="wizard-next-btn primary" onclick="validateAndOpenReview()">Zusammenstellung prüfen <i class="fa-solid fa-arrow-right"></i></button>
     </div>
   </div> <!-- /#orderLogisticsBlock -->
   </div> <!-- /#wizard-step-3 -->

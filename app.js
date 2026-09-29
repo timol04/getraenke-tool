@@ -2904,6 +2904,62 @@ function changeReviewFestQty(id, delta) {
   openReview();
 }
 
+window.validateAndOpenReview = function() {
+  const custName = document.getElementById('custName');
+  const custPhone = document.getElementById('custPhone');
+  const logisticsPickup = document.getElementById('radioLogisticsPickup');
+  const logisticsDelivery = document.getElementById('radioLogisticsDelivery');
+  const custDate = document.getElementById('custDate');
+  const deliveryAddress = document.getElementById('deliveryAddress');
+  const deliveryDate = document.getElementById('deliveryDate');
+
+  let hasError = false;
+  let missingFields = [];
+
+  // Reset styles
+  [custName, custPhone, custDate, deliveryAddress, deliveryDate].forEach(el => {
+    if (el) el.style.border = '1.5px solid var(--border)';
+  });
+
+  if (!custName.value.trim()) {
+    hasError = true;
+    custName.style.border = '1.5px solid #EF4444';
+    missingFields.push('Name / Firma');
+  }
+  if (!custPhone.value.trim()) {
+    hasError = true;
+    custPhone.style.border = '1.5px solid #EF4444';
+    missingFields.push('Telefon');
+  }
+
+  if (logisticsPickup && logisticsPickup.checked) {
+    if (!custDate.value) {
+      hasError = true;
+      custDate.style.border = '1.5px solid #EF4444';
+      missingFields.push('Abholdatum');
+    }
+  } else if (logisticsDelivery && logisticsDelivery.checked) {
+    if (!deliveryAddress.value.trim()) {
+      hasError = true;
+      deliveryAddress.style.border = '1.5px solid #EF4444';
+      missingFields.push('Lieferadresse');
+    }
+    if (!deliveryDate.value) {
+      hasError = true;
+      deliveryDate.style.border = '1.5px solid #EF4444';
+      missingFields.push('Lieferdatum');
+    }
+  }
+
+  if (hasError) {
+    showErrorToast(`Bitte füllen Sie folgende Pflichtfelder aus: ${missingFields.join(', ')}`);
+    return;
+  }
+
+  // If no error, proceed to review
+  setWizardStep(4);
+};
+
 function openReview() {
   const selected = getSelectedProducts();
   const selectedFest = getSelectedFestmaterial();
