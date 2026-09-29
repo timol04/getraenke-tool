@@ -4974,6 +4974,10 @@ function openReturnModal(id) {
   if (document.getElementById("returnDepotFlaschen50")) document.getElementById("returnDepotFlaschen50").value = 0;
   
   (currentReturnOrder.items || []).forEach((item, index) => {
+      const isFestCategory = item.category === "Mietmobiliar" || item.category === "Einweggeschirr" || (item.category && item.category.toLowerCase().includes("fest"));
+      const isFestName = item.name && (item.name.toLowerCase().includes("festgarnitur") || item.name.toLowerCase().includes("kühlschrank") || item.name.toLowerCase().includes("stehtisch"));
+      if (isFestCategory || isFestName) return;
+      
       const tr = document.createElement("tr");
       tr.innerHTML = `
         <td>${item.name}</td>
