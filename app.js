@@ -4248,26 +4248,11 @@ function activateTrackerMode(shouldScroll) {
   }
 
   if (shouldScroll) {
-    isProgrammaticScrollingToTracker = true;
     showCalculatorToast("Bedarfs-Tracker aktiv: Wähle jetzt deine Produkte!");
-
+    // Springe in Wizard-Schritt 2
     setTimeout(() => {
-      const topCat = document.querySelector('details.category[data-cat-name="Top-Angebote"]') || document.getElementById("categories");
-      const actionsGrid = document.querySelector(".calc-actions-grid");
-      const targetEl = (!isDrinkCalcCollapsed && actionsGrid) ? actionsGrid : topCat;
-
-      if (targetEl) {
-        const header = document.querySelector("header.top");
-        const headerH = header ? header.offsetHeight : 220;
-        const targetY = targetEl.getBoundingClientRect().top + window.pageYOffset - (headerH + 12);
-        window.scrollTo({ top: Math.max(0, targetY), behavior: "smooth" });
-      }
-
-      setTimeout(() => {
-        isProgrammaticScrollingToTracker = false;
-        checkStickyTrackerVisibility();
-      }, 700);
-    }, 100);
+      setWizardStep(2);
+    }, 250);
   }
 }
 
