@@ -2512,6 +2512,14 @@ function toggleLogisticsType(type) {
     if (panelPickup) panelPickup.style.display = "block";
     if (panelDelivery) panelDelivery.style.display = "none";
   }
+
+  // Fehler-Styling zurücksetzen, wenn umgeschaltet wird
+  const custDate = document.getElementById('custDate');
+  const deliveryAddress = document.getElementById('deliveryAddress');
+  const deliveryDate = document.getElementById('deliveryDate');
+  [custDate, deliveryAddress, deliveryDate].forEach(el => {
+    if (el) el.style.border = '1.5px solid var(--border)';
+  });
 }
 
 // Admin Festmaterial Management
