@@ -3111,7 +3111,38 @@ function renderReview() {
     `;
   }
 
+  const custName = document.getElementById("custName")?.value;
+  const custPhone = document.getElementById("custPhone")?.value;
+  const isPickup = document.getElementById("radioLogisticsPickup")?.checked;
+  const custDate = document.getElementById("custDate")?.value;
+  const deliveryAddress = document.getElementById("deliveryAddress")?.value;
+  const deliveryDate = document.getElementById("deliveryDate")?.value;
+  const orderNotes = document.getElementById("orderNotes")?.value;
+
+  let logisticsHtml = `
+    <div style="background:#f8fafc; padding:12px; border-radius:8px; border:1px solid #e2e8f0; margin-bottom:16px;">
+      <h3 style="font-size:1rem; font-weight:700; color:var(--primary); margin-bottom:8px; border-bottom:1px solid #e2e8f0; padding-bottom:6px;">
+        <i class="fa-solid fa-address-card"></i> Ihre Angaben
+      </h3>
+      <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+        <div>
+          <p style="margin:0; font-size:0.85rem;"><strong style="color:var(--text);">Name:</strong> ${escapeHtml(custName || '-')}</p>
+          <p style="margin:2px 0 0; font-size:0.85rem;"><strong style="color:var(--text);">Telefon:</strong> ${escapeHtml(custPhone || '-')}</p>
+        </div>
+        <div>
+          ${isPickup 
+            ? `<p style="margin:0; font-size:0.85rem;"><strong style="color:var(--text);"><i class="fa-solid fa-store"></i> Abholung am:</strong> ${escapeHtml(custDate || '-')}</p>`
+            : `<p style="margin:0; font-size:0.85rem;"><strong style="color:var(--text);"><i class="fa-solid fa-truck"></i> Lieferung am:</strong> ${escapeHtml(deliveryDate || '-')}</p>
+               <p style="margin:2px 0 0; font-size:0.85rem;"><strong style="color:var(--text);">Adresse:</strong> ${escapeHtml(deliveryAddress || '-')}</p>`
+          }
+        </div>
+      </div>
+      ${orderNotes ? `<p style="margin:8px 0 0; font-size:0.85rem;"><strong style="color:var(--text);">Bemerkung:</strong> ${escapeHtml(orderNotes)}</p>` : ''}
+    </div>
+  `;
+
   list.innerHTML = `
+    ${logisticsHtml}
     ${drinksHtml}
     ${festHtml}
     <div class="sheet-total" style="margin-top:18px;">
