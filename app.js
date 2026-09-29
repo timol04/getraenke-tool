@@ -4320,47 +4320,9 @@ function deactivateTrackerMode() {
 }
 
 function toggleDrinkCalculator(forceState) {
-  const calcSec = document.getElementById("drinkCalculatorSection");
-  const body = document.getElementById("calcCollapsibleBody");
-  const icon = document.getElementById("calcToggleIcon");
-  const btnText = document.getElementById("calcToggleBtnText");
-  const btnIcon = document.getElementById("calcToggleBtnIcon");
-  const summaryBadge = document.getElementById("calcCollapsedSummary");
+  isDrinkCalcCollapsed = false;
   const subText = document.getElementById("calcSubText");
-  if (!calcSec || !body) return;
-
-  if (typeof forceState === "boolean") {
-    isDrinkCalcCollapsed = !forceState;
-  } else {
-    isDrinkCalcCollapsed = !isDrinkCalcCollapsed;
-  }
-
-  if (isDrinkCalcCollapsed) {
-    calcSec.classList.add("is-collapsed");
-    body.style.display = "none";
-    if (icon) icon.innerHTML = CALC_SVGS.chevronDown;
-    if (btnText) btnText.textContent = "Rechner aufklappen";
-    if (btnIcon) btnIcon.innerHTML = CALC_SVGS.chevronDown;
-    if (summaryBadge) {
-      if (calcHasUserSelected) {
-        updateCollapsedSummary();
-        summaryBadge.style.display = "inline-flex";
-      } else {
-        summaryBadge.style.display = "none";
-      }
-    }
-    if (subText) subText.style.display = "none";
-  } else {
-    calcSec.classList.remove("is-collapsed");
-    body.style.display = "block";
-    if (icon) icon.innerHTML = CALC_SVGS.chevronUp;
-    if (btnText) btnText.textContent = "Zuklappen";
-    if (btnIcon) btnIcon.innerHTML = CALC_SVGS.chevronUp;
-    if (summaryBadge) summaryBadge.style.display = "none";
-    if (subText) subText.style.display = "block";
-  }
-
-  checkStickyTrackerVisibility();
+  if (subText) subText.style.display = "block";
 }
 
 function updateCollapsedSummary() {
