@@ -994,7 +994,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
 </footer>
 
 <!-- SUMMARY BAR (Sticky Footer) - Nur in Step 2 sichtbar -->
-<div class="summary-bar" id="cartSummaryBar">
+<div class="summary-bar" id="cartSummaryBar" style="display: none;">
   <div class="summary-bar-inner">
     <div>
       <div class="count" id="itemCount">0 Artikel ausgewählt</div>
@@ -1002,7 +1002,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
       <div class="price-notice">* Unverbindliche Schätzung (Preise im Laden können abweichen)</div>
     </div>
     <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
-      <button class="wizard-back-btn" style="padding:10px 16px; font-size:0.95rem; background:white;" onclick="wizardGoBack()">
+      <button class="wizard-back-btn" style="padding:10px 16px; font-size:0.95rem;" onclick="wizardGoBack()">
         <i class="fa-solid fa-arrow-left"></i> Zurück
       </button>
       <button class="reset-bottom-btn" onclick="confirmResetAll()" title="Auswahl zurücksetzen">
