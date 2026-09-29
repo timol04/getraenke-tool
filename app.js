@@ -2968,7 +2968,7 @@ window.validateAndOpenReview = function() {
   setWizardStep(4);
 };
 
-function openReview() {
+function renderReview() {
   const selected = getSelectedProducts();
   const selectedFest = getSelectedFestmaterial();
   const totalDrinks = selected.reduce((sum, s) => sum + s.total, 0);
@@ -2980,7 +2980,6 @@ function openReview() {
 
   if (selected.length === 0 && selectedFest.length === 0) {
     list.innerHTML = '<p class="empty-note" style="padding:24px 0; text-align:center; color:var(--text-muted);">Keine Artikel in der Zusammenstellung.</p>';
-    document.getElementById("overlay").classList.add("open");
     return;
   }
 
@@ -3121,8 +3120,6 @@ function openReview() {
     </div>
     ${hasUnpricedFest ? '<div style="font-size:0.8rem; color:var(--text-muted); text-align:right; margin-top:4px;">* Mietmobiliar (auf Anfrage) wird nach Absprache separat verrechnet</div>' : ''}
   `;
-
-  document.getElementById("overlay").classList.add("open");
 }
 
 function closeReview() {
