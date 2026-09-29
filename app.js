@@ -139,6 +139,20 @@ window.setWizardStep = function(step) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
+window.wizardGoBack = function() {
+  if (window.wizardStep === 2) {
+    if (window.wizardEntry === 'calculator') {
+      setWizardStep(1);
+    } else {
+      setWizardStep(0);
+    }
+  } else if (window.wizardStep === 3) {
+    setWizardStep(2);
+  } else if (window.wizardStep === 4) {
+    setWizardStep(3);
+  }
+};
+
 // Fallback-Sortiment, falls sortiment.js nicht geladen werden konnte
 if (typeof CATEGORIES === "undefined") {
   window.CATEGORIES = [

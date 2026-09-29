@@ -796,7 +796,8 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
       </button>
     </div>
     
-    <div style="text-align:center; padding:20px; border-top:1px solid var(--border); margin-top:20px;">
+    <div style="text-align:center; padding:20px; border-top:1px solid var(--border); margin-top:20px; display:flex; justify-content:center; gap:16px; flex-wrap:wrap;">
+      <button class="wizard-back-btn" onclick="setWizardStep(0)"><i class="fa-solid fa-arrow-left"></i> Zurück</button>
       <button class="wizard-next-btn primary" onclick="setWizardStep(2)">Weiter zu den Produkten <i class="fa-solid fa-arrow-right"></i></button>
     </div>
   </div> <!-- /.calc-collapsible-body -->
@@ -845,8 +846,9 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
     </div>
   </section>
 
-  <div style="text-align:center; padding:20px 20px 40px; margin-top:10px;">
-    <button class="wizard-next-btn primary" onclick="setWizardStep(3)" style="padding:14px 24px; font-size:1.1rem;">Weiter zu den Angaben <i class="fa-solid fa-arrow-right"></i></button>
+  <div style="text-align:center; padding:20px 20px 40px; margin-top:10px; display:flex; justify-content:center; gap:16px; flex-wrap:wrap;">
+    <button class="wizard-back-btn" onclick="wizardGoBack()"><i class="fa-solid fa-arrow-left"></i> Zurück</button>
+    <button class="wizard-next-btn primary" onclick="setWizardStep(3)">Weiter zu den Angaben <i class="fa-solid fa-arrow-right"></i></button>
   </div>
   </div> <!-- /#wizard-step-2 -->
 
@@ -963,8 +965,9 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
     </div>
 
     <p class="hint">Diese Angaben bleiben ausschliesslich auf eurem Gerät und werden auf dem fertigen PDF-Beleg angedruckt.</p>
-    <div style="text-align:center; padding:20px 0; border-top:1px solid var(--border); margin-top:20px;">
-      <button class="wizard-next-btn primary" onclick="openReview()" style="padding:14px 24px; font-size:1.1rem;">Zusammenstellung prüfen <i class="fa-solid fa-arrow-right"></i></button>
+    <div style="text-align:center; padding:20px 0; border-top:1px solid var(--border); margin-top:20px; display:flex; justify-content:center; gap:16px; flex-wrap:wrap;">
+      <button class="wizard-back-btn" onclick="setWizardStep(2)"><i class="fa-solid fa-arrow-left"></i> Zurück zu Produkten</button>
+      <button class="wizard-next-btn primary" onclick="openReview()">Zusammenstellung prüfen <i class="fa-solid fa-arrow-right"></i></button>
     </div>
   </div> <!-- /#orderLogisticsBlock -->
   </div> <!-- /#wizard-step-3 -->
@@ -999,14 +1002,15 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
       <div class="price-notice">* Unverbindliche Schätzung (Preise im Laden können abweichen)</div>
     </div>
     <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+      <button class="wizard-back-btn" style="padding:10px 16px; font-size:0.95rem; background:white;" onclick="wizardGoBack()">
+        <i class="fa-solid fa-arrow-left"></i> Zurück
+      </button>
       <button class="reset-bottom-btn" onclick="confirmResetAll()" title="Auswahl zurücksetzen">
         <i class="fa-solid fa-trash-can"></i> Zurücksetzen
       </button>
-      <button id="reviewBtn" onclick="setWizardStep(3)" disabled>
+      <button class="wizard-next-btn primary" style="padding:10px 20px; font-size:0.95rem;" onclick="setWizardStep(3)">
         Weiter zu den Angaben
-        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 5l7 7-7 7"></path>
-        </svg>
+        <i class="fa-solid fa-arrow-right"></i>
       </button>
     </div>
   </div>
