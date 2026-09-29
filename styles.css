@@ -2678,3 +2678,34 @@
   box-shadow: var(--shadow-lg);
 }
 
+/* Wizard Buttons */
+.wizard-next-btn {
+  background: var(--green);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 14px 28px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(61, 125, 30, 0.2);
+}
+
+.wizard-next-btn:hover {
+  background: var(--green-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(61, 125, 30, 0.25);
+}
+
+.wizard-next-btn i {
+  transition: transform 0.2s ease;
+}
+
+.wizard-next-btn:hover i {
+  transform: translateX(4px);
+}
+
