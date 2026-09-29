@@ -2530,8 +2530,6 @@
 
 /* Fortschrittsleiste */
 .wizard-progress {
-  position: sticky;
-  top: 0;
   z-index: 30;
   background: var(--bg);
   padding: 12px 20px;

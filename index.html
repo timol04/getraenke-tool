@@ -156,6 +156,29 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
       </div>
     </div>
   </div>
+  
+  <!-- WIZARD FORTSCHRITTSLEISTE (In Header für sauberes Stacking) -->
+  <div id="wizard-progress" class="wizard-progress" style="display: none;">
+    <div class="wizard-progress-step" data-step="1">
+      <div class="step-indicator"><span class="step-number">1</span><i class="fa-solid fa-check step-check" style="display:none;"></i></div>
+      <span class="step-label">Rechner</span>
+    </div>
+    <div class="wizard-progress-line"></div>
+    <div class="wizard-progress-step" data-step="2">
+      <div class="step-indicator"><span class="step-number">2</span><i class="fa-solid fa-check step-check" style="display:none;"></i></div>
+      <span class="step-label">Produkte</span>
+    </div>
+    <div class="wizard-progress-line"></div>
+    <div class="wizard-progress-step" data-step="3">
+      <div class="step-indicator"><span class="step-number">3</span><i class="fa-solid fa-check step-check" style="display:none;"></i></div>
+      <span class="step-label">Angaben</span>
+    </div>
+    <div class="wizard-progress-line"></div>
+    <div class="wizard-progress-step" data-step="4">
+      <div class="step-indicator"><span class="step-number">4</span><i class="fa-solid fa-check step-check" style="display:none;"></i></div>
+      <span class="step-label">Prüfen & PDF</span>
+    </div>
+  </div>
 </header>
 
 <main>
@@ -426,29 +449,6 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
 
   <div id="customerShopView">
   
-  <!-- WIZARD FORTSCHRITTSLEISTE -->
-  <div id="wizard-progress" class="wizard-progress" style="display: none;">
-    <div class="wizard-progress-step" id="progress-step-1">
-      <div class="step-indicator"><span class="step-number">1</span><i class="fa-solid fa-check step-check" style="display:none;"></i></div>
-      <span class="step-label">Rechner</span>
-    </div>
-    <div class="wizard-progress-line"></div>
-    <div class="wizard-progress-step" id="progress-step-2">
-      <div class="step-indicator"><span class="step-number">2</span><i class="fa-solid fa-check step-check" style="display:none;"></i></div>
-      <span class="step-label">Produkte</span>
-    </div>
-    <div class="wizard-progress-line"></div>
-    <div class="wizard-progress-step" id="progress-step-3">
-      <div class="step-indicator"><span class="step-number">3</span><i class="fa-solid fa-check step-check" style="display:none;"></i></div>
-      <span class="step-label">Angaben</span>
-    </div>
-    <div class="wizard-progress-line"></div>
-    <div class="wizard-progress-step" id="progress-step-4">
-      <div class="step-indicator"><span class="step-number">4</span><i class="fa-solid fa-check step-check" style="display:none;"></i></div>
-      <span class="step-label">Prüfen & PDF</span>
-    </div>
-  </div>
-
   <!-- SCHRITT 0: EINSTIEG -->
   <div id="wizard-step-0" class="wizard-step active">
     <div class="wizard-start-container">
