@@ -1721,7 +1721,7 @@ if (window.location.pathname.endsWith("/admin") || window.location.pathname.ends
 
 <!-- Privacy Policy Modal -->
 <div class="overlay" id="privacyModalOverlay" onclick="if(event.target.id==='privacyModalOverlay') closePrivacyModal()" style="z-index: 3000;">
-  <div class="sheet" style="max-width: 600px; width: 90%; max-height: 90vh; display: flex; flex-direction: column; padding: 0;">
+  <div class="sheet" style="max-width: 600px; width: 90%; max-height: 90vh; display: flex; flex-direction: column; padding: 0; overflow: hidden;">
     <div class="sheet-header" style="padding: 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-shrink: 0;">
       <h2 style="font-size: 1.2rem; font-weight: 700; margin: 0;">Datenschutzerklärung</h2>
       <button class="sheet-close" onclick="closePrivacyModal()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-muted);">✕</button>
