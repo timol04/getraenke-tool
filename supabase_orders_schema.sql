@@ -1,6 +1,5 @@
 -- Stelle sicher, dass der postgres-Benutzer Rechte auf das public-Schema hat
 GRANT ALL ON SCHEMA public TO postgres;
-GRANT ALL ON SCHEMA public TO public;
 
 create table if not exists public.orders (
   id bigint generated always as identity primary key,
@@ -16,9 +15,4 @@ create table if not exists public.orders (
 
 alter table public.orders enable row level security;
 
--- Kunden (anon) dürfen neue Bestellungen anlegen und ihre generierte ref_nr zurückerhalten:
-create policy "Anon can create order" on public.orders for insert to anon with check (true);
-create policy "Anon can read own ref" on public.orders for select to anon using (true);
-
--- Authentifizierte Admins haben vollen Zugriff (Lesen, Aktualisieren, Löschen):
-create policy "Admins full access" on public.orders for all to authenticated using (true) with check (true);
+-- Policies und submit_order: siehe supabase_security.sql

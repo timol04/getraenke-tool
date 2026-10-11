@@ -4,7 +4,7 @@ Ein schlankes, eigenständiges Tool zur Vorbestellung von Getränken für die La
 
 ## Dateien
 
-* `index.html` (bzw. `getraenke-bestelltool.html`): Die Web-App (HTML, CSS und App-Logik)
+* `index.html`: Die Web-App (HTML, CSS und App-Logik)
 * `sortiment.js`: Das Produktsortiment (Preise, Artikelnummern, Gebinde)
 
 ## Sortiment anpassen & erweitern
@@ -29,3 +29,8 @@ Um Artikel, Preise oder Kategorien zu bearbeiten, muss nur die Datei `sortiment.
 2. Die Dateien hochladen (`index.html`, `sortiment.js`, `README.md`)
 3. In den GitHub Repository-Einstellungen unter **Pages** den Branch `main` auswählen und speichern.
 4. Die Webseite ist sofort unter `https://<dein-benutzername>.github.io/<repo-name>/` weltweit im Browser erreichbar!
+
+## Supabase-Sicherheit
+
+Rollen und Zugriffsrechte stehen in `supabase_security.sql` (im Supabase SQL-Editor ausführen).
+Nur Konten in der Tabelle `admin_users` haben Admin-Rechte: `super_admin` (Voll-Admin) und `viewer` (normaler Admin).

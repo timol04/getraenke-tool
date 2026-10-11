@@ -57,64 +57,15 @@ CREATE TABLE IF NOT EXISTS presets (
 -- ==============================================================================
 -- 4. ROW LEVEL SECURITY (RLS) & BERECHTIGUNGEN
 -- ==============================================================================
--- Jeder Besucher (Anon) darf das Sortiment ansehen (SELECT).
--- Nur angemeldete Admins (Supabase Auth / authenticated) dürfen bearbeiten/schreiben.
+-- Die Policies (wer was lesen/schreiben darf) stehen in supabase_security.sql.
+-- Nach diesem Skript immer auch supabase_security.sql ausführen.
 
 ALTER TABLE categories ENABLE ROW LEVEL SECURITY;
 ALTER TABLE products ENABLE ROW LEVEL SECURITY;
 ALTER TABLE presets ENABLE ROW LEVEL SECURITY;
 
 
--- Categories Policies
-DROP POLICY IF EXISTS "Public can view categories" ON categories;
-CREATE POLICY "Public can view categories" ON categories
-  FOR SELECT USING (true);
-
-DROP POLICY IF EXISTS "Admins can insert categories" ON categories;
-CREATE POLICY "Admins can insert categories" ON categories
-  FOR INSERT TO anon, authenticated WITH CHECK (true);
-
-DROP POLICY IF EXISTS "Admins can update categories" ON categories;
-CREATE POLICY "Admins can update categories" ON categories
-  FOR UPDATE TO anon, authenticated USING (true);
-
-DROP POLICY IF EXISTS "Admins can delete categories" ON categories;
-CREATE POLICY "Admins can delete categories" ON categories
-  FOR DELETE TO anon, authenticated USING (true);
-
--- Products Policies
-DROP POLICY IF EXISTS "Public can view products" ON products;
-CREATE POLICY "Public can view products" ON products
-  FOR SELECT USING (true);
-
-DROP POLICY IF EXISTS "Admins can insert products" ON products;
-CREATE POLICY "Admins can insert products" ON products
-  FOR INSERT TO anon, authenticated WITH CHECK (true);
-
-DROP POLICY IF EXISTS "Admins can update products" ON products;
-CREATE POLICY "Admins can update products" ON products
-  FOR UPDATE TO anon, authenticated USING (true);
-
-DROP POLICY IF EXISTS "Admins can delete products" ON products;
-CREATE POLICY "Admins can delete products" ON products
-  FOR DELETE TO anon, authenticated USING (true);
-
--- Presets Policies
-DROP POLICY IF EXISTS "Public can view presets" ON presets;
-CREATE POLICY "Public can view presets" ON presets
-  FOR SELECT USING (true);
-
-DROP POLICY IF EXISTS "Admins can insert presets" ON presets;
-CREATE POLICY "Admins can insert presets" ON presets
-  FOR INSERT TO anon, authenticated WITH CHECK (true);
-
-DROP POLICY IF EXISTS "Admins can update presets" ON presets;
-CREATE POLICY "Admins can update presets" ON presets
-  FOR UPDATE TO anon, authenticated USING (true);
-
-DROP POLICY IF EXISTS "Admins can delete presets" ON presets;
-CREATE POLICY "Admins can delete presets" ON presets
-  FOR DELETE TO anon, authenticated USING (true);
+-- Policies: siehe supabase_security.sql
 
 -- Automatische Aktualisierung von updated_at bei Produktänderung
 CREATE OR REPLACE FUNCTION set_updated_at()
@@ -158,23 +109,7 @@ CREATE INDEX IF NOT EXISTS idx_festmaterial_disabled ON festmaterial(disabled);
 
 ALTER TABLE festmaterial ENABLE ROW LEVEL SECURITY;
 
--- Jeder darf Festmaterial ansehen (SELECT)
-DROP POLICY IF EXISTS "Public can view festmaterial" ON festmaterial;
-CREATE POLICY "Public can view festmaterial" ON festmaterial
-  FOR SELECT USING (true);
-
--- Admins dürfen verwalten (INSERT, UPDATE, DELETE)
-DROP POLICY IF EXISTS "Admins can insert festmaterial" ON festmaterial;
-CREATE POLICY "Admins can insert festmaterial" ON festmaterial
-  FOR INSERT TO anon, authenticated WITH CHECK (true);
-
-DROP POLICY IF EXISTS "Admins can update festmaterial" ON festmaterial;
-CREATE POLICY "Admins can update festmaterial" ON festmaterial
-  FOR UPDATE TO anon, authenticated USING (true);
-
-DROP POLICY IF EXISTS "Admins can delete festmaterial" ON festmaterial;
-CREATE POLICY "Admins can delete festmaterial" ON festmaterial
-  FOR DELETE TO anon, authenticated USING (true);
+-- Policies: siehe supabase_security.sql
 
 DROP TRIGGER IF EXISTS trg_festmaterial_updated_at ON festmaterial;
 CREATE TRIGGER trg_festmaterial_updated_at
