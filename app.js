@@ -343,7 +343,31 @@ function escapeHtml(str) {
 let isEditPricesMode = false;
 let isAdminAuthenticated = false;
 let currentAdminEmail = "";
-let currentAdminRole = "super_admin"; // "super_admin" or "viewer"
+let currentAdminRole = "viewer"; // "super_admin" or "viewer"
+try { if (localStorage.getItem("landi_admin_role") === "super_admin") currentAdminRole = "super_admin"; } catch (e) {}
+
+// Die Rolle steht serverseitig in der Tabelle admin_users (siehe supabase_security.sql)
+// und wird dort auch per RLS durchgesetzt. Die E-Mail-Liste ist nur der Fallback,
+// solange das SQL-Skript noch nicht ausgeführt wurde.
+const SUPER_ADMIN_EMAILS = ["timo.lanter@icloud.com"];
+
+// Liefert "super_admin", "viewer" oder null (Konto ist kein Admin)
+async function resolveAdminRole(email) {
+  const fallback = SUPER_ADMIN_EMAILS.includes((email || "").toLowerCase()) ? "super_admin" : "viewer";
+  if (!supabaseClient) return fallback;
+  try {
+    const { data, error } = await supabaseClient.rpc("current_admin_role");
+    if (error) return fallback;
+    return data === "super_admin" || data === "viewer" ? data : null;
+  } catch (e) {
+    return fallback;
+  }
+}
+
+async function rejectNonAdminAccount() {
+  await logoutAdmin();
+  alert("Dieses Konto hat keine Admin-Berechtigung.");
+}
 
 // Lokale Admin-Sitzung wiederherstellen
 try {
@@ -425,13 +449,16 @@ function checkAdminUrlTrigger() {
 
 // Auto-Login Status über Supabase Auth prüfen
 if (supabaseClient) {
-  supabaseClient.auth.getSession().then(({ data: { session } }) => {
+  supabaseClient.auth.getSession().then(async ({ data: { session } }) => {
     if (session && session.user) {
+      const role = await resolveAdminRole(session.user.email);
+      if (!role) {
+        await rejectNonAdminAccount();
+        return;
+      }
       isAdminAuthenticated = true;
       currentAdminEmail = session.user.email || "Admin";
-      // Rollen-Zuweisung anhand der E-Mail-Adresse
-      const SUPER_ADMIN_EMAILS_S = ["timo.lanter@icloud.com"];
-      currentAdminRole = SUPER_ADMIN_EMAILS_S.includes((session.user.email || "").toLowerCase()) ? "super_admin" : "viewer";
+      currentAdminRole = role;
       try { localStorage.setItem("landi_admin_session", "true"); } catch (e) {}
       try { localStorage.setItem("landi_admin_role", currentAdminRole); } catch (e) {}
       if (isAdminUrlRequested()) {
@@ -598,11 +625,16 @@ async function loginAdmin() {
       return;
     }
 
+    const role = await resolveAdminRole(email);
+    if (!role) {
+      if (pwdInput) pwdInput.value = "";
+      closeAdminModal();
+      await rejectNonAdminAccount();
+      return;
+    }
     isAdminAuthenticated = true;
     currentAdminEmail = email;
-    // Rollen-Zuweisung anhand der E-Mail-Adresse
-    const SUPER_ADMIN_EMAILS = ["timo.lanter@icloud.com"];
-    currentAdminRole = SUPER_ADMIN_EMAILS.includes(email.toLowerCase()) ? "super_admin" : "viewer";
+    currentAdminRole = role;
     try { localStorage.setItem("landi_admin_session", "true"); } catch (e) {}
     try { localStorage.setItem("landi_admin_role", currentAdminRole); } catch (e) {}
     if (pwdInput) pwdInput.value = "";
@@ -624,6 +656,7 @@ async function logoutAdmin() {
   currentAdminEmail = "";
   try {
     localStorage.removeItem("landi_admin_session");
+    localStorage.removeItem("landi_admin_role");
   } catch (e) {}
   if (supabaseClient) {
     try { await supabaseClient.auth.signOut(); } catch (e) {}
@@ -4816,11 +4849,12 @@ function renderOrdersTable() {
           statusBg = "#fecaca"; statusColor = "#991b1b"; statusText = "Abgeschlossen";
       }
       
-      let statusBadge = `<button onclick="cycleOrderStatus(${order.id}, '${currentStatus}')" style="padding: 4px 10px; border: none; border-radius: 12px; background: ${statusBg}; color: ${statusColor}; font-size: 12px; font-weight: bold; cursor: pointer; transition: opacity 0.2s; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">${statusText}</button>`;
+      const safeStatus = /^[a-z_]+$/i.test(currentStatus) ? currentStatus : "offen";
+      let statusBadge = `<button onclick="cycleOrderStatus(${Number(order.id)}, '${safeStatus}')" style="padding: 4px 10px; border: none; border-radius: 12px; background: ${statusBg}; color: ${statusColor}; font-size: 12px; font-weight: bold; cursor: pointer; transition: opacity 0.2s; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">${statusText}</button>`;
       
       const tr = document.createElement("tr");
       tr.innerHTML = `
-        <td><strong>#${refFormatted}</strong></td>
+        <td><strong>#${escapeHtml(refFormatted)}</strong></td>
         <td>${date}</td>
         <td>${itemCount} Pos.</td>
         <td>CHF ${parseFloat(order.total_amount).toFixed(2)}</td>
@@ -4901,11 +4935,11 @@ function viewOrderDetails(id) {
 
       const tr = document.createElement("tr");
       tr.innerHTML = `
-        <td>${item.art || '-'}</td>
-        <td>${item.name}</td>
-        <td>${item.display_qty || item.qty + 'x'}</td>
+        <td>${escapeHtml(item.art || '-')}</td>
+        <td>${escapeHtml(item.name)}</td>
+        <td>${escapeHtml(item.display_qty || item.qty + 'x')}</td>
         <td>CHF ${displayPrice.toFixed(2)}</td>
-        <td><strong>CHF ${rowTotal.toFixed(2)}</strong></td>
+        <td><strong>CHF ${Number(rowTotal).toFixed(2)}</strong></td>
       `;
       tbody.appendChild(tr);
   });
@@ -4980,11 +5014,11 @@ function openReturnModal(id) {
       
       const tr = document.createElement("tr");
       tr.innerHTML = `
-        <td>${item.name}</td>
-        <td>${item.qty}</td>
+        <td>${escapeHtml(item.name)}</td>
+        <td>${escapeHtml(item.qty)}</td>
         <td>CHF ${parseFloat(item.unit_price).toFixed(2)}</td>
         <td>
-          <input type="number" min="0" max="${item.qty}" value="0" id="retQty_${index}" onchange="calcReturn()" onkeyup="calcReturn()" style="width: 70px; padding: 5px; border: 1px solid #cbd5e1; border-radius: 4px;">
+          <input type="number" min="0" max="${escapeHtml(item.qty)}" value="0" id="retQty_${index}" onchange="calcReturn()" onkeyup="calcReturn()" style="width: 70px; padding: 5px; border: 1px solid #cbd5e1; border-radius: 4px;">
         </td>
         <td id="retRowTotal_${index}">CHF 0.00</td>
       `;
